@@ -14,6 +14,7 @@ The framework is **fully documented in Markdown format** with dedicated files fo
   - 🔐 Isolation Environment & Architecture
   - 🎯 Multi-Agent Strategy & Analysis Workflow
   - ⚠️ Error Handling & Recovery Protocols
+- **[prompt_templates.md](agents/prompt_templates.md)** - Prompt templates for each agent
 
 ### Agent Documentation
 
@@ -79,6 +80,7 @@ This repository has been converted into a **documentation-only specification** f
 GTA-V-Online-agency-plan/
 ├── agents/
 │   ├── Agent.md                      # 📚 Framework documentation
+│   ├── weekly_input_template.md      # 📝 Weekly activity input form
 │   ├── offline/
 │   │   ├── michael.md                # 📖 Strategic & Financial Analyst
 │   │   ├── franklin.md               # 📖 Progression & Growth Analyst
@@ -90,7 +92,8 @@ GTA-V-Online-agency-plan/
 │       ├── lester.md                 # 📖 Master Coordinator & Weekly Summary
 │       ├── ron.md                    # 📖 Weekly Story Narrator
 ├── data/
-│   └── sample_week.json              # Example weekly data structure
+│   ├── sample_week.json              # Example weekly data structure
+│   └── weekly_activity_template.json # Example input template
 ├── requirements.txt                  # Dependencies metadata
 ├── .env.example                      # Environment variables template (conceptual)
 └── README.md                         # This file
