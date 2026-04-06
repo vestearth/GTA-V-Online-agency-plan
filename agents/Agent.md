@@ -40,13 +40,14 @@ A **multi-agent orchestration framework** that simulates GTA V characters analyz
    - 📊 Operational metrics and KPIs
    - 🎖️ Efficiency optimization
 
-5. **Lamar Davis** - Social & Crew Activity Analyst
+5. **Lamar Davis** - Social, Crew & Vehicle Watch Analyst
    - 👥 Team performance tracking
    - 🎭 Crew vibes and dynamics
+   - 🚗 Salvage Yard Robberies and vehicle watch
    - ⭐ MVP recognition
 
 6. **Lester Crest** - Master Coordinator & Weekly Summary
-   - 🔗 Aggregates all agent perspectives
+   - 🔗 Aggregates all available agent reports
    - 📑 Definitive weekly report creation
    - 🎯 Strategic priorities ranking
 
@@ -139,12 +140,12 @@ Each offline and online agent performs **focused domain analysis**:
 | **Franklin** | Prize Ride & Test Rides | Prize Ride eligibility, Test Ride evaluation, discount car valuation |
 | **Trevor** | Entertainment | Was it fun? Thrilling? Worth the chaos? |
 | **Agent14** | Operations | Efficient? Successful? Data-backed? |
-| **Lamar** | Sociology | Team vibes? MVP? Crew dynamics? |
+| **Lamar** | Sociology & Vehicle Watch | Team vibes? MVP? Salvage Yard vehicles? Crew dynamics? |
 | **Tony** | Nightclub & Warehouse | Nightclub income, stock management, technician planning |
 | **Ron** | Narrative | What's the story? Plot arcs? Drama? |
 
 #### **2. Layer 2: Aggregation** (Agent Lester)
-Lester Crest synthesizes all 7 agent analyses into:
+Lester Crest synthesizes all available agent analyses into:
 - **Executive Summary**: One-page overview
 - **Key Metrics**: Financial, progression, efficiency, satisfaction scores
 - **Strategic Insights**: Patterns, trends, opportunities

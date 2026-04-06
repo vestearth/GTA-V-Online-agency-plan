@@ -62,6 +62,18 @@ def recommendation_from_score(score):
     return 'Skip'
 
 
+def extract_premium_test_ride_vehicles(weekly):
+    premium_names = []
+    for a in weekly.get('activities', []):
+        name = a.get('name', '')
+        if 'premium test ride' in name.lower():
+            if ':' in name:
+                premium_names.append(name.split(':', 1)[1].strip())
+            else:
+                premium_names.append(name.strip())
+    return premium_names
+
+
 def analyze_luxury_autos(weekly):
     luxury_autos = weekly.get('luxury_autos', [])
     if not luxury_autos:
@@ -127,6 +139,13 @@ def generate_report():
     lines.append("## Discount Vehicles Found in Weekly Data")
     for n in weekly_names:
         lines.append(f"- {n}")
+
+    premium_test_rides = extract_premium_test_ride_vehicles(weekly)
+    if premium_test_rides:
+        lines.append("")
+        lines.append("## Premium Test Ride Vehicles Found")
+        for v in premium_test_rides:
+            lines.append(f"- {v}")
 
     lines.append("")
     lines.append("## Luxury Autos Analysis")

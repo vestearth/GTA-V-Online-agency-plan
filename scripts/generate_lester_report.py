@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Aggregate Michael, Franklin, Tony, and Trevor reports into a single Lester report.
+Aggregate available weekly agent reports into a single Lester report.
 
-This script looks for markdown files under `reports/` with expected names and
-concatenates them into a consolidated executive summary file.
+This script looks for markdown files under `reports/`, excluding its own output,
+and concatenates them into a consolidated weekly summary file.
 
 Run:
   python scripts/generate_lester_report.py
@@ -14,42 +14,46 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / 'reports'
 OUT = REPORTS / 'report_lester_week_sample.md'
 
-SOURCES = [
-    'franklin_report_from_weekly.md',
-    'report_michael_week_sample.md',
-    'report_tony_week_sample.md',
-    'report_trevor_week_sample.md',
-    'report_lamar_week_sample.md',
-]
+
+def list_report_sources():
+    return sorted([p for p in REPORTS.glob('*.md') if p.name != OUT.name])
 
 
 def gather():
+    sources = list_report_sources()
     parts = []
     parts.append('# Lester Consolidated Weekly Report')
     parts.append('')
     parts.append('## Executive Summary')
-    parts.append('- Combined insights from Franklin, Michael, Tony, Trevor, and Lamar.')
+    parts.append('- Consolidated insights from all available agent reports.')
+    if sources:
+        parts.append(f'- Reports included: {", ".join([p.name for p in sources])}.')
+    else:
+        parts.append('- No agent reports found in the reports directory.')
     parts.append('')
 
-    for name in SOURCES:
-        path = REPORTS / name
-        if not path.exists():
-            parts.append(f'### {name} — Missing')
-            parts.append(f'- Report `{name}` not found.')
-            parts.append('')
-            continue
+    if sources:
+        parts.append('## Report Sources')
+        for p in sources:
+            parts.append(f'- {p.name}')
+        parts.append('')
 
-        parts.append(f'### Source: {name}')
+    for path in sources:
+        parts.append(f'### Source: {path.name}')
         parts.append('')
         content = path.read_text(encoding='utf-8')
         parts.append(content)
         parts.append('')
 
     parts.append('## Consolidated Action Items')
-    parts.append('- Review Franklin vehicle recommendations and exclude Removed vehicles.')
-    parts.append("- Prioritize Michael's high net-lift Bonus activities where cost < expected lift.")
-    parts.append('- Tony: verify nightclub cash flow spikes and warehouse stock with ops team.')
-    parts.append('- Trevor: schedule top entertainment picks if acceptable risk profile.')
+    if sources:
+        parts.append('- Review Franklin vehicle recommendations and exclude Removed vehicles.')
+        parts.append("- Prioritize Michael's high net-lift Bonus activities where cost < expected lift.")
+        parts.append('- Tony: verify nightclub cash flow spikes and warehouse stock with ops team.')
+        parts.append('- Trevor: schedule top entertainment picks if acceptable risk profile.')
+        parts.append('- Lamar: use Salvage Yard Robberies to boost crew cohesion and vehicle utility.')
+    else:
+        parts.append('- No agent reports available. Generate all individual reports first.')
     parts.append('')
 
     OUT.write_text('\n'.join(parts), encoding='utf-8')
