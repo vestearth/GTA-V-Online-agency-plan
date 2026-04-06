@@ -1,5 +1,15 @@
 {
   "week": "April 2-9 2026",
+  "date_range": "April 2-9 2026",
+  "player": "Tony",
+  "crew": "Tony's Nightclub",
+  "playtime_hours": 14.0,
+  "financials": {
+    "earnings_total": 20600,
+    "expenses_total": 2350,
+    "net_profit": 18250,
+    "currency": "GTA$"
+  },
   "nightclub": {
     "revenue_streams": {
       "door_takings": 4200,
@@ -23,12 +33,98 @@
       {"sku": "ItemB", "name": "VIP Bottle", "on_hand": 20, "par": 50, "unit_cost": 40.0},
       {"sku": "ItemC", "name": "Promo Flyer", "on_hand": 1200, "par": 1000, "unit_cost": 0.1}
     ],
-    "reorder_policy": {"reorder_point_pct": 0.3, "max_order_qty_multiplier": 2}
+    "reorder_policy": {"reorder_point_pct": 0.3, "max_order_qty_multiplier": 2},
+    "goods_production": [
+      {
+        "type": "Cargo and Shipments",
+        "business": "CEO Office Special Cargo Warehouse",
+        "owned": true,
+        "stock": 18,
+        "stock_capacity": 50,
+        "production_rate_per_hour": 1,
+        "technicians_assigned": ["Rico"],
+        "recommended_technicians": 1,
+        "status": "active",
+        "notes": "Passive accumulation from Special Cargo Warehouse"
+      },
+      {
+        "type": "Sporting Goods",
+        "business": "Gunrunning Bunker",
+        "owned": true,
+        "stock": 12,
+        "stock_capacity": 50,
+        "production_rate_per_hour": 0.8,
+        "technicians_assigned": ["Maya"],
+        "recommended_technicians": 1,
+        "status": "active",
+        "notes": "Steady supply, ready for sell mission in 20 hours"
+      },
+      {
+        "type": "South American Imports",
+        "business": "M/C Cocaine Lockup",
+        "owned": true,
+        "stock": 22,
+        "stock_capacity": 50,
+        "production_rate_per_hour": 1.2,
+        "technicians_assigned": ["Sam"],
+        "recommended_technicians": 1,
+        "status": "active",
+        "notes": "Highest profit goods; prioritize tech hours"
+      },
+      {
+        "type": "Pharmaceutical Research",
+        "business": "M/C Methamphetamine Lab",
+        "owned": false,
+        "stock": 0,
+        "stock_capacity": 0,
+        "production_rate_per_hour": 0,
+        "technicians_assigned": [],
+        "recommended_technicians": 0,
+        "status": "unavailable",
+        "notes": "Business not owned in this sample week"
+      },
+      {
+        "type": "Organic Produce",
+        "business": "M/C Weed Farm",
+        "owned": false,
+        "stock": 0,
+        "stock_capacity": 0,
+        "production_rate_per_hour": 0,
+        "technicians_assigned": [],
+        "recommended_technicians": 0,
+        "status": "unavailable",
+        "notes": "Business not owned in this sample week"
+      },
+      {
+        "type": "Printing & Copying",
+        "business": "M/C Document Forgery Office",
+        "owned": true,
+        "stock": 8,
+        "stock_capacity": 50,
+        "production_rate_per_hour": 0.7,
+        "technicians_assigned": [],
+        "recommended_technicians": 1,
+        "status": "active",
+        "notes": "Can assign additional tech to speed up production"
+      },
+      {
+        "type": "Cash Creation",
+        "business": "M/C Counterfeit Cash Factory",
+        "owned": false,
+        "stock": 0,
+        "stock_capacity": 0,
+        "production_rate_per_hour": 0,
+        "technicians_assigned": [],
+        "recommended_technicians": 0,
+        "status": "unavailable",
+        "notes": "Business not owned in this sample week"
+      }
+    ]
   },
   "technicians": [
-    {"id": "tech1", "name": "Rico", "role": "maintenance", "hours_available": 20},
-    {"id": "tech2", "name": "Maya", "role": "packing", "hours_available": 25},
-    {"id": "tech3", "name": "Sam", "role": "logistics", "hours_available": 15}
+    {"id": "tech1", "name": "Rico", "role": "maintenance", "hours_available": 20, "assigned_to": ["Cargo and Shipments"], "hours_assigned": 10},
+    {"id": "tech2", "name": "Maya", "role": "packing", "hours_available": 25, "assigned_to": ["Sporting Goods"], "hours_assigned": 12},
+    {"id": "tech3", "name": "Sam", "role": "logistics", "hours_available": 15, "assigned_to": ["South American Imports"], "hours_assigned": 10}
   ],
   "notes": {
     "promotions_planned": true,

@@ -7,6 +7,7 @@ Usage:
   python scripts/generate_franklin_report.py
 """
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,8 +21,8 @@ def load(path):
         return json.load(f)
 
 
-def brand_from_sku(sku):
-    return sku.split('_', 1)[0]
+def normalize_name(name):
+    return re.sub(r'[^a-z0-9]+', ' ', name.lower()).strip()
 
 
 def match_samples_to_weekly(weekly, sample):
@@ -36,10 +37,44 @@ def match_samples_to_weekly(weekly, sample):
 
     for entry in sample.get('discount', []):
         sku = entry['sku']
-        brand = brand_from_sku(sku)
-        found = [w for w in weekly_names if brand in w.lower()]
+        sample_name = entry.get('name', '')
+        sample_norm = normalize_name(sample_name)
+        found = []
+        for w in weekly_names:
+            weekly_norm = normalize_name(w)
+            if sample_norm in weekly_norm or weekly_norm in sample_norm:
+                found.append(w)
         matches.append({'entry': entry, 'matched_weekly': found})
     return matches, weekly_names
+
+
+def weekly_discounts_with_sample_data(weekly, sample):
+    weekly_names = []
+    disc = weekly.get('discounts', {})
+    for key in ('law_enforcement_vehicle_discounts', 'general_vehicle_discounts'):
+        block = disc.get(key) or {}
+        vehicles = block.get('vehicles') or []
+        weekly_names.extend(vehicles)
+
+    sample_entries = sample.get('discount', [])
+    sample_map = {}
+    for entry in sample_entries:
+        sample_map[normalize_name(entry.get('name', ''))] = entry
+
+    evaluations = []
+    for name in weekly_names:
+        norm = normalize_name(name)
+        matched_entry = None
+        if norm in sample_map:
+            matched_entry = sample_map[norm]
+        else:
+            # fallback: try matching by subset of tokens
+            for sample_norm, entry in sample_map.items():
+                if sample_norm in norm or norm in sample_norm:
+                    matched_entry = entry
+                    break
+        evaluations.append({'name': name, 'sample': matched_entry})
+    return evaluations
 
 
 def compute_value_score(e, tests):
@@ -140,6 +175,19 @@ def generate_report():
     for n in weekly_names:
         lines.append(f"- {n}")
 
+    weekly_evals = weekly_discounts_with_sample_data(weekly, sample)
+    if weekly_evals:
+        lines.append("")
+        lines.append("## Weekly Discount Vehicles Evaluation")
+        for eval in weekly_evals:
+            sample_entry = eval['sample']
+            if sample_entry:
+                score = compute_value_score(sample_entry, sample.get('test_rides', {}))
+                rec = recommendation_from_score(score)
+                lines.append(f"- {eval['name']} — {rec} (ValueScore: {score}) — matched sample: {sample_entry['name']}")
+            else:
+                lines.append(f"- {eval['name']} — No sample vehicle data available for valuation; manual review recommended.")
+
     premium_test_rides = extract_premium_test_ride_vehicles(weekly)
     if premium_test_rides:
         lines.append("")
@@ -177,6 +225,19 @@ def generate_report():
                 lines.append(f"  - ValueScore: {score} — Recommendation: {rec}")
         else:
             lines.append(f"- {e['name']} (sku: {sku}) — No direct match in weekly discount names (manual review suggested)")
+
+    lines.append("")
+    lines.append("## Discount Vehicle Recommendations")
+    for m in matches:
+        e = m['entry']
+        sku = e['sku']
+        matched = m['matched_weekly']
+        score = compute_value_score(e, sample.get('test_rides', {}))
+        rec = recommendation_from_score(score)
+        if matched:
+            lines.append(f"- {e['name']} — {rec} (matched: {matched})")
+        else:
+            lines.append(f"- {e['name']} — {rec} (no strong weekly discount match)")
 
     lines.append("")
     lines.append("## Quick Recommendations")

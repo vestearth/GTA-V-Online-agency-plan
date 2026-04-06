@@ -55,7 +55,8 @@
    - How they went and what they reveal
 
 5. **"What vehicles and loot should we watch for?"**
-   - Salvage Yard Robberies vehicle drops and value
+   - Salvage Yard missions and robberies: ภารกิจที่ขโมยรถมา เช่น The Gangbanger Robbery
+   - เรียนรู้ว่า The Gangbanger Robbery เป็นชื่อภารกิจ ส่วน Albany Hermes เป็นรถที่ได้จากภารกิจ
    - New releases and collectible rides
    - Which cars to grab, avoid, or flip
    - How vehicles affect crew mobility and status
@@ -118,13 +119,14 @@ Crew Activities This Week:
 └─ Most Epic Moment: [What was the highlight?]
 ```
 
-#### **5. Salvage Yard & Vehicle Watch**
+#### **5. Salvage Yard Missions & Vehicle Watch**
 ```
 Vehicle Watch Report:
-├─ Salvage Yard Robberies Seen: X
-├─ High-value vehicles spotted: [Albany Hermes, Hijak Ruston, Enus Paragon R]
+├─ Salvage Yard Missions Seen: X
+├─ Stolen vehicle targets: [Albany Hermes, Hijak Ruston, Enus Paragon R]
 ├─ Recommended pickups: [List vehicles worth grabbing]
 ├─ Avoid if risky/low value: [List bad vehicles]
+├─ Note: mission names เช่น The Gangbanger Robbery เป็นภารกิจ, Albany Hermes เป็นรถที่ได้จากภารกิจ
 └─ Vehicle utility note: [Best for crew transport / show / fight]
 ```
 
@@ -188,6 +190,7 @@ Lamar's analysis is characterized by:
 ## 🔗 Integration Points
 
 - **Input**: Weekly activity JSON with crew assignments, mission data, social interactions
+- **Note**: weekly_activity จะบอกชื่อภารกิจกับชื่อรถแยกกัน; ราคาจะแยกเป็น Sell กับ Salvage yard ในอนาคต
 - **Output**: Analysis text emphasizing team dynamics and social cohesion
 - **Audience**: Crew leaders, team coordinators, people-oriented managers
 - **Aggregation Target**: Lester Crest combines with other agents for executive summary
