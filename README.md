@@ -1,109 +1,109 @@
-# 🎮 GTA V Multi-Agent Orchestration Framework
+# 🎮 กรอบงานการจัดการ Multi-Agent GTA V
 
-**A sophisticated multi-agent AI analysis system** that analyzes weekly GTA V gameplay activities through the unique perspectives of 8 distinct character agents, each with specialized analytical capabilities and authentic personality-driven insights.
-
----
-
-## 📚 Documentation Structure
-
-The framework is **fully documented in Markdown format** with dedicated files for each component:
-
-### Framework Documentation
-- **[Agent.md](agents/Agent.md)** - Master framework documentation covering:
-  - 📋 Project Overview & Agent Portfolio
-  - 🔐 Isolation Environment & Architecture
-  - 🎯 Multi-Agent Strategy & Analysis Workflow
-  - ⚠️ Error Handling & Recovery Protocols
-- **[prompt_templates.md](agents/prompt_templates.md)** - Prompt templates for each agent
-
-### Agent Documentation
-
-#### Offline Agents (Single-player Analysis)
-- **[michael.md](agents/offline/michael.md)** - Strategic & Financial Analyst
-- **[franklin.md](agents/offline/franklin.md)** - Street Activity & Progression Analyst
-- **[trevor.md](agents/offline/trevor.md)** - Chaos & Risk Analyst
-
-#### Online Agents (Multiplayer Analysis)
-- **[agent14.md](agents/online/agent14.md)** - Special Operations & Efficiency Analyst
-- **[lamar.md](agents/online/lamar.md)** - Social & Crew Activity Analyst
-- **[english_dave.md](agents/online/english_dave.md)** - Entertainment & Fun Value Analyst
-- **[lester.md](agents/online/lester.md)** - Master Coordinator & Weekly Summary
-- **[ron.md](agents/online/ron.md)** - Weekly Story Narrator
+**ระบบวิเคราะห์ AI หลายตัวขั้นสูง** ที่วิเคราะห์กิจกรรมการเล่น GTA V รายสัปดาห์ผ่านมุมมองเฉพาะของตัวละคร 8 ตัว แต่ละตัวมีความสามารถวิเคราะห์เฉพาะด้านและบุคลิกภาพที่เป็นเอกลักษณ์
 
 ---
 
-## ✨ Key Features
+## 📚 โครงสร้างเอกสาร
 
-- **8 Specialized AI Agents** with authentic GTA V character personalities
-- **Multi-dimensional Analysis**: Financial, Strategic, Social, Entertainment, Operational, Narrative
-- **Isolation Architecture**: Each agent operates independently with personality-driven perspectives
-- **Aggregation Engine**: Lester Crest synthesizes all analyses into comprehensive reports
-- **OpenAI API Integration** (gpt-4o-mini, gpt-4o, or custom models)
-- **Offline/Demo Mode** works without API credentials
-- **Markdown-based Documentation** for complete framework transparency
+กรอบงานนี้ถูก **บันทึกเอกสารทั้งหมดในรูปแบบ Markdown** โดยแยกไฟล์ตามส่วนประกอบต่าง ๆ:
 
----
+### เอกสารกรอบงาน
+- **[Agent.md](agents/Agent.md)** - เอกสารหลักของกรอบงานครอบคลุม:
+  - 📋 ภาพรวมโครงการและพอร์ตโฟลิโอของเอเย่นต์
+  - 🔐 สภาพแวดล้อมแยกและสถาปัตยกรรม
+  - 🎯 กลยุทธ์หลายเอเย่นต์และเวิร์กโฟลว์การวิเคราะห์
+  - ⚠️ การจัดการข้อผิดพลาดและโปรโตคอลการกู้คืน
+- **[prompt_templates.md](agents/prompt_templates.md)** - แม่แบบ prompt สำหรับแต่ละเอเย่นต์
 
-## 🎮 The 8-Agent Ensemble
+### เอกสารเอเย่นต์
 
-### Offline Agents (Campaign Analysis)
-| Agent | Specialty | Perspective |
-|-------|-----------|-------------|
-| **Michael** | Financial & Strategy | Profit-centric, risk-aware analyst |
-| **Franklin** | Progression & Growth | Goal-oriented, team-focused developer |
-| **Trevor** | Entertainment & Risk | Chaos-seeking, thrill-factor evaluator |
+#### เอเย่นต์ออฟไลน์ (วิเคราะห์ผู้เล่นคนเดียว)
+- **[michael.md](agents/offline/michael.md)** - นักวิเคราะห์เชิงกลยุทธ์และการเงิน
+- **[franklin.md](agents/offline/franklin.md)** - นักวิเคราะห์กิจกรรมถนนและความก้าวหน้า
+- **[trevor.md](agents/offline/trevor.md)** - นักวิเคราะห์ความโกลาหลและความเสี่ยง
 
-### Online Agents (Multiplayer Analysis)
-| Agent | Specialty | Perspective |
-|-------|-----------|-------------|
-| **Agent 14** | Operations & Efficiency | Data-driven, metrics-focused operative |
-| **Lamar** | Social & Crew Dynamics | Energy-filled team cohesion expert |
-| **English Dave** | Entertainment Value | Enthusiastic fun-factor analyst |
-| **Ron** | Narrative & Story | Dramatic storyteller & meaning-maker |
-| **Lester** | Synthesis & Coordination | Master strategist & report aggregator |
+#### เอเย่นต์ออนไลน์ (วิเคราะห์ผู้เล่นหลายคน)
+- **[agent14.md](agents/online/agent14.md)** - นักวิเคราะห์ปฏิบัติการพิเศษและประสิทธิภาพ
+- **[lamar.md](agents/online/lamar.md)** - นักวิเคราะห์สังคมและกิจกรรมทีม
+- **[english_dave.md](agents/online/english_dave.md)** - นักวิเคราะห์ความบันเทิงและคุณค่าความสนุก
+- **[lester.md](agents/online/lester.md)** - ผู้ประสานหลักและสรุปประจำสัปดาห์
+- **[ron.md](agents/online/ron.md)** - ผู้เล่าเรื่องประจำสัปดาห์
 
 ---
 
-## � Current Project Status
+## ✨ คุณสมบัติสำคัญ
 
-This repository has been converted into a **documentation-only specification** for a multi-agent orchestration framework.
-
-- All runtime Python files have been removed.
-- The project now focuses on Markdown documentation describing each agent, architecture, and analysis workflow.
-- Use the files under `agents/` for design reference and planning.
+- **เอเย่นต์ AI เฉพาะทาง 8 ตัว** พร้อมบุคลิกตัวละคร GTA V ที่สมจริง
+- **การวิเคราะห์หลายมิติ**: การเงิน, กลยุทธ์, สังคม, ความบันเทิง, ปฏิบัติการ, เนื้อเรื่อง
+- **สถาปัตยกรรมแยกการทำงาน**: แต่ละเอเย่นต์ทำงานแยกด้วยมุมมองตามบุคลิก
+- **เอนจินรวบรวมผล**: Lester Crest สังเคราะห์การวิเคราะห์ทั้งหมดเป็นรายงานเชิงลึก
+- **รวม OpenAI API** (gpt-4o-mini, gpt-4o หรือโมเดลอื่น)
+- **โหมดออฟไลน์/เดโม** ใช้งานได้โดยไม่ต้องใช้คีย์ API
+- **เอกสารในรูปแบบ Markdown** เพื่อความโปร่งใสของกรอบงาน
 
 ---
 
-## 📁 Project Structure
+## 🎮 ชุดเอเย่นต์ 8 ตัว
+
+### เอเย่นต์ออฟไลน์ (วิเคราะห์แคมเปญ)
+| Agent | ความเชี่ยวชาญ | มุมมอง |
+|-------|---------------|--------|
+| **Michael** | การเงิน & กลยุทธ์ | นักวิเคราะห์มุ่งเน้นกำไรและความเสี่ยง |
+| **Franklin** | ความก้าวหน้า & การเติบโต | นักพัฒนามุ่งเป้าผลสำเร็จและทีม |
+| **Trevor** | ความบันเทิง & ความเสี่ยง | นักประเมินความโกลาหลและความตื่นเต้น |
+
+### เอเย่นต์ออนไลน์ (วิเคราะห์ผู้เล่นหลายคน)
+| Agent | ความเชี่ยวชาญ | มุมมอง |
+|-------|---------------|--------|
+| **Agent 14** | ปฏิบัติการ & ประสิทธิภาพ | เจ้าหน้าที่ข้อมูลมุ่งเน้นตัวชี้วัด |
+| **Lamar** | สังคม & พลวัตทีม | ผู้เชี่ยวชาญสร้างพลังงานทีม |
+| **English Dave** | คุณค่าความบันเทิง | นักวิเคราะห์ความสนุกกระตือรือร้น |
+| **Ron** | เนื้อเรื่อง & เรื่องเล่า | นักเล่าเรื่องเชิงดราม่า |
+| **Lester** | สังเคราะห์ & ประสานงาน | นักวางกลยุทธ์และรวบรวมรายงาน
+
+---
+
+## สถานะโครงการปัจจุบัน
+
+ที่เก็บนี้ถูกแปลงเป็น **สเปคเชิงเอกสารเท่านั้น** สำหรับกรอบงานการจัดการหลายเอเย่นต์
+
+- ไฟล์ Python สำหรับรันไทม์ทั้งหมดถูกลบออกแล้ว
+- โครงการเน้นที่เอกสาร Markdown ที่อธิบายเอเย่นต์ สถาปัตยกรรม และเวิร์กโฟลว์การวิเคราะห์
+- ใช้ไฟล์ภายใต้ `agents/` เป็นเอกสารอ้างอิงการออกแบบและวางแผน
+
+---
+
+## 📁 โครงสร้างโครงการ
 
 ```
 GTA-V-Online-agency-plan/
 ├── agents/
-│   ├── Agent.md                      # 📚 Framework documentation
-│   ├── weekly_input_template.md      # 📝 Weekly activity input form
+│   ├── Agent.md                      # 📚 เอกสารกรอบงาน
+│   ├── weekly_input_template.md      # 📝 แบบฟอร์มป้อนข้อมูลกิจกรรมรายสัปดาห์
 │   ├── offline/
-│   │   ├── michael.md                # 📖 Strategic & Financial Analyst
-│   │   ├── franklin.md               # 📖 Progression & Growth Analyst
-│   │   ├── trevor.md                 # 📖 Chaos & Risk Analyst
+│   │   ├── michael.md                # 📖 นักวิเคราะห์เชิงกลยุทธ์และการเงิน
+│   │   ├── franklin.md               # 📖 นักวิเคราะห์ความก้าวหน้าและการเติบโต
+│   │   ├── trevor.md                 # 📖 นักวิเคราะห์ความโกลาหลและความเสี่ยง
 │   └── online/
-│       ├── agent14.md                # 📖 Operations & Efficiency Analyst
-│       ├── lamar.md                  # 📖 Social & Crew Activity Analyst
-│       ├── english_dave.md           # 📖 Entertainment & Fun Value Analyst
-│       ├── lester.md                 # 📖 Master Coordinator & Weekly Summary
-│       ├── ron.md                    # 📖 Weekly Story Narrator
+│       ├── agent14.md                # 📖 นักวิเคราะห์ปฏิบัติการและประสิทธิภาพ
+│       ├── lamar.md                  # 📖 นักวิเคราะห์สังคมและกิจกรรมทีม
+│       ├── english_dave.md           # 📖 นักวิเคราะห์ความบันเทิงและความสนุก
+│       ├── lester.md                 # 📖 ผู้ประสานหลักและสรุปประจำสัปดาห์
+│       ├── ron.md                    # 📖 ผู้เล่าเรื่องประจำสัปดาห์
 ├── data/
-│   ├── sample_week.json              # Example weekly data structure
-│   └── weekly_activity_template.json # Example input template
-├── requirements.txt                  # Dependencies metadata
-├── .env.example                      # Environment variables template (conceptual)
-└── README.md                         # This file
+│   ├── sample_week.json              # ตัวอย่างโครงสร้างข้อมูลรายสัปดาห์
+│   └── weekly_activity_template.json # ตัวอย่างเทมเพลตป้อนข้อมูล
+├── requirements.txt                  # ข้อมูลการพึ่งพา
+├── .env.example                      # เทมเพลตตัวแปรแวดล้อม (เชิงแนวคิด)
+└── README.md                         # ไฟล์นี้
 ```
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ สถาปัตยกรรมระบบ
 
-### Multi-Agent Analysis Pipeline
+### โฟลว์การวิเคราะห์แบบหลายเอเย่นต์
 
 ```
 ┌─────────────────────────────┐
@@ -145,128 +145,128 @@ GTA-V-Online-agency-plan/
         └───────────────────┘
 ```
 
-### Isolation Model
+### โมเดลการแยกการทำงาน
 
-Each agent:
-- Receives identical raw weekly data
-- Processes through personality-specific lens
-- Generates independent analysis output
-- No direct inter-agent communication
-- All outputs aggregated by Lester
-
----
-
-## 🎯 How It Works
-
-### Phase 1: Data Loading
-Framework loads and validates weekly activity JSON data
-
-### Phase 2: Parallel Analysis
-- **7 specialized agents** each analyze data independently
-- Each applies unique analytical framework
-- Each produces specialized report
-
-### Phase 3: Aggregation
-- **Lester Crest** receives all 7 reports
-- Identifies consensus patterns
-- Highlights divergence and trade-offs
-- Produces executive summary
-
-### Phase 4: Report Generation
-- Combined report saved as Markdown
-- Includes all agent perspectives
-- Strategic priorities ranked
-- Actionable recommendations included
+แต่ละเอเย่นต์:
+- รับข้อมูลดิบรายสัปดาห์เหมือนกัน
+- ประมวลผลผ่านเลนส์บุคลิกภาพของตัวเอง
+- สร้างผลวิเคราะห์เป็นเอกสารอิสระ
+- ไม่มีการสื่อสารโดยตรงระหว่างเอเย่นต์
+- ผลลัพธ์ทั้งหมดถูกรวบรวมโดย Lester
 
 ---
 
-## 📖 Agent Specializations
+## 🎯 วิธีการทำงาน
 
-### Michael De Santa – Financial Analysis
-- **Focus**: Profit, ROI, efficiency, financial strategy
-- **Questions**: How much did we make? Is it worth it? $/hour?
-- **Output**: Financial breakdown, profit assessment, strategic recommendations
-- **Doc**: [michael.md](agents/offline/michael.md)
+### ขั้นตอน 1: โหลดข้อมูล
+กรอบงานโหลดและตรวจสอบความถูกต้องของข้อมูลกิจกรรมรายสัปดาห์ในรูปแบบ JSON
 
-### Franklin Clinton – Progression Analysis
-- **Focus**: Mission success, skill development, team dynamics, goals
-- **Questions**: Did we progress? Skill gains? Goal achievement?
-- **Output**: Progress metrics, crew assessment, development priorities
-- **Doc**: [franklin.md](agents/offline/franklin.md)
+### ขั้นตอน 2: วิเคราะห์พร้อมกัน
+- **7 เอเย่นต์เฉพาะทาง** แต่ละตัววิเคราะห์ข้อมูลอย่างอิสระ
+- แต่ละตัวใช้กรอบการวิเคราะห์เฉพาะตัว
+- แต่ละตัวส่งรายงานเฉพาะทางของตนเอง
 
-### Trevor Philips – Risk & Entertainment Analysis
-- **Focus**: Thrill factor, chaos, risk assessment, excitement
-- **Questions**: Was it fun? How risky? Worth the danger?
-- **Output**: Thrill ratings, risk analysis, entertainment scores
-- **Doc**: [trevor.md](agents/offline/trevor.md)
+### ขั้นตอน 3: รวบรวมผล
+- **Lester Crest** รับรายงานทั้ง 7 ฉบับ
+- ระบุรูปแบบความเห็นสอดคล้องกัน
+- เน้นความแตกต่างและข้อแลกเปลี่ยน
+- สร้างสรุปเชิงบริหาร
 
-### Agent 14 – Operations Analysis
-- **Focus**: Mission success, operational efficiency, metrics
-- **Questions**: Operationally sound? Success rate? Efficiency?
-- **Output**: KPIs, tactical assessment, optimization recommendations
-- **Doc**: [agent14.md](agents/online/agent14.md)
-
-### Lamar Davis – Social & Team Analysis
-- **Focus**: Crew dynamics, morale, team performance, unity
-- **Questions**: How's the team? Morale? Who's MVP?
-- **Output**: Team assessment, MVPs, crew recommendations
-- **Doc**: [lamar.md](agents/online/lamar.md)
-
-### English Dave – Entertainment Analysis
-- **Focus**: Fun value, engagement, memorable moments, enjoyment
-- **Questions**: How much fun? Entertainment rating? Highlights?
-- **Output**: Fun scores, epic moments, engagement assessment
-- **Doc**: [english_dave.md](agents/online/english_dave.md)
-
-### Ron Jakowski – Narrative Analysis
-- **Focus**: Story arcs, character development, dramatic moments, meaning
-- **Questions**: What's the story? Character growth? Dramatic arc?
-- **Output**: Narrative summary, character development, themes
-- **Doc**: [ron.md](agents/online/ron.md)
-
-### Lester Crest – Orchestration & Summary
-- **Focus**: Synthesis of all perspectives, strategic priorities, executive summary
-- **Questions**: What's the complete picture? What matters most?
-- **Output**: Multi-perspective summary, consensus analysis, strategic priorities
-- **Doc**: [lester.md](agents/online/lester.md)
+### ขั้นตอน 4: สร้างรายงาน
+- บันทึกรายงานร่วมเป็น Markdown
+- รวมมุมมองจากเอเย่นต์ทั้งหมด
+- จัดลำดับความสำคัญเชิงกลยุทธ์
+- ให้คำแนะนำที่ปฏิบัติได้จริง
 
 ---
 
-## 🔧 Configuration Options
+## 📖 ความเชี่ยวชาญของเอเย่นต์
 
-### Environment Variables
+### Michael De Santa – การวิเคราะห์ทางการเงิน
+- **โฟกัส**: กำไร, ROI, ประสิทธิภาพ, กลยุทธ์การเงิน
+- **คำถาม**: เราทำกำไรได้เท่าไหร่? คุ้มหรือไม่? ต่อชั่วโมงเป็นอย่างไร?
+- **ผลลัพธ์**: การแยกวิเคราะห์การเงิน, ประเมินกำไร, คำแนะนำเชิงกลยุทธ์
+- **เอกสาร**: [michael.md](agents/offline/michael.md)
+
+### Franklin Clinton – การวิเคราะห์ความก้าวหน้า
+- **โฟกัส**: ความสำเร็จของภารกิจ, การพัฒนาทักษะ, พลวัตทีม, เป้าหมาย
+- **คำถาม**: เราก้าวหน้าไหม? ทักษะเพิ่มไหม? ทำเป้าหมายได้หรือไม่?
+- **ผลลัพธ์**: ตัวชี้วัดความก้าวหน้า, การประเมินทีม, ลำดับความสำคัญการพัฒนา
+- **เอกสาร**: [franklin.md](agents/offline/franklin.md)
+
+### Trevor Philips – การวิเคราะห์ความเสี่ยงและความบันเทิง
+- **โฟกัส**: ปัจจัยความตื่นเต้น, ความโกลาหล, การประเมินความเสี่ยง, ความสนุก
+- **คำถาม**: มันสนุกไหม? เสี่ยงแค่ไหน? คุ้มกับอันตรายหรือไม่?
+- **ผลลัพธ์**: คะแนนความตื่นเต้น, การวิเคราะห์ความเสี่ยง, คะแนนความบันเทิง
+- **เอกสาร**: [trevor.md](agents/offline/trevor.md)
+
+### Agent 14 – การวิเคราะห์ปฏิบัติการ
+- **โฟกัส**: ความสำเร็จของภารกิจ, ประสิทธิภาพปฏิบัติการ, ตัวชี้วัด
+- **คำถาม**: ปฏิบัติการเป็นระเบียบไหม? อัตราความสำเร็จเท่าไหร่? มีประสิทธิภาพหรือไม่?
+- **ผลลัพธ์**: ตัวชี้วัด KPI, การประเมินเชิงกลยุทธ์, คำแนะนำปรับปรุง
+- **เอกสาร**: [agent14.md](agents/online/agent14.md)
+
+### Lamar Davis – การวิเคราะห์สังคมและทีม
+- **โฟกัส**: พลวัตทีม, ขวัญกำลังใจ, ประสิทธิภาพทีม, ความเป็นหนึ่งเดียว
+- **คำถาม**: ทีมเป็นยังไงบ้าง? ขวัญกำลังใจดีไหม? ใครคือ MVP?
+- **ผลลัพธ์**: การประเมินทีม, MVP, คำแนะนำสำหรับทีม
+- **เอกสาร**: [lamar.md](agents/online/lamar.md)
+
+### English Dave – การวิเคราะห์ความบันเทิง
+- **โฟกัส**: มูลค่าความสนุก, การมีส่วนร่วม, โมเมนต์ที่น่าจดจำ, ความเพลิดเพลิน
+- **คำถาม**: สนุกแค่ไหน? ให้คะแนนความบันเทิงเท่าไหร่? ไฮไลท์คืออะไร?
+- **ผลลัพธ์**: คะแนนความสนุก, โมเมนต์เด็ด, การประเมินการมีส่วนร่วม
+- **เอกสาร**: [english_dave.md](agents/online/english_dave.md)
+
+### Ron Jakowski – การวิเคราะห์เนื้อเรื่อง
+- **โฟกัส**: โครงเรื่อง, การพัฒนาตัวละคร, ช่วงดราม่า, ความหมาย
+- **คำถาม**: เรื่องราวคืออะไร? ตัวละครเติบโตไหม? มีจังหวะดราม่าอย่างไร?
+- **ผลลัพธ์**: สรุปเนื้อเรื่อง, การพัฒนาตัวละคร, ธีมหลัก
+- **เอกสาร**: [ron.md](agents/online/ron.md)
+
+### Lester Crest – การประสานงานและสรุป
+- **โฟกัส**: สังเคราะห์มุมมองทั้งหมด, ลำดับความสำคัญเชิงกลยุทธ์, สรุปเชิงบริหาร
+- **คำถาม**: ภาพรวมทั้งหมดคืออะไร? อะไรสำคัญที่สุด?
+- **ผลลัพธ์**: สรุปหลายมุมมอง, การวิเคราะห์ความเห็นสอดคล้อง, ลำดับความสำคัญเชิงกลยุทธ์
+- **เอกสาร**: [lester.md](agents/online/lester.md)
+
+---
+
+## 🔧 ตัวเลือกการกำหนดค่า
+
+### ตัวแปรแวดล้อม
 
 ```bash
-# OpenAI Configuration
-OPENAI_API_KEY=sk-...            # Your OpenAI API key (optional)
-LLM_MODEL=gpt-4o-mini           # Model to use (default: gpt-4o-mini)
-LLM_TEMPERATURE=0.7             # Temperature 0-2 (default: 0.7)
+# การตั้งค่า OpenAI
+OPENAI_API_KEY=sk-...            # กุญแจ OpenAI API ของคุณ (ไม่บังคับ)
+LLM_MODEL=gpt-4o-mini           # โมเดลที่ใช้ (ค่าเริ่มต้น: gpt-4o-mini)
+LLM_TEMPERATURE=0.7             # อุณหภูมิ 0-2 (ค่าเริ่มต้น: 0.7)
 
-# Agent Configuration
-ENABLED_AGENTS=all              # Which agents to run: "all" or comma-separated
-                                # e.g., "michael,franklin,lester"
+# การตั้งค่าเอเย่นต์
+ENABLED_AGENTS=all              # เลือกเอเย่นต์ที่จะรัน: "all" หรือ เว้นวรรคด้วย comma
+                                # เช่น "michael,franklin,lester"
 
-# Output Configuration
-REPORTS_DIR=reports/            # Where to save reports (default: reports/)
+# การตั้งค่าเอาต์พุต
+REPORTS_DIR=reports/            # โฟลเดอร์สำหรับบันทึกรายงาน (ค่าเริ่มต้น: reports/)
 ```
 
-### Command-line Options
+### ตัวเลือกคำสั่งบรรทัดคำสั่ง
 
 ```bash
--h, --help              Show help message
--d, --data FILE         Path to weekly data JSON file
--o, --output DIR        Directory to save reports
---agents LIST           Comma-separated agent names to run
---offline              Force offline mode (no API calls)
---verbose              Verbose output with debugging
---no-save              Print to console, don't save files
+-h, --help              แสดงข้อความช่วยเหลือ
+-d, --data FILE         เส้นทางไปยังไฟล์ JSON ของข้อมูลรายสัปดาห์
+-o, --output DIR        โฟลเดอร์สำหรับบันทึกรายงาน
+--agents LIST           ชื่อเอเย่นต์คั่นด้วย comma เพื่อรัน
+--offline              บังคับโหมดออฟไลน์ (ไม่เรียก API)
+--verbose              โหมดแสดงผลรายละเอียดการดีบัก
+--no-save              แสดงผลทางคอนโซลโดยไม่บันทึกไฟล์
 ```
 
 ---
 
-## 📊 Output Format
+## 📊 รูปแบบเอาต์พุต
 
-Reports are generated as **Markdown files** with structure:
+รายงานจะถูกสร้างเป็น **ไฟล์ Markdown** โดยมีโครงสร้างดังนี้:
 
 ```markdown
 # Weekly Report – [Week & Date Range]
@@ -295,89 +295,89 @@ Reports are generated as **Markdown files** with structure:
 
 ---
 
-## 🚨 Error Handling
+## 🚨 การจัดการข้อผิดพลาด
 
-The framework implements robust error handling:
+กรอบงานนี้มีการจัดการข้อผิดพลาดอย่างแข็งแกร่ง:
 
-- **Individual agent failures don't crash the system**
-- **Failures isolated and logged**
-- **Continues with remaining agents**
-- **Offline mode available as fallback**
-- **Detailed error logging for debugging**
+- **การล้มเหลวของเอเย่นต์แต่ละตัวไม่ทำให้ระบบล่ม**
+- **ข้อผิดพลาดถูกแยกและบันทึก**
+- **ยังดำเนินการต่อกับเอเย่นต์ที่เหลือได้**
+- **มีโหมดออฟไลน์เป็นทางเลือกสำรอง**
+- **บันทึกข้อผิดพลาดอย่างละเอียดเพื่อการดีบัก**
 
-See [Agent.md – Error Handling](agents/Agent.md#-error-handling) for details.
-
----
-
-## 🧪 Status
-
-This repository has been converted into a **documentation-only design specification**. There is no active Python runtime or test suite included in this version.
-
-The Markdown files document the framework architecture, each agent's role, analysis flow, and integration concepts.
-
-For full framework architecture, see [Agent.md](agents/Agent.md).
+ดูเพิ่มเติมได้ที่ [Agent.md – Error Handling](agents/Agent.md#-error-handling)
 
 ---
 
-## 💡 Key Concepts
+## 🧪 สถานะ
 
-### Isolation Environment
-Each agent operates in complete functional isolation, maintaining its own system/user prompts and producing independent analyses. This ensures authentic multi-perspective analysis.
+ที่เก็บนี้ถูกแปลงเป็น **สเปคเชิงเอกสารเท่านั้น** ไม่มี runtime Python หรือชุดทดสอบที่ทำงานได้ในเวอร์ชันนี้
 
-### Multi-Perspective Consensus
-Strong consensus (5+ agents aligned) signals high-confidence truth. Divergence reveals multi-faceted perspectives on trade-offs.
+ไฟล์ Markdown ต่าง ๆ บรรยายสถาปัตยกรรมกรอบงาน บทบาทเอเย่นต์ เวิร์กโฟลว์การวิเคราะห์ และแนวคิดการบูรณาการ
 
-### Personality-Driven Analysis
-Each agent intentionally biases analysis through character personality:
-- Michael prioritizes profit
-- Franklin prioritizes growth
-- Trevor prioritizes thrill
-- etc.
-
-This creates authentic character perspectives that users can weight according to their own priorities.
-
-### Aggregation & Synthesis
-Lester Crest synthesizes all perspectives into balanced, actionable recommendations that honor all agent viewpoints.
+ดูสถาปัตยกรรมฉบับเต็มได้ที่ [Agent.md](agents/Agent.md)
 
 ---
 
-## 📝 License
+## 💡 แนวคิดสำคัญ
 
-This project is part of the GTA V Online Agency Plan initiative (Community Project)
+### สภาพแวดล้อมแยกการทำงาน
+แต่ละเอเย่นต์ทำงานแยกอย่างสมบูรณ์ รักษา prompt ระบบ/ผู้ใช้ของตัวเอง และสร้างการวิเคราะห์เป็นอิสระ นี่ช่วยให้ได้การวิเคราะห์หลายมุมมองที่เป็นของจริง
+
+### ฉันทามติหลายมุมมอง
+ฉันทามติที่แข็งแรง (เอเย่นต์ 5 ตัวขึ้นไปเห็นตรงกัน) เป็นสัญญาณความเชื่อมั่นสูง ความแตกต่างช่วยเปิดเผยด้านต่าง ๆ ของการตัดสินใจ
+
+### การวิเคราะห์โดยบุคลิกภาพ
+แต่ละเอเย่นต์ใส่น้ำหนักจากบุคลิก:
+- Michael ให้ความสำคัญกับกำไร
+- Franklin ให้ความสำคัญกับการเติบโต
+- Trevor ให้ความสำคัญกับความตื่นเต้น
+- ฯลฯ
+
+สิ่งนี้สร้างมุมมองตัวละครที่ผู้ใช้สามารถเลือกถ่วงน้ำหนักตามความสำคัญของตนเอง
+
+### การรวมและสังเคราะห์
+Lester Crest สังเคราะห์มุมมองทั้งหมดเป็นคำแนะนำที่สมดุลและปฏิบัติได้จริง โดยเคารพทุกมุมมองของเอเย่นต์
 
 ---
 
-## 🤝 Contributions
+## 📝 ใบอนุญาต
 
-For contributions, please:
-1. Update relevant `.md` documentation files
-2. Update documentation if the design changes  
-3. Maintain agent personality authenticity
-4. Follow project structure conventions
+โครงการนี้เป็นส่วนหนึ่งของ GTA V Online Agency Plan initiative (Community Project)
 
 ---
 
-## 📚 Further Reading
+## 🤝 การมีส่วนร่วม
 
-- **[Agent.md](agents/Agent.md)** - Complete framework specification
-- **[Michael's Analysis](agents/offline/michael.md)** - Financial framework
-- **[Franklin's Analysis](agents/offline/franklin.md)** - Progression framework
-- **[Trevor's Analysis](agents/offline/trevor.md)** - Entertainment framework
-- **[Agent 14's Analysis](agents/online/agent14.md)** - Operations framework
-- **[Lamar's Analysis](agents/online/lamar.md)** - Social framework
-- **[English Dave's Analysis](agents/online/english_dave.md)** - Entertainment value
-- **[Ron's Analysis](agents/online/ron.md)** - Narrative framework
-- **[Lester's Analysis](agents/online/lester.md)** - Aggregation framework
+สำหรับการมีส่วนร่วม กรุณา:
+1. แก้ไขไฟล์เอกสาร `.md` ที่เกี่ยวข้อง
+2. อัปเดตเอกสารถ้ามีการเปลี่ยนแปลงการออกแบบ  
+3. รักษาความเป็นเอกลักษณ์ของบุคลิกเอเย่นต์
+4. ปฏิบัติตามแนวทางโครงสร้างโครงการ
+
+---
+
+## 📚 อ่านเพิ่มเติม
+
+- **[Agent.md](agents/Agent.md)** - สเปคกรอบงานฉบับสมบูรณ์
+- **[Michael's Analysis](agents/offline/michael.md)** - กรอบงานการเงิน
+- **[Franklin's Analysis](agents/offline/franklin.md)** - กรอบงานความก้าวหน้า
+- **[Trevor's Analysis](agents/offline/trevor.md)** - กรอบงานความบันเทิง
+- **[Agent 14's Analysis](agents/online/agent14.md)** - กรอบงานปฏิบัติการ
+- **[Lamar's Analysis](agents/online/lamar.md)** - กรอบงานสังคม
+- **[English Dave's Analysis](agents/online/english_dave.md)** - คุณค่าความบันเทิง
+- **[Ron's Analysis](agents/online/ron.md)** - กรอบงานเนื้อเรื่อง
+- **[Lester's Analysis](agents/online/lester.md)** - กรอบงานการสังเคราะห์
 
 ---
 
 **Framework Version**: Multi-Agent Orchestration v1.0  
 **Last Updated**: 2026-04-06  
-**Status**: ✅ Fully Documented with Markdown-Based Specification
+**Status**: ✅ เอกสารครบถ้วนในรูปแบบ Markdown
 
 ---
 
-## 🧪 Tests
+## 🧪 การทดสอบ
 
 ```bash
 pytest tests/ -v
@@ -385,19 +385,19 @@ pytest tests/ -v
 
 ---
 
-## ⚙️ Environment Variables
+## ⚙️ ตัวแปรแวดล้อม
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `OPENAI_API_KEY` | *(ว่าง)* | OpenAI API key – ถ้าว่างจะใช้ Offline Mode |
-| `LLM_MODEL` | `gpt-4o-mini` | OpenAI model ที่ใช้ |
-| `LLM_TEMPERATURE` | `0.7` | ระดับ creativity (0–2) |
-| `ENABLED_AGENTS` | `all` | Comma-separated agent slugs หรือ `all` |
+| `OPENAI_API_KEY` | *(ว่าง)* | กุญแจ OpenAI API – ถ้าว่างจะใช้โหมดออฟไลน์ |
+| `LLM_MODEL` | `gpt-4o-mini` | โมเดล OpenAI ที่ใช้ |
+| `LLM_TEMPERATURE` | `0.7` | ระดับความคิดสร้างสรรค์ (0–2) |
+| `ENABLED_AGENTS` | `all` | ชื่อเอเย่นต์คั่นด้วย comma หรือ `all` |
 | `REPORTS_DIR` | `reports` | โฟลเดอร์สำหรับบันทึกรายงาน |
 
 ---
 
-## 📄 Sample Output
+## 📄 ตัวอย่างเอาต์พุต
 
 รายงานจะถูกบันทึกเป็นไฟล์ Markdown ใน `reports/` เช่น:
 
@@ -405,16 +405,16 @@ pytest tests/ -v
 reports/report_2024-W15_20240414_120000.md
 ```
 
-ประกอบด้วยการวิเคราะห์จากทุก agent ที่รัน โดยแต่ละ section จะมีสไตล์และมุมมองตามบุคลิกตัวละคร GTA V
+ประกอบด้วยการวิเคราะห์จากทุกเอเย่นต์ที่รัน โดยแต่ละส่วนมีสไตล์และมุมมองตามบุคลิก GTA V
 
 ---
 
-## 🔧 Extending the Framework
+## 🔧 ขยายกรอบงาน
 
-This repository now contains **Markdown-based documentation only**. To extend the framework conceptually:
+ที่เก็บนี้ตอนนี้มีแค่เอกสารในรูปแบบ Markdown เท่านั้น หากต้องการขยายกรอบงานเชิงแนวคิด:
 
-1. Create a new agent spec file under `agents/offline/` or `agents/online/`
-2. Define the agent's profile, role, personality, and analytical framework
-3. Document the expected output structure and example dialogue
-4. Describe integration points, metrics, and use cases
-5. Keep the framework design consistent with the existing agent documentation style
+1. สร้างไฟล์สเปคเอเย่นต์ใหม่ใน `agents/offline/` หรือ `agents/online/`
+2. กำหนดโปรไฟล์ เอเย่นต์ บทบาท บุคลิกภาพ และกรอบการวิเคราะห์
+3. บันทึกโครงสร้างเอาต์พุตที่คาดหวังและตัวอย่างบทสนทนา
+4. อธิบายจุดเชื่อมต่อการรวม ระบบตัวชี้วัด และกรณีใช้งาน
+5. รักษาความสอดคล้องของการออกแบบกับสไตล์เอกสารปัจจุบัน
