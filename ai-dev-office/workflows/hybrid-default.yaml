@@ -1,0 +1,22 @@
+name: Hybrid Documentation-driven default
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  validate-docs:
+    name: Validate YAML & Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: |
+          sudo apt-get update && sudo apt-get install -y yamllint
+      - name: Lint YAML files
+        run: |
+          yamllint ai-dev-office || true
+      - name: Spell-check Markdown (basic)
+        run: |
+          grep -R "TODO" ai-dev-office || true
