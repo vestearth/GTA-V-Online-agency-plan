@@ -1,0 +1,37 @@
+{
+  "week": "April 2-9 2026",
+  "nightclub": {
+    "revenue_streams": {
+      "door_takings": 4200,
+      "vip_tables": 8500,
+      "bar_sales": 6300,
+      "promotions": 1600
+    },
+    "expenses": {
+      "staff_pay": 1200,
+      "supplies": 700,
+      "maintenance": 450
+    },
+    "events": [
+      {"name": "Fri Night Promo", "day": "Friday", "expected_lift_percent": 25},
+      {"name": "Sat Headliner", "day": "Saturday", "expected_lift_percent": 45}
+    ]
+  },
+  "warehouse": {
+    "inventory": [
+      {"sku": "ItemA", "name": "Club Drink Mix", "on_hand": 150, "par": 200, "unit_cost": 5.0},
+      {"sku": "ItemB", "name": "VIP Bottle", "on_hand": 20, "par": 50, "unit_cost": 40.0},
+      {"sku": "ItemC", "name": "Promo Flyer", "on_hand": 1200, "par": 1000, "unit_cost": 0.1}
+    ],
+    "reorder_policy": {"reorder_point_pct": 0.3, "max_order_qty_multiplier": 2}
+  },
+  "technicians": [
+    {"id": "tech1", "name": "Rico", "role": "maintenance", "hours_available": 20},
+    {"id": "tech2", "name": "Maya", "role": "packing", "hours_available": 25},
+    {"id": "tech3", "name": "Sam", "role": "logistics", "hours_available": 15}
+  ],
+  "notes": {
+    "promotions_planned": true,
+    "expected_weekend_traffic": "high"
+  }
+}

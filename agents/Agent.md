@@ -52,10 +52,10 @@ A **multi-agent orchestration framework** that simulates GTA V characters analyz
    - 📑 Definitive weekly report creation
    - 🎯 Strategic priorities ranking
 
-7. **English Dave** - Entertainment & Fun Value Analyst
-   - 🏎️ Entertainment score calculation
-   - 🎮 Activity appeal and engagement
-   - 🌟 Memorable moments identification
+7. **Tony** - Nightclub & Warehouse Operations Analyst
+  - 💼 Weekly nightclub income calculation and revenue breakdown
+  - 📦 Warehouse stock & technician planning
+  - ⚙️ Operational recommendations for technicians and goods
 
 8. **Ron Jakowski** - Weekly Story Narrator
    - 📖 Story arc documentation
@@ -142,7 +142,7 @@ Each offline and online agent performs **focused domain analysis**:
 | **Trevor** | Entertainment | Was it fun? Thrilling? Worth the chaos? |
 | **Agent14** | Operations | Efficient? Successful? Data-backed? |
 | **Lamar** | Sociology | Team vibes? MVP? Crew dynamics? |
-| **English Dave** | Entertainment | Entertainment scored? Activities ranked? |
+| **Tony** | Nightclub & Warehouse | Nightclub income, stock management, technician planning |
 | **Ron** | Narrative | What's the story? Plot arcs? Drama? |
 
 #### **2. Layer 2: Aggregation** (Agent Lester)
@@ -353,8 +353,8 @@ Run modes:
   │          │         │         │          │
   └─────────┬┴────────┬┴────────┬┴──────────┴─┐
             │                                 │
-       ┌────▼──────────────────────────────┐  │
-       │ [English Dave] [Ron]              │  │
+      ┌────▼──────────────────────────────┐  │
+      │ [Tony] [Ron]                      │  │
        └────┬────────────────────────────┬─┘  │
             │                            │    │
        ┌────▼────────────────────────────▼──┐ │
