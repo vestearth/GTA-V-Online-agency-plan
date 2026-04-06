@@ -393,4 +393,4 @@ See individual agent documentation:
 - [lamar.md](./npc/lamar.md)
 - [lester.md](./npc/lester.md)
 - [ron.md](./npc/ron.md)
-- [tony.md](./online/tony.md)
+- [tony.md](./npc/tony.md)
