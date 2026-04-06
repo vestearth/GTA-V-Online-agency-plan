@@ -258,8 +258,8 @@ Ron's narrative is characterized by:
 
 ## 🔗 Integration Points
 
-- **Input**: Weekly activity JSON with event sequencing and participant data
-- **Output**: Narrative analysis text emphasizing story arcs and meaning
+- **Input**: Schema v2 payload using `week`, `planning_context`, `weekly_content.featured_activities`, `weekly_content.vehicle_opportunities`, and `crew_context`
+- **Output**: Structured narrative analysis text emphasizing story arcs, momentum, and meaning
 - **Audience**: Story enthusiasts, character-focused players, people who want meaning-making
 - **Aggregation Target**: Lester Crest combines with other agents for executive summary
 

@@ -116,22 +116,22 @@ Long-term Strategic Insights:
 
 ## Bonus Activity Detection & Analysis
 
-When bonus activities are present, Michael will detect and prioritise them as part of the financial analysis.
+When bonus activities are present, Michael will detect and prioritise them as part of the planning-focused financial analysis.
 
 Key steps:
-- **Detect**: scan `activities` for `category == 'Bonus'` or `notes` containing multiplier tokens like `2X`, `3X`, `4X` (case-insensitive).
+- **Detect**: scan `weekly_content.featured_activities` and `weekly_content.business_opportunities` for parsed multiplier objects and limited-time rewards.
 - **Count & Frequency**: if an activity appears multiple times or provides an explicit count, record that count. Show frequency-ranked list (most occurrences first).
-- **Estimate Incremental Value**: where base payout or historical per-activity revenue is available, compute incremental revenue = base_payout * (multiplier - 1) * count. If base payout is unknown, use historical averages or a conservative proxy.
-- **Adjust for Cost**: subtract estimated operational costs (time × $/hour, supply/maintenance) to compute net incremental value.
-- **Rank & Recommend**: order Bonus Activities by net incremental value and label `Priority / High / Moderate / Low` with a short numeric rationale (e.g., "3X Dispatch Work — est +$60,000 net — PRIORITY").
+- **Estimate Planning Value**: where reliable payout data exists, compute a value signal. If payout is unknown, stay qualitative and explain why the opportunity is still strong or weak.
+- **Adjust for Access Cost**: factor in owned-business requirements, time budget, and session fit before recommending.
+- **Rank & Recommend**: order opportunities by planning value and label `Priority / High / Moderate / Low` with a short rationale grounded in available fields.
 
 Output integration:
-- Include a `Bonus Activities` subsection in the Financial Summary and Activity Ranking with explicit numbers: count, multiplier, est gross lift, est net lift, and recommendation.
+- Include a `Bonus Activities` subsection in the Financial Summary and Activity Ranking with explicit numbers only when the payload provides them.
 - Flag removed or deprecated bonus activities (if `notes` include 'Removed') to avoid recommending them.
 
 Implementation notes for code:
 - Parse multiplier via regex (e.g., `([0-9]+)X`).
-- Use `weekly.financials` and historical caches when available for more accurate base_payout estimates.
+- Use `player_context`, `planning_context`, and `weekly_content` as the canonical source of truth for planning decisions.
 - Apply conservative defaults if data missing (e.g., base_payout = $1,000/event).
 
 
@@ -173,8 +173,8 @@ Michael's analysis is characterized by:
 
 ## 🔗 Integration Points
 
-- **Input**: Weekly activity JSON with financial data (revenue, expenses, time)
-- **Output**: Analysis text emphasizing profit metrics and ROI
+- **Input**: Schema v2 payload using `player_context`, `planning_context`, `weekly_content.featured_activities`, `weekly_content.business_opportunities`, and `data_quality`
+- **Output**: Structured analysis emphasizing planning value, access requirements, profit signals, and ROI when explicit data exists
 - **Audience**: Players wanting to optimize income and efficiency
 - **Aggregation Target**: Lester Crest combines with other agents for executive summary
 

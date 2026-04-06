@@ -1,149 +1,180 @@
 #!/usr/bin/env python3
-"""
-Generate Michael's financial report from weekly activity JSON.
-Detects Bonus Activities, counts multipliers, estimates incremental value, and ranks them.
-Writes Markdown report to `reports/report_michael_week_sample.md`.
+"""Generate Michael's planning report from schema v2 JSON."""
 
-Run:
-  python scripts/generate_michael_report.py
-"""
-import json
-import re
-from pathlib import Path
+from __future__ import annotations
 
-ROOT = Path(__file__).resolve().parents[1]
-WEEKLY = ROOT / 'data' / 'weekly_activity_apr2-9.json'
-OUT = ROOT / 'reports' / 'report_michael_week_sample.md'
+import argparse
 
-MULT_RE = re.compile(r'([0-9]+)\s*[xX]')
+from schema_v2_runtime import (
+    build_report_payload,
+    is_limited,
+    load_weekly,
+    missing_requirements,
+    recommendation,
+    week_label,
+    write_agent_outputs,
+)
 
 
-def load(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+OUT_MD = "report_michael_week_sample.md"
+OUT_JSON = "michael_report.json"
 
 
-def parse_multiplier(notes):
-    if not notes:
-        return None
-    m = MULT_RE.search(notes)
-    if m:
-        try:
-            return int(m.group(1))
-        except ValueError:
-            return None
-    return None
+def score_activity(payload, entry):
+    goals = set(payload.get("player_context", {}).get("goals_this_week", []))
+    policy = payload.get("planning_context", {}).get("decision_policy", {})
+    tags = set(entry.get("value_tags", []))
+    bonus = entry.get("bonus", {})
+    blockers = missing_requirements(payload, entry.get("requirements", []))
+    score = 0.0
+    score += bonus.get("gta_cash_multiplier", 1) * 2
+    score += bonus.get("gta_plus_cash_multiplier", 0)
+    score += bonus.get("rp_multiplier", 0) * 0.5
+    if "money" in tags and ("make_money" in goals or payload.get("planning_context", {}).get("primary_objective") == "profit"):
+        score += 4
+    if "passive_income" in tags and "passive_income" in goals:
+        score += 3
+    if "limited_reward" in tags and policy.get("prioritize_limited_time_content"):
+        score += 2
+    if is_limited(entry) and policy.get("prioritize_limited_time_content"):
+        score += 1
+    if entry.get("timebox_minutes") and entry["timebox_minutes"] <= 20:
+        score += 1
+    score -= len(blockers) * 4
+    return score, blockers
 
 
-def estimate_base_payout_for(activity_name):
-    # conservative proxies by known activity keywords
-    name = activity_name.lower()
-    if 'dispatch' in name:
-        return 1000
-    if 'wildlife' in name:
-        return 200
-    if 'firefighter' in name:
-        return 800
-    if 'vespucci' in name:
-        return 1500
-    # default proxy
-    return 1000
+def score_business(payload, entry):
+    goals = set(payload.get("player_context", {}).get("goals_this_week", []))
+    tags = set(entry.get("estimated_value_tags", []))
+    blockers = missing_requirements(payload, entry.get("requirements", []))
+    score = 0.0
+    if "active_grind" in tags and "make_money" in goals:
+        score += 4
+    if "passive_income" in tags and "passive_income" in goals:
+        score += 5
+    if "limited_reward" in tags:
+        score += 2
+    score += len(entry.get("bonus", {}))
+    score -= len(blockers) * 4
+    return score, blockers
 
 
-def generate():
-    weekly = load(WEEKLY)
-    activities = weekly.get('activities', [])
+def generate_report(payload):
+    ranked = []
+    warnings = []
+    insufficient = []
 
-    bonus_items = []
-    for a in activities:
-        cat = a.get('category', '')
-        notes = a.get('notes', '') or ''
-        if cat.lower() == 'bonus' or 'x' in notes.lower():
-            mult = parse_multiplier(notes)
-            # if no multiplier found, try looking for multiplier in notes string like '3X for GTA+ Members'
-            bonus_items.append({
-                'name': a.get('name'),
-                'notes': notes,
-                'multiplier': mult or 1,
-                'count': 1,
-                'base_payout': estimate_base_payout_for(a.get('name'))
-            })
+    for entry in payload.get("weekly_content", {}).get("featured_activities", []):
+        score, blockers = score_activity(payload, entry)
+        if blockers:
+            warnings.append(f"{entry['id']}: missing requirements {', '.join(blockers)}")
+        ranked.append(
+            {
+                "id": entry["id"],
+                "name": entry["name"],
+                "kind": "activity",
+                "score": score,
+                "blockers": blockers,
+                "notes": entry.get("notes"),
+            }
+        )
 
-    # aggregate by name
-    agg = {}
-    for b in bonus_items:
-        key = b['name']
-        if key not in agg:
-            agg[key] = dict(b)
+    for entry in payload.get("weekly_content", {}).get("business_opportunities", []):
+        score, blockers = score_business(payload, entry)
+        if blockers:
+            warnings.append(f"{entry['id']}: business access missing {', '.join(blockers)}")
+        ranked.append(
+            {
+                "id": entry["id"],
+                "name": entry["name"],
+                "kind": "business",
+                "score": score,
+                "blockers": blockers,
+                "notes": entry.get("notes"),
+            }
+        )
+
+    if not payload.get("player_context", {}).get("cash_on_hand") and not payload.get("player_context", {}).get("bank_balance"):
+        insufficient.append("No liquid-cash snapshot; buy recommendations should be budget-checked manually.")
+
+    ranked.sort(key=lambda item: item["score"], reverse=True)
+    top_items = ranked[:5]
+    recommendations = []
+    for item in top_items:
+        action = "prepare" if item["blockers"] else "prioritize"
+        reason = item["notes"] or "Strong planning value based on weekly bonuses, goals, and access fit."
+        recommendations.append(
+            recommendation(
+                item["id"],
+                action,
+                reason,
+                confidence="medium" if item["blockers"] else "high",
+                score=item["score"],
+                blockers=item["blockers"] or None,
+            )
+        )
+
+    summary = "Focus on the highest-value weekly bonuses and owned-business opportunities that fit the player's time budget."
+    report_payload = build_report_payload(
+        "michael",
+        payload,
+        summary,
+        recommendations,
+        warnings=warnings[:6],
+        insufficient_data=insufficient,
+        extra={"ranked_candidates": top_items},
+    )
+
+    lines = [
+        f"# Michael's Planning Report — {week_label(payload)}",
+        "",
+        "## Executive View",
+        "- Michael focuses on planning value, access requirements, and weekly bonus leverage.",
+        "- This report is planning-oriented and avoids inventing payout numbers when the payload does not provide them.",
+        "",
+        "## Ranked Opportunities",
+    ]
+    for item in top_items:
+        if item["blockers"]:
+            lines.append(f"- {item['name']} — score {item['score']:.1f} — prepare first ({', '.join(item['blockers'])})")
         else:
-            agg[key]['count'] += b.get('count', 1)
+            lines.append(f"- {item['name']} — score {item['score']:.1f} — priority fit for this week")
+    if not top_items:
+        lines.append("- No opportunities available in the payload.")
 
-    summary = []
-    for name, info in agg.items():
-        mult = info.get('multiplier', 1)
-        count = info.get('count', 1)
-        base = info.get('base_payout', 1000)
-        est_gross_lift = base * (mult - 1) * count
-        # cost proxy: assume 1 hour per event at $300/hr
-        est_cost = 300 * count
-        est_net = est_gross_lift - est_cost
-        priority = 'Low'
-        if est_net > 50000:
-            priority = 'Priority'
-        elif est_net > 10000:
-            priority = 'High'
-        elif est_net > 2000:
-            priority = 'Moderate'
-        summary.append({
-            'name': name,
-            'multiplier': mult,
-            'count': count,
-            'base': base,
-            'est_gross_lift': est_gross_lift,
-            'est_cost': est_cost,
-            'est_net': est_net,
-            'priority': priority,
-            'notes': info.get('notes','')
-        })
-
-    # sort by est_net desc
-    summary.sort(key=lambda x: x['est_net'], reverse=True)
-
-    # Financial summary from file if present
-    fin = weekly.get('financials', {})
-    lines = []
-    lines.append(f"# Michael's Financial Report — {weekly.get('week')}")
-    lines.append("")
-    lines.append("## Financial Snapshot")
-    lines.append(f"- Total Revenue (reported): {fin.get('earnings_total',0)} {fin.get('currency','GTA$')}")
-    lines.append(f"- Total Expenses (reported): {fin.get('expenses_total',0)} {fin.get('currency','GTA$')}")
-    lines.append(f"- Net Profit (reported): {fin.get('net_profit',0)} {fin.get('currency','GTA$')}")
-    lines.append("")
-    lines.append("## Bonus Activities — Detected & Estimated Impact")
-    if not summary:
-        lines.append("- No bonus activities detected this week.")
+    lines.extend(["", "## Warnings"])
+    if warnings:
+        for warning in warnings[:6]:
+            lines.append(f"- {warning}")
     else:
-        for s in summary:
-            lines.append(f"- {s['name']}")
-            lines.append(f"  - Multiplier: {s['multiplier']} — Count: {s['count']} — Base proxy: ${s['base']}")
-            lines.append(f"  - Est Gross Lift: ${s['est_gross_lift']:,} — Est Cost: ${s['est_cost']:,} — Est Net: ${s['est_net']:,}")
-            lines.append(f"  - Priority: {s['priority']} — Notes: {s['notes']}")
+        lines.append("- No major access blockers detected.")
 
-    lines.append("")
-    lines.append("## Activity Ranking & Recommendations (bonus-aware)")
-    if summary:
-        lines.append("- Prioritize bonus activities marked `Priority` or `High`. Consider reallocating time/resources for these.")
-    else:
-        lines.append("- No bonus-driven priority changes recommended.")
+    if insufficient:
+        lines.extend(["", "## Insufficient Data"])
+        for item in insufficient:
+            lines.append(f"- {item}")
 
-    lines.append("")
-    lines.append("---")
-    lines.append("Michael (Strategic & Financial Analyst) — Bonus Activity analysis included.")
-
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text('\n'.join(lines), encoding='utf-8')
-    print(f"Michael report written to {OUT}")
+    lines.extend(
+        [
+            "",
+            "---",
+            "Michael (Strategic & Financial Analyst) — schema v2 planning report.",
+        ]
+    )
+    return report_payload, lines
 
 
-if __name__ == '__main__':
-    generate()
+def main():
+    parser = argparse.ArgumentParser(description="Generate Michael report from schema v2 payload.")
+    parser.add_argument("--weekly", help="Path to schema v2 JSON", default=None)
+    args = parser.parse_args()
+    _, payload = load_weekly(args.weekly)
+    report_payload, markdown_lines = generate_report(payload)
+    md_path, json_path = write_agent_outputs("michael", payload, report_payload, markdown_lines, OUT_MD, OUT_JSON)
+    print(f"Michael report written to {md_path}")
+    print(f"Michael structured report written to {json_path}")
+
+
+if __name__ == "__main__":
+    main()

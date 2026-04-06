@@ -31,11 +31,11 @@
 
 Lester receives **7 independent analyses** from:
 1. **Michael** - Strategic & Financial view
-2. **Franklin** - Progression & Growth view
-3. **Trevor** - Entertainment & Risk view
+2. **Franklin** - Vehicle Opportunity view
+3. **Trevor** - Weapons, Gear & Combat Value view
 4. **Agent 14** - Operations & Efficiency view
-5. **Lamar** - Social & Crew view
-6. **English Dave** - Entertainment & Fun view
+5. **Lamar** - Social, Crew & Vehicle Watch view
+6. **Tony** - Nightclub & Passive Income view
 7. **Ron** - Narrative & Story view
 
 Lester then produces a **synthesized weekly summary** that:
@@ -58,8 +58,8 @@ Lester then produces a **synthesized weekly summary** that:
    - Where's the strongest signal?
 
 3. **"Where do agents diverge?"**
-   - When Michael says "not profitable" but Franklin says "great progression"
-   - When Agent14 says "inefficient" but English Dave says "super fun"
+   - When Michael says "low planning value" but Franklin says "strong vehicle unlock"
+   - When Agent14 says "coordination heavy" but Trevor says "worth it for the gear"
    - What do these trade-offs mean?
 
 4. **"What were the major highlights?"**
@@ -87,9 +87,10 @@ OVERALL PERFORMANCE: [Grade A-F]
 Key Metrics This Week:
 ├─ Financial Performance: [Michael's verdict]
 ├─ Progression Achieved: [Franklin's verdict]
-├─ Entertainment Factor: [English Dave's verdict]
+├─ Combat/Acquisition Value: [Trevor's verdict]
 ├─ Operational Efficiency: [Agent14's verdict]
 ├─ Crew Cohesion: [Lamar's verdict]
+├─ Passive Income Readiness: [Tony's verdict]
 └─ Strategic Narrative: [Ron's verdict]
 
 Bottom Line: 2-3 sentence executive summary of what happened
@@ -109,8 +110,8 @@ MULTI-AGENT ANALYSIS SYNTHESIS
 └─ Dissenting View: [What minorities think]
 
 🔴 SIGNIFICANT DIVERGENCE (Major disagreement):
-├─ Michael vs. Franklin: "Not worth it financially" vs. "Great progression"
-├─ Agent14 vs. English Dave: "Inefficient" vs. "Absolutely brilliant"
+├─ Michael vs. Franklin: "Not worth it financially" vs. "Great limited unlock"
+├─ Agent14 vs. Trevor: "Coordination heavy" vs. "Absolutely worth claiming"
 └─ Trade-off Analysis: [What this means strategically]
 ```
 
@@ -131,10 +132,10 @@ Progression & Growth:
 ├─ Franklin's Grade: [A-F]
 └─ Trend: [↑↓→]
 
-Entertainment & Enjoyment:
-├─ Fun Score (avg): [X/10]
-├─ Epic Moments: [X count]
-├─ English Dave's Grade: [A-F]
+Combat Value & Gear:
+├─ Must-Claim Items: [X]
+├─ Best Buy Signal: [Top Trevor target]
+├─ Trevor's Grade: [A-F]
 └─ Trend: [↑↓→]
 
 Operations & Efficiency:
@@ -147,6 +148,12 @@ Team & Social:
 ├─ Crew Cohesion: [X/10]
 ├─ Morale Level: [X/10]
 ├─ Lamar's Grade: [A-F]
+└─ Trend: [↑↓→]
+
+Passive Income:
+├─ Nightclub Readiness: [Ready / Needs work / N/A]
+├─ Technician Coverage: [X/Y]
+├─ Tony's Grade: [A-F]
 └─ Trend: [↑↓→]
 
 Strategic Story:
@@ -267,7 +274,7 @@ Lester's analysis is characterized by:
 
 > **Where Agents Agree**: This was a solid week overall. Quality crew dynamics, people had fun, we're progressing. That's strong consensus.
 
-> **Where They Diverge**: Michael says the financial returns don't justify the risk taken. Agent14 agrees operationally inefficient. But Franklin argues progression matters long-term, English Dave says the entertainment was worth it, Lamar says crew morale is essential. Trevor just wanted chaos and got it.
+> **Where They Diverge**: Michael says the planning value doesn't justify the spend. Agent14 agrees the plan is operationally heavy. But Franklin argues the vehicle unlock matters long-term, Tony wants the passive loop protected, Lamar says crew morale is essential, and Trevor just wants the strongest gear and chaos.
 
 > **The Trade-off**: We optimized for FUN and PROGRESSION at the expense of EFFICIENCY and SHORT-TERM PROFIT. Was that the right call? Assessment: Maybe. The crew needed that cohesion boost, and progression is important.
 
@@ -279,8 +286,8 @@ Lester's analysis is characterized by:
 
 ## 🔗 Integration Points
 
-- **Input**: Analysis outputs from all 7 agents
-- **Output**: Comprehensive multi-perspective weekly report
+- **Input**: Schema v2 payload plus structured JSON outputs from Michael, Franklin, Trevor, Agent 14, Lamar, Tony, and Ron
+- **Output**: Comprehensive multi-perspective weekly report with consensus, divergence, and prioritized actions
 - **Audience**: Strategic decision-makers, executive leadership, anyone needing complete oversight
 - **Distribution**: Final report saved to reports/ directory for stakeholders
 
@@ -313,7 +320,7 @@ Lester operates **after** all other agents complete their analyses:
 ```
 Timeline:
 ├─ T=0: Weekly data arrives
-├─ T=1: All 7 agents (Michael, Franklin, Trevor, Agent14, Lamar, English Dave, Ron) analyze independently
+├─ T=1: All 7 agents (Michael, Franklin, Trevor, Agent14, Lamar, Tony, Ron) analyze independently
 ├─ T=2: Outputs collected: 7 reports total
 ├─ T=3: Lester performs synthesis & aggregation
 ├─ T=4: Final summary report generated and published

@@ -1,0 +1,892 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W14",
+    "label": "April 2-9 2026",
+    "start_date": "2026-04-02",
+    "end_date": "2026-04-09",
+    "source": "rockstar_newswire",
+    "last_updated_at": "2026-04-07T10:00:00Z"
+  },
+  "player_context": {
+    "player_name": "ExamplePlanner",
+    "platform": "pc",
+    "gta_plus": true,
+    "rank": 186,
+    "cash_on_hand": 950000,
+    "bank_balance": 4850000,
+    "play_style_tags": [
+      "solo",
+      "duo",
+      "grinder",
+      "vehicle_collector",
+      "combat"
+    ],
+    "goals_this_week": [
+      "make_money",
+      "unlock_vehicle",
+      "passive_income",
+      "buy_weapon"
+    ],
+    "owned_assets": {
+      "properties": [
+        "agency",
+        "nightclub",
+        "salvage_yard",
+        "bunker",
+        "auto_shop",
+        "ls_car_meet_membership"
+      ],
+      "businesses": [
+        "nightclub",
+        "bunker",
+        "salvage_yard",
+        "mc_cocaine",
+        "mc_cash"
+      ],
+      "key_vehicles": [
+        "Armored Kuruma",
+        "Oppressor Mk II",
+        "Grotti Turismo Omaggio"
+      ],
+      "key_weapons": [
+        "Heavy Rifle",
+        "Compact EMP Launcher",
+        "Stun Gun"
+      ]
+    },
+    "constraints": {
+      "hours_available": 9,
+      "preferred_session_size": "1_2_friends",
+      "avoid_content_tags": [
+        "long_heist_setup_chain"
+      ]
+    }
+  },
+  "planning_context": {
+    "primary_objective": "mixed",
+    "budget_limit": 1500000,
+    "risk_tolerance": "medium",
+    "session_plan": [
+      {
+        "label": "weekday_short",
+        "hours": 1.5,
+        "party_size": "solo"
+      },
+      {
+        "label": "weekend_duo",
+        "hours": 3,
+        "party_size": "1_2_friends"
+      }
+    ],
+    "decision_policy": {
+      "recommend_owned_only": false,
+      "allow_new_purchases": true,
+      "prioritize_limited_time_content": true
+    }
+  },
+  "weekly_content": {
+    "featured_activities": [
+      {
+        "id": "dispatch_work_bonus",
+        "name": "Dispatch Work",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2,
+          "gta_plus_cash_multiplier": 3
+        },
+        "requirements": [
+          "agency"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 20,
+        "value_tags": [
+          "money",
+          "rp",
+          "limited_reward"
+        ],
+        "reward": {
+          "cash": 200000,
+          "items": [
+            "Summer LSPD Officer w/ Tie Outfit"
+          ],
+          "condition": "Complete 5 Dispatch Work missions"
+        },
+        "notes": "Includes two new Dispatch Work assignments with Vincent."
+      },
+      {
+        "id": "wildlife_photography_bonus",
+        "name": "Wildlife Photography",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 1,
+          "rp_multiplier": 1,
+          "gta_plus_cash_multiplier": 4
+        },
+        "requirements": [],
+        "recommended_party_size": "solo",
+        "timebox_minutes": 15,
+        "value_tags": [
+          "money",
+          "casual"
+        ],
+        "notes": "Major value jump only for GTA+ members."
+      },
+      {
+        "id": "firefighter_bonus",
+        "name": "Firefighter",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "solo",
+        "timebox_minutes": 10,
+        "value_tags": [
+          "money",
+          "rp"
+        ],
+        "notes": "Fast filler content for short sessions."
+      },
+      {
+        "id": "vespucci_job_bonus",
+        "name": "The Vespucci Job",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": 18,
+        "value_tags": [
+          "money",
+          "crew_fun",
+          "pvp"
+        ],
+        "notes": "Best fit when at least two friends are online."
+      },
+      {
+        "id": "community_race_series_bonus",
+        "name": "Community Race Series",
+        "category": "race",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": 12,
+        "value_tags": [
+          "rp",
+          "crew_fun",
+          "driving"
+        ],
+        "notes": "Useful warm-up content for racing-focused sessions."
+      },
+      {
+        "id": "neighborhood_watch_event",
+        "name": "Neighborhood Watch Event",
+        "category": "new_release",
+        "content_type": "one_time",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-08"
+        },
+        "bonus": {},
+        "requirements": [],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 30,
+        "value_tags": [
+          "limited_reward",
+          "new_content"
+        ],
+        "reward": {
+          "items": [
+            "New LSPD Outfit"
+          ]
+        },
+        "notes": "Includes decommissioned Bravado police vehicles and new dispatch assignments."
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "maibatsu_monstrociti_podium",
+        "vehicle_name": "Maibatsu MonstroCiti",
+        "opportunity_type": "podium",
+        "source": "casino",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "off_road",
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Casino Lucky Wheel"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.4,
+          "utility_tags": [
+            "collection",
+            "off_road"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "ocelot_swinger_prize_ride",
+        "vehicle_name": "Ocelot Swinger",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": "Place Top 2 in LS Car Meet Series 4 days in a row",
+          "qualification_rules": {
+            "required_class": "sports",
+            "min_performance_score": 7.5,
+            "required_upgrades": [
+              "turbo",
+              "brakes"
+            ]
+          }
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.0,
+          "utility_tags": [
+            "collection",
+            "limited_unlock"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "western_wolfsbane_test_ride",
+        "vehicle_name": "Western Wolfsbane",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "motorcycle",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.1,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "declasse_vamos_test_ride",
+        "vehicle_name": "Declasse Vamos",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "muscle",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.7,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vulcar_fagaloa_test_ride",
+        "vehicle_name": "Vulcar Fagaloa",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.5,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vigero_zx_convertible_premium_test_ride",
+        "vehicle_name": "Declasse Vigero ZX Convertible",
+        "opportunity_type": "premium_test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "muscle",
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.2,
+          "utility_tags": [
+            "test_before_buy",
+            "muscle"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "buffalo_stx_pursuit_new_release",
+        "vehicle_name": "Bravado Buffalo STX Pursuit",
+        "opportunity_type": "new_release",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "muscle",
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": true,
+        "acquisition": {
+          "claim_path": "Free for GTA+ this week, available to all players from April 9"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.5,
+          "utility_tags": [
+            "combat",
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "declasse_park_ranger_discount",
+        "vehicle_name": "Declasse Park Ranger",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-15"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": "service",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.3,
+          "utility_tags": [
+            "service",
+            "roleplay",
+            "durable"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "grotti_cheetah_classic_discount",
+        "vehicle_name": "Grotti Cheetah Classic",
+        "opportunity_type": "discount",
+        "source": "legendary_motorsport",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.4,
+          "utility_tags": [
+            "racing",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "rhino_tank_discount",
+        "vehicle_name": "Rhino Tank",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-02",
+          "end": "2026-04-09"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": "military",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.8,
+          "utility_tags": [
+            "combat",
+            "chaos"
+          ],
+          "weaponized": true,
+          "service_vehicle": false
+        }
+      }
+    ],
+    "weapon_and_gear_opportunities": [
+      {
+        "id": "nightstick_gun_van_free",
+        "name": "Nightstick",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "melee",
+          "police_roleplay"
+        ],
+        "urgency": "must_claim",
+        "notes": "Free this week from the Gun Van."
+      },
+      {
+        "id": "baseball_bat_gun_van_free",
+        "name": "Baseball Bat",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "melee"
+        ],
+        "urgency": "must_claim",
+        "notes": "Free backup melee option."
+      },
+      {
+        "id": "stun_gun_gun_van_free_plus",
+        "name": "Stun Gun",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "utility",
+          "disable"
+        ],
+        "urgency": "must_claim",
+        "notes": "Best GTA+ freebie this week."
+      },
+      {
+        "id": "heavy_rifle_gun_van_discount",
+        "name": "Heavy Rifle",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 50,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "rifle",
+          "mid_range"
+        ],
+        "urgency": "good_pick",
+        "notes": "Highest general combat value among listed discounts."
+      },
+      {
+        "id": "compact_emp_launcher_discount",
+        "name": "Compact EMP Launcher",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 40,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "vehicle_disable",
+          "utility"
+        ],
+        "urgency": "good_pick",
+        "notes": "Strong GTA+ utility purchase."
+      }
+    ],
+    "business_opportunities": [
+      {
+        "id": "dispatch_work_agency_bonus",
+        "name": "Agency Dispatch Work Bonus",
+        "business_type": "agency",
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "gta_plus_cash_multiplier": 3,
+          "rp_multiplier": 2
+        },
+        "requires_owned_business": true,
+        "requirements": [
+          "agency"
+        ],
+        "estimated_value_tags": [
+          "active_grind",
+          "money",
+          "limited_reward"
+        ],
+        "notes": "Best active-money business opportunity if the player already owns an Agency."
+      },
+      {
+        "id": "salvage_yard_weekly_targets",
+        "name": "Salvage Yard Weekly Targets",
+        "business_type": "salvage_yard",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "salvage_yard"
+        ],
+        "estimated_value_tags": [
+          "active_grind",
+          "vehicle_collecting"
+        ],
+        "notes": "Useful for coordinated duo sessions and vehicle-focused players."
+      },
+      {
+        "id": "nightclub_passive_cycle",
+        "name": "Nightclub Passive Goods Cycle",
+        "business_type": "nightclub",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "nightclub"
+        ],
+        "estimated_value_tags": [
+          "passive_income",
+          "low_attention"
+        ],
+        "notes": "No special weekly multiplier, but still relevant for players prioritizing passive income."
+      },
+      {
+        "id": "bunker_supporting_passive_income",
+        "name": "Bunker Supporting Passive Income",
+        "business_type": "bunker",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "bunker"
+        ],
+        "estimated_value_tags": [
+          "passive_income",
+          "setup_required"
+        ],
+        "notes": "Supports Sporting Goods accumulation inside the Nightclub."
+      }
+    ],
+    "time_trials_and_races": [
+      {
+        "id": "time_trial_calafia_way",
+        "name": "Time Trial: Calafia Way",
+        "type": "time_trial",
+        "vehicle_restrictions": [],
+        "recommended_vehicle_classes": [
+          "sports",
+          "super"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Weekly time trial course."
+      },
+      {
+        "id": "hsw_time_trial_sandy_shores_la_puerta",
+        "name": "HSW Time Trial: Sandy Shores to La Puerta",
+        "type": "time_trial",
+        "vehicle_restrictions": [
+          "HSW_eligible"
+        ],
+        "recommended_vehicle_classes": [
+          "HSW"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Only relevant if the player has an HSW-capable vehicle."
+      },
+      {
+        "id": "premium_race_boots_on_the_ground",
+        "name": "Premium Race: Boots on the Ground",
+        "type": "premium_race",
+        "vehicle_restrictions": [
+          "motorcycle"
+        ],
+        "recommended_vehicle_classes": [
+          "motorcycle"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Motorcycle-only premium race."
+      }
+    ],
+    "salvage_yard_targets": [
+      {
+        "id": "gangbanger_robbery_albany_hermes",
+        "robbery_name": "The Gangbanger Robbery",
+        "vehicle_name": "Albany Hermes",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Classic styling; good crew showpiece."
+      },
+      {
+        "id": "mctony_robbery_hijak_ruston",
+        "robbery_name": "The McTony Robbery",
+        "vehicle_name": "Hijak Ruston",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Fast lightweight option for collectors."
+      },
+      {
+        "id": "cargo_ship_robbery_enus_paragon_r",
+        "robbery_name": "The Cargo Ship Robbery",
+        "vehicle_name": "Enus Paragon R",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Strong style and resale interest if the crew wants a premium sedan."
+      }
+    ]
+  },
+  "business_state": {
+    "nightclub": {
+      "owned": true,
+      "safe_cash": 145000,
+      "popularity_percent": 70,
+      "technicians_total": 4,
+      "technician_assignments": [
+        {
+          "technician_id": "tech_1",
+          "goods_type": "sporting_goods"
+        },
+        {
+          "technician_id": "tech_2",
+          "goods_type": "cargo_and_shipments"
+        },
+        {
+          "technician_id": "tech_3",
+          "goods_type": "south_american_imports"
+        },
+        {
+          "technician_id": "tech_4",
+          "goods_type": "cash_creation"
+        }
+      ],
+      "goods_stock": [
+        {
+          "goods_type": "sporting_goods",
+          "stock_percent": 55,
+          "estimated_value": 120000
+        },
+        {
+          "goods_type": "cargo_and_shipments",
+          "stock_percent": 48,
+          "estimated_value": 110000
+        },
+        {
+          "goods_type": "south_american_imports",
+          "stock_percent": 31,
+          "estimated_value": 90000
+        },
+        {
+          "goods_type": "cash_creation",
+          "stock_percent": 62,
+          "estimated_value": 98000
+        }
+      ],
+      "upgrade_flags": [
+        "equipment_upgrade",
+        "staff_upgrade"
+      ]
+    },
+    "feeder_businesses": [
+      {
+        "business_type": "bunker",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": 60,
+        "stock_level_percent": 45,
+        "upgrade_flags": [
+          "equipment_upgrade",
+          "staff_upgrade"
+        ]
+      },
+      {
+        "business_type": "mc_cocaine",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": 40,
+        "stock_level_percent": 28,
+        "upgrade_flags": [
+          "equipment_upgrade"
+        ]
+      },
+      {
+        "business_type": "mc_cash",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": 35,
+        "stock_level_percent": 24,
+        "upgrade_flags": []
+      },
+      {
+        "business_type": "hangar",
+        "owned": false,
+        "operational": false,
+        "supply_level_percent": null,
+        "stock_level_percent": null,
+        "upgrade_flags": []
+      }
+    ]
+  },
+  "crew_context": {
+    "crew_name": "Los Santos Night Shift",
+    "active_members": [
+      {
+        "name": "ExamplePlanner",
+        "role_tags": [
+          "driver",
+          "grinder"
+        ],
+        "reliability": "high"
+      },
+      {
+        "name": "PlayerA",
+        "role_tags": [
+          "pilot",
+          "support"
+        ],
+        "reliability": "medium"
+      },
+      {
+        "name": "PlayerB",
+        "role_tags": [
+          "combat",
+          "scout"
+        ],
+        "reliability": "high"
+      }
+    ],
+    "usual_party_size": "small_group",
+    "coordination_level": "medium",
+    "notes": "Best coordination happens on weekend sessions; weekday play is usually solo."
+  },
+  "analysis_hints": {
+    "missing_data_policy": "state_unknown_explicitly",
+    "recommendation_style": "ranked_list",
+    "language": "th",
+    "max_recommendations": 5,
+    "must_cite_ids": true
+  },
+  "data_quality": {
+    "coverage": {
+      "player_context_complete": true,
+      "business_state_complete": true,
+      "crew_context_complete": true
+    },
+    "known_gaps": [
+      "Exact vehicle prices were not captured for every weekly discount.",
+      "No historical payout telemetry is included; recommendation scores should stay planning-oriented."
+    ],
+    "confidence_level": "medium"
+  }
+}

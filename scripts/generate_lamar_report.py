@@ -1,97 +1,146 @@
 #!/usr/bin/env python3
-"""
-Generate Lamar's crew and salvage yard report from weekly activity JSON.
-Writes Markdown report to `reports/report_lamar_week_sample.md`.
+"""Generate Lamar's crew and salvage report from schema v2 JSON."""
 
-Run:
-  python scripts/generate_lamar_report.py
-"""
-import json
-from pathlib import Path
+from __future__ import annotations
 
-ROOT = Path(__file__).resolve().parents[1]
-WEEKLY = ROOT / 'data' / 'weekly_activity_apr2-9.json'
-OUT = ROOT / 'reports' / 'report_lamar_week_sample.md'
+import argparse
 
-
-def load(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+from schema_v2_runtime import (
+    build_report_payload,
+    load_weekly,
+    recommendation,
+    week_label,
+    write_agent_outputs,
+)
 
 
-def analyze_salvage(weekly):
-    salvage = weekly.get('salvage_yard_robberies', [])
-    if not salvage:
-        return ['- No Salvage Yard Robberies data available this week.']
+OUT_MD = "report_lamar_week_sample.md"
+OUT_JSON = "lamar_report.json"
 
-    lines = ['- Salvage Yard Robberies detected:']
-    high_value = []
+
+def featured_score(entry, party_size):
+    score = 0.0
+    if entry.get("recommended_party_size") in {"small_group", "solo_or_duo"}:
+        score += 2
+    if party_size in {"duo", "small_group"} and entry.get("recommended_party_size") in {"solo_or_duo", "small_group"}:
+        score += 2
+    if "crew_fun" in entry.get("value_tags", []):
+        score += 3
+    if "limited_reward" in entry.get("value_tags", []):
+        score += 1
+    return score
+
+
+def salvage_score(entry):
+    return 5.0 if entry.get("claimable") else 2.0
+
+
+def generate_report(payload):
+    crew = payload.get("crew_context", {})
+    featured = payload.get("weekly_content", {}).get("featured_activities", [])
+    salvage = payload.get("weekly_content", {}).get("salvage_yard_targets", [])
+    warnings = []
+    insufficient = []
+    ranked = []
+
+    party_size = crew.get("usual_party_size", "solo")
+    if not crew.get("active_members"):
+        insufficient.append("No active_members list; recommendations are generic for solo/public-lobby play.")
+
+    for entry in featured:
+        score = featured_score(entry, party_size)
+        if score <= 0:
+            continue
+        ranked.append(
+            {
+                "id": entry["id"],
+                "name": entry["name"],
+                "kind": "activity",
+                "score": score,
+                "notes": entry.get("notes"),
+            }
+        )
+
     for entry in salvage:
-        robbery = entry.get('robbery', 'Unknown robbery')
-        vehicle = entry.get('vehicle', 'Unknown vehicle')
-        lines.append(f"  - {robbery}: {vehicle}")
-        high_value.append(vehicle)
+        ranked.append(
+            {
+                "id": entry["id"],
+                "name": entry["vehicle_name"],
+                "kind": "salvage",
+                "score": salvage_score(entry),
+                "notes": entry.get("robbery_name"),
+            }
+        )
 
-    lines.append('- Recommended vehicle watch list:')
-    for vehicle in high_value:
-        lines.append(f"  - {vehicle} — check value, crew transport use, and grab it if it fits the run.")
+    if not salvage:
+        warnings.append("No salvage_yard_targets available; vehicle-watch guidance is limited.")
 
-    lines.append('- Watch for salvage captures that can boost crew flexibility or squad style.')
-    return lines
+    ranked.sort(key=lambda item: item["score"], reverse=True)
+    top_items = ranked[:5]
+    recommendations = []
+    for item in top_items:
+        action = "prioritize" if item["kind"] == "salvage" or item["score"] >= 4 else "consider"
+        recommendations.append(
+            recommendation(
+                item["id"],
+                action,
+                item["notes"] or "Good crew-fit content for this week's sessions.",
+                confidence="medium",
+                score=item["score"],
+            )
+        )
 
+    summary = "Keep the crew around salvage targets and short crew-friendly activities that match the actual party size."
+    report_payload = build_report_payload(
+        "lamar",
+        payload,
+        summary,
+        recommendations,
+        warnings=warnings,
+        insufficient_data=insufficient,
+        extra={"crew_snapshot": crew, "ranked_candidates": top_items},
+    )
 
-def get_mvp(weekly):
-    crew = weekly.get('crew_summary', {})
-    mvp = crew.get('mvp')
-    if mvp and mvp != 'Unknown':
-        return f"- This week’s MVP looks like {mvp}. Keep them in the rotation and give them props."
-    return ['- MVP not explicitly set in the data; infer from mission/crew activity performance.']
-
-
-def generate():
-    weekly = load(WEEKLY)
-    crew = weekly.get('crew_summary', {})
-    salvage_lines = analyze_salvage(weekly)
-    treasures = weekly.get('luxury_autos', [])
-
-    lines = []
-    lines.append(f"# Lamar's Crew & Salvage Yard Report — {weekly.get('week')}")
-    lines.append("")
-    lines.append("## Crew Snapshot")
-    lines.append(f"- Active crew members: {crew.get('members_active', 'Unknown')}")
-    lines.append(f"- Crew cohesion score: {crew.get('team_cohesion', 'Unknown')}/10")
-    lines.append(f"- Crew MVP: {crew.get('mvp', 'Unknown')}")
-    lines.append("- Crew conflicts detected: " + (', '.join(crew.get('conflicts', [])) if crew.get('conflicts') else 'None detected'))
-    lines.append("")
-    lines.append("## Salvage Yard Vehicle Watch")
-    lines.extend(salvage_lines)
-
-    if treasures:
-        lines.append("")
-        lines.append("## Luxury Auto Watchlist")
-        for auto in treasures:
-            lines.append(f"- {auto} — monitor if the crew wants a prestige ride or a valuable flip.")
-
-    lines.append("")
-    lines.append("## Crew Vibe & Recommendations")
-    lines.append("- Keep the energy focused. Salvage vehicles are a good excuse to regroup and secure loot together.")
-    lines.append("- If crew cohesion is low, plan a quick salvage run or neighborhood event to rebuild momentum.")
-    lines.append("- High-value salvage vehicles should be assessed for utility first: transport, show, or sell.")
-    lines.append("")
-    lines.append("## MVP Notes")
-    if isinstance(get_mvp(weekly), list):
-        lines.extend(get_mvp(weekly))
+    lines = [
+        f"# Lamar Crew Report — {week_label(payload)}",
+        "",
+        "## Crew Snapshot",
+        f"- Crew name: {crew.get('crew_name') or 'Unknown'}",
+        f"- Party size: {party_size}",
+        f"- Coordination level: {crew.get('coordination_level', 'unknown')}",
+        "",
+        "## Best Crew-Fit Picks",
+    ]
+    if top_items:
+        for item in top_items:
+            lines.append(f"- {item['name']} — {item['kind']} — score {item['score']:.1f}")
     else:
-        lines.append(get_mvp(weekly))
+        lines.append("- No crew-fit opportunities were detected.")
 
-    lines.append("")
-    lines.append("---")
-    lines.append("Lamar (Social, Crew & Vehicle Watch Analyst) — Monitoring crew dynamics and salvage vehicle opportunities.")
+    if warnings:
+        lines.extend(["", "## Warnings"])
+        for warning in warnings:
+            lines.append(f"- {warning}")
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text('\n'.join(lines), encoding='utf-8')
-    print(f"Lamar report written to {OUT}")
+    if insufficient:
+        lines.extend(["", "## Insufficient Data"])
+        for item in insufficient:
+            lines.append(f"- {item}")
+
+    lines.extend(["", "---", "Lamar (Crew, Vibe & Vehicle Watch Analyst) — schema v2 planning report."])
+    return report_payload, lines
 
 
-if __name__ == '__main__':
-    generate()
+def main():
+    parser = argparse.ArgumentParser(description="Generate Lamar report from schema v2 payload.")
+    parser.add_argument("--weekly", help="Path to schema v2 JSON", default=None)
+    args = parser.parse_args()
+    _, payload = load_weekly(args.weekly)
+    report_payload, markdown_lines = generate_report(payload)
+    md_path, json_path = write_agent_outputs("lamar", payload, report_payload, markdown_lines, OUT_MD, OUT_JSON)
+    print(f"Lamar report written to {md_path}")
+    print(f"Lamar structured report written to {json_path}")
+
+
+if __name__ == "__main__":
+    main()

@@ -172,8 +172,8 @@ Agent 14's analysis is characterized by:
 
 ## 🔗 Integration Points
 
-- **Input**: Weekly operation JSON with heist/mission data, metrics, personnel assignments
-- **Output**: Analysis text emphasizing operational efficiency and strategic impact
+- **Input**: Schema v2 payload using `planning_context.session_plan`, `weekly_content.featured_activities`, `weekly_content.business_opportunities`, `crew_context`, and `data_quality`
+- **Output**: Structured analysis emphasizing execution readiness, operational bottlenecks, and strategic impact
 - **Audience**: Tactical commanders, operation coordinators, strategic planners
 - **Aggregation Target**: Lester Crest combines with other agents for executive summary
 

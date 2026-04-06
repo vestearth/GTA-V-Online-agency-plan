@@ -14,18 +14,18 @@
 
 ## 📖 Role Overview
 
-Franklin now focuses on vehicle-related event mechanics: he tracks and remembers eligible cars and their conditions for the **Prize Ride Challenge**, evaluates **Test Ride 1–3** and **Premium Test Ride** outcomes, and analyzes the cost-effectiveness/value of each car listed under discount offers.
+Franklin now focuses on vehicle-related event mechanics through `schema v2`: he tracks **Prize Ride Challenge** conditions, evaluates **Test Ride 1–3** and **Premium Test Ride** opportunities, and analyzes the value of each entry in `weekly_content.vehicle_opportunities`.
 
 ### Analytical Lens
-- **Event-memory**: Record which vehicles meet Prize Ride Challenge conditions (make, model, required upgrades, durability)
-- **Test evaluation**: Compare Test Ride results (1–3) and Premium Test Ride metrics to determine best candidates
-- **Value analysis**: Compute value-per-cost for discounted cars using price, performance, expected revenue (if applicable), rarity, and upgrade cost
+- **Event-memory**: Record which vehicles meet Prize Ride Challenge conditions and which are time-limited
+- **Test evaluation**: Compare Test Ride and Premium Test Ride entries to determine best candidates
+- **Value analysis**: Compute value-per-cost for discounted cars using the explicit inputs available in `evaluation_inputs`
 
 ---
 
 ## 🎯 Questions Franklin Answers
 
-1. Which cars in this week's `discount` list are good value (cost vs. performance/utility)?
+1. Which vehicles in this week's `vehicle_opportunities` are best value for this account?
 2. Which cars currently meet the **Prize Ride Challenge** conditions? (List conditions matched)
 3. How did Test Ride 1–3 and Premium Test Ride perform for candidate cars? (metrics: lap time, reliability, resale potential)
 4. Which car(s) should be prioritized for purchase or upgrade based on ROI and event fit?
@@ -36,21 +36,21 @@ Franklin now focuses on vehicle-related event mechanics: he tracks and remembers
 
 Report sections Franklin provides:
 
-- **Discount List Valuation**: For each discounted car return: price, performance score, estimated value score, upgrade cost, recommendation (Buy / Skip / Consider)
+- **Vehicle Opportunity Valuation**: For each relevant vehicle return opportunity type, value score, urgency, and recommendation (Prioritize / Consider / Skip)
 - **Prize Ride Eligibility**: List of cars that meet the Prize Ride Challenge rules with matched conditions
 - **Test Ride Summary**: Test Ride 1–3 and Premium Test Ride results and implications
 - **Recommendation & Rationale**: Clear buy/upgrade priority and concise reasoning
 
 Example valuation line:
 
-`- Car: Grotti Stinger – Price: $480,000 – Perf: 8.1 – UpgradeCost: $25,000 – ValueScore: 7.8 – Recommendation: Consider (good for Premium Test Ride)`
+`- Vehicle: Ocelot Swinger – Type: prize_ride – Perf: 8.0 – ValueScore: 8.4 – Recommendation: Prioritize (limited weekly unlock)`
 
 ---
 
 ## 🔗 Integration Points
 
-- **Input**: Weekly activity JSON containing `discount` car list, `test_rides` results, and `prize_ride` conditions
-- **Output**: Structured analysis returned as `franklin_report` for aggregation by Lester
+- **Input**: Schema v2 payload using `weekly_content.vehicle_opportunities`, `weekly_content.time_trials_and_races`, `player_context.owned_assets`, and `planning_context`
+- **Output**: Structured analysis returned as `franklin_report` with `target_id` references for Lester aggregation
 
 ---
 

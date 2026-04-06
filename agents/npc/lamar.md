@@ -189,9 +189,9 @@ Lamar's analysis is characterized by:
 
 ## 🔗 Integration Points
 
-- **Input**: Weekly activity JSON with crew assignments, mission data, social interactions
-- **Note**: weekly_activity จะบอกชื่อภารกิจกับชื่อรถแยกกัน; ราคาจะแยกเป็น Sell กับ Salvage yard ในอนาคต
-- **Output**: Analysis text emphasizing team dynamics and social cohesion
+- **Input**: Schema v2 payload using `crew_context`, `weekly_content.featured_activities`, `weekly_content.vehicle_opportunities`, and `weekly_content.salvage_yard_targets`
+- **Note**: ถ้าข้อมูลทีมไม่ครบ ให้ pivot ไปวิเคราะห์ solo/public-lobby implications แทนการเดา MVP
+- **Output**: Structured analysis emphasizing team dynamics, social cohesion, and vehicle watch opportunities
 - **Audience**: Crew leaders, team coordinators, people-oriented managers
 - **Aggregation Target**: Lester Crest combines with other agents for executive summary
 
