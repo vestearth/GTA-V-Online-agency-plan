@@ -20,7 +20,7 @@
       "expenses": 0,
       "participants": [],
       "outcome": "Pending",
-      "notes": "Complete 5 Dispatch Work Missions to receive Summer LSPD Officer w/ Tie Outfit and GTA$200,000"
+      "notes": "Complete 5 Dispatch Work Missions to receive Summer LSPD Officer w/ Tie Outfit and GTA$200,000; includes two new Dispatch Work assignments with Vincent."
     },
     {
       "name": "Neighborhood Watch Event",
@@ -237,6 +237,49 @@
       }
     ]
   },
+  "gun_van": {
+    "location": "Changed Daily",
+    "stock": [
+      { "item": "Service Carbine", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Compact EMP Launcher", "discount": "10%", "gta_plus_discount": "40%" },
+      { "item": "Heavy Rifle", "discount": "50%", "gta_plus_discount": "50%" },
+      { "item": "Double Barrel Shotgun", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Pump Shotgun", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Nightstick", "discount": "free", "gta_plus_discount": "free" },
+      { "item": "Stun Gun", "discount": "10%", "gta_plus_discount": "100%" },
+      { "item": "Baseball Bat", "discount": "free", "gta_plus_discount": "free" },
+      { "item": "Knife", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Sticky Bomb", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Proximity Mine", "discount": "10%", "gta_plus_discount": "20%" },
+      { "item": "Molotov", "discount": "10%", "gta_plus_discount": "20%" }
+    ]
+  },
+  "salvage_yard_robberies": [
+    { "robbery": "The Gangbanger Robbery", "vehicle": "Albany Hermes" },
+    { "robbery": "The McTony Robbery", "vehicle": "Hijak Ruston" },
+    { "robbery": "The Cargo Ship Robbery", "vehicle": "Enus Paragon R" }
+  ],
+  "most_wanted_targets": [
+    "GTAWEB"
+  ],
+  "daily_objectives": [
+    { "day": "Thursday", "objective": "Participate in Bomb Ball" },
+    { "day": "Friday", "objective": "Play a match of Tennis" },
+    { "day": "Saturday", "objective": "Participate in The Vespucci Job" },
+    { "day": "Sunday", "objective": "Participate in a Deathmatch" },
+    { "day": "Monday", "objective": "Participate in the Community Series" },
+    { "day": "Tuesday", "objective": "Complete a Contact Mission" },
+    { "day": "Wednesday", "objective": "Participate in a Land Race" }
+  ],
+  "luxury_autos": [
+    "Benefactor Vorschlaghammer",
+    "Declasse Tampa GT",
+    "Premium Deluxe Motorsports: Grotti Cheetah Classic",
+    "Premium Deluxe Motorsports: Vapid Ellie",
+    "Premium Deluxe Motorsports: Bravado Greenwood",
+    "Premium Deluxe Motorsports: Albany V–STR",
+    "Benefactor Schafter (Removed Vehicle)"
+  ],
   "rewards": {
     "outfits": [
       {

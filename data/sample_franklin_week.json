@@ -1,0 +1,58 @@
+{
+  "week": "April 2-9 2026",
+  "discount": [
+    {
+      "sku": "grotti_stinger",
+      "name": "Grotti Stinger",
+      "price": 480000,
+      "performance_score": 8.1,
+      "upgrade_cost": 25000,
+      "rarity": "rare"
+    },
+    {
+      "sku": "vapid_raptor",
+      "name": "Vapid Raptor",
+      "price": 120000,
+      "performance_score": 6.4,
+      "upgrade_cost": 8000,
+      "rarity": "common"
+    },
+    {
+      "sku": "benefactor_surge",
+      "name": "Benefactor Surge",
+      "price": 950000,
+      "performance_score": 9.0,
+      "upgrade_cost": 40000,
+      "rarity": "super"
+    }
+  ],
+  "test_rides": {
+    "grotti_stinger": {
+      "test1": {"lap_time_sec": 92.3, "stability": 0.95},
+      "test2": {"lap_time_sec": 91.8, "stability": 0.93},
+      "test3": {"lap_time_sec": 92.0, "stability": 0.94},
+      "premium": {"lap_time_sec": 90.5, "stability": 0.96}
+    },
+    "vapid_raptor": {
+      "test1": {"lap_time_sec": 105.2, "stability": 0.88},
+      "test2": {"lap_time_sec": 104.7, "stability": 0.87},
+      "test3": {"lap_time_sec": 104.9, "stability": 0.89},
+      "premium": {"lap_time_sec": 103.5, "stability": 0.90}
+    },
+    "benefactor_surge": {
+      "test1": {"lap_time_sec": 88.1, "stability": 0.97},
+      "test2": {"lap_time_sec": 87.8, "stability": 0.98},
+      "test3": {"lap_time_sec": 88.0, "stability": 0.97},
+      "premium": {"lap_time_sec": 86.9, "stability": 0.99}
+    }
+  },
+  "prize_ride_conditions": {
+    "required_class": "sports",
+    "min_performance_score": 7.5,
+    "required_upgrades": ["turbo", "brakes"]
+  },
+  "notes": {
+    "discount_window": "3 days",
+    "strategy_hint": "Prioritize vehicles that meet prize_ride_conditions and have good premium test results"
+  }
+}

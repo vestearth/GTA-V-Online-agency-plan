@@ -114,6 +114,27 @@ Long-term Strategic Insights:
 
 ---
 
+## Bonus Activity Detection & Analysis
+
+When bonus activities are present, Michael will detect and prioritise them as part of the financial analysis.
+
+Key steps:
+- **Detect**: scan `activities` for `category == 'Bonus'` or `notes` containing multiplier tokens like `2X`, `3X`, `4X` (case-insensitive).
+- **Count & Frequency**: if an activity appears multiple times or provides an explicit count, record that count. Show frequency-ranked list (most occurrences first).
+- **Estimate Incremental Value**: where base payout or historical per-activity revenue is available, compute incremental revenue = base_payout * (multiplier - 1) * count. If base payout is unknown, use historical averages or a conservative proxy.
+- **Adjust for Cost**: subtract estimated operational costs (time × $/hour, supply/maintenance) to compute net incremental value.
+- **Rank & Recommend**: order Bonus Activities by net incremental value and label `Priority / High / Moderate / Low` with a short numeric rationale (e.g., "3X Dispatch Work — est +$60,000 net — PRIORITY").
+
+Output integration:
+- Include a `Bonus Activities` subsection in the Financial Summary and Activity Ranking with explicit numbers: count, multiplier, est gross lift, est net lift, and recommendation.
+- Flag removed or deprecated bonus activities (if `notes` include 'Removed') to avoid recommending them.
+
+Implementation notes for code:
+- Parse multiplier via regex (e.g., `([0-9]+)X`).
+- Use `weekly.financials` and historical caches when available for more accurate base_payout estimates.
+- Apply conservative defaults if data missing (e.g., base_payout = $1,000/event).
+
+
 ## 🎨 Personality Markers in Output
 
 Michael's analysis is characterized by:

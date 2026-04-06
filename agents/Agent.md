@@ -20,23 +20,21 @@ A **multi-agent orchestration framework** that simulates GTA V characters analyz
 
 ### Agent Portfolio
 
-#### **Offline Agents** (Single-player Campaign Analysis)
 1. **Michael De Santa** - Strategic & Financial Analyst
    - 💰 Financial efficiency and ROI analysis
    - 📊 Risk vs. Reward assessment
    - 📈 Long-term strategic planning
 
-2. **Franklin Clinton** - Street Activity & Progression Analyst
-   - 🎯 Mission success/failure tracking
-   - 📈 Skill development and leveling
-   - 👥 Crew dynamics and relationships
+2. **Franklin Clinton** - Prize Ride & Test Ride Analyst
+  - 🚗 Remember Prize Ride Challenge eligible vehicles and matched conditions
+  - 🏁 Evaluate Test Ride 1–3 and Premium Test Ride outcomes
+  - 💡 Assess value of discounted cars and recommend Buy/Skip/Consider
 
 3. **Trevor Philips** - Chaos & Risk Analyst
    - 🎢 Thrill factor and entertainment value
    - ⚠️ Risk identification and survival instincts
    - 🤪 Chaos potential assessment
 
-#### **Online Agents** (Multiplayer GTA Online Analysis)
 4. **Agent 14** - Special Operations & Efficiency Analyst
    - 🕵️ Heist and special mission analysis
    - 📊 Operational metrics and KPIs
@@ -138,7 +136,7 @@ Each offline and online agent performs **focused domain analysis**:
 | Agent | Domain | Questions Answered |
 |-------|--------|------------------|
 | **Michael** | Finance | Is this profitable? ROI? Long-term value? |
-| **Franklin** | Progression | Did we level up? Achieve goals? Grow? |
+| **Franklin** | Prize Ride & Test Rides | Prize Ride eligibility, Test Ride evaluation, discount car valuation |
 | **Trevor** | Entertainment | Was it fun? Thrilling? Worth the chaos? |
 | **Agent14** | Operations | Efficient? Successful? Data-backed? |
 | **Lamar** | Sociology | Team vibes? MVP? Crew dynamics? |
@@ -179,11 +177,11 @@ Phase 4: Output Generation
 Each agent **intentionally biases** analysis through personality:
 
 - **Michael**: Sees financial efficiency, dismisses "non-profitable" activities
-- **Franklin**: Focuses on progression milestones, growth metrics
+-- **Franklin**: Focuses on vehicle event eligibility and car valuation
 - **Trevor**: Prioritizes chaos and thrill, undervalues caution
 - **Agent14**: Cold logic, data-only, dismisses narrative
 - **Lamar**: Social optimization, crew harmony, team dynamics
-- **English Dave**: Entertainment first, fun value paramount
+ - **Tony**: Nightclub & Warehouse operations — focuses on nightclub income, warehouse stock management, and technician planning
 - **Ron**: Narrative, drama, emotional arcs
 - **Lester**: Holistic, balanced, synthesizing all views
 
@@ -195,13 +193,13 @@ Lester highlights both → Complete decision-support picture
 ```
 
 Example: A heist might be:
-- **High ROI** (Michael ✓)
-- **High skill gain** (Franklin ✓)
-- **High chaos/risk** (Trevor ✓)
-- **Operationally efficient** (Agent14 ✓)
-- **Good team bonding** (Lamar ✓)
-- **Super fun** (English Dave ✓✓✓)
-- **Dramatic story** (Ron ✓✓✓)
+-- **High ROI** (Michael ✓)
+-- **Prize Ride fit** (Franklin ✓)
+-- **High chaos/risk** (Trevor ✓)
+-- **Operationally efficient** (Agent14 ✓)
+-- **Good team bonding** (Lamar ✓)
+-- **Nightclub value** (Tony ✓✓✓)
+-- **Dramatic story** (Ron ✓✓✓)
 - **Net recommendation** (Lester: PRIORITY)
 
 ---
@@ -388,11 +386,11 @@ REPORTS_DIR=reports/
 ## 📚 Implementation Reference
 
 See individual agent documentation:
-- [trevor.md](./offline/trevor.md)
-- [michael.md](./offline/michael.md)
-- [franklin.md](./offline/franklin.md)
-- [agent14.md](./online/agent14.md)
-- [english_dave.md](./online/english_dave.md)
-- [lamar.md](./online/lamar.md)
-- [lester.md](./online/lester.md)
-- [ron.md](./online/ron.md)
+- [trevor.md](./npc/trevor.md)
+- [michael.md](./npc/michael.md)
+- [franklin.md](./npc/franklin.md)
+- [agent14.md](./npc/agent14.md)
+- [lamar.md](./npc/lamar.md)
+- [lester.md](./npc/lester.md)
+- [ron.md](./npc/ron.md)
+- [tony.md](./online/tony.md)
