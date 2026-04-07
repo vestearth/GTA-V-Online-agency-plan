@@ -21,6 +21,68 @@ OUT_MD = REPORTS_DIR / "report_lester_week_sample.md"
 OUT_JSON = STRUCTURED_DIR / "lester_report.json"
 
 
+def summarize_specialist_references(reports):
+    highlights = []
+    for report in reports:
+        agent = report.get("agent")
+        if agent == "tony":
+            catalog_size = report.get("reference_catalog_size")
+            ranked = report.get("ranked_candidates", [])[:2]
+            if catalog_size:
+                names = ", ".join(item.get("name", item.get("id", "unknown")) for item in ranked) or "no ranked goods"
+                highlights.append(
+                    {
+                        "agent": "tony",
+                        "summary": f"Nightclub catalog loaded with {catalog_size} goods entries; top passive-income targets: {names}.",
+                    }
+                )
+        elif agent == "franklin":
+            brand_count = report.get("brand_reference_loaded")
+            ranked = report.get("ranked_candidates", [])[:2]
+            real_world = []
+            for item in ranked:
+                for match in item.get("real_world", []):
+                    if match not in real_world:
+                        real_world.append(match)
+            if brand_count:
+                suffix = f" Real-world mappings surfaced: {', '.join(real_world)}." if real_world else ""
+                highlights.append(
+                    {
+                        "agent": "franklin",
+                        "summary": f"Vehicle reference loaded with {brand_count} brand mappings.{suffix}",
+                    }
+                )
+        elif agent == "agent14":
+            if report.get("cayo_reference_loaded"):
+                benchmark_lines = []
+                for item in report.get("ranked_candidates", [])[:3]:
+                    reason = item.get("reason") or ""
+                    if "Cayo benchmark" in reason:
+                        benchmark_lines.append(item.get("name", item.get("id", "unknown")))
+                summary = "Cayo benchmark reference is active"
+                if benchmark_lines:
+                    summary += f"; surfaced in: {', '.join(benchmark_lines)}"
+                highlights.append({"agent": "agent14", "summary": summary + "."})
+        elif agent == "michael":
+            signals = report.get("reference_signals", {})
+            if signals.get("tony_reference_loaded") or signals.get("agent14_cayo_benchmark"):
+                parts = []
+                if signals.get("tony_catalog_max_value"):
+                    parts.append(f"Tony passive-income ceiling {signals['tony_catalog_max_value']}")
+                if signals.get("agent14_cayo_benchmark"):
+                    benchmark = signals["agent14_cayo_benchmark"]
+                    parts.append(
+                        f"Cayo benchmark {benchmark.get('player_count')}p leader net {benchmark.get('leader_net')}"
+                    )
+                highlights.append(
+                    {
+                        "agent": "michael",
+                        "summary": "Michael integrated specialist references: " + "; ".join(parts) + ".",
+                    }
+                )
+    return highlights
+
+
 def load_structured_reports():
     if not STRUCTURED_DIR.exists():
         return []
@@ -76,6 +138,7 @@ def generate_report(payload):
             insufficient.append(f"{report.get('agent')}: {item}")
 
     consensus, divergence = build_consensus(reports)
+    specialist_highlights = summarize_specialist_references(reports)
     priority_actions = []
     if consensus:
         for item in consensus[:5]:
@@ -92,7 +155,10 @@ def generate_report(payload):
             if report.get("top_recommendations"):
                 priority_actions.append(report["top_recommendations"][0])
 
-    summary = "Use specialist consensus to narrow the week down to the few actions that multiple agents support."
+    if specialist_highlights:
+        summary = "Use specialist consensus and reference-backed agent signals to narrow the week down to the few actions that multiple agents support."
+    else:
+        summary = "Use specialist consensus to narrow the week down to the few actions that multiple agents support."
     report_payload = build_report_payload(
         "lester",
         payload,
@@ -104,6 +170,7 @@ def generate_report(payload):
             "included_agents": [report.get("agent") for report in reports],
             "consensus_targets": consensus,
             "divergence_targets": divergence,
+            "specialist_reference_highlights": specialist_highlights,
         },
     )
 
@@ -114,6 +181,7 @@ def generate_report(payload):
         f"- Included agents: {', '.join(report_payload.get('included_agents', [])) or 'none'}",
         f"- Consensus targets: {len(consensus)}",
         f"- Divergence targets: {len(divergence)}",
+        f"- Specialist reference highlights: {len(specialist_highlights)}",
         "",
         "## Priority Actions",
     ]
@@ -129,6 +197,11 @@ def generate_report(payload):
             lines.append(f"- {item}")
     else:
         lines.append("- No warnings surfaced by the available structured reports.")
+
+    if specialist_highlights:
+        lines.extend(["", "## Specialist Reference Signals"])
+        for item in specialist_highlights[:6]:
+            lines.append(f"- {item['agent']}: {item['summary']}")
 
     if divergence:
         lines.extend(["", "## Divergence"])

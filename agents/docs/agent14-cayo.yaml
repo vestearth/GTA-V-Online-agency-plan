@@ -1,0 +1,168 @@
+cayo_perico:
+  theoretical_max_total: 7119000
+  setup_fee: 100000
+
+  loot:
+    bag_capacity_percent: 100
+
+    secondary_targets:
+      - name: Cash
+        value_range: { min: 78480, max: 89420 }
+        unit: stack
+        bag_usage_percent: 25
+        max_units_per_bag: 4
+        total_value_range: { min: 313920, max: 357680 }
+
+      - name: Artwork
+        value_range: { min: 176200, max: 199700 }
+        unit: painting
+        bag_usage_percent: 50
+        max_units_per_bag: 2
+        total_value_range: { min: 352400, max: 399400 }
+
+      - name: Weed
+        value_range: { min: 145980, max: 149265 }
+        unit: brick
+        bag_usage_percent: 37.5
+        max_units_per_bag: 2.67
+        total_value_range: { min: 389280, max: 398040 }
+
+      - name: Cocaine
+        value_range: { min: 220500, max: 225000 }
+        unit: brick
+        bag_usage_percent: 50
+        max_units_per_bag: 2
+        total_value_range: { min: 441000, max: 450000 }
+
+      - name: Gold
+        value_range: { min: 328584, max: 333192 }
+        unit: stash
+        bag_usage_percent: 66.7
+        max_units_per_bag: 1.5
+        total_value_range: { min: 492876, max: 499788 }
+
+  payouts:
+    maximum:
+      primary: 2090000
+      safe: 99000
+
+      players:
+        1:
+          secondary: 499788
+          gross: 2688788
+          fees:
+            fence: 268879
+            pavel: 53776
+          net: 2366133
+          leader:
+            cut_percent: 100
+            gross: 2366133
+            net: 2266133
+
+        2:
+          secondary: 999576
+          gross: 3188576
+          fees:
+            fence: 318858
+            pavel: 63772
+          net: 2805947
+          leader:
+            cut_percent: 85
+            gross: 2385055
+            net: 2285055
+          crew:
+            - role: player2
+              pay: 420892
+
+        3:
+          secondary: 1499364
+          gross: 3688364
+          fees:
+            fence: 368836
+            pavel: 73767
+          net: 3245760
+          leader:
+            cut_percent: 70
+            gross: 2272032
+            net: 2172032
+          crew:
+            - { role: player2, pay: 486864 }
+            - { role: player3, pay: 486864 }
+
+        4:
+          secondary: 1999152
+          gross: 4188152
+          fees:
+            fence: 418815
+            pavel: 83763
+          net: 3685574
+          leader:
+            cut_percent: 55
+            gross: 2027066
+            net: 1927066
+          crew:
+            - { role: player2, pay: 552836 }
+            - { role: player3, pay: 552836 }
+            - { role: player4, pay: 552836 }
+
+    minimum:
+      primary: 630000
+      safe: 20000
+
+      players:
+        1:
+          secondary: 313920
+          gross: 963620
+          fees:
+            fence: 96362
+            pavel: 19272
+          net: 847986
+          leader:
+            cut_percent: 100
+            gross: 847986
+            net: 747986
+
+        2:
+          secondary: 627840
+          gross: 1277240
+          fees:
+            fence: 127724
+            pavel: 25545
+          net: 1123971
+          leader:
+            cut_percent: 85
+            gross: 955375
+            net: 855375
+          crew:
+            - { role: player2, pay: 168596 }
+
+        3:
+          secondary: 941760
+          gross: 1590860
+          fees:
+            fence: 159086
+            pavel: 31817
+          net: 1399957
+          leader:
+            cut_percent: 70
+            gross: 979970
+            net: 879970
+          crew:
+            - { role: player2, pay: 209994 }
+            - { role: player3, pay: 209994 }
+
+        4:
+          secondary: 1255680
+          gross: 1904480
+          fees:
+            fence: 190448
+            pavel: 38090
+          net: 1675942
+          leader:
+            cut_percent: 55
+            gross: 921768
+            net: 821768
+          crew:
+            - { role: player2, pay: 251391 }
+            - { role: player3, pay: 251391 }
+            - { role: player4, pay: 251391 }

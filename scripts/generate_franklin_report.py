@@ -8,6 +8,8 @@ import argparse
 from schema_v2_runtime import (
     build_report_payload,
     load_weekly,
+    load_franklin_brand_reference,
+    match_vehicle_brand,
     recommendation,
     week_label,
     write_agent_outputs,
@@ -51,6 +53,8 @@ def recommendation_action(entry, score):
 
 
 def generate_report(payload):
+    brand_reference = load_franklin_brand_reference()
+    brands = brand_reference.get("brands", [])
     opportunities = payload.get("weekly_content", {}).get("vehicle_opportunities", [])
     races = payload.get("weekly_content", {}).get("time_trials_and_races", [])
     warnings = []
@@ -59,15 +63,20 @@ def generate_report(payload):
 
     if not opportunities:
         insufficient.append("No vehicle_opportunities were provided.")
+    if brand_reference.get("validation_errors"):
+        warnings.extend(brand_reference["validation_errors"][:4])
 
     for entry in opportunities:
         score = vehicle_score(entry)
+        brand_entry = match_vehicle_brand(entry.get("vehicle_name"), brands)
         ranked.append(
             {
                 "id": entry["id"],
                 "name": entry["vehicle_name"],
                 "type": entry.get("opportunity_type"),
                 "score": score,
+                "brand": brand_entry.get("name") if brand_entry else None,
+                "real_world": brand_entry.get("real_world", []) if brand_entry else [],
                 "notes": entry.get("acquisition", {}).get("challenge") or entry.get("acquisition", {}).get("claim_path"),
             }
         )
@@ -98,7 +107,11 @@ def generate_report(payload):
         recommendations,
         warnings=warnings[:6],
         insufficient_data=insufficient,
-        extra={"ranked_candidates": top_items, "race_context": races},
+        extra={
+            "ranked_candidates": top_items,
+            "race_context": races,
+            "brand_reference_loaded": len(brands),
+        },
     )
 
     lines = [
@@ -108,7 +121,8 @@ def generate_report(payload):
     ]
     if top_items:
         for item in top_items:
-            lines.append(f"- {item['name']} — {item['type']} — score {item['score']:.1f}")
+            brand_suffix = f" — brand {item['brand']}" if item.get("brand") else ""
+            lines.append(f"- {item['name']} — {item['type']} — score {item['score']:.1f}{brand_suffix}")
     else:
         lines.append("- No vehicle opportunities available.")
 
@@ -124,6 +138,8 @@ def generate_report(payload):
     for item in top_items:
         if item["notes"]:
             lines.append(f"- {item['name']}: {item['notes']}")
+        if item.get("real_world"):
+            lines.append(f"- {item['name']}: real-world match {', '.join(item['real_world'])}")
     if warnings:
         for warning in warnings[:4]:
             lines.append(f"- Warning: {warning}")

@@ -1,0 +1,55 @@
+brands:
+  - name: Airgator Airboats
+    real_world: ["Diamondback Airboats"]
+    category: watercraft
+    description: Watercraft manufacturer specializing in airboats.
+
+  - name: Albany
+    real_world: ["Cadillac"]
+    category: automotive
+    description: American luxury vehicle manufacturer.
+
+  - name: Annis
+    real_world: ["Nissan", "Mazda"]
+    category: automotive
+    description: Japanese manufacturer known for sport coupes and sedans.
+
+  - name: Benefactor
+    real_world: ["Mercedes-Benz"]
+    category: automotive
+    description: German luxury and performance vehicle manufacturer.
+
+  - name: Bravado
+    real_world: ["Dodge"]
+    category: automotive
+    description: American manufacturer focused on muscle cars and trucks.
+
+  - name: Grotti
+    real_world: ["Ferrari", "Fiat"]
+    category: automotive
+    description: Italian manufacturer specializing in supercars.
+
+  - name: Pegassi
+    real_world: ["Lamborghini", "Ducati", "Pagani"]
+    category: automotive
+    description: Italian brand focused on high-end supercars and bikes.
+
+  - name: Pfister
+    real_world: ["Porsche"]
+    category: automotive
+    description: German sports car manufacturer.
+
+  - name: Truffade
+    real_world: ["Bugatti"]
+    category: automotive
+    description: French hypercar manufacturer.
+
+  - name: Ubermacht
+    real_world: ["BMW"]
+    category: automotive
+    description: German luxury and performance vehicles.
+
+  - name: Vapid
+    real_world: ["Ford"]
+    category: automotive
+    description: American manufacturer of various vehicle types.

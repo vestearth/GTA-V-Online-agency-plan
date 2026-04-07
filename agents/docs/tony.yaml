@@ -1,0 +1,37 @@
+reference:
+  id: tony-nightclub-reference
+  purpose: Reference metadata and scoring hints for Tony's passive-income analysis.
+  canonical_runtime_file: ../data/tony.json
+  owner_agent: tony
+
+scoring_hints:
+  high_priority_goods:
+    - south_american_imports
+    - cargo_and_shipments
+    - sporting_goods
+  low_priority_goods:
+    - printing_and_copying
+    - organic_produce
+  prioritize_feeder_repairs_below_supply_percent: 40
+  prioritize_feeder_repairs_below_stock_percent: 35
+  popularity_warning_below_percent: 60
+
+runtime_contract:
+  required_top_level:
+    - goods
+    - totals
+  goods_required_fields:
+    - id
+    - name
+    - value_per_crate
+    - min_storage
+    - max_storage
+    - max_value
+  normalized_goods_id_examples:
+    - cargo_and_shipments
+    - sporting_goods
+    - south_american_imports
+
+notes:
+  - Keep machine-readable values in agents/data/tony.json only.
+  - Use this file for thresholds, hints, and reference metadata rather than duplicating the goods catalog.

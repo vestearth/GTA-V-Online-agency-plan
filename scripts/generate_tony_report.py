@@ -8,6 +8,8 @@ import argparse
 from schema_v2_runtime import (
     build_report_payload,
     load_weekly,
+    load_tony_support_data,
+    lookup_tony_goods_entry,
     recommendation,
     week_label,
     write_agent_outputs,
@@ -18,13 +20,32 @@ OUT_MD = "report_tony_week_sample.md"
 OUT_JSON = "tony_report.json"
 
 
-def goods_score(stock):
+def goods_score(stock, support_data):
+    reference = support_data.get("reference", {})
+    scoring_hints = reference.get("scoring_hints", {}) if isinstance(reference, dict) else {}
+    goods_entry = lookup_tony_goods_entry(support_data.get("goods_catalog", {}), stock.get("goods_type"))
     value = float(stock.get("estimated_value") or 0)
     fill = float(stock.get("stock_percent") or 0)
-    return (value / 50000.0) + (fill / 25.0)
+    score = (value / 50000.0) + (fill / 25.0)
+
+    if goods_entry and goods_entry.get("max_value"):
+        score += value / float(goods_entry["max_value"]) * 2.0
+
+    high_priority = set(scoring_hints.get("high_priority_goods", []))
+    low_priority = set(scoring_hints.get("low_priority_goods", []))
+    goods_key = stock.get("goods_type")
+    if goods_key in high_priority:
+        score += 1.5
+    if goods_key in low_priority:
+        score -= 0.5
+    return score
 
 
-def feeder_repair_score(entry):
+def feeder_repair_score(entry, support_data):
+    reference = support_data.get("reference", {})
+    scoring_hints = reference.get("scoring_hints", {}) if isinstance(reference, dict) else {}
+    supply_threshold = scoring_hints.get("prioritize_feeder_repairs_below_supply_percent", 40)
+    stock_threshold = scoring_hints.get("prioritize_feeder_repairs_below_stock_percent", 35)
     if not entry.get("owned"):
         return 0.0
     score = 0.0
@@ -32,14 +53,16 @@ def feeder_repair_score(entry):
         score += 8
     supply = entry.get("supply_level_percent")
     stock = entry.get("stock_level_percent")
-    if supply is not None and supply < 40:
+    if supply is not None and supply < supply_threshold:
         score += 3
-    if stock is not None and stock < 35:
+    if stock is not None and stock < stock_threshold:
         score += 2
     return score
 
 
 def generate_report(payload):
+    support_data = load_tony_support_data()
+    reference = support_data.get("reference", {})
     nightclub = payload.get("business_state", {}).get("nightclub", {})
     feeders = payload.get("business_state", {}).get("feeder_businesses", [])
     business_opportunities = payload.get("weekly_content", {}).get("business_opportunities", [])
@@ -82,19 +105,27 @@ def generate_report(payload):
         insufficient.append("No nightclub goods_stock provided.")
     if nightclub.get("technicians_total") is None:
         insufficient.append("No technician count provided.")
+    if not support_data.get("goods"):
+        insufficient.append("Tony runtime goods catalog is missing from agents/data/tony.json.")
 
     for stock in goods_stock:
+        goods_entry = lookup_tony_goods_entry(support_data.get("goods_catalog", {}), stock.get("goods_type"))
+        if not goods_entry:
+            warnings.append(f"Unknown goods_type in nightclub stock: {stock.get('goods_type')}")
         ranked.append(
             {
                 "id": f"nightclub_goods_{stock.get('goods_type')}",
-                "name": stock.get("goods_type"),
-                "score": goods_score(stock),
-                "reason": f"Stock {stock.get('stock_percent')}% with estimated value {stock.get('estimated_value')}",
+                "name": goods_entry.get("name") if goods_entry else stock.get("goods_type"),
+                "score": goods_score(stock, support_data),
+                "reason": (
+                    f"Stock {stock.get('stock_percent')}% with estimated value {stock.get('estimated_value')}"
+                    + (f" out of {goods_entry.get('max_value')} max value" if goods_entry else "")
+                ),
             }
         )
 
     for feeder in feeders:
-        score = feeder_repair_score(feeder)
+        score = feeder_repair_score(feeder, support_data)
         if score <= 0:
             continue
         ranked.append(
@@ -130,7 +161,8 @@ def generate_report(payload):
             )
         )
 
-    if nightclub.get("popularity_percent") is not None and nightclub["popularity_percent"] < 60:
+    popularity_warning_threshold = reference.get("scoring_hints", {}).get("popularity_warning_below_percent", 60)
+    if nightclub.get("popularity_percent") is not None and nightclub["popularity_percent"] < popularity_warning_threshold:
         warnings.append("Nightclub popularity is below 60%; safe income is underperforming.")
     if nightclub.get("technicians_total") and len(nightclub.get("technician_assignments", [])) < nightclub["technicians_total"]:
         warnings.append("Some technicians are unassigned.")
@@ -143,7 +175,11 @@ def generate_report(payload):
         recommendations,
         warnings=warnings[:6],
         insufficient_data=insufficient,
-        extra={"nightclub_owned": True, "ranked_candidates": top_items},
+        extra={
+            "nightclub_owned": True,
+            "ranked_candidates": top_items,
+            "reference_catalog_size": len(support_data.get("goods", [])),
+        },
     )
 
     lines = [
@@ -153,6 +189,7 @@ def generate_report(payload):
         f"- Popularity: {nightclub.get('popularity_percent', 'unknown')}%",
         f"- Safe cash: {nightclub.get('safe_cash', 'unknown')}",
         f"- Technicians: {nightclub.get('technicians_total', 'unknown')}",
+        f"- Reference goods catalog loaded: {len(support_data.get('goods', []))}",
         "",
         "## Priority Maintenance",
     ]

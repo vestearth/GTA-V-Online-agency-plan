@@ -1,0 +1,65 @@
+{
+  "goods": [
+    {
+      "id": "cargo_and_shipments",
+      "name": "Cargo and Shipments",
+      "value_per_crate": 10000,
+      "min_storage": 10,
+      "max_storage": 50,
+      "max_value": 500000
+    },
+    {
+      "id": "sporting_goods",
+      "name": "Sporting Goods",
+      "value_per_crate": 5000,
+      "min_storage": 20,
+      "max_storage": 100,
+      "max_value": 500000
+    },
+    {
+      "id": "south_american_imports",
+      "name": "South American Imports",
+      "value_per_crate": 27000,
+      "min_storage": 2,
+      "max_storage": 10,
+      "max_value": 270000
+    },
+    {
+      "id": "pharmaceutical_research",
+      "name": "Pharmaceutical Research",
+      "value_per_crate": 11475,
+      "min_storage": 4,
+      "max_storage": 20,
+      "max_value": 229500
+    },
+    {
+      "id": "organic_produce",
+      "name": "Organic Produce",
+      "value_per_crate": 2025,
+      "min_storage": 16,
+      "max_storage": 80,
+      "max_value": 162000
+    },
+    {
+      "id": "printing_and_copying",
+      "name": "Printing and Copying",
+      "value_per_crate": 1350,
+      "min_storage": 12,
+      "max_storage": 60,
+      "max_value": 81000
+    },
+    {
+      "id": "cash_creation",
+      "name": "Cash Creation",
+      "value_per_crate": 4725,
+      "min_storage": 8,
+      "max_storage": 40,
+      "max_value": 189000
+    }
+  ],
+  "totals": {
+    "min_storage": 72,
+    "max_storage": 360,
+    "max_value": 1931500
+  }
+}

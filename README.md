@@ -69,6 +69,8 @@
 ที่เก็บนี้ใช้ `schema v2` เป็น canonical weekly planning payload สำหรับกรอบงานการจัดการหลายเอเย่นต์
 
 - เอกสารใน `agents/` อธิบาย role และ prompt ของแต่ละ agent
+- `agents/docs/` เก็บ schema/reference สำหรับ logic ของ agent
+- `agents/data/` เก็บ machine-readable runtime datasets สำหรับ agent ที่ต้องใช้ catalog เพิ่มเติม
 - ตัวอย่าง payload หลักอยู่ที่ `data/schema_v2_example.json`
 - สคริปต์ Python ฝั่ง `scripts/` ถูกปรับให้ consume `schema v2` และ emit structured outputs ก่อน markdown
 
@@ -81,6 +83,8 @@ GTA-V-Online-agency-plan/
 ├── agents/
 │   ├── Agent.md                      # 📚 เอกสารกรอบงาน
 │   ├── weekly_input_template.md      # 📝 แบบฟอร์มป้อนข้อมูลกิจกรรมรายสัปดาห์
+│   ├── docs/                         # reference/schema สำหรับ agent logic
+│   ├── data/                         # runtime datasets เฉพาะ agent
 │   ├── npc/
 │   │   ├── michael.md                # 📖 นักวิเคราะห์เชิงกลยุทธ์และการเงิน
 │   │   ├── franklin.md               # 📖 นักวิเคราะห์ Prize Ride & Test Ride

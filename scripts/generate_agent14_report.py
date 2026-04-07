@@ -7,9 +7,13 @@ import argparse
 
 from schema_v2_runtime import (
     build_report_payload,
+    cayo_reference_summary,
+    detect_cayo_perico_entry,
     load_weekly,
+    load_agent14_reference,
     missing_requirements,
     recommendation,
+    session_plan_player_count,
     week_label,
     write_agent_outputs,
 )
@@ -65,6 +69,9 @@ def business_score(payload, entry):
 
 
 def generate_report(payload):
+    cayo_reference = load_agent14_reference()
+    benchmark_party_size = session_plan_player_count(payload)
+    cayo_benchmark = cayo_reference_summary(cayo_reference, benchmark_party_size)
     featured = payload.get("weekly_content", {}).get("featured_activities", [])
     businesses = payload.get("weekly_content", {}).get("business_opportunities", [])
     crew = payload.get("crew_context", {})
@@ -79,6 +86,13 @@ def generate_report(payload):
 
     for entry in featured:
         score, blockers = activity_score(payload, entry)
+        reference_note = None
+        if detect_cayo_perico_entry(entry) and cayo_benchmark:
+            score += 2.0
+            reference_note = (
+                f"Cayo benchmark for {cayo_benchmark['player_count']} player(s): "
+                f"leader net {cayo_benchmark['leader_net']}, team net {cayo_benchmark['team_net']}, setup fee {cayo_benchmark['setup_fee']}."
+            )
         if blockers:
             warnings.append(f"{entry['id']}: operational blockers {', '.join(blockers)}")
         ranked.append(
@@ -88,12 +102,21 @@ def generate_report(payload):
                 "kind": "activity",
                 "score": score,
                 "blockers": blockers,
-                "reason": entry.get("notes") or "Operationally relevant featured activity.",
+                "reason": " ".join(
+                    part for part in [entry.get("notes") or "Operationally relevant featured activity.", reference_note] if part
+                ),
             }
         )
 
     for entry in businesses:
         score, blockers = business_score(payload, entry)
+        reference_note = None
+        if detect_cayo_perico_entry(entry) and cayo_benchmark:
+            score += 2.0
+            reference_note = (
+                f"Cayo benchmark for {cayo_benchmark['player_count']} player(s): "
+                f"leader net {cayo_benchmark['leader_net']}, team net {cayo_benchmark['team_net']}, setup fee {cayo_benchmark['setup_fee']}."
+            )
         if blockers:
             warnings.append(f"{entry['id']}: business access blockers {', '.join(blockers)}")
         ranked.append(
@@ -103,7 +126,9 @@ def generate_report(payload):
                 "kind": "business",
                 "score": score,
                 "blockers": blockers,
-                "reason": entry.get("notes") or "Operationally relevant business opportunity.",
+                "reason": " ".join(
+                    part for part in [entry.get("notes") or "Operationally relevant business opportunity.", reference_note] if part
+                ),
             }
         )
 
@@ -130,7 +155,11 @@ def generate_report(payload):
         recommendations,
         warnings=warnings[:6],
         insufficient_data=insufficient,
-        extra={"ranked_candidates": top_items, "crew_coordination_level": crew.get("coordination_level")},
+        extra={
+            "ranked_candidates": top_items,
+            "crew_coordination_level": crew.get("coordination_level"),
+            "cayo_reference_loaded": bool(cayo_reference),
+        },
     )
 
     lines = [
@@ -148,6 +177,13 @@ def generate_report(payload):
     lines.extend(["", "## Readiness Notes"])
     lines.append(f"- Crew coordination level: {crew.get('coordination_level', 'unknown')}")
     lines.append(f"- Session blocks captured: {len(payload.get('planning_context', {}).get('session_plan', []))}")
+    lines.append(f"- Cayo benchmark reference loaded: {'yes' if cayo_reference else 'no'}")
+
+    if cayo_benchmark:
+        lines.extend(["", "## Cayo Benchmark"])
+        lines.append(
+            f"- {cayo_benchmark['player_count']} player(s): leader net {cayo_benchmark['leader_net']}, team net {cayo_benchmark['team_net']}, setup fee {cayo_benchmark['setup_fee']}"
+        )
 
     if warnings:
         lines.extend(["", "## Warnings"])
