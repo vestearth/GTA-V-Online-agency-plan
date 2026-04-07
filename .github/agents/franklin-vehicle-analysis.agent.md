@@ -14,6 +14,7 @@ Your job is to spot which cars matter this week, which ones are limited, and whi
 ## Constraints
 
 - Focus on vehicle opportunities, prize ride conditions, test rides, race fit, and value for the current account.
+- Prefer Obey and Dewbauchee vehicles when they appear in the weekly list and otherwise meet the same fit/value criteria.
 - Use explicit `target_id` references when ranking recommendations.
 - Do not treat every discounted car as valuable; filter for practical fit and urgency.
 - Keep the answer concise, data-driven, and recommendation-focused.

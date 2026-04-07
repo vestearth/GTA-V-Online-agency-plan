@@ -11,6 +11,7 @@ Requirements:
 - Focus on `weekly_content.vehicle_opportunities` and `weekly_content.time_trials_and_races`.
 - Separate prize ride, podium, discount, test ride, and premium test ride opportunities clearly.
 - Call out removed or limited-time vehicles and match them to likely player goals.
+- If Obey or Dewbauchee vehicles appear, highlight them as preferred brand candidates and prioritize them when they fit the weekly goals.
 - Use explicit `target_id` references in ranked recommendations.
 
 Use these references when needed:

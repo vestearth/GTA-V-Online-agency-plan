@@ -2,54 +2,284 @@ brands:
   - name: Airgator Airboats
     real_world: ["Diamondback Airboats"]
     category: watercraft
-    description: Watercraft manufacturer specializing in airboats.
-
+    description: "Watercraft manufacturer specializing in airboats. Due to appear in Grand Theft Auto VI."
   - name: Albany
     real_world: ["Cadillac"]
     category: automotive
-    description: American luxury vehicle manufacturer.
-
+    description: "American automotive manufacturer primarily known for its luxury sedans and SUVs."
   - name: Annis
     real_world: ["Nissan", "Mazda"]
     category: automotive
-    description: Japanese manufacturer known for sport coupes and sedans.
-
+    description: "Japanese automotive manufacturer primarily known for its sport coupes and everyday sedans."
+  - name: Asstone
+    real_world: ["Aston Martin"]
+    category: automotive
+    description: "Beta automotive manufacturer in Grand Theft Auto IV, being the original manufacturer of the Super GT. Replaced with Dewbauchee in the game's release."
   - name: Benefactor
     real_world: ["Mercedes-Benz"]
     category: automotive
-    description: German luxury and performance vehicle manufacturer.
-
+    description: "German automotive manufacturer specializing in premium luxury sedans and SUVs, as well as purebred sports and supercars."
+  - name: Bürgerfahrzeug
+    real_world: ["Volkswagen"]
+    category: automotive
+    description: "German automotive manufacturer primarily known for off-road-oriented and vintage civilian vehicles."
+  - name: Bollokan
+    real_world: ["Hyundai"]
+    category: automotive
+    description: "South Korean automotive manufacturer, most well known for its Prairie coupe."
   - name: Bravado
     real_world: ["Dodge"]
     category: automotive
-    description: American manufacturer focused on muscle cars and trucks.
-
+    description: "American automotive manufacturer specializing in utility-oriented pickup trucks, muscle cars, and sports cars."
+  - name: Brute
+    real_world: ["GMC"]
+    category: automotive
+    description: "American manufacturer of heavy-duty trucks and heavy industrial equipment."
+  - name: Buckingham
+    real_world: ["Learjet", "Bell", "Airbus Helicopters"]
+    category: aircraft
+    description: "American-Canadian vehicle manufacturer, primarily producing both civilian and military aircraft."
+  - name: Canis
+    real_world: ["Jeep"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for off-road-oriented trucks and SUVs."
+  - name: Chariot
+    real_world: ["Federal", "Eagle Coach"]
+    category: automotive
+    description: "Funeral coachbuilder known for manufacturing the Romero Hearse."
+  - name: Cheval
+    real_world: ["Holden"]
+    category: automotive
+    description: "American[1][2] automotive manufacturer that produces a wide variety of vehicles."
+  - name: Classique
+    real_world: ["Oldsmobile"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for its vintage luxury coupes."
+  - name: Coil
+    real_world: ["Tesla", "Rimac"]
+    category: automotive
+    description: "American manufacturer of primarily electric vehicles. Also deals in weapons and arms manufacturing."
+  - name: Crest Kayaks
+    real_world: ["Crescent Kayaks"]
+    category: watercraft
+    description: "Watercraft manufacturer specializing in kayaks. Due to appear in Grand Theft Auto VI."
+  - name: Declasse
+    real_world: ["Chevrolet"]
+    category: automotive
+    description: "American automotive manufacturer of a wide variety of utility, sport-oriented, and family-oriented vehicles."
+  - name: Dewbauchee
+    real_world: ["Aston Martin"]
+    category: automotive
+    description: "British automotive manufacturer specializing in premium luxury sport coupes and supercars."
+  - name: Dinka
+    real_world: ["Honda"]
+    category: automotive
+    description: "Japanese manufacturer of a wide variety of vehicles, including automobiles, motorcycles, boats, and ATVs."
+  - name: Dundreary
+    real_world: ["Lincoln", "Mercury"]
+    category: automotive
+    description: "American automotive manufacturer specializing in luxury SUVs, sedans, and coupes."
+  - name: Eberhard
+    real_world: ["Lockheed Martin"]
+    category: aircraft
+    description: "Aeronautics and munitions manufacturer, primarily known for producing the Titan 250 D."
+  - name: Emperor
+    real_world: ["Lexus"]
+    category: automotive
+    description: "Japanese manufacturer of luxury and sport-oriented automobiles."
+  - name: Enus
+    real_world: ["Bentley", "Rolls-Royce", "Maybach"]
+    category: automotive
+    description: "British automotive manufacturer specializing in extreme high-end luxury sedans and SUVs."
+  - name: Fathom
+    real_world: ["Infiniti"]
+    category: automotive
+    description: "Japanese automotive manufacturer specializing in luxury SUVs and sport coupes."
+  - name: Gallivanter
+    real_world: ["Land Rover"]
+    category: automotive
+    description: "British manufacturer of high-end luxury SUVs."
   - name: Grotti
     real_world: ["Ferrari", "Fiat"]
     category: automotive
-    description: Italian manufacturer specializing in supercars.
-
+    description: "Italian manufacturer specializing in luxury sports cars, supercars, and conceptual hypercars."
+  - name: HVY
+    real_world: ["Oshkosh", "CAT"]
+    category: automotive
+    description: "American manufacturer of heavy-duty trucks and heavy industrial equipment."
+  - name: Hijak
+    real_world: ["Fisker"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for producing the Khamelion electric coupe."
+  - name: Imponte
+    real_world: ["Pontiac"]
+    category: automotive
+    description: "American automotive manufacturer specializing in classic muscle cars."
+  - name: Invetero
+    real_world: ["Corvette"]
+    category: automotive
+    description: "American automotive manufacturer known for its Coquette line of sport coupes."
+  - name: Jack Sheepe
+    real_world: ["John Deere"]
+    category: automotive
+    description: "Manufacturer of agricultural machinery, primarily producing the Mower."
+  - name: JoBuilt
+    real_world: ["Peterbilt"]
+    category: aircraft
+    description: "American manufacturer of heavy-duty trucks, as well as both civilian and military aircraft."
+  - name: Karin
+    real_world: ["Toyota", "Subaru"]
+    category: automotive
+    description: "Japanese manufacturer of a wide variety of vehicles, including everyday sedans and SUVs, sports coupes, and pickup trucks."
+  - name: Kraken Submersibles
+    real_world: ["Triton Submarines"]
+    category: watercraft
+    description: "American watercraft manufacturer specializing in submersibles."
+  - name: Lampadati
+    real_world: ["Maserati", "Alfa Romeo", "Lancia", "De Tomaso"]
+    category: automotive
+    description: "Italian automotive manufacturer primarily known for its high-end luxury sedans, coupes, and SUVs."
+  - name: Liberty Chop Shop
+    real_world: ["Orange County Choppers"]
+    category: motorcycle
+    description: "American manufacturer of chopper-type motorcycles, based in Liberty City."
+  - name: Liberty City Cycles
+    real_world: ["West Coast Choppers"]
+    category: motorcycle
+    description: "American manufacturer of chopper-type motorcycles, based in Liberty City."
+  - name: Lure Predator
+    real_world: ["Contender Boats"]
+    category: watercraft
+    description: "Watercraft manufacturer specializing in lightweight fishing boats. Due to appear in Grand Theft Auto VI."
+  - name: Maibatsu Corporation
+    real_world: ["Mitsubishi"]
+    category: aircraft
+    description: "Japanese manufacturer of a wide variety of vehicles, including automobiles, motorcycles, commercial trucks, and helicopters."
+  - name: Mammoth
+    real_world: ["Hummer", "AM General"]
+    category: aircraft
+    description: "American automotive and aircraft manufacturer, primarily known for its Patriot line of SUVs as well as various military aircraft."
+  - name: Maxwell
+    real_world: ["Vauxhall", "Opel", "Ariel"]
+    category: automotive
+    description: "British automotive manufacturer, primarily known for producing the Asbo hatchback and the Vagrant off-road buggy."
+  - name: MTL
+    real_world: ["Mack Trucks"]
+    category: automotive
+    description: "American manufacturer of heavy-duty trucks and heavy industrial equipment."
+  - name: Nagasaki
+    real_world: ["Kawasaki", "Yamaha"]
+    category: aircraft
+    description: "Japanese automotive manufacturer primarily known for offering performance-oriented motorbikes and ATVs, as well as civilian and military aircraft."
+  - name: Obey
+    real_world: ["Audi"]
+    category: automotive
+    description: "German automotive manufacturer primarily known for its high-end luxury sedans and SUVs."
+  - name: Ocelot
+    real_world: ["Jaguar", "Lotus"]
+    category: automotive
+    description: "British automotive manufacturer specializing in premium luxury sport coupes and supercars."
+  - name: Överflöd
+    real_world: ["Koenigsegg"]
+    category: automotive
+    description: "Swedish automotive manufacturer primarily known for its Entity line of supercars, as well as various other concept hypercars."
+  - name: PED Cycles
+    real_world: ["BMC Switzerland"]
+    category: automotive
+    description: "Beta bicycle manufacturer from Grand Theft Auto V.[3]"
   - name: Pegassi
     real_world: ["Lamborghini", "Ducati", "Pagani"]
     category: automotive
-    description: Italian brand focused on high-end supercars and bikes.
-
+    description: "Italian manufacturer specializing in luxury sports cars, supercars, and conceptual hypercars."
+  - name: Penaud
+    real_world: ["Renault"]
+    category: automotive
+    description: "French automotive manufacturer, primarily known for its La Coureuse electric compact car."
   - name: Pfister
     real_world: ["Porsche"]
     category: automotive
-    description: German sports car manufacturer.
-
+    description: "German automotive manufacturer specializing in premium luxury sport coupes and SUVs, specifically its Comet line of sport coupes."
+  - name: Principe
+    real_world: ["Ducati", "Piaggio"]
+    category: motorcycle
+    description: "Italian manufacturer primarily producing motorcycles and motorized scooters."
+  - name: Progen
+    real_world: ["McLaren"]
+    category: automotive
+    description: "British automotive manufacturer specializing in track-oriented supercars. Beta manufacturer from the original release of Grand Theft Auto V, but reintroduced with the Ill-Gotten Gains Part 2 update."
+  - name: RUNE
+    real_world: ["Lada", "Sherp"]
+    category: automotive
+    description: "Russian manufacturer of a variety of vehicles, most notably the low-end Cheburek sedan and the Kosatka military submarine."
+  - name: Schyster
+    real_world: ["Chrysler", "AMC"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for its mid-range vehicle selection."
+  - name: Shitzu
+    real_world: ["Suzuki"]
+    category: watercraft
+    description: "Japanese manufacturer specializing in sportbikes and various watercraft."
+  - name: Skiver
+    real_world: []
+    category: automotive
+    description: "Beta manufacturer of unknown specialty from Grand Theft Auto V."
+  - name: Speedophile
+    real_world: ["Sea-Doo"]
+    category: aircraft
+    description: "Watercraft manufacturer primarily known for its Seashark line of jet skis."
+  - name: Stanley
+    real_world: ["John Deere", "Fordson"]
+    category: automotive
+    description: "American of agricultural machinery, primarily Tractors."
+  - name: Steel Horse
+    real_world: ["American IronHorse"]
+    category: motorcycle
+    description: "American manufacturer of chopper-type motorcycles."
+  - name: Toundra
+    real_world: ["Alpine"]
+    category: automotive
+    description: "French automotive manufacturer known for producing the Panthere sports coupe."
+  - name: Tri-Cycles
+    real_world: ["Pinarello", "De Rosa"]
+    category: motorcycle
+    description: "Beta bicycle manufacturer from Grand Theft Auto V.[3] Appears in the name of one of its bikes."
   - name: Truffade
     real_world: ["Bugatti"]
     category: automotive
-    description: French hypercar manufacturer.
-
-  - name: Ubermacht
+    description: "French automotive manufacturer specializing in premium luxury supercars."
+  - name: Übermacht
     real_world: ["BMW"]
     category: automotive
-    description: German luxury and performance vehicles.
-
+    description: "German automotive manufacturer specializing in premium luxury sedans and SUVs, as well as sports-oriented coupes and sedans."
   - name: Vapid
     real_world: ["Ford"]
     category: automotive
-    description: American manufacturer of various vehicle types.
+    description: "American automotive manufacturer of a wide variety of utility, sport-oriented, and family-oriented vehicles."
+  - name: Vulcar
+    real_world: ["Volvo"]
+    category: automotive
+    description: "Swedish automotive manufacturer primarily known for their family-oriented vehicles, such as the Ingot and the Fagaloa."
+  - name: Vysser
+    real_world: ["Spyker"]
+    category: automotive
+    description: "Dutch automotive manufacturer primarily known for producing the Neo sports coupe."
+  - name: Weeny
+    real_world: ["Mini", "Morris"]
+    category: automotive
+    description: "British automotive manufacturer primarily known for its Issi line of compact hatchbacks."
+  - name: Western Company
+    real_world: ["Boeing", "Sikorsky"]
+    category: aircraft
+    description: "American aerospace company specializing in military, law enforcement, and utility aircraft."
+  - name: Western Motorcycle Company
+    real_world: ["Harley-Davidson"]
+    category: motorcycle
+    description: "Motorcycle-oriented division of Western Company, primarily producing chopper-type motorcycles and street bikes."
+  - name: Willard
+    real_world: ["Buick"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for its luxury sedans and coupes."
+  - name: Zirconium
+    real_world: ["Diamond-Star Motors", "Saturn", "Eagle"]
+    category: automotive
+    description: "American automotive manufacturer primarily known for its Journey line of motorhomes as well as the Stratum station wagon."

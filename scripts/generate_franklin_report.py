@@ -51,6 +51,8 @@ def recommendation_action(entry, score):
         return "consider"
     return "skip"
 
+PREFERRED_BRANDS = {"Obey", "Dewbauchee"}
+
 
 def generate_report(payload):
     brand_reference = load_franklin_brand_reference()
@@ -69,6 +71,8 @@ def generate_report(payload):
     for entry in opportunities:
         score = vehicle_score(entry)
         brand_entry = match_vehicle_brand(entry.get("vehicle_name"), brands)
+        if brand_entry and brand_entry.get("name") in PREFERRED_BRANDS:
+            score += 1.5
         ranked.append(
             {
                 "id": entry["id"],
