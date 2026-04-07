@@ -150,6 +150,8 @@ Trevor’s analysis is characterized by:
 - **Audience**: Players who want smart buy/claim advice
 - **Aggregation Target**: Other agents use this to inform weekly buying decisions
 
+- **Reference Skill**: `.github/skills/trevor-weapons/SKILL.md` — concise weapon categories, recommendations, and preset loadouts used by Trevor for analysis
+
 ---
 
 ## 🎬 Use Cases
