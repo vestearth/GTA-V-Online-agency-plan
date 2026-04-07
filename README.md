@@ -74,6 +74,27 @@
 - ตัวอย่าง payload หลักอยู่ที่ `data/schema_v2_example.json`
 - สคริปต์ Python ฝั่ง `scripts/` ถูกปรับให้ consume `schema v2` และ emit structured outputs ก่อน markdown
 
+### Copilot Entry Points
+
+| NPC | Prompt | Custom Agent |
+|-----|--------|--------------|
+| Michael | [`michael-weekly-analysis.prompt.md`](.github/prompts/michael-weekly-analysis.prompt.md) | [`michael-weekly-analysis.agent.md`](.github/agents/michael-weekly-analysis.agent.md) |
+| Franklin | [`franklin-vehicle-analysis.prompt.md`](.github/prompts/franklin-vehicle-analysis.prompt.md) | [`franklin-vehicle-analysis.agent.md`](.github/agents/franklin-vehicle-analysis.agent.md) |
+| Trevor | [`trevor-combat-value.prompt.md`](.github/prompts/trevor-combat-value.prompt.md) | Prompt only |
+| Agent 14 | [`agent14-operations-analysis.prompt.md`](.github/prompts/agent14-operations-analysis.prompt.md) | [`agent14-operations-analysis.agent.md`](.github/agents/agent14-operations-analysis.agent.md) |
+| Lamar | [`lamar-crew-analysis.prompt.md`](.github/prompts/lamar-crew-analysis.prompt.md) | Prompt only |
+| Tony | [`tony-passive-income-analysis.prompt.md`](.github/prompts/tony-passive-income-analysis.prompt.md) | [`tony-passive-income-analysis.agent.md`](.github/agents/tony-passive-income-analysis.agent.md) |
+| Ron | [`ron-weekly-story.prompt.md`](.github/prompts/ron-weekly-story.prompt.md) | Prompt only |
+| Lester | [`lester-weekly-summary.prompt.md`](.github/prompts/lester-weekly-summary.prompt.md) | [`lester-weekly-summary.agent.md`](.github/agents/lester-weekly-summary.agent.md) |
+
+Prompt files อยู่ใน `.github/prompts/` และ custom agent files อยู่ใน `.github/agents/`
+
+#### วิธีเรียกใช้งานใน Copilot
+
+- เปิดแชท แล้วพิมพ์ `/` เพื่อค้นหา prompt ที่ต้องการ
+- หากต้องการใช้ mode agent ให้เลือก agent จาก picker เมื่อมีชื่อ `Michael Weekly Analysis`, `Franklin Vehicle Analysis`, `Agent 14 Operations Analysis`, `Tony Passive Income Analysis`, หรือ `Lester Weekly Summary`
+- ถ้าต้องการใช้งานแบบ prompt-only ให้เลือก prompt ที่มีชื่อเดียวกันกับตารางด้านบน
+
 ---
 
 ## 📁 โครงสร้างโครงการ
