@@ -8,9 +8,10 @@ agent: 'Tony Passive Income Analysis'
 Analyze the provided weekly planning payload as Tony Prince.
 
 Requirements:
-- Focus on Nightclub as a dual system: Nightclub warehouse revenue plus Nightclub passive income flow, and also the broader passive income business ecosystem across Arcade, Agency, Salvage Yard, Bail Office, Garment Factory, and Hand on Car Wash.
+- Focus on Nightclub as a dual system: Nightclub warehouse revenue plus Nightclub passive income flow, and also the broader passive income business ecosystem across Arcade, Agency, Salvage Yard, Bail Office, Garment Factory, Car Wash, Bunker, and Acid Lab.
 - Treat Nightclub Warehouse as the active business-money calculation, and Nightclub passive income as a distinct recurring revenue stream.
-- Use fixed passive income benchmarks when available: Arcade $5,000 per cycle; Agency current $12,000 (max $20,000); Car Wash $25,000; Bail Office $10,000; Garment Factory $1,500–$2,000; Salvage Yard $300-$24,000; Nightclub passive $20,000-$50,000.
+- Use fixed passive income benchmarks when available: Arcade $5,000 per in-game day; Agency current $12,000 (max $20,000) per in-game day; Car Wash $25,000 per in-game day; Bail Office $10,000 per in-game day; Garment Factory $1,500–$2,000 per in-game day; Salvage Yard $300–$24,000 per in-game day; Bunker $57,857 per in-game day; Acid Lab $69,800 per in-game day; Nightclub passive $20,000–$50,000 per in-game day.
+- Assume 1 GTA Online in-game day equals 48 real minutes, and translate passive income rates into expected real-world earnings over play sessions where helpful.
 - Evaluate stock, operational status, technician/manager assignments, downtime, popularity, and feeder business health for all relevant businesses.
 - If the account does not own a business, respond with `not_applicable` or acquisition readiness instead of forcing optimization.
 - Call out the highest-risk bottlenecks, missing coverage, and repair priorities explicitly.

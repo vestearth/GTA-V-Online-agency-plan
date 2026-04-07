@@ -37,15 +37,17 @@ passive_income_values:
     max: 20000
   car_wash: 25000
   bail_office: 10000
-  salvage_yard_range:
-    min: 300
-    max: 24000
-  nightclub_passive_range:
-    min: 20000
-    max: 50000
   garment_factory_range:
     min: 1500
     max: 2000
+  salvage_yard_range:
+    min: 300
+    max: 24000
+  bunker: 57857
+  acid_lab: 69800
+  nightclub_passive_range:
+    min: 20000
+    max: 50000
 runtime_contract:
   required_top_level:
     - goods
@@ -65,3 +67,4 @@ runtime_contract:
 notes:
   - Keep machine-readable values in agents/data/tony.json only.
   - Use this file for thresholds, hints, and reference metadata rather than duplicating the goods catalog.
+  - Use 48 real minutes per in-game day when converting passive income benchmarks to expected real-world session earnings.
