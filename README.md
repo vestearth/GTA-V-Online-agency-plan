@@ -92,6 +92,7 @@ Prompt files อยู่ใน `.github/prompts/` และ custom agent files 
 #### วิธีเรียกใช้งานใน Copilot
 
 - เปิดแชท แล้วพิมพ์ `/` เพื่อค้นหา prompt ที่ต้องการ
+- ลองพิมพ์ตัวอย่างเช่น `Michael`, `Franklin`, `Agent 14`, `Tony`, `Lester`, หรือ `Ron` เพื่อเลือกคำสั่งที่เกี่ยวข้อง
 - หากต้องการใช้ mode agent ให้เลือก agent จาก picker เมื่อมีชื่อ `Michael Weekly Analysis`, `Franklin Vehicle Analysis`, `Agent 14 Operations Analysis`, `Tony Passive Income Analysis`, หรือ `Lester Weekly Summary`
 - ถ้าต้องการใช้งานแบบ prompt-only ให้เลือก prompt ที่มีชื่อเดียวกันกับตารางด้านบน
 
