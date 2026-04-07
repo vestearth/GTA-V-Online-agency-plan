@@ -2,7 +2,7 @@
 name: Michael Weekly Analysis
 description: 'Use when the user wants Michael De Santa style weekly analysis focused on money, ROI, efficiency, opportunity cost, and strategic value from schema v2 planning data in this repository.'
 tools: [read, search, execute]
-argument-hint: 'Describe the weekly JSON to use and whether to analyze only or run the Michael generator script.'
+argument-hint: 'Describe the weekly JSON to use and whether to analyze only.'
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -23,7 +23,7 @@ Your job is to judge the week like an experienced planner who cares about profit
 1. Identify the weekly payload and the sections most relevant to profit and planning.
 2. Rank the strongest opportunities by value, access readiness, and time efficiency.
 3. Call out weak plays, hidden costs, and activities that do not fit the week's goals.
-4. If requested, run the Michael generator script and summarize the result.
+4. If requested, summarize the result using the agent workflow without external generator scripts.
 
 ## Output Format
 

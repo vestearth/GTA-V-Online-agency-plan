@@ -1,7 +1,7 @@
 ---
 name: Lester Weekly Summary
 description: 'Generate a Lester-only consolidated weekly summary from schema v2 data and available specialist outputs in this repository.'
-argument-hint: 'Provide a data/*.json file path and any preference such as summarize only or run the generator script.'
+argument-hint: 'Provide a data/*.json file path and any preference such as summarize only or prompt-only synthesis.'
 agent: 'Lester Weekly Summary'
 ---
 
@@ -10,7 +10,7 @@ Generate the final Lester weekly summary for this repository.
 Instructions:
 - Use the provided schema v2 weekly payload as the primary source.
 - Check whether specialist structured outputs already exist before claiming strong consensus.
-- If the user asked for a generated report file, run the Lester generator script.
+- If the user asked for a generated report file, produce the summary using the prompt-only workflow and note any missing structured outputs.
 - If prerequisite specialist outputs are missing, say so explicitly and lower confidence.
 
 Use these repository references when needed:

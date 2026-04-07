@@ -74,7 +74,7 @@
 - `agents/docs/` เก็บ schema/reference สำหรับ logic ของ agent
 - `agents/data/` เก็บ machine-readable runtime datasets สำหรับ agent ที่ต้องใช้ catalog เพิ่มเติม
 - ตัวอย่าง payload หลักอยู่ที่ `data/schema_v2_example.json`
-- สคริปต์ Python ฝั่ง `scripts/` ถูกปรับให้ consume `schema v2` และ emit structured outputs ก่อน markdown
+- ปัจจุบันการสร้างรายงานใช้ prompt/agent โดยตรงผ่าน Copilot แทนสคริปต์ Python
 
 ### Copilot Entry Points
 

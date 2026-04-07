@@ -2,7 +2,7 @@
 name: Lester Weekly Summary
 description: 'Use when the user wants a Lester-only weekly summary, consolidated GTA weekly verdict, executive synthesis, consensus analysis, divergence analysis, or final weekly priorities from schema v2 planning data in this repository.'
 tools: [read, search, execute]
-argument-hint: 'Describe the weekly JSON to use and whether to synthesize existing reports or run the Lester generator.'
+argument-hint: 'Describe the weekly JSON to use and whether to synthesize existing reports only.'
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -23,7 +23,7 @@ Your job is to synthesize available evidence into a final weekly assessment with
 1. Identify the weekly payload and any existing specialist outputs.
 2. Extract consensus, divergence, warnings, and missing-data signals.
 3. Produce a compact executive verdict and ranked next actions.
-4. If requested, run the Lester generator script and summarize the result.
+4. If requested, summarize the result using the agent workflow without external generator scripts.
 
 ## Output Format
 

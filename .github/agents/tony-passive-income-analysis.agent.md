@@ -2,7 +2,7 @@
 name: Tony Passive Income Analysis
 description: 'Use when the user wants Tony Prince style analysis of nightclub readiness, technician assignments, feeder businesses, stock health, and passive-income priorities from schema v2 planning data in this repository.'
 tools: [read, search, execute]
-argument-hint: 'Describe the weekly JSON to use and whether to analyze only or run the Tony generator script.'
+argument-hint: 'Describe the weekly JSON to use and whether to analyze only.'
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -23,7 +23,7 @@ Your job is to judge whether the nightclub loop is healthy, where downtime is hi
 1. Identify the weekly payload and the business-state sections relevant to passive income.
 2. Check ownership, stock health, popularity, technician coverage, and feeder readiness.
 3. Rank the fixes or priorities that will most improve passive income this week.
-4. If requested, run the Tony generator script and summarize the result.
+4. If requested, summarize the result using the agent workflow without external generator scripts.
 
 ## Output Format
 

@@ -2,7 +2,7 @@
 name: Franklin Vehicle Analysis
 description: 'Use when the user wants Franklin Clinton style analysis of prize ride, podium, discounts, test rides, or vehicle opportunity prioritization from schema v2 planning data in this repository.'
 tools: [read, search, execute]
-argument-hint: 'Describe the weekly JSON to use and whether to analyze only or run the Franklin generator script.'
+argument-hint: 'Describe the weekly JSON to use and whether to analyze only.'
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -24,7 +24,7 @@ Your job is to spot which cars matter this week, which ones are limited, and whi
 1. Identify the weekly payload and the vehicle-related sections.
 2. Separate prize ride, podium, discount, test ride, and premium test ride opportunities clearly.
 3. Rank the most relevant targets by urgency, value, and fit for the user's goals.
-4. If requested, run the Franklin generator script and summarize the result.
+4. If requested, summarize the result using the agent workflow without external generator scripts.
 
 ## Output Format
 

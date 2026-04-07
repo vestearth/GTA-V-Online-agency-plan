@@ -15,7 +15,7 @@ Use this skill when the task is specifically to produce Lester Crest's consolida
 - The user wants only the final Lester summary.
 - The task is to synthesize multiple specialist outputs into one executive view.
 - The user asks for consensus, divergence, priority actions, or final weekly verdict.
-- The user wants the Lester generator script run and the output explained.
+- The user wants the Lester summary generated via prompt/agent and the output explained.
 
 ## Scope
 

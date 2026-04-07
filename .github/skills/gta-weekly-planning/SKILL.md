@@ -1,6 +1,6 @@
 ---
 name: gta-weekly-planning
-description: 'Analyze GTA Online weekly planning payloads and generate character-based reports for this repository. Use when the user asks to review a schema v2 weekly JSON, recommend what to play this week, generate or update Michael, Franklin, Trevor, Agent 14, Lamar, Tony, Ron, or Lester outputs, validate weekly content assumptions, or run the report scripts in this project.'
+description: 'Analyze GTA Online weekly planning payloads and generate character-based reports for this repository. Use when the user asks to review a schema v2 weekly JSON, recommend what to play this week, generate or update Michael, Franklin, Trevor, Agent 14, Lamar, Tony, Ron, or Lester outputs, validate weekly content assumptions, or use the prompt/agent workflow in this project.'
 argument-hint: 'Provide a data/*.json file path or paste a schema v2 weekly payload with the desired agent or output.'
 user-invocable: true
 disable-model-invocation: false
@@ -16,7 +16,7 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 - Recommend which activities, vehicles, businesses, or weapons to prioritize this week.
 - Generate or revise agent-style outputs for Michael, Franklin, Trevor, Agent 14, Lamar, Tony, Ron, or Lester.
 - Compare multiple weekly JSON files in `data/`.
-- Run the repository report generators and explain the output.
+- Use the repository prompt/agent workflow and explain the output.
 
 ## Required Ground Rules
 
@@ -70,4 +70,4 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 
 ## Repo Workflow Reference
 
-Load [./references/workflow.md](./references/workflow.md) when you need the exact file map, canonical inputs, or report script entry points.
+Load [./references/workflow.md](./references/workflow.md) when you need the exact file map, canonical inputs, or prompt/agent entry points.

@@ -44,7 +44,7 @@ References
 Notes for maintainers
 --------------------
 - This skill intentionally summarizes and transforms the source wiki to avoid large verbatim excerpts.
-- If you want verbatim tables or full specs, add a separate data file under `agents/data/` and reference it from generator scripts.
+- If you want verbatim tables or full specs, add a separate data file under `agents/data/` and reference it from prompt or agent workflows.
 
 Detailed weapon recommendations (concise)
 ----------------------------------------

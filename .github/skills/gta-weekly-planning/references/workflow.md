@@ -44,21 +44,16 @@ This skill is designed around the existing repository layout and should reuse th
 - Agent 14 benchmarks: `agents/docs/agent14-cayo.yaml`
 - Tony runtime catalog: `agents/data/tony.json`
 
-## Report Scripts
+## Report Generation
 
-- `scripts/generate_michael_report.py`
-- `scripts/generate_franklin_report.py`
-- `scripts/generate_trevor_report.py`
-- `scripts/generate_agent14_report.py`
-- `scripts/generate_lamar_report.py`
-- `scripts/generate_tony_report.py`
-- `scripts/generate_ron_report.py`
-- `scripts/generate_lester_report.py`
+- รายงานปัจจุบันสร้างโดยใช้ prompt/agent ใน Copilot แทนสคริปต์ Python
+- เลือก prompt entry point จาก `.github/prompts/` หรือ custom agent จาก `.github/agents/`
+- หากต้องการบันทึกผลลัพธ์เป็นไฟล์ ให้คัดลอก AI response จาก Copilot หรือสร้าง workflow ภายนอกเพื่อเก็บข้อความ
 
 ## Typical Execution Pattern
 
 1. Pick a payload from `data/`.
 2. Match the requested lens to the relevant agent document.
 3. Use `agents/prompt_templates.md` for the structured-output contract.
-4. If a file output is needed, run the matching generator script.
+4. Use the appropriate prompt or custom agent to generate the analysis.
 5. If the task spans multiple lenses, collect agent outputs first and reserve synthesis for Lester.
