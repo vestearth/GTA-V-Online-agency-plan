@@ -86,6 +86,8 @@
 | Tony | [`tony-passive-income-analysis.prompt.md`](.github/prompts/tony-passive-income-analysis.prompt.md) | [`tony-passive-income-analysis.agent.md`](.github/agents/tony-passive-income-analysis.agent.md) |
 | Ron | [`ron-weekly-story.prompt.md`](.github/prompts/ron-weekly-story.prompt.md) | Prompt only |
 | Lester | [`lester-weekly-summary.prompt.md`](.github/prompts/lester-weekly-summary.prompt.md) | [`lester-weekly-summary.agent.md`](.github/agents/lester-weekly-summary.agent.md) |
+| Pavel | [`pavel-weekly-data-curation.prompt.md`](.github/prompts/pavel-weekly-data-curation.prompt.md) | [`pavel-weekly-data-curation.agent.md`](.github/agents/pavel-weekly-data-curation.agent.md) |
+| Vincent | [`vincent-schema-validation.prompt.md`](.github/prompts/vincent-schema-validation.prompt.md) | [`vincent-schema-validation.agent.md`](.github/agents/vincent-schema-validation.agent.md) |
 
 Prompt files อยู่ใน `.github/prompts/` และ custom agent files อยู่ใน `.github/agents/`
 

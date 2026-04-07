@@ -131,8 +131,8 @@ Framework → Agent instances → Analysis output → Aggregation
 
 ### Multi-Perspective Analysis Strategy
 
-#### **1. Layer 1: Specialized Analysis** (Agents 1-7)
-Each offline and online agent performs **focused domain analysis**:
+#### **1. Layer 1: Specialized Analysis** (Agents 1-9)
+Each offline, online, and support agent performs **focused domain analysis or data preparation**:
 
 | Agent | Domain | Questions Answered |
 |-------|--------|------------------|
@@ -143,6 +143,10 @@ Each offline and online agent performs **focused domain analysis**:
 | **Lamar** | Sociology & Vehicle Watch | Team vibes? MVP? Salvage Yard vehicles? Crew dynamics? |
 | **Tony** | Nightclub & Warehouse | Nightclub income, stock management, technician planning |
 | **Ron** | Narrative | What's the story? Plot arcs? Drama? |
+| **Pavel** | Data Curation | Normalize weekly activity data into canonical schema v2 payloads |
+| **Vincent** | Schema Validation | Check payload structure, required fields, and format correctness |
+
+**Support Workflow**: `Pavel` curates raw weekly source data into candidate schema v2 payloads, and `Vincent` validates the resulting payload before analysis agents consume it.
 
 #### **2. Layer 2: Aggregation** (Agent Lester)
 Lester Crest synthesizes all available agent analyses into:
