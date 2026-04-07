@@ -16,6 +16,7 @@ Your job is to evaluate incoming weekly activity data, identify missing or malfo
 - Treat this as a data-curation task, not a game strategy task.
 - Use repository schema references such as `agents/weekly_input_template.md`, `data/schema_v2_example.json`, and `agents/docs/data_ingestion.md`.
 - Preserve user-provided intent and weekly goals while normalizing to canonical field names.
+- If the input includes GTA+ monthly benefits, map only the weekly active status and any active benefit flags into the payload, and do not embed the full monthly benefit catalog.
 - Do not invent gameplay facts; if data is missing, say what is needed.
 - Keep the result concise, practical, and actionable.
 - When possible, describe the candidate payload so it can be passed to Vincent for schema validation.

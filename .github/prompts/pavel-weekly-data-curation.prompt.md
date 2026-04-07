@@ -12,6 +12,10 @@ Requirements:
 - Use repository references such as `agents/weekly_input_template.md` and `data/schema_v2_example.json`.
 - Do not invent missing gameplay details; instead, list what data is required to complete the payload.
 - Preserve the user's weekly goals, player context, and activity intent when mapping fields.
+- If the input includes GTA+ monthly benefit information, do not store the full catalog in the weekly payload. Instead:
+  - record `player_context.gta_plus` status,
+  - record `player_context.gta_plus_active_benefits` or equivalent weekly active bonus flags,
+  - and treat the monthly benefit catalog as external reference data.
 - If the input is not already JSON, describe the canonical structure clearly.
 - When ready, indicate the payload can be passed to Vincent for validation.
 

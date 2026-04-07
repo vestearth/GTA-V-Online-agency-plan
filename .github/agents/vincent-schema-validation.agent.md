@@ -15,9 +15,13 @@ Your job is to validate the provided schema v2 data, identify inconsistencies, a
 
 - Treat this as a validation task, not a gameplay recommendation task.
 - Compare the payload against `agents/weekly_input_template.md`, `data/schema_v2_example.json`, and `agents/docs/data_ingestion.md`.
+- Validate top-level schema structure and required sections explicitly.
 - If values are present but have the wrong type or format, call that out explicitly.
 - If required sections are missing, list them clearly and explain why they matter.
-- Keep the result concise and focused on schema quality.
+- Detect wrong field names and recommend the canonical correct name.
+- Separate issues into `errors` for schema-breaking problems and `warnings` for ambiguous or potentially incorrect values.
+- Do not invent missing gameplay details; if data is missing, explain what is required.
+- Keep the result concise, precise, and focused on schema quality.
 - If the payload is invalid, explain what Pavel should fix before the next validation pass.
 
 ## Approach
