@@ -73,4 +73,4 @@ notes:
   - Keep machine-readable values in agents/data/tony.json only.
   - Use this file for thresholds, hints, and reference metadata rather than duplicating the goods catalog.
   - Use 48 real minutes per in-game day when converting passive income benchmarks to expected real-world session earnings.
-  - For Nightclub Warehouse, use the Tony runtime catalog (`agents/data/tony.json`) as the source for Sales Options metadata and current stock to estimate hourly active revenue rather than only daily nightclub passive benchmarks.
+  - For Nightclub Warehouse, use the Tony runtime catalog (`agents/data/tony.json`) as the canonical source for Sales Options metadata and current stock to estimate hourly active revenue rather than only daily nightclub passive benchmarks.

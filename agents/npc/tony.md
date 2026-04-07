@@ -25,6 +25,7 @@ Tony ใช้ section เหล่านี้เป็นหลัก:
 - `business_state.nightclub`
 - `business_state.feeder_businesses`
 - `data_quality`
+- `agents/data/tony.json` เป็นแหล่งข้อมูลหลักสำหรับ Nightclub goods catalog และ Sales Options metadata
 
 ## หลักการวิเคราะห์
 
