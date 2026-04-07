@@ -48,6 +48,11 @@ passive_income_values:
   nightclub_passive_range:
     min: 20000
     max: 50000
+technician_metadata:
+  total_technicians: 5
+  selectable_goods_slots: 5
+  total_goods_available: 7
+  selection_rule: "Prioritize goods by expected value per production time, adjusted by current stock and warehouse throughput."
 runtime_contract:
   required_top_level:
     - goods
@@ -68,3 +73,4 @@ notes:
   - Keep machine-readable values in agents/data/tony.json only.
   - Use this file for thresholds, hints, and reference metadata rather than duplicating the goods catalog.
   - Use 48 real minutes per in-game day when converting passive income benchmarks to expected real-world session earnings.
+  - For Nightclub Warehouse, use the Tony runtime catalog (`agents/data/tony.json`) as the source for Sales Options metadata and current stock to estimate hourly active revenue rather than only daily nightclub passive benchmarks.
