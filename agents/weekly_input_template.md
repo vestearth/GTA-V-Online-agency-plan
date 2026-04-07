@@ -9,6 +9,95 @@
 - ทำให้ recommendation เป็น personalized ได้จริง
 - รองรับ missing data อย่างปลอดภัย โดย agent ต้องบอกว่า `insufficient_data` แทนการเดา
 
+## โหมดใช้งานแบบง่ายสำหรับ weekly summary มือกรอกเอง
+
+ถ้าจุดประสงค์จริงคือ "สรุปกิจกรรมแต่ละอาทิตย์" และไม่ได้ต้องการกรอก `schema v2` เต็มทุกครั้ง ให้ใช้ไฟล์ตัวอย่าง [data/weekly_activity_simple_template.json](../data/weekly_activity_simple_template.json) แทนได้
+
+โหมดนี้เหมาะกับ workflow แบบนี้:
+
+- Michael: สรุปกิจกรรมทำเงินของสัปดาห์นั้น ว่าเล่นอะไร ใช้เวลาเท่าไร ได้เงินสุทธิเท่าไร
+- Trevor: สรุปของฟรี ของลดราคา อาวุธ หรือของ combat ที่เก็บ/ซื้อจริง และคุ้มหรือไม่
+- Franklin: สรุปรถประจำสัปดาห์ว่า prize ride, podium, test ride, discount อันไหนทำแล้วหรือควรเอาไหม
+- Lamar: สรุปกิจกรรมกับเพื่อน จำนวนคน ความสนุก MVP และบรรยากาศทีม
+- Tony: ใช้ดูสถานะ Nightclub, technician assignments, stock ของแต่ละ product และ timing ว่าควรสลับไปปั้นสินค้าอะไรต่อ
+- Agent 14: ใช้เก็บผล Cayo Perico รายรอบ ว่าสัปดาห์นั้นเล่นกี่รอบ ได้เงินเท่าไร เจอปัญหาอะไร
+
+สิ่งที่ควรกรอกขั้นต่ำในโหมดนี้:
+
+- `week`: ช่วงวันที่ของสัปดาห์
+- `player_context`: ชื่อผู้เล่น, GTA+, เงิน, ทรัพย์สินหลัก
+- `weekly_focus`: สัปดาห์นี้ตั้งใจเล่นเพื่ออะไร และมีเวลากี่ชั่วโมง
+- `weekly_activities.michael_targets`: กิจกรรมทำเงินที่เล่นจริง
+- `weekly_activities.trevor_targets`: ของฟรี/อาวุธ/ส่วนลดที่เก็บหรือซื้อจริง
+- `weekly_activities.franklin_targets`: รถหรือ challenge ที่สนใจหรือทำจริง
+- `weekly_activities.lamar_targets`: กิจกรรมกับทีมและบรรยากาศโดยรวม
+- `tony.nightclub`: stock, value, popularity, technicians, assignment ล่าสุด
+- `agent14.cayo_runs`: ผล Cayo แต่ละรอบของสัปดาห์นั้น
+
+## วิธีคิดข้อมูลขั้นต่ำต่อ agent
+
+### Michael
+
+กรอกแค่:
+
+- เล่นอะไร
+- ใช้เวลากี่ชั่วโมง
+- ได้เงินเท่าไร
+- เสียค่าใช้จ่ายเท่าไร
+- สรุปว่าคุ้มหรือไม่
+
+### Trevor
+
+กรอกแค่:
+
+- ได้ของฟรีอะไร
+- ซื้ออาวุธ/เกราะอะไร
+- ได้ส่วนลดอะไร
+- ของนั้น useful จริงไหม หรือแค่ของสะสม
+
+### Franklin
+
+กรอกแค่:
+
+- รถประจำสัปดาห์มีอะไรบ้าง
+- คันไหนเป็น prize ride / podium / test ride / discount
+- ทำ progress ถึงไหนแล้ว
+- สุดท้าย verdict เป็น `prioritize`, `consider`, หรือ `skip`
+
+### Lamar
+
+กรอกแค่:
+
+- เล่นกับใครบ้าง
+- กิจกรรมไหนสนุกหรือแป้ก
+- crew size เท่าไร
+- ใครเป็น MVP
+
+### Tony
+
+กรอกแค่:
+
+- goods แต่ละตัวตอนนี้ stock กี่ %
+- มูลค่าประเมินเท่าไร
+- technician คนไหนปั้นสินค้าอะไรอยู่
+- feeder business ไหนตันหรือของขาด
+- ถ้าขายไปแล้ว ได้เงินเท่าไร
+
+### Agent 14
+
+กรอกแค่:
+
+- Cayo สัปดาห์นี้เล่นกี่รอบ
+- แต่ละรอบเล่นกี่คน
+- ได้เงิน gross/net เท่าไร
+- ใช้เวลากี่นาที
+- มีปัญหาอะไร เช่น ตาย, หลุด, elite challenge ไม่ผ่าน, secondary loot ไม่เต็ม
+
+## หมายเหตุเรื่อง Tony และ Agent 14
+
+- Tony ไม่จำเป็นต้องรู้ทุกค่าในเกม ถ้ารู้แค่ `goods_type`, `stock_percent`, `estimated_value`, และ `hours_since_assigned` ก็เริ่มวิเคราะห์ timing การสลับ product ได้แล้ว
+- Agent 14 ไม่จำเป็นต้องใช้ schema ใหญ่ ถ้ามีแค่ log รายรอบของ Cayo ก็สรุปผลงานประจำสัปดาห์ได้
+
 ## Top-level shape
 
 ```json
