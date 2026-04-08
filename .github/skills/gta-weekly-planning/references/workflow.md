@@ -5,7 +5,7 @@ This skill is designed around the existing repository layout and should reuse th
 ## Canonical Inputs
 
 - Primary example payload: `data/schema_v2_example.json`
-- Other sample payloads: `data/sample_week.json`, `data/sample_franklin_week.json`, `data/sample_tony_week.json`, `data/weekly_activity_apr2-9.json`
+- Other sample payloads: `data/sample_week.json`, `data/weekly_planning_2026_w14.json`
 - Weekly capture templates: `data/weekly_activity_template.json`, `data/weekly_activity_simple_template.json`
 
 ## Core Documentation

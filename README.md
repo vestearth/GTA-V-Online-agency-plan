@@ -73,7 +73,8 @@
 - เอกสารใน `agents/` อธิบาย role และ prompt ของแต่ละ agent
 - `agents/docs/` เก็บ schema/reference สำหรับ logic ของ agent
 - `agents/data/` เก็บข้อมูลเชิง catalog (เช่น JSON สำหรับ Tony) ที่ agent บางตัวอ้างอิงได้
-- ตัวอย่าง payload หลักอยู่ที่ `data/schema_v2_example.json`
+- payload ที่เรียกใช้จริงล่าสุดอยู่ที่ `data/weekly_planning_2026_w14.json`
+- ตัวอย่าง payload อ้างอิงอยู่ที่ `data/schema_v2_example.json`
 - `agents/agency.config.yaml` — ดัชนีเวิร์กโฟลว์ path และลำดับแนะนำ (อ้างอิงด้วยมือหรือเครื่องมือภายนอก **ไม่มีตัวรันใน repo ที่อ่านไฟล์นี้โดยอัตโนมัติ**)
 - **การสร้างรายงาน**: รันผ่าน prompt / custom agent / skills ใน `.github/` บน **GitHub Copilot** — ไม่มีตัวรันอัตโนมัติใน repo
 
@@ -121,6 +122,7 @@ GTA-V-Online-agency-plan/
 │   └── npc/                          # บทบาทและ prompt ของแต่ละตัวละคร (~10 ไฟล์)
 ├── data/
 │   ├── schema_v2_example.json        # ตัวอย่าง payload หลัก schema v2
+│   ├── weekly_planning_2026_w14.json # payload ล่าสุดที่ใช้รันจริง
 │   ├── sample_week.json
 │   ├── weekly_activity_template.json
 │   ├── weekly_activity_simple_template.json
@@ -215,6 +217,35 @@ GTA-V-Online-agency-plan/
 - รวมมุมมองจากเอเย่นต์ทั้งหมด
 - จัดลำดับความสำคัญเชิงกลยุทธ์
 - ให้คำแนะนำที่ปฏิบัติได้จริง
+
+---
+
+## 🤝 Workflow ทำงานร่วมกัน (แนะนำ)
+
+เพื่อให้ผลลัพธ์สม่ำเสมอ แนะนำ workflow แบบ **loosely coupled**: แต่ละ agent วิเคราะห์แยก แต่ส่งต่อผ่าน artifact กลางตาม contract เดียวกัน
+
+### Gate และเงื่อนไขผ่าน
+- **Ingest Gate**: `Pavel` + `Vincent` ต้องผ่านก่อน (payload valid ตาม schema v2 และไม่มี critical missing fields)
+- **Analysis Gate**: รัน specialist อย่างน้อย 4 ตัว (แนะนำครบ 7 ตัว) และแต่ละรายงานควรมี confidence/warnings
+- **Synthesis Gate**: `Lester` สรุปจาก specialist reports พร้อม consensus, divergence, และ prioritized actions
+
+### Retry Policy (แบบเบา)
+- retry ต่อ stage ได้ 1 รอบเมื่อเจอ schema/type error หรือข้อมูลไม่พอสำหรับข้อเสนอหลัก
+- หาก ingest ไม่ผ่าน ให้แก้ payload แล้วรัน `Vincent` ซ้ำก่อนเข้าสเตจถัดไป
+
+### Shared Artifacts
+- `weekly_payload_v2` (หลัง normalize/repair)
+- `validation_report` (errors/warnings/checklist)
+- `specialist_reports` (ผลวิเคราะห์ราย agent)
+- `lester_summary` (สรุปสุดท้าย)
+
+รายละเอียดเชิง machine-readable ดูที่ `agents/agency.config.yaml`
+
+### มาตรฐาน JSON ต่อ agent (เพื่อให้ Lester รวมง่าย)
+- ใช้ template กลางที่ `data/agent_report_template.json`
+- คีย์ขั้นต่ำที่ควรมีทุกรายงาน: `agent`, `schema_version`, `week_id`, `generated_at`, `summary`, `overall_confidence`, `top_recommendations`, `warnings`, `insufficient_data`
+- แต่ละรายการใน `top_recommendations` ควรมี: `target_id`, `action`, `reason`, `confidence`, `score`
+- ค่า `confidence` แนะนำใช้ชุดเดียวกัน: `low`, `medium`, `high`
 
 ---
 

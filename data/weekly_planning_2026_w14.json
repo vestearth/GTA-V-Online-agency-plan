@@ -7,10 +7,10 @@
     "start_date": "2026-04-02",
     "end_date": "2026-04-09",
     "source": "mixed",
-    "last_updated_at": null
+    "last_updated_at": "2026-04-08T00:00:00Z"
   },
   "player_context": {
-    "player_name": null,
+    "player_name": "CarlosZ",
     "platform": "unknown",
     "gta_plus": true,
     "rank": null,
@@ -31,7 +31,12 @@
       "hours_available": 0,
       "preferred_session_size": "any",
       "avoid_content_tags": []
-    }
+    },
+    "gta_plus_active_benefits": [
+      "bounty_hunting_2x_gta_cash_rp",
+      "dispatch_work_3x_gta_cash_rp_first_week",
+      "wildlife_photography_4x_gta_cash_rp_first_week"
+    ]
   },
   "planning_context": {
     "primary_objective": "mixed",
@@ -1522,7 +1527,8 @@
     "known_gaps": [
       "Legacy payload does not describe owned assets or business readiness.",
       "Legacy payload mixes event catalog and post-play fields.",
-      "Some vehicle and payout values were unavailable during migration."
+      "Some vehicle and payout values were unavailable during migration.",
+      "GTA+ monthly catalog kept external; active weekly benefits injected during payload curation."
     ],
     "confidence_level": "medium"
   }

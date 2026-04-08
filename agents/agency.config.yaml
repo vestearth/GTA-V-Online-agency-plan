@@ -8,7 +8,8 @@
 schema:
   version: "2.0"
   mode: weekly_planning
-  example_payload: data/schema_v2_example.json
+  example_payload: data/weekly_planning_2026_w14.json
+  agent_report_template: data/agent_report_template.json
 
 paths:
   framework_spec: agents/Agent.md
@@ -77,6 +78,97 @@ workflow:
         role: agents/npc/lester.md
         prompt: .github/prompts/lester-weekly-summary.prompt.md
         copilot_agent: .github/agents/lester-weekly-summary.agent.md
+
+# Collaboration contract for cross-agent workflow quality
+coordination:
+  model: loosely_coupled
+  shared_artifacts:
+    - weekly_payload_v2
+    - validation_report
+    - specialist_reports
+    - lester_summary
+
+  gates:
+    ingest_gate:
+      required_agents:
+        - pavel
+        - vincent
+      pass_conditions:
+        - payload_schema_valid
+        - critical_missing_fields_equal_zero
+      on_fail:
+        - patch_payload
+        - rerun_vincent
+    analysis_gate:
+      minimum_required_agents: 4
+      preferred_agents:
+        - michael
+        - franklin
+        - trevor
+        - agent14
+        - lamar
+        - tony
+        - ron
+      allow_partial: true
+      require_confidence_field: true
+    synthesis_gate:
+      required_agents:
+        - lester
+      requires:
+        - specialist_reports
+      output_requirements:
+        - consensus_findings
+        - divergence_notes
+        - prioritized_actions
+
+  retry_policy:
+    max_retries_per_stage: 1
+    retry_stages:
+      - ingest
+      - analyze
+    trigger_conditions:
+      - schema_error
+      - invalid_field_type
+      - insufficient_data_for_key_recommendation
+
+  handoff_artifacts:
+    ingest_to_analyze:
+      - weekly_payload_v2
+      - validation_report
+    analyze_to_synthesize:
+      - specialist_reports
+      - unresolved_warnings
+
+  report_contract:
+    applies_to:
+      - michael
+      - franklin
+      - trevor
+      - agent14
+      - lamar
+      - tony
+      - ron
+    required_top_level_fields:
+      - agent
+      - schema_version
+      - week_id
+      - generated_at
+      - summary
+      - overall_confidence
+      - top_recommendations
+      - warnings
+      - insufficient_data
+    recommendation_required_fields:
+      - target_id
+      - action
+      - reason
+      - confidence
+      - score
+    confidence_scale:
+      - low
+      - medium
+      - high
+    min_recommendations: 1
 
 # Related skills (Copilot), optional deep-dives
 skills:

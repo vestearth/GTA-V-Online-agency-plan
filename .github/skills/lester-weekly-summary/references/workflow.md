@@ -4,7 +4,7 @@ Use this reference when the task is specifically about the final weekly synthesi
 
 ## Canonical Inputs
 
-- Weekly payload examples: `data/schema_v2_example.json`, `data/weekly_activity_apr2-9.json`
+- Weekly payload examples: `data/schema_v2_example.json`, `data/weekly_planning_2026_w14.json`
 - Lester role document: `agents/npc/lester.md`
 - Shared prompt contract: `agents/prompt_templates.md`
 - Prompt entry point: `.github/prompts/lester-weekly-summary.prompt.md`
