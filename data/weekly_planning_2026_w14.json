@@ -1242,6 +1242,19 @@
         "notes": "Migrated from legacy gun van free list"
       },
       {
+        "id": "free_weapon_skins_weekly",
+        "name": "Free Weapon Skins",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "cosmetic",
+          "collection"
+        ],
+        "urgency": "must_claim",
+        "notes": "Weekly free cosmetic unlock for weapon customization."
+      },
+      {
         "id": "stun_gun_free_plus",
         "name": "Stun Gun",
         "opportunity_type": "gun_van_free",
@@ -1260,6 +1273,19 @@
         "combat_role_tags": [],
         "urgency": "good_pick",
         "notes": "50% off"
+      },
+      {
+        "id": "ammunition_discount_50",
+        "name": "Ammunition",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 50,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "sustain",
+          "combat"
+        ],
+        "urgency": "good_pick",
+        "notes": "50% off ammunition this week."
       },
       {
         "id": "body_armor_discount",
@@ -1402,6 +1428,21 @@
           "limited_reward"
         ],
         "notes": "Derived from Dispatch Work bonus activity"
+      },
+      {
+        "id": "bail_office_upgrade_discount",
+        "name": "Bail Offices and Upgrades",
+        "business_type": "agency",
+        "bonus": {
+          "purchase_discount_percent": 50
+        },
+        "requires_owned_business": false,
+        "requirements": [],
+        "estimated_value_tags": [
+          "limited_reward",
+          "account_progression"
+        ],
+        "notes": "50% off Bail Offices and related upgrades this week."
       },
       {
         "id": "salvage_yard_weekly_targets",
