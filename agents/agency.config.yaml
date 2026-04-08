@@ -1,0 +1,85 @@
+# GTA V Online Agency — workflow manifest (reference only)
+# -----------------------------------------------------------------------------
+# This file documents paths and a recommended run order for humans & Copilot.
+# Nothing in this repository loads it automatically.
+# -----------------------------------------------------------------------------
+# TH: ไฟล์นี้เป็นเพียงดัชนีอ้างอิง — ไม่มีตัวรันใน repo ที่อ่านไฟล์นี้โดยอัตโนมัติ
+
+schema:
+  version: "2.0"
+  mode: weekly_planning
+  example_payload: data/schema_v2_example.json
+
+paths:
+  framework_spec: agents/Agent.md
+  npc_roles: agents/npc
+  agent_docs: agents/docs
+  agent_data: agents/data
+  data_templates: data
+  copilot_prompts: .github/prompts
+  copilot_agents: .github/agents
+  copilot_skills: .github/skills
+  reports_output: reports
+
+# Recommended stages when using Copilot (parallel OK within "analyze")
+workflow:
+  - stage: ingest
+    description_en: Normalize raw notes into schema v2; fix missing fields.
+    description_th: แปลงข้อมูลดิบให้เป็น schema v2 และเติมฟิลด์ที่ขาด
+    agents:
+      - id: pavel
+        role: agents/npc/pavel.md
+        prompt: .github/prompts/pavel-weekly-data-curation.prompt.md
+        copilot_agent: .github/agents/pavel-weekly-data-curation.agent.md
+      - id: vincent
+        role: agents/npc/vincent.md
+        prompt: .github/prompts/vincent-schema-validation.prompt.md
+        copilot_agent: .github/agents/vincent-schema-validation.agent.md
+
+  - stage: analyze
+    description_en: Run specialists; order flexible unless a prompt depends on prior output.
+    description_th: รันเอเย่นต์เชิงเจาะจง — ลำดับยืดหยุ่นนอกจาก prompt ระบุไว้
+    agents:
+      - id: michael
+        role: agents/npc/michael.md
+        prompt: .github/prompts/michael-weekly-analysis.prompt.md
+        copilot_agent: .github/agents/michael-weekly-analysis.agent.md
+      - id: franklin
+        role: agents/npc/franklin.md
+        prompt: .github/prompts/franklin-vehicle-analysis.prompt.md
+        copilot_agent: .github/agents/franklin-vehicle-analysis.agent.md
+      - id: trevor
+        role: agents/npc/trevor.md
+        prompt: .github/prompts/trevor-combat-value.prompt.md
+        copilot_agent: null
+      - id: agent14
+        role: agents/npc/agent14.md
+        prompt: .github/prompts/agent14-operations-analysis.prompt.md
+        copilot_agent: .github/agents/agent14-operations-analysis.agent.md
+      - id: lamar
+        role: agents/npc/lamar.md
+        prompt: .github/prompts/lamar-crew-analysis.prompt.md
+        copilot_agent: null
+      - id: tony
+        role: agents/npc/tony.md
+        prompt: .github/prompts/tony-passive-income-analysis.prompt.md
+        copilot_agent: .github/agents/tony-passive-income-analysis.agent.md
+      - id: ron
+        role: agents/npc/ron.md
+        prompt: .github/prompts/ron-weekly-story.prompt.md
+        copilot_agent: null
+
+  - stage: synthesize
+    description_en: Aggregate all perspectives into one executive weekly report.
+    description_th: สังเคราะห์ทุกมุมมองเป็นรายงานสัปดาห์ฉบับเดียว
+    agents:
+      - id: lester
+        role: agents/npc/lester.md
+        prompt: .github/prompts/lester-weekly-summary.prompt.md
+        copilot_agent: .github/agents/lester-weekly-summary.agent.md
+
+# Related skills (Copilot), optional deep-dives
+skills:
+  - .github/skills/gta-weekly-planning/SKILL.md
+  - .github/skills/lester-weekly-summary/SKILL.md
+  - .github/skills/trevor-weapons/SKILL.md
