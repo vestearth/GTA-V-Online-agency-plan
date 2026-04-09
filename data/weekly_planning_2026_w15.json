@@ -1,0 +1,1599 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W15",
+    "label": "April 9-16 2026",
+    "start_date": "2026-04-09",
+    "end_date": "2026-04-16",
+    "source": "rockstar_newswire",
+    "last_updated_at": "2026-04-09T03:13:26Z"
+  },
+  "player_context": {
+    "player_name": "CarlosZ",
+    "platform": "unknown",
+    "gta_plus": true,
+    "rank": null,
+    "cash_on_hand": null,
+    "bank_balance": null,
+    "play_style_tags": [],
+    "goals_this_week": [
+      "make_money",
+      "unlock_vehicle"
+    ],
+    "owned_assets": {
+      "properties": [],
+      "businesses": [],
+      "key_vehicles": [],
+      "key_weapons": []
+    },
+    "constraints": {
+      "hours_available": 0,
+      "preferred_session_size": "any",
+      "avoid_content_tags": []
+    },
+    "gta_plus_active_benefits": [
+      "bail_office_bounties_4x_gta_cash_rp",
+      "dispatch_work_3x_gta_cash_rp",
+      "stun_gun_free",
+      "heavy_rifle_40pct_off",
+      "body_armor_70pct_off"
+    ]
+  },
+  "planning_context": {
+    "primary_objective": "mixed",
+    "budget_limit": null,
+    "risk_tolerance": "medium",
+    "session_plan": [],
+    "decision_policy": {
+      "recommend_owned_only": false,
+      "allow_new_purchases": true,
+      "prioritize_limited_time_content": true
+    }
+  },
+  "weekly_content": {
+    "featured_activities": [
+      {
+        "id": "bail_office_bounties",
+        "name": "Bail Office Bounties",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2,
+          "gta_plus_cash_multiplier": 4
+        },
+        "requirements": [
+          "bail_office"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "rp",
+          "limited_reward"
+        ],
+        "reward": {
+          "cash": 100000,
+          "items": [
+            "Winter LSPD Officer Outfit"
+          ],
+          "condition": "Secure 2 Bail Office Bounties (Weekly Challenge)"
+        },
+        "notes": "2X GTA$ and RP (4X for GTA+ Members). Weekly Challenge: Secure 2 Bounties for Winter LSPD Officer Outfit + GTA$100,000."
+      },
+      {
+        "id": "pursuit_race_series",
+        "name": "Pursuit Race Series",
+        "category": "race",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 3,
+          "rp_multiplier": 3,
+          "ls_car_meet_rep_multiplier": 3
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "rp",
+          "ls_car_meet_rep",
+          "driving"
+        ],
+        "notes": "3X GTA$, RP, and LS Car Meet Rep."
+      },
+      {
+        "id": "dispatch_work",
+        "name": "Dispatch Work",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2,
+          "gta_plus_cash_multiplier": 3
+        },
+        "requirements": [
+          "agency"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 20,
+        "value_tags": [
+          "money",
+          "rp"
+        ],
+        "notes": "2X GTA$ and RP (3X for GTA+ Members)."
+      },
+      {
+        "id": "vespucci_job_remix",
+        "name": "The Vespucci Job (Remix)",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "rp",
+          "crew_fun"
+        ],
+        "notes": "2X GTA$ and RP."
+      },
+      {
+        "id": "community_combat_series",
+        "name": "Community Combat Series",
+        "category": "mission_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "rp",
+          "crew_fun",
+          "combat"
+        ],
+        "notes": "2X GTA$ and RP."
+      },
+      {
+        "id": "bail_office_staff_income",
+        "name": "Bail Office Staff Income",
+        "category": "business_bonus",
+        "content_type": "passive",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2
+        },
+        "requirements": [
+          "bail_office"
+        ],
+        "recommended_party_size": "solo",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "passive_income"
+        ],
+        "notes": "2X GTA$ on Bail Office Staff Income."
+      },
+      {
+        "id": "neighborhood_watch_event_week2",
+        "name": "Neighborhood Watch Event (Week 2)",
+        "category": "new_release",
+        "content_type": "one_time",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-15"
+        },
+        "bonus": {},
+        "requirements": [],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 30,
+        "value_tags": [
+          "limited_reward",
+          "new_content"
+        ],
+        "reward": {
+          "items": [
+            "Summer Park Ranger w/ Tie Outfit"
+          ],
+          "condition": "Log in and purchase or own the Declasse Park Ranger (Emergency). Reward delivered within 72 hours."
+        },
+        "notes": "Second week of Neighborhood Watch Event (through April 15). LD Organics / 420 event teaser starts next week. Special in-game outfit for Rockstar Propaganda email list subscribers."
+      },
+      {
+        "id": "fib_priority_file_project_breakaway",
+        "name": "FIB Priority File: The Project Breakaway File",
+        "category": "mission_bonus",
+        "content_type": "one_time",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "bonus": {},
+        "requirements": [
+          "bail_office"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": null,
+        "value_tags": [
+          "money",
+          "limited_reward"
+        ],
+        "notes": "This week's FIB Priority File mission available through the Bail Office."
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "pfister_growler_podium",
+        "vehicle_name": "Pfister Growler",
+        "opportunity_type": "podium",
+        "source": "casino",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Casino Lucky Wheel"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "annis_300r_prize_ride",
+        "vehicle_name": "Annis 300R",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": "Place Top 5 in the LS Car Meet Series for 3 days in a row",
+          "claim_path": null,
+          "qualification_rules": {
+            "required_class": null,
+            "min_performance_score": null,
+            "required_upgrades": []
+          }
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "enus_cognoscenti_test_ride",
+        "vehicle_name": "Enus Cognoscenti",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Removed vehicle - test ride only"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "declasse_tornado_rat_rod_test_ride",
+        "vehicle_name": "Declasse Tornado Rat Rod",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Removed vehicle - test ride only"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "benefactor_streiter_test_ride",
+        "vehicle_name": "Benefactor Streiter",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Removed vehicle - test ride only"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "karin_vivanite_premium_test_ride",
+        "vehicle_name": "Karin Vivanite",
+        "opportunity_type": "premium_test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Premium test ride at LS Car Meet (PS5/Xbox Series X|S/PC Enhanced only)"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "bravado_buffalo_stx_pursuit_new_release",
+        "vehicle_name": "Bravado Buffalo STX Pursuit",
+        "opportunity_type": "new_release",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": null
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": null,
+          "claim_path": "Available to all from Warstock Cache & Carry from April 9"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "western_police_bike_discount",
+        "vehicle_name": "Western Police Bike",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "invetero_coquette_d10_pursuit_discount",
+        "vehicle_name": "Invetero Coquette D10 Pursuit",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "vapid_caracara_pursuit_discount",
+        "vehicle_name": "Vapid Caracara Pursuit",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "canis_terminus_patrol_discount",
+        "vehicle_name": "Canis Terminus Patrol",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "willard_outreach_faction_discount",
+        "vehicle_name": "Willard Outreach Faction",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vapid_dominator_fx_interceptor_discount",
+        "vehicle_name": "Vapid Dominator FX Interceptor",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "bravado_greenwood_cruiser_discount",
+        "vehicle_name": "Bravado Greenwood Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "bravado_dorado_cruiser_discount",
+        "vehicle_name": "Bravado Dorado Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "declasse_impaler_lx_cruiser_discount",
+        "vehicle_name": "Declasse Impaler LX Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "declasse_impaler_sz_cruiser_discount",
+        "vehicle_name": "Declasse Impaler SZ Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "vapid_stanier_le_cruiser_discount",
+        "vehicle_name": "Vapid Stanier LE Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "bravado_gauntlet_interceptor_discount",
+        "vehicle_name": "Bravado Gauntlet Interceptor",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "vapid_unmarked_cruiser_discount",
+        "vehicle_name": "Vapid Unmarked Cruiser",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "declasse_park_ranger_discount",
+        "vehicle_name": "Declasse Park Ranger",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 35,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market. Owning/buying Emergency variant triggers Summer Park Ranger w/ Tie Outfit reward."
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "service"
+          ],
+          "weaponized": false,
+          "service_vehicle": true
+        }
+      },
+      {
+        "id": "imponte_arbiter_gt_discount",
+        "vehicle_name": "Imponte Arbiter GT",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vapid_apocalypse_imperator_arena_discount",
+        "vehicle_name": "Vapid Apocalypse Imperator (Arena)",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "arena"
+          ],
+          "weaponized": true,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "imponte_ruiner_2000_discount",
+        "vehicle_name": "Imponte Ruiner 2000",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": true,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "grotti_itali_classic_discount",
+        "vehicle_name": "Grotti Itali Classic",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market. Also on display at Premium Deluxe Motorsports."
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "dinka_jester_classic_discount",
+        "vehicle_name": "Dinka Jester Classic",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market. Also on display at Premium Deluxe Motorsports."
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "grotti_stinger_pdm_discount",
+        "vehicle_name": "Grotti Stinger",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Available at Premium Deluxe Motorsports (Removed vehicle, 30% off)."
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "dewbauchee_jb_700w_discount",
+        "vehicle_name": "Dewbauchee JB 700W",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market. Also on display at Premium Deluxe Motorsports."
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "bravado_banshee_gts_discount",
+        "vehicle_name": "Bravado Banshee GTS",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "overflod_autarch_discount",
+        "vehicle_name": "Överflöd Autarch",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vom_feuer_anti_aircraft_trailer_discount",
+        "vehicle_name": "Vom Feuer Anti-Aircraft Trailer",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": true,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "nagasaki_outlaw_discount",
+        "vehicle_name": "Nagasaki Outlaw",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "mammoth_squaddie_discount",
+        "vehicle_name": "Mammoth Squaddie",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "vapid_winky_discount",
+        "vehicle_name": "Vapid Winky",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "western_rampant_rocket_discount",
+        "vehicle_name": "Western Rampant Rocket",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pfister_comet_safari_discount",
+        "vehicle_name": "Pfister Comet Safari",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "dewbauchee_specter_discount",
+        "vehicle_name": "Dewbauchee Specter",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Purchase from weekly discount market"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pfister_astrale_luxury_autos",
+        "vehicle_name": "Pfister Astrale",
+        "opportunity_type": "new_release",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "On display at Luxury Autos this week"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "ubermacht_sentinel_gts_luxury_autos",
+        "vehicle_name": "Übermacht Sentinel GTS",
+        "opportunity_type": "new_release",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "On display at Luxury Autos this week"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "albany_hermes_pdm",
+        "vehicle_name": "Albany Hermes",
+        "opportunity_type": "new_release",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-09",
+          "end": "2026-04-16"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "On display at Premium Deluxe Motorsports this week"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      }
+    ],
+    "weapon_and_gear_opportunities": [
+      {
+        "id": "nightstick_free",
+        "name": "Nightstick",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [],
+        "urgency": "must_claim",
+        "notes": "Free at Gun Van this week"
+      },
+      {
+        "id": "baseball_bat_free",
+        "name": "Baseball Bat",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [],
+        "urgency": "must_claim",
+        "notes": "Free at Gun Van this week"
+      },
+      {
+        "id": "stun_gun_free_plus",
+        "name": "Stun Gun",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": true,
+        "combat_role_tags": [],
+        "urgency": "must_claim",
+        "notes": "Free for GTA+ Members at Gun Van"
+      },
+      {
+        "id": "railgun_discount",
+        "name": "Railgun",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 50,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "heavy",
+          "combat"
+        ],
+        "urgency": "good_pick",
+        "notes": "50% off at Gun Van"
+      },
+      {
+        "id": "heavy_rifle_discount_plus",
+        "name": "Heavy Rifle",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 40,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "primary",
+          "combat"
+        ],
+        "urgency": "good_pick",
+        "notes": "40% off for GTA+ Members at Gun Van"
+      },
+      {
+        "id": "body_armor_discount_plus",
+        "name": "Body Armor",
+        "opportunity_type": "armor_discount",
+        "discount_percent": 70,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "defense",
+          "sustain"
+        ],
+        "urgency": "good_pick",
+        "notes": "70% off for GTA+ Members at Gun Van"
+      }
+    ],
+    "business_opportunities": [
+      {
+        "id": "bail_office_bounties_bonus",
+        "name": "Bail Office Bounties Bonus",
+        "business_type": "agency",
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2,
+          "gta_plus_cash_multiplier": 4
+        },
+        "requires_owned_business": true,
+        "requirements": [
+          "bail_office"
+        ],
+        "estimated_value_tags": [
+          "active_grind",
+          "money",
+          "limited_reward"
+        ],
+        "notes": "2X GTA$ and RP on Bail Office Bounties (4X for GTA+ Members)"
+      },
+      {
+        "id": "bail_office_staff_income_bonus",
+        "name": "Bail Office Staff Income Bonus",
+        "business_type": "agency",
+        "bonus": {
+          "gta_cash_multiplier": 2
+        },
+        "requires_owned_business": true,
+        "requirements": [
+          "bail_office"
+        ],
+        "estimated_value_tags": [
+          "passive_income",
+          "money"
+        ],
+        "notes": "2X GTA$ on Bail Office Staff Income"
+      },
+      {
+        "id": "bail_office_40pct_discount",
+        "name": "Bail Offices - 40% Off",
+        "business_type": "agency",
+        "bonus": {
+          "purchase_discount_percent": 40
+        },
+        "requires_owned_business": false,
+        "requirements": [],
+        "estimated_value_tags": [
+          "account_progression",
+          "limited_reward"
+        ],
+        "notes": "40% off Bail Offices, Upgrades, and Modifications this week"
+      },
+      {
+        "id": "salvage_yard_weekly_targets",
+        "name": "Salvage Yard Weekly Targets",
+        "business_type": "salvage_yard",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "salvage_yard"
+        ],
+        "estimated_value_tags": [
+          "active_grind",
+          "vehicle_collecting"
+        ],
+        "notes": "Three salvage yard robbery targets available this week"
+      }
+    ],
+    "time_trials_and_races": [
+      {
+        "id": "time_trial_vinewood_bowl",
+        "name": "Time Trial: Vinewood Bowl",
+        "type": "time_trial",
+        "vehicle_restrictions": [],
+        "recommended_vehicle_classes": [],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Weekly time trial course"
+      },
+      {
+        "id": "premium_race_downtown_underground",
+        "name": "Premium Race: Downtown Underground",
+        "type": "premium_race",
+        "vehicle_restrictions": [
+          "super"
+        ],
+        "recommended_vehicle_classes": [
+          "super"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Locked to Super class"
+      },
+      {
+        "id": "hsw_time_trial_textile_city_to_stab_city",
+        "name": "HSW Time Trial: Textile City to Stab City",
+        "type": "time_trial",
+        "vehicle_restrictions": [
+          "HSW_eligible"
+        ],
+        "recommended_vehicle_classes": [
+          "HSW_eligible"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "PS5, Xbox X|S, and PC Enhanced only"
+      }
+    ],
+    "salvage_yard_targets": [
+      {
+        "id": "the_duggan_robbery_dinka_kanjo_sj",
+        "robbery_name": "The Duggan Robbery",
+        "vehicle_name": "Dinka Kanjo SJ",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "This week's Salvage Yard robbery target"
+      },
+      {
+        "id": "the_gangbanger_robbery_ocelot_swinger",
+        "robbery_name": "The Gangbanger Robbery",
+        "vehicle_name": "Ocelot Swinger",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "This week's Salvage Yard robbery target"
+      },
+      {
+        "id": "the_podium_robbery_pegassi_zentorno",
+        "robbery_name": "The Podium Robbery",
+        "vehicle_name": "Pegassi Zentorno",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "This week's Salvage Yard robbery target"
+      }
+    ]
+  },
+  "business_state": {
+    "nightclub": {
+      "owned": false,
+      "safe_cash": null,
+      "popularity_percent": null,
+      "technicians_total": null,
+      "technician_assignments": [],
+      "goods_stock": [],
+      "upgrade_flags": []
+    },
+    "feeder_businesses": []
+  },
+  "crew_context": {
+    "crew_name": null,
+    "active_members": [],
+    "usual_party_size": "solo",
+    "coordination_level": "low",
+    "notes": null
+  },
+  "analysis_hints": {
+    "missing_data_policy": "state_unknown_explicitly",
+    "recommendation_style": "ranked_list",
+    "language": "th",
+    "max_recommendations": 5,
+    "must_cite_ids": true
+  },
+  "data_quality": {
+    "coverage": {
+      "player_context_complete": false,
+      "business_state_complete": false,
+      "crew_context_complete": false
+    },
+    "known_gaps": [
+      "Gun van stock (weapons/throwables) marked TBA in source data.",
+      "Daily Objectives marked TBA in source data.",
+      "Vehicle prices and trade prices unavailable from source.",
+      "Most Wanted Targets list is external (GTAWEB) and not embedded.",
+      "Player context and business state are blank world-state payload; personalization fields require manual input.",
+      "GTA+ monthly catalog kept external; active weekly benefits injected during curation."
+    ],
+    "confidence_level": "medium"
+  }
+}
