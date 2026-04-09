@@ -1412,7 +1412,7 @@
       {
         "id": "dispatch_work_agency_bonus",
         "name": "Agency Dispatch Work Bonus",
-        "business_type": "agency",
+        "business_type": "bail_office",
         "bonus": {
           "gta_cash_multiplier": 2,
           "gta_plus_cash_multiplier": 3,
@@ -1420,7 +1420,7 @@
         },
         "requires_owned_business": true,
         "requirements": [
-          "agency"
+          "bail_office"
         ],
         "estimated_value_tags": [
           "active_grind",
@@ -1432,7 +1432,7 @@
       {
         "id": "bail_office_upgrade_discount",
         "name": "Bail Offices and Upgrades",
-        "business_type": "agency",
+        "business_type": "bail_office",
         "bonus": {
           "purchase_discount_percent": 50
         },

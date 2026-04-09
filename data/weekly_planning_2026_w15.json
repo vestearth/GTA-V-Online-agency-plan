@@ -1416,7 +1416,7 @@
       {
         "id": "bail_office_bounties_bonus",
         "name": "Bail Office Bounties Bonus",
-        "business_type": "agency",
+        "business_type": "bail_office",
         "bonus": {
           "gta_cash_multiplier": 2,
           "rp_multiplier": 2,
@@ -1436,7 +1436,7 @@
       {
         "id": "bail_office_staff_income_bonus",
         "name": "Bail Office Staff Income Bonus",
-        "business_type": "agency",
+        "business_type": "bail_office",
         "bonus": {
           "gta_cash_multiplier": 2
         },
@@ -1453,7 +1453,7 @@
       {
         "id": "bail_office_40pct_discount",
         "name": "Bail Offices - 40% Off",
-        "business_type": "agency",
+        "business_type": "bail_office",
         "bonus": {
           "purchase_discount_percent": 40
         },

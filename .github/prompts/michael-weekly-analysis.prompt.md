@@ -12,6 +12,8 @@ Requirements:
 - Use only facts present in the payload and repository references.
 - If payout data is incomplete, explain the planning signal without inventing numbers.
 - Rank recommendations using `Prioritize`, `Consider`, and `Skip` where useful.
+- If the payload contains a `comparison` section, compare current week to the previous week using the explicit summary and trend fields.
+- Only state that current week is better/worse/same when the `comparison` data supports it.
 
 Use these references when needed:
 - [Michael role document](../../agents/npc/michael.md)
