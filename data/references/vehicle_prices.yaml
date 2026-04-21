@@ -174,7 +174,7 @@ vehicles:
     base_price: 1500000
     trade_price: null
     source_url: "https://gtacars.net/gta5/rhino"
-    alias_hints: ["Rhino Tank"]
+    alias_hints: ["Tank", "Rhino Tank"]
 
   - vehicle_name: "Bravado Dorado"
     base_price: 1375000
@@ -192,7 +192,7 @@ vehicles:
     base_price: 1020000
     trade_price: 765000
     source_url: "https://gtacars.net/gta5/duster2"
-    alias_hints: ["Duster 300-H", "Likely model naming variant; verify exact GTACars model page."]
+    alias_hints: ["Company Duster 300-H", "Duster 300-H", "Likely model naming variant; verify exact GTACars model page."]
 
   - vehicle_name: "Lampadati Viseris"
     base_price: 875000

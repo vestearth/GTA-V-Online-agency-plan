@@ -1,0 +1,19 @@
+name: evaluate_combat_value
+description: >
+  Assess the weekly gun van inventory and general weapon/gear discounts against the tier list.
+input_schema:
+  type: object
+  properties:
+    gun_van_inventory:
+      type: array
+      items:
+        type: object
+    general_discounts:
+      type: array
+  required: []
+execution_logic: |
+  1. For each item in the discounted weapons/gun van list, look up its `tier` in `weapon_stats.yaml`.
+  2. If an item is Tier 'S' and is discounted by >= 20%, it becomes a MANDATORY target.
+  3. If an item is normally overpriced (like the Stun Gun) but is offered free for GTA+ members, flag it as a "Must Claim".
+  4. Disregard low-tier items unless they bring pure chaotic entertainment.
+  5. Recommend stacking up on Body Armor if discounted heavily.

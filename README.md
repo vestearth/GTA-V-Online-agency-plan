@@ -65,5 +65,34 @@ There is no Python or Node.js runtime required. The intelligence lives in the pr
 3. **Executive Synthesis** (Lester via `synthesize_final_report`)
 
 ---
+
+## 🚗 Vehicle Price Reference Refresh
+
+Use the helper script to sync vehicle names from the latest weekly payload into `data/references/vehicle_prices.yaml`, auto-add stripped-name aliases, and print a null-price report:
+
+`python3 scripts/update_vehicle_prices.py`
+
+Optional:
+- Use a specific weekly file: `python3 scripts/update_vehicle_prices.py --weekly data/weekly_planning_2026_w14.json`
+- Preview only: `python3 scripts/update_vehicle_prices.py --dry-run`
+
+### Weekly automation
+
+- GitHub Actions workflow: `.github/workflows/auto-update-vehicle-prices.yml`
+- It runs automatically when:
+  - a `data/weekly_planning_*.json` file is pushed
+  - every Thursday at 03:00 UTC
+  - manually via `workflow_dispatch`
+
+### Local cron (optional)
+
+If you also want local automation on your machine:
+
+1. Open crontab:
+   `crontab -e`
+2. Add (adjust the path if needed):
+   `0 10 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
+
+---
 **Last Updated**: April 21, 2026  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0

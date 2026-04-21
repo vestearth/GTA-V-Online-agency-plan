@@ -1,0 +1,44 @@
+name: Auto Update Vehicle Prices
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/weekly_planning_*.json"
+      - "scripts/update_vehicle_prices.py"
+  schedule:
+    # Every Thursday at 03:00 UTC (weekly cadence)
+    - cron: "0 3 * * 4"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-vehicle-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run vehicle price sync
+        run: python3 scripts/update_vehicle_prices.py
+
+      - name: Commit and push changes
+        run: |
+          if git diff --quiet -- data/references/vehicle_prices.yaml; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git add data/references/vehicle_prices.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(data): auto-refresh vehicle price references"
+          git push

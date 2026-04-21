@@ -25,6 +25,13 @@ nodes:
       - task_id: Vehicle_Analysis
         agent: Franklin
         skill: evaluate_vehicles
+        references:
+          vehicle_price_reference: data/references/vehicle_prices.yaml
+      - task_id: Combat_Analysis
+        agent: Trevor
+        skill: evaluate_combat_value
+        references:
+          weapon_stats_reference: data/references/weapon_stats.yaml
       - task_id: Operations_Logistics
         agent: Agent14
         skill: assess_operational_readiness

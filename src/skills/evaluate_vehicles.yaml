@@ -21,6 +21,9 @@ input_schema:
       items:
         type: string
         description: List of vehicles the player already owns
+    vehicle_price_reference:
+      type: object
+      description: Reference dataset loaded from `data/references/vehicle_prices.yaml`
   required: [vehicle_name]
 field_aliases:
   base_price: price
@@ -30,7 +33,7 @@ field_aliases:
 execution_logic: |
   1. Normalize aliases first (`base_price` -> `price`, `discount_percentage` -> `discount_percent`).
   2. Build matching keys for `vehicle_name`: original, punctuation-normalized, and manufacturer-stripped form (drop first token, e.g., `Bravado Gauntlet Interceptor` -> `Gauntlet Interceptor`).
-  3. Use those keys to resolve reference data (price/aliases) before scoring.
+  3. Use those keys to resolve reference data (price/aliases) from `vehicle_price_reference` before scoring.
   4. If `price` is still null after lookup, keep recommendation qualitative and mark purchase ROI as `Unknown Price`.
   5. Determine `final_price` = `price` * (100 - `discount_percent`) / 100 when both are present.
   6. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."

@@ -1,0 +1,46 @@
+# GTA V Online Arsenal Reference Database
+# Used by Trevor Philips for Combat Value Evaluation
+
+weapons:
+  railgun:
+    name: "Railgun"
+    tier: "S"
+    base_price: 730000
+    utility: "Anti-vehicle, one-shot explosive, essential for taking down helicopters and armored targets."
+    gun_van_exclusive: true
+
+  stun_gun:
+    name: "Stun Gun"
+    tier: "A"
+    base_price: 375000
+    utility: "Non-lethal trolling, disabling NPCs. Way too expensive normally, but a must-have if heavily discounted/free."
+    gun_van_exclusive: false
+
+  heavy_sniper:
+    name: "Heavy Sniper"
+    tier: "S"
+    base_price: 38000
+    utility: "Long-range dominance. Essential blueprint for Mk II upgrade."
+    gun_van_exclusive: false
+
+  military_rifle:
+    name: "Military Rifle"
+    tier: "B"
+    base_price: 397500
+    utility: "Decent assault rifle, but outclassed by the Heavy Rifle or Special Carbine in most scenarios."
+    gun_van_exclusive: false
+
+  battle_rifle:
+    name: "Battle Rifle"
+    tier: "A"
+    base_price: 450000
+    utility: "High damage per shot, great accuracy. Solid choice for mid-range combat."
+    gun_van_exclusive: true
+
+combat_items:
+  body_armor:
+    tier: "S"
+    utility: "Literal lifesaver. Never pass up a heavy discount."
+  sticky_bomb:
+    tier: "S"
+    utility: "Best throwable in the game for drive-bys."
