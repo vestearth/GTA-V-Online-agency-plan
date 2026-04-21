@@ -19,5 +19,5 @@ paths:
 
 # The new workflow execution process is strictly defined in `src/workflows/weekly_planning.yaml`.
 # 1. Schema Precheck (Lester + validate_weekly_schema_lightweight)
-# 2. Parallel Specialist Analysis (Michael, Franklin, Agent 14, Tony)
+# 2. Parallel Specialist Analysis (Michael, Franklin, Trevor, Agent 14, Tony)
 # 3. Executive Synthesis (Lester)

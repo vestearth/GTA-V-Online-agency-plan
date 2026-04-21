@@ -2,7 +2,7 @@
 
 **Conceptual Multi-Agent AI Framework**
 
-A YAML-based intelligent workflow that analyzes weekly GTA V Online content through 5 specialized agent personas (Michael, Franklin, Agent 14, Tony, Lester).
+A YAML-based intelligent workflow that analyzes weekly GTA V Online content through 6 specialized agent personas (Michael, Franklin, Trevor, Agent 14, Tony, Lester).
 
 ---
 
@@ -27,7 +27,10 @@ GTA-V-Online-agency-plan/
 │   └── skills/                           # Agent capabilites/tools
 ├── data/                                 # 📥 Data Payloads
 │   ├── schema_v2_example.json            # Reference payload for the week
-│   └── references/                       # Lookup catalogs (e.g., vehicle stats, nightclub data)
+│   └── references/                       # Lookup catalogs
+│       ├── vehicle_prices.yaml           # Used by Franklin
+│       ├── weapon_stats.yaml             # Used by Trevor
+│       └── agent14-cayo.yaml             # Used by Agent 14
 ├── reports/                              # 📤 Agent outputs & Final Executive Overviews
 ├── docs/                                 # 📚 Templates and documentation
 └── .github/skills/gta-weekly-planning/   # 🤖 GitHub Copilot Skill hook
@@ -52,6 +55,7 @@ There is no Python or Node.js runtime required. The intelligence lives in the pr
 |-------|-----------|----------------------|
 | **Michael** | Financials | Evaluates overall ROI and highest paying activities. |
 | **Franklin** | Vehicles | Reviews Prize Rides, Test Track, and Showroom discounts. |
+| **Trevor** | Combat Value| Analyzes Gun Van items, weapon discounts, and free armor/ammo. |
 | **Agent 14** | Logistics | Matches activities to your available time and crew size constraints. |
 | **Tony** | Passive Income | Optimizes Nightclub, Bunker, and MC Businesses. |
 | **Lester** | Synthesis | Takes inputs from everyone else and outputs the Executive Summary. |
@@ -61,7 +65,7 @@ There is no Python or Node.js runtime required. The intelligence lives in the pr
 `src/workflows/weekly_planning.yaml` currently runs in this order:
 
 1. **Schema Precheck** (`validate_weekly_schema_lightweight`)
-2. **Parallel Specialist Analysis** (Michael, Franklin, Agent 14, Tony)
+2. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
 3. **Executive Synthesis** (Lester via `synthesize_final_report`)
 
 ---

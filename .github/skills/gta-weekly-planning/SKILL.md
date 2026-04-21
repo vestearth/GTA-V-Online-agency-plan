@@ -14,7 +14,7 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 
 - Analyze a `schema v2` weekly planning payload.
 - Recommend which activities, vehicles, businesses, or weapons to prioritize this week.
-- Generate or revise outputs for agents that exist in `src/agents/` (Michael, Franklin, Agent 14, Tony, Lester).
+- Generate or revise outputs for agents that exist in `src/agents/` (Michael, Franklin, Trevor, Agent 14, Tony, Lester).
 - Explain or follow `src/workflows/weekly_planning.yaml`.
 
 ## Required Ground Rules
@@ -34,6 +34,7 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 3. Execute specialist lenses:
    - `Michael` -> `calculate_business_roi`
    - `Franklin` -> `evaluate_vehicles`
+   - `Trevor` -> `evaluate_combat_value`
    - `Agent14` -> `assess_operational_readiness`
    - `Tony` -> `analyze_nightclub_feeder`
 4. Synthesize via `Lester` using `synthesize_final_report`.
