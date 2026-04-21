@@ -253,3 +253,142 @@ vehicles:
     trade_price: null
     source_url: "https://gtacars.net/gta5/paragon"
     alias_hints: ["Paragon R"]
+
+  - vehicle_name: "Pfister Growler"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Growler"]
+
+  - vehicle_name: "Annis 300R"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["300R"]
+
+  - vehicle_name: "Enus Cognoscenti"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cognoscenti"]
+
+  - vehicle_name: "Declasse Tornado Rat Rod"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Tornado Rat Rod"]
+
+  - vehicle_name: "Benefactor Streiter"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Streiter"]
+
+  - vehicle_name: "Karin Vivanite"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Vivanite"]
+
+  - vehicle_name: "Imponte Arbiter GT"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Arbiter GT"]
+
+  - vehicle_name: "Vapid Apocalypse Imperator (Arena)"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Apocalypse Imperator (Arena)"]
+
+  - vehicle_name: "Imponte Ruiner 2000"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Ruiner 2000"]
+
+  - vehicle_name: "Grotti Itali Classic"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Itali Classic"]
+
+  - vehicle_name: "Dinka Jester Classic"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Jester Classic"]
+
+  - vehicle_name: "Dewbauchee JB 700W"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["JB 700W"]
+
+  - vehicle_name: "Bravado Banshee GTS"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Banshee GTS"]
+
+  - vehicle_name: "Överflöd Autarch"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Autarch"]
+
+  - vehicle_name: "Vom Feuer Anti-Aircraft Trailer"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Feuer Anti-Aircraft Trailer"]
+
+  - vehicle_name: "Nagasaki Outlaw"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Outlaw"]
+
+  - vehicle_name: "Mammoth Squaddie"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Squaddie"]
+
+  - vehicle_name: "Vapid Winky"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Winky"]
+
+  - vehicle_name: "Western Rampant Rocket"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rampant Rocket"]
+
+  - vehicle_name: "Pfister Comet Safari"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Comet Safari"]
+
+  - vehicle_name: "Dewbauchee Specter"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Specter"]
+
+  - vehicle_name: "Pfister Astrale"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Astrale"]
+
+  - vehicle_name: "Übermacht Sentinel GTS"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Sentinel GTS"]
+
