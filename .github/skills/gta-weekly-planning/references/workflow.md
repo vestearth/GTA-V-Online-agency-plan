@@ -2,6 +2,8 @@
 
 This file maps the repository's current, existing assets only.
 
+This reference is assistant-agnostic and can be used from Copilot, Cursor, Codex, or Gemini as long as the assistant can read repository files and follow YAML/Markdown instructions.
+
 ## Canonical Inputs
 
 - Primary schema example: `data/schema_v2_example.json`
@@ -19,6 +21,7 @@ This file maps the repository's current, existing assets only.
 
 - Michael: ROI and money efficiency
 - Franklin: vehicles and acquisition value
+- Trevor: combat value, Gun Van discounts, and weapon utility
 - Agent 14: operational readiness and session constraints
 - Tony: passive-income and Nightclub feeder loop
 - Lester: final synthesis
@@ -28,6 +31,7 @@ This file maps the repository's current, existing assets only.
 - `validate_weekly_schema_lightweight`: required keys and critical null checks
 - `calculate_business_roi`: ROI and profit-per-hour normalization
 - `evaluate_vehicles`: vehicle pricing/discount and effort-vs-value analysis
+- `evaluate_combat_value`: weapon discount and combat utility analysis
 - `assess_operational_readiness`: requirements, party-size, and timebox fit
 - `analyze_nightclub_feeder`: passive-business readiness and technician guidance
 - `synthesize_final_report`: resolve trade-offs and produce final weekly plan

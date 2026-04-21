@@ -2,7 +2,7 @@ name: GTA Weekly Planning Orchestration
 version: "1.0"
 description: >
   Orchestrates the entire weekly update analysis for GTA V Online,
-  routing tasks through specialized agents (Michael, Franklin, Agent 14, Tony)
+  routing tasks through specialized agents (Michael, Franklin, Trevor, Agent 14, Tony)
   and finalizing a cohesive report via Lester.
 
 entry_node: Schema_Precheck

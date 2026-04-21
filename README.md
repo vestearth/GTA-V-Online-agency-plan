@@ -8,7 +8,7 @@ A YAML-based intelligent workflow that analyzes weekly GTA V Online content thro
 
 ## 🏗️ Architecture (src/)
 
-The project is structured as a Conceptual Multi-Agent Orchestrator (resembling LangGraph, CrewAI, AutoGen in blueprint format). Execution is currently handled natively by **GitHub Copilot** via defined Prompts and Skills.
+The project is structured as a Conceptual Multi-Agent Orchestrator (resembling LangGraph, CrewAI, AutoGen in blueprint format). Execution is **assistant-agnostic** and can be operated from modern AI coding/chat clients (for example: **GitHub Copilot, Cursor, Codex, Gemini**) via the same prompt + workflow assets.
 
 - 📂 **`src/workflows/`**: The main execution DAGs (e.g., `weekly_planning.yaml`) tying agents and data together.
 - 📂 **`src/agents/`**: Model parameters, backstories, goals, and output formats for each NPC (e.g., `michael.yaml`, `franklin.yaml`).
@@ -33,19 +33,21 @@ GTA-V-Online-agency-plan/
 │       └── agent14-cayo.yaml             # Used by Agent 14
 ├── reports/                              # 📤 Agent outputs & Final Executive Overviews
 ├── docs/                                 # 📚 Templates and documentation
-└── .github/skills/gta-weekly-planning/   # 🤖 GitHub Copilot Skill hook
+└── .github/skills/gta-weekly-planning/   # 🤖 Reusable skill/prompt hook (portable)
 ```
 
 ---
 
-## 🎯 How to Use (with GitHub Copilot)
+## 🎯 How to Use (Copilot / Cursor / Codex / Gemini)
 
-There is no Python or Node.js runtime required. The intelligence lives in the prompt templates, and Copilot acts as the Orchestrator.
+There is no Python or Node.js runtime required. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
 
 1. **Bring Data:** Grab the weekly update text from the Rockstar Newswire or GTA Forums.
-2. **Invoke Copilot:** In VS Code with the GitHub Copilot Chat extension, ask:
-   > *"Here is the new GTA weekly update data... Please run the `src/workflows/weekly_planning.yaml` and generate the final report in the `reports/` folder."*
-3. Copilot will automatically read the `.github/skills/gta-weekly-planning/SKILL.md` rulebook, instantiate the necessary agents according to `src/agents/*.yaml`, apply the rules from `src/skills/`, and provide Lester's Final Master Plan.
+2. **Invoke your assistant:** In your preferred client (Copilot Chat, Cursor Agent/Chat, Codex, Gemini), ask:
+   > *"Here is the new GTA weekly update data... Please run `src/workflows/weekly_planning.yaml`, follow `.github/skills/gta-weekly-planning/SKILL.md`, and generate the final report in `reports/`."*
+3. The assistant should read the `SKILL.md` rulebook, instantiate agents according to `src/agents/*.yaml`, apply logic from `src/skills/`, and output Lester's Final Master Plan.
+
+Need ready-to-use prompts by platform? See `docs/assistant-usage.md`.
 
 ---
 
@@ -98,5 +100,5 @@ If you also want local automation on your machine:
    `0 10 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
 
 ---
-**Last Updated**: April 21, 2026  
+**Last Updated**: April 21, 2026 (docs freshness rule enforced)  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0
