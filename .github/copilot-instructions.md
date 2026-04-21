@@ -9,9 +9,9 @@
 This repo is a **specification and prompt library** for a multi-agent “GTA V Online weekly planning” workflow. It is **not** a runnable application: there is **no** Python/Node entrypoint, `requirements.txt`, or automated orchestrator in-tree.
 
 - **Canonical weekly payload**: `data/schema_v2_example.json` (schema v2).
-- **Framework narrative & roles**: `agents/Agent.md`, `agents/npc/*.md`.
-- **Copilot integration**: `.github/prompts/`, `.github/agents/`, `.github/skills/`.
-- **Optional machine-readable workflow index**: `agents/agency.config.yaml` (for humans/tools; nothing in this repo consumes it automatically).
+- **Framework narrative & roles**: `README.md`, `src/agents/*.yaml`, `src/skills/*.yaml`.
+- **Copilot integration**: `.github/skills/gta-weekly-planning/SKILL.md`.
+- **Workflow index**: `src/agency.config.yaml` and `src/workflows/weekly_planning.yaml`.
 
 When editing or generating content:
 
@@ -27,9 +27,9 @@ When editing or generating content:
 ที่เก็บนี้เป็น **เอกสารสเปกและชุด prompt** สำหรับเวิร์กโฟลว์หลายเอเย่นต์ “วางแผน GTA V Online รายสัปดาห์” **ไม่ใช่แอปที่รันได้ทันที** — ไม่มี entrypoint ภาษา Python/Node, `requirements.txt` หรือตัว orchestrator อัตโนมัติใน repo
 
 - **ตัวอย่าง payload มาตรฐาน**: `data/schema_v2_example.json` (schema v2)
-- **บทบาทและกรอบงาน**: `agents/Agent.md`, `agents/npc/*.md`
-- **จุดเชื่อม Copilot**: `.github/prompts/`, `.github/agents/`, `.github/skills/`
-- **ดัชนีเวิร์กโฟลว์แบบอ่านได้ด้วยเครื่อง (ถ้ามี)**: `agents/agency.config.yaml` — ใช้อ้างอิงสำหรับมนุษย์หรือเครื่องมือภายนอก **ไม่มีส่วนใน repo ที่อ่านไฟล์นี้อัตโนมัติในปัจจุบัน**
+- **บทบาทและกรอบงาน**: `README.md`, `src/agents/*.yaml`, `src/skills/*.yaml`
+- **จุดเชื่อม Copilot**: `.github/skills/gta-weekly-planning/SKILL.md`
+- **ดัชนีเวิร์กโฟลว์**: `src/agency.config.yaml` และ `src/workflows/weekly_planning.yaml`
 
 เมื่อช่วยแก้หรือสร้างเนื้อหา:
 
@@ -43,22 +43,22 @@ When editing or generating content:
 ## EN — Suggested Copilot usage pattern
 
 1. Prepare or paste weekly data (goal: valid schema v2 JSON).
-2. Run **Pavel** / **Vincent** prompts if the payload needs curation or validation.
-3. Run specialist prompts (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Lamar**, **Tony**, **Ron**) as needed.
-4. Run **Lester** last to synthesize outputs into one weekly summary.
+2. Run schema precheck first (`validate_weekly_schema_lightweight`) and stop if blocking errors exist.
+3. Run specialist analysis (**Michael**, **Franklin**, **Agent 14**, **Tony**) as needed.
+4. Run **Lester** last (`synthesize_final_report`) to synthesize outputs into one weekly summary.
 
-Order details and file paths are summarized in `agents/agency.config.yaml` and the root `README.md`.
+Order details and file paths are summarized in `src/agency.config.yaml`, `src/workflows/weekly_planning.yaml`, and the root `README.md`.
 
 ---
 
 ## TH — แนวทางใช้ Copilot (ลำดับแนะนำ)
 
 1. เตรียมหรือวางข้อมูลสัปดาห์ (เป้าหมายคือ JSON ที่ถูกต้องตาม schema v2)
-2. ใช้ prompt ของ **Pavel** / **Vincent** เมื่อข้อมูลยังดิบหรือต้องตรวจโครงสร้าง
-3. รันเอเย่นต์เชิงเจาะจง (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Lamar**, **Tony**, **Ron**) ตามต้องการ
-4. ปิดท้ายด้วย **Lester** เพื่อสังเคราะห์เป็นรายงานสัปดาห์เดียว
+2. รัน schema precheck ก่อนเสมอ (`validate_weekly_schema_lightweight`) และหยุดทันทีถ้าพบ blocking errors
+3. รันเอเย่นต์เชิงเจาะจง (**Michael**, **Franklin**, **Agent 14**, **Tony**) ตามต้องการ
+4. ปิดท้ายด้วย **Lester** (`synthesize_final_report`) เพื่อสังเคราะห์เป็นรายงานสัปดาห์เดียว
 
-รายละเอียดลำดับและ path ไฟล์อยู่ใน `agents/agency.config.yaml` และ `README.md` ที่รากโปรเจกต์
+รายละเอียดลำดับและ path ไฟล์อยู่ใน `src/agency.config.yaml`, `src/workflows/weekly_planning.yaml` และ `README.md` ที่รากโปรเจกต์
 
 ---
 

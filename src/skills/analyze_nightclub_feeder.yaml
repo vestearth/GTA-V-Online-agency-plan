@@ -5,11 +5,15 @@ description: >
 input_schema:
   type: object
   properties:
+    business_state:
+      type: object
     owned_businesses:
       type: array
     weekly_bonuses:
       type: array
+field_aliases:
+  owned_businesses: player_context.owned_assets.businesses
 execution_logic: |
-  1. Determine if Nightclub/Bunker/Salvage Yard are discounted or paying double money.
-  2. Check if player has required feeder MC businesses.
-  3. Output advice on technicians and popularity.
+  1. Determine if Nightclub/Bunker/Salvage Yard are discounted or have weekly multipliers.
+  2. Check feeder readiness from `player_context.owned_assets.businesses` and `business_state.feeder_businesses`.
+  3. Use `business_state.nightclub` (popularity, technicians, stock) to suggest reassignment and sell timing.

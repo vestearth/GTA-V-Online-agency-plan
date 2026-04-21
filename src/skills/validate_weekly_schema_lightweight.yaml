@@ -1,0 +1,44 @@
+name: validate_weekly_schema_lightweight
+description: >
+  Lightweight schema precheck for weekly planning payloads.
+  Verifies required top-level keys and flags null critical fields before analysis.
+input_schema:
+  type: object
+  properties:
+    schema_version:
+      type: string
+    schema_mode:
+      type: string
+    week:
+      type: object
+    player_context:
+      type: object
+    weekly_content:
+      type: object
+  required: [schema_version, schema_mode, week, player_context, weekly_content]
+validation_rules:
+  required_top_level_keys:
+    - schema_version
+    - schema_mode
+    - week
+    - player_context
+    - weekly_content
+  required_schema_values:
+    schema_version: "2.0"
+    schema_mode: "weekly_planning"
+  critical_non_null_paths:
+    - week.id
+    - week.start_date
+    - week.end_date
+    - player_context.owned_assets.properties
+    - player_context.constraints.hours_available
+    - weekly_content.featured_activities
+execution_logic: |
+  1. Validate required top-level keys.
+  2. Validate canonical schema values (`2.0`, `weekly_planning`).
+  3. Validate critical non-null paths used by downstream skills.
+  4. Return:
+     - `is_valid`: true/false
+     - `errors`: blocking issues
+     - `warnings`: non-blocking data-quality issues (e.g., null prices)
+  5. If `is_valid` is false, stop before Specialized_Analysis_Group.

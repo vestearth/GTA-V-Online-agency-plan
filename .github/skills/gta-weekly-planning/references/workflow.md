@@ -1,59 +1,41 @@
 # Workflow Reference
 
-This skill is designed around the existing repository layout and should reuse the current source material instead of duplicating it.
+This file maps the repository's current, existing assets only.
 
 ## Canonical Inputs
 
-- Primary example payload: `data/schema_v2_example.json`
-- Other sample payloads: `data/sample_week.json`, `data/weekly_planning_2026_w14.json`
-- Weekly capture templates: `data/weekly_activity_template.json`, `data/weekly_activity_simple_template.json`
+- Primary schema example: `data/schema_v2_example.json`
+- Weekly samples: `data/weekly_planning_2026_w14.json`, `data/weekly_planning_2026_w15.json`, `data/sample_week.json`
+- Capture templates: `data/weekly_activity_template.json`, `data/weekly_activity_simple_template.json`
 
-## Core Documentation
+## Orchestration Sources
 
-- Framework overview: `agents/Agent.md`
-- Shared prompt patterns: `agents/prompt_templates.md`
-- Quick weekly capture checklist: `agents/weekly_checklist.md`
-- Input helper: `agents/weekly_input_template.md`
+- Master manifest: `src/agency.config.yaml`
+- Workflow DAG: `src/workflows/weekly_planning.yaml`
+- Agent definitions: `src/agents/*.yaml`
+- Skill definitions: `src/skills/*.yaml`
 
-## Prompt Entry Points
+## Current Agent Coverage
 
-- `/.github/prompts/michael-weekly-analysis.prompt.md`
-- `/.github/prompts/franklin-vehicle-analysis.prompt.md`
-- `/.github/prompts/trevor-combat-value.prompt.md`
-- `/.github/prompts/agent14-operations-analysis.prompt.md`
-- `/.github/prompts/lamar-crew-analysis.prompt.md`
-- `/.github/prompts/tony-passive-income-analysis.prompt.md`
-- `/.github/prompts/ron-weekly-story.prompt.md`
-- `/.github/prompts/lester-weekly-summary.prompt.md`
+- Michael: ROI and money efficiency
+- Franklin: vehicles and acquisition value
+- Agent 14: operational readiness and session constraints
+- Tony: passive-income and Nightclub feeder loop
+- Lester: final synthesis
 
-## Agent Documents
+## Skill Mapping
 
-- Michael: `agents/npc/michael.md`
-- Franklin: `agents/npc/franklin.md`
-- Trevor: `agents/npc/trevor.md`
-- Agent 14: `agents/npc/agent14.md`
-- Lamar: `agents/npc/lamar.md`
-- Tony: `agents/npc/tony.md`
-- Lester: `agents/npc/lester.md`
-- Ron: `agents/npc/ron.md`
-
-## Supporting References
-
-- Franklin reference data: `agents/docs/franklin.yaml`
-- Brand schema: `agents/docs/brand.schema.yaml`
-- Agent 14 benchmarks: `agents/docs/agent14-cayo.yaml`
-- Tony runtime catalog: `agents/data/tony.json`
-
-## Report Generation
-
-- รายงานปัจจุบันสร้างโดยใช้ prompt/agent ใน Copilot แทนสคริปต์ Python
-- เลือก prompt entry point จาก `.github/prompts/` หรือ custom agent จาก `.github/agents/`
-- หากต้องการบันทึกผลลัพธ์เป็นไฟล์ ให้คัดลอก AI response จาก Copilot หรือสร้าง workflow ภายนอกเพื่อเก็บข้อความ
+- `validate_weekly_schema_lightweight`: required keys and critical null checks
+- `calculate_business_roi`: ROI and profit-per-hour normalization
+- `evaluate_vehicles`: vehicle pricing/discount and effort-vs-value analysis
+- `assess_operational_readiness`: requirements, party-size, and timebox fit
+- `analyze_nightclub_feeder`: passive-business readiness and technician guidance
+- `synthesize_final_report`: resolve trade-offs and produce final weekly plan
 
 ## Typical Execution Pattern
 
-1. Pick a payload from `data/`.
-2. Match the requested lens to the relevant agent document.
-3. Use `agents/prompt_templates.md` for the structured-output contract.
-4. Use the appropriate prompt or custom agent to generate the analysis.
-5. If the task spans multiple lenses, collect agent outputs first and reserve synthesis for Lester.
+1. Pick one payload from `data/`.
+2. Run schema precheck and stop if blocking errors exist.
+3. Run specialist analyses in parallel.
+4. Aggregate recommendations with Lester.
+5. Save or present the weekly Master Plan in Markdown.

@@ -1,26 +1,37 @@
 name: evaluate_vehicles
-description: Analyze a vehicle opportunity (like Prize Ride, Test Ride, or Casino Podium) to provide recommendations based on cost, difficulty, and utility.
+description: >
+  Analyze a vehicle opportunity (Prize Ride, Test Ride, Podium, Discount)
+  using schema v2 fields with backward-compatible aliases.
 input_schema:
   type: object
   properties:
     vehicle_name:
       type: string
-    base_price:
+    price:
       type: number
-    discount_percentage:
+    discount_percent:
       type: number
-    acquisition_method:
+    opportunity_type:
       type: string
+    acquisition:
+      type: object
+      description: Source details such as challenge or claim path
     player_inventory:
       type: array
       items:
         type: string
         description: List of vehicles the player already owns
-  required: [vehicle_name, base_price, discount_percentage]
+  required: [vehicle_name]
+field_aliases:
+  base_price: price
+  discount_percentage: discount_percent
+  acquisition_method: opportunity_type
 
 execution_logic: |
-  1. Determine `final_price` = `base_price` * (100 - `discount_percentage`) / 100.
-  2. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."
-  3. If acquisition is "Prize Ride" or "Podium": evaluate the time needed for the challenge or the odds on the wheel.
-  4. Compare vehicle stats (speed, handling, armor) against top-tier vehicles in its class.
-  5. Recommend 'Prioritize' if the discount is > 40% and performance is high, 'Consider' for niche cars, 'Skip' otherwise.
+  1. Normalize aliases first (`base_price` -> `price`, `discount_percentage` -> `discount_percent`).
+  2. If `price` is null, keep recommendation qualitative and mark purchase ROI as `Unknown Price`.
+  3. Determine `final_price` = `price` * (100 - `discount_percent`) / 100 when both are present.
+  4. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."
+  5. If `opportunity_type` is "prize_ride" or "podium", evaluate challenge effort or claim odds.
+  6. Compare performance and utility tags against player's goals and owned assets.
+  7. Recommend 'Prioritize' if discount is strong and utility is high, 'Consider' for niche/collector value, 'Skip' otherwise.

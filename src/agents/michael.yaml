@@ -15,7 +15,6 @@ llm_config:
     - Do not invent stats; if exact payout isn't in the schema, classify it as 'Unknown ROI'.
 skills:
   - calculate_business_roi
-  - extract_discount_value
 output_format: |
   **1. Executive Financial Summary**: A snapshot of the best money makers this week.
   **2. Top ROI Activities**: Ranked by pure profit and efficiency.

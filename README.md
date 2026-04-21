@@ -1,8 +1,8 @@
 # 🎮 GTA V Online Multi-Agent Orchestrator
 
-**Conceptual Multi-Agent AI Framework** 
+**Conceptual Multi-Agent AI Framework**
 
-A YAML-based intelligent workflow that analyzes weekly GTA V Online content through the perspectives of 10 specialized agent personas (Michael, Franklin, Trevor, Tony, Agent 14, etc.).
+A YAML-based intelligent workflow that analyzes weekly GTA V Online content through 5 specialized agent personas (Michael, Franklin, Agent 14, Tony, Lester).
 
 ---
 
@@ -52,12 +52,18 @@ There is no Python or Node.js runtime required. The intelligence lives in the pr
 |-------|-----------|----------------------|
 | **Michael** | Financials | Evaluates overall ROI and highest paying activities. |
 | **Franklin** | Vehicles | Reviews Prize Rides, Test Track, and Showroom discounts. |
-| **Trevor** | Combat | Analyzes weapon discounts and combat vehicles. |
 | **Agent 14** | Logistics | Matches activities to your available time and crew size constraints. |
 | **Tony** | Passive Income | Optimizes Nightclub, Bunker, and MC Businesses. |
 | **Lester** | Synthesis | Takes inputs from everyone else and outputs the Executive Summary. |
-| **Pavel & Vincent** | Data Integrity | Ingest raw news and format into `schema_v2` JSON. |
+
+## 🔄 Current Workflow (v2)
+
+`src/workflows/weekly_planning.yaml` currently runs in this order:
+
+1. **Schema Precheck** (`validate_weekly_schema_lightweight`)
+2. **Parallel Specialist Analysis** (Michael, Franklin, Agent 14, Tony)
+3. **Executive Synthesis** (Lester via `synthesize_final_report`)
 
 ---
-**Last Updated**: April 2026  
+**Last Updated**: April 21, 2026  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0

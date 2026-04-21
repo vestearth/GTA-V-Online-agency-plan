@@ -11,7 +11,10 @@ input_schema:
       type: object
     constraints:
       type: object
+    planning_context:
+      type: object
 execution_logic: |
-  1. For each featured activity, check if `requirements` are in `owned_assets.properties`.
-  2. Map `party_size` constraints.
-  3. Ensure timebox doesn't exceed available session hours.
+  1. For each featured activity, check if `requirements` exist in `owned_assets.properties`.
+  2. Map party-size fit using `recommended_party_size` against `constraints.preferred_session_size`.
+  3. Use `timebox_minutes` when present; if null, flag as non-blocking uncertainty.
+  4. Ensure selected plan does not exceed `constraints.hours_available` or `planning_context.session_plan`.

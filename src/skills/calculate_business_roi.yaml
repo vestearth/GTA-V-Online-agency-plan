@@ -1,25 +1,36 @@
 name: calculate_business_roi
-description: Use the weekly schema data to compute the profitability and time-efficiency of an active business or job.
+description: >
+  Use schema v2 weekly data to compute profitability and time-efficiency
+  of an active business or job, with backward-compatible field aliases.
 input_schema:
   type: object
   properties:
     activity_id:
       type: string
       description: The ID of the activity in the weekly schema
-    base_payout:
+    reward_cash:
       type: number
-      description: Normal payout of the activity without bonuses
-    multiplier:
+      description: Cash payout from `reward.cash` when available
+    bonus_multiplier:
       type: number
-      description: Any 2x, 1.5x, etc. weekly bonus
-    time_minutes:
+      description: Weekly multiplier from `bonus.gta_cash_multiplier`
+    timebox_minutes:
       type: number
       description: Typical completion time in minutes
-  required: [activity_id, base_payout, multiplier, time_minutes]
+    setup_cost:
+      type: number
+      description: Optional setup or operating cost
+  required: [activity_id, timebox_minutes]
+field_aliases:
+  base_payout: reward_cash
+  multiplier: bonus_multiplier
+  time_minutes: timebox_minutes
 
 execution_logic: |
-  1. Calculate `gross_payout` = `base_payout` * `multiplier`.
-  2. Deduct any known setup costs or fees to get `net_profit`.
-  3. Divide `net_profit` by (`time_minutes` / 60) to determine `profit_per_hour`.
-  4. Compare `profit_per_hour` against the baseline standard of $2,000,000/hr (Cayo Perico).
-  5. Return a 'Worth It' flag if the `profit_per_hour` exceeds $500,000.
+  1. Normalize aliases first (`base_payout` -> `reward_cash`, `multiplier` -> `bonus_multiplier`, `time_minutes` -> `timebox_minutes`).
+  2. If `reward_cash` is missing, mark activity as `Unknown ROI` and include the reason in `insufficient_data`.
+  3. Calculate `gross_payout` = `reward_cash` * `bonus_multiplier` (default multiplier = 1).
+  4. Deduct `setup_cost` (default 0) to get `net_profit`.
+  5. Divide `net_profit` by (`timebox_minutes` / 60) to determine `profit_per_hour`.
+  6. Compare `profit_per_hour` against the baseline standard of $2,000,000/hr (Cayo Perico).
+  7. Return a 'Worth It' flag if the `profit_per_hour` exceeds $500,000.

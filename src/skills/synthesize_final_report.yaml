@@ -1,0 +1,17 @@
+name: synthesize_final_report
+description: >
+  Consolidate specialist reports into a single weekly master plan with
+  explicit priorities, caveats, and execution order.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+    specialized_reports:
+      type: array
+  required: [weekly_schema_v2, specialized_reports]
+execution_logic: |
+  1. Merge recommendations from Michael, Franklin, Agent 14, and Tony.
+  2. Resolve conflicts by applying player budget, available time, and owned assets.
+  3. Produce final sections: What to Play, What to Buy, What to Ignore.
+  4. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
