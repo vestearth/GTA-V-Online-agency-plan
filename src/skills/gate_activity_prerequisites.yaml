@@ -1,0 +1,21 @@
+name: gate_activity_prerequisites
+description: >
+  Run a strict readiness gate before specialist analysis by checking whether
+  required assets, minimum team size, and available session time are sufficient.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+    player_profile:
+      type: object
+  required: [weekly_schema_v2, player_profile]
+execution_logic: |
+  1. Inspect each `weekly_content.featured_activities[]` requirement block.
+  2. Mark `ready` only if required assets/properties are present in `player_profile.owned_assets`.
+  3. Mark `crew_fit` by comparing activity team-size hints against `player_profile.session_constraints`.
+  4. Mark `time_fit` by checking activity timebox hints against `player_profile.session_constraints`.
+  5. Emit:
+     - `readiness_matrix` (ready/not_ready per activity)
+     - `blocking_gaps` (must-fix before running activity)
+     - `non_blocking_gaps` (missing detail or uncertain assumptions)

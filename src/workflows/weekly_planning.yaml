@@ -12,12 +12,25 @@ nodes:
     agent: Lester
     skill: validate_weekly_schema_lightweight
     input_state: weekly_schema_v2
-    on_success: Specialized_Analysis_Group
+    on_success: Prerequisite_Gate
     on_fail: END_WITH_DATA_ISSUES
+
+  - id: Prerequisite_Gate
+    agent: Agent14
+    skill: gate_activity_prerequisites
+    input_state:
+      - weekly_schema_v2
+      - player_profile
+    output_state: readiness_gate_report
+    on_success: Specialized_Analysis_Group
+    on_fail: END_WITH_READINESS_ISSUES
 
   - id: Specialized_Analysis_Group
     type: parallel
-    input_state: weekly_schema_v2
+    input_state:
+      - weekly_schema_v2
+      - player_profile
+      - readiness_gate_report
     tasks:
       - task_id: Financial_Analysis
         agent: Michael
@@ -45,10 +58,16 @@ nodes:
     agent: Lester
     input_state: 
       - weekly_schema_v2
+      - player_profile
+      - readiness_gate_report
       - specialized_reports
     skill: synthesize_final_report
     output_state: final_weekly_plan
     next: END
+
+  - id: END_WITH_READINESS_ISSUES
+    type: terminal
+    output_state: readiness_gate_report
 
   - id: END_WITH_DATA_ISSUES
     type: terminal

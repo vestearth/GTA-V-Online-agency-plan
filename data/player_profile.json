@@ -1,0 +1,78 @@
+{
+  "profile_version": "1.0",
+  "player_name": "-CarlosZ-",
+  "platform": "PC",
+  "bankroll": {
+    "cash_on_hand": 34404748,
+    "max_spend_this_week": 4000000,
+    "reserve_floor": 30000000
+  },
+  "owned_assets": {
+    "properties": [
+      "Kosatka",
+      "Nightclub",
+      "Bunker",
+      "Auto Shop",
+      "Agency",
+      "Acid Lab",
+      "MC Clubhouse",
+      "Arcade",
+      "Facility",
+      "Executive Office",
+      "Vehicle Warehouse",
+      "Special Cargo Warehouses",
+      "Salvage Yard",
+      "Bottom Dollar Bail Enforcement Office",
+      "The Garment Factory"
+    ],
+    "missing_properties": [
+      "Galaxy Super Yacht",
+      "Mammoth Avenger",
+      "Hangar"
+    ],
+    "notes": "Owns almost all major properties. Missing only Yacht, Avenger, and the newest patch house.",
+    "upgrades": {
+      "kosatka_sparrow": true,
+      "nightclub_equipment_upgrade": true,
+      "bunker_equipment_upgrade": true,
+      "acid_lab_equipment_upgrade": true,
+      "avenger_workshop": false
+    },
+    "businesses": [
+      "Cocaine Lockup",
+      "Methamphetamine Lab",
+      "Counterfeit Cash Factory",
+      "Weed Farm",
+      "Document Forgery Office",
+      "Gunrunning Bunker",
+      "Special Cargo",
+      "Vehicle Cargo",
+      "Air Freight Cargo"
+    ],
+    "vehicles": [
+      "Oppressor Mk II",
+      "Kuruma (Armored)",
+      "Sparrow",
+      "Buzzard Attack Chopper"
+    ]
+  },
+  "session_constraints": {
+    "hours_available_per_week": 15,
+    "preferred_session_size": 2,
+    "max_continuous_minutes": 120,
+    "play_windows": [
+      "weekday-evening",
+      "weekend-morning"
+    ]
+  },
+  "preferences": {
+    "play_style": "hybrid",
+    "risk_tolerance": "medium",
+    "buying_preference": "value_first",
+    "focus_tags": [
+      "money",
+      "unlocks",
+      "low_setup"
+    ]
+  }
+}

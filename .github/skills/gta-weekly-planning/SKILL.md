@@ -31,14 +31,24 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
    - Prefer a concrete payload in `data/`.
    - If the user pasted JSON, verify `schema_version: 2.0` and `schema_mode: weekly_planning`.
 2. Run `validate_weekly_schema_lightweight` logic before specialist analysis.
-3. Execute specialist lenses:
+3. Run `gate_activity_prerequisites` using `data/player_profile.json`.
+   - If hard readiness blockers exist, stop and report blockers first.
+4. Execute specialist lenses:
    - `Michael` -> `calculate_business_roi`
    - `Franklin` -> `evaluate_vehicles`
    - `Trevor` -> `evaluate_combat_value`
    - `Agent14` -> `assess_operational_readiness`
    - `Tony` -> `analyze_nightclub_feeder`
-4. Synthesize via `Lester` using `synthesize_final_report`.
-5. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus warnings and insufficient data.
+5. Synthesize via `Lester` using `synthesize_final_report`.
+6. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
+   - Time buckets: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`
+   - Ordered `Action Queue`
+   - Warnings and insufficient data
+7. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
+   - `weekly_master_plan_<week_id>.md`
+   - `weekly_master_plan_<week_id>_income_scenarios.md`
+   - `event_master_plan_<week_id>.md`
+   where `<week_id>` is lowercase with underscore (example: `2026_w16`).
 
 ## Repo Workflow Reference
 

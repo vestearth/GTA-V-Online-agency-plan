@@ -7,11 +7,19 @@ input_schema:
   properties:
     weekly_schema_v2:
       type: object
+    player_profile:
+      type: object
+    readiness_gate_report:
+      type: object
     specialized_reports:
       type: array
-  required: [weekly_schema_v2, specialized_reports]
+  required: [weekly_schema_v2, player_profile, specialized_reports]
 execution_logic: |
   1. Merge recommendations from Michael, Franklin, Agent 14, and Tony.
-  2. Resolve conflicts by applying player budget, available time, and owned assets.
-  3. Produce final sections: What to Play, What to Buy, What to Ignore.
-  4. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
+  2. Resolve conflicts by applying player budget, available time, owned assets, and readiness gate status.
+  3. Compute a single priority score for each candidate item:
+     `priority_score = payout_per_hour * reliability * time_fit_multiplier`.
+  4. Produce final sections: What to Play, What to Buy, What to Ignore.
+  5. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
+  6. Always include an `Action Queue` with ordered steps the player can execute immediately.
+  7. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.

@@ -44,8 +44,10 @@ When editing or generating content:
 
 1. Prepare or paste weekly data (goal: valid schema v2 JSON).
 2. Run schema precheck first (`validate_weekly_schema_lightweight`) and stop if blocking errors exist.
-3. Run specialist analysis (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Tony**) as needed.
-4. Run **Lester** last (`synthesize_final_report`) to synthesize outputs into one weekly summary.
+3. Load `data/player_profile.json` and run readiness gate (`gate_activity_prerequisites`).
+4. If readiness has hard blockers, report blockers before any specialist analysis.
+5. Run specialist analysis (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Tony**) as needed.
+6. Run **Lester** last (`synthesize_final_report`) to synthesize outputs into one weekly summary with time buckets and action queue.
 
 Order details and file paths are summarized in `src/agency.config.yaml`, `src/workflows/weekly_planning.yaml`, and the root `README.md`.
 
@@ -55,8 +57,10 @@ Order details and file paths are summarized in `src/agency.config.yaml`, `src/wo
 
 1. เตรียมหรือวางข้อมูลสัปดาห์ (เป้าหมายคือ JSON ที่ถูกต้องตาม schema v2)
 2. รัน schema precheck ก่อนเสมอ (`validate_weekly_schema_lightweight`) และหยุดทันทีถ้าพบ blocking errors
-3. รันเอเย่นต์เชิงเจาะจง (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Tony**) ตามต้องการ
-4. ปิดท้ายด้วย **Lester** (`synthesize_final_report`) เพื่อสังเคราะห์เป็นรายงานสัปดาห์เดียว
+3. โหลด `data/player_profile.json` แล้วรัน readiness gate (`gate_activity_prerequisites`)
+4. ถ้ามี blockers ด้านความพร้อม ให้รายงาน blockers ก่อนวิเคราะห์เชิงลึก
+5. รันเอเย่นต์เชิงเจาะจง (**Michael**, **Franklin**, **Trevor**, **Agent 14**, **Tony**) ตามต้องการ
+6. ปิดท้ายด้วย **Lester** (`synthesize_final_report`) เพื่อสังเคราะห์รายงานพร้อม time buckets และ action queue
 
 รายละเอียดลำดับและ path ไฟล์อยู่ใน `src/agency.config.yaml`, `src/workflows/weekly_planning.yaml` และ `README.md` ที่รากโปรเจกต์
 

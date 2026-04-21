@@ -7,6 +7,7 @@ This reference is assistant-agnostic and can be used from Copilot, Cursor, Codex
 ## Canonical Inputs
 
 - Primary schema example: `data/schema_v2_example.json`
+- Player profile baseline: `data/player_profile.json`
 - Weekly samples: `data/weekly_planning_2026_w14.json`, `data/weekly_planning_2026_w15.json`, `data/sample_week.json`
 - Capture templates: `data/weekly_activity_template.json`, `data/weekly_activity_simple_template.json`
 
@@ -29,17 +30,21 @@ This reference is assistant-agnostic and can be used from Copilot, Cursor, Codex
 ## Skill Mapping
 
 - `validate_weekly_schema_lightweight`: required keys and critical null checks
+- `gate_activity_prerequisites`: strict readiness gate (assets, crew fit, time fit)
 - `calculate_business_roi`: ROI and profit-per-hour normalization
 - `evaluate_vehicles`: vehicle pricing/discount and effort-vs-value analysis
 - `evaluate_combat_value`: weapon discount and combat utility analysis
 - `assess_operational_readiness`: requirements, party-size, and timebox fit
 - `analyze_nightclub_feeder`: passive-business readiness and technician guidance
 - `synthesize_final_report`: resolve trade-offs and produce final weekly plan
+- `synthesize_final_report`: includes priority scoring, time buckets, and action queue
 
 ## Typical Execution Pattern
 
 1. Pick one payload from `data/`.
-2. Run schema precheck and stop if blocking errors exist.
-3. Run specialist analyses in parallel.
-4. Aggregate recommendations with Lester.
-5. Save or present the weekly Master Plan in Markdown.
+2. Load/update `data/player_profile.json` (budget, assets, constraints).
+3. Run schema precheck and stop if blocking errors exist.
+4. Run prerequisite gate and stop if hard readiness blockers exist.
+5. Run specialist analyses in parallel.
+6. Aggregate recommendations with Lester.
+7. Save or present the weekly Master Plan in Markdown.

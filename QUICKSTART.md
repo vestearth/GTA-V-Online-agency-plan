@@ -1,20 +1,23 @@
 # 🚀 Quickstart: วิธีใช้งานสำหรับสัปดาห์ถัดไป (How to Run Next Week)
 
-คู่มือฉบับย่อสำหรับก๊อปปี้ไปวางใน **GitHub Copilot Chat** เพื่อสั่งงานระบบ Multi-Agent Orchestrator ในสัปดาห์ต่อๆ ไป
+คู่มือฉบับย่อสำหรับก๊อปปี้ไปวางในผู้ช่วย AI (เช่น Copilot/Cursor/Codex/Gemini) เพื่อสั่งงานระบบ Multi-Agent Orchestrator ในสัปดาห์ต่อๆ ไป
+
+ก่อนใช้งาน แนะนำให้อ้างอิงกติกากลางของโปรเจกต์ใน `AGENTS.md` ร่วมด้วย
+และอัปเดต `data/player_profile.json` ให้ตรงกับบัญชีของคุณ (เงิน, ทรัพย์สิน, เวลาที่เล่นได้)
 
 ---
 
 ## 📋 แบบที่ 1: มีข่าวสัปดาห์ใหม่เป็น "ข้อความดิบ" (Raw Text)
 ก็อปปี้อัปเดตจากเว็บ Rockstar Newswire หรือบอร์ดเกม แล้วใช้คำสั่งนี้เลย:
 
-> *"นี่คือข้อมูลอัปเดต GTA ของสัปดาห์ใหม่: [วางเนื้อหาข่าวตรงนี้] ...ช่วยนำข้อมูลนี้ไปรันผ่าน `src/workflows/weekly_planning.yaml` ให้หน่อย ให้ทีมงานเปรียบเทียบกับเป้าหมายของผู้เล่นใน `data/schema_v2_example.json` แล้วสร้างรายงานสรุปแผนการเล่น (Master Plan) โดย Lester เซฟลงในโฟลเดอร์ `reports/` แบบ Markdown ให้ด้วยนะ"*
+> *"นี่คือข้อมูลอัปเดต GTA ของสัปดาห์ใหม่: [วางเนื้อหาข่าวตรงนี้] ...ช่วยนำข้อมูลนี้ไปรันผ่าน `src/workflows/weekly_planning.yaml` โดยใช้ `data/player_profile.json` ด้วย ให้ทีมงานเปรียบเทียบกับเป้าหมายของผู้เล่นใน `data/schema_v2_example.json` แล้วสร้างรายงานสรุปแผนการเล่น (Master Plan) โดย Lester เซฟลงในโฟลเดอร์ `reports/` แบบ Markdown ให้ด้วยนะ และต้องมี time buckets (30m, 1-2h, 3h+) กับ action queue"*
 
 ---
 
 ## 📄 แบบที่ 2: มีไฟล์ข้อมูล JSON ของสัปดาห์นั้นแล้ว
 ถ้าคุณทำไฟล์ JSON ของสัปดาห์นั้นๆ ไว้แล้ว (เช่น `data/weekly_planning_2026_w15.json`):
 
-> *"รัน `src/workflows/weekly_planning.yaml` ให้หน่อย โดยใช้ข้อมูลกิจกรรมวิเคราะห์จากไฟล์ `data/weekly_planning_2026_w15.json` (ข้ามขั้นตอน Ingestion ไปดึงข้อมูลมาวิเคราะห์ได้เลย) จากนั้นสรุป Final Report จากมุมมองของ Lester ออกมาให้ที"*
+> *"รัน `src/workflows/weekly_planning.yaml` ให้หน่อย โดยใช้ข้อมูลกิจกรรมวิเคราะห์จากไฟล์ `data/weekly_planning_2026_w15.json` และ `data/player_profile.json` (ข้ามขั้นตอน Ingestion ไปดึงข้อมูลมาวิเคราะห์ได้เลย) จากนั้นสรุป Final Report จากมุมมองของ Lester ออกมาให้ที โดยต้องมี time buckets (30m, 1-2h, 3h+) และ action queue"*
 
 ---
 
@@ -32,4 +35,4 @@
 
 ---
 
-💡 **Tip:** Copilot จะเห็นระบบไฟล์ทั้งหมดใน `src/` อัตโนมัติ ขอแค่คุณอ้างอิงถึง `workflows/weekly_planning.yaml` หรือชี้ไปที่ `agents/...yaml` สักไฟล์ ระบบจะรู้ทันทีว่าต้องสวมบทบาทเป็นใครและคิดยังไงครับ!
+💡 **Tip:** ไม่ว่าคุณใช้ผู้ช่วยตัวไหน ให้ระบุ `src/workflows/weekly_planning.yaml`, `.github/skills/gta-weekly-planning/SKILL.md` และ `AGENTS.md` ใน prompt จะช่วยให้ผลลัพธ์สม่ำเสมอขึ้นมาก

@@ -6,6 +6,7 @@ Use this page as a copy-paste promptbook to run the same workflow from different
 
 1. Prepare weekly data in schema v2 format (or close to it).
 2. Keep these files in scope for the assistant:
+   - `data/player_profile.json`
    - `src/workflows/weekly_planning.yaml`
    - `src/agents/*.yaml`
    - `src/skills/*.yaml`
@@ -21,21 +22,29 @@ Here is the new GTA Online weekly update data:
 [PASTE DATA]
 
 Please execute the workflow in `src/workflows/weekly_planning.yaml`.
+Use `data/player_profile.json` as player context.
 Follow `.github/skills/gta-weekly-planning/SKILL.md` strictly.
 Use `src/agents/*.yaml` and `src/skills/*.yaml` as the source of truth.
 
 Execution order:
 1) Run `validate_weekly_schema_lightweight` first.
 2) If blocking schema issues exist, stop and report only data issues.
-3) Otherwise run specialist analyses (Michael, Franklin, Trevor, Agent 14, Tony).
-4) Run Lester last with `synthesize_final_report`.
+3) Run `gate_activity_prerequisites`; if hard blockers exist, return blockers first.
+4) Otherwise run specialist analyses (Michael, Franklin, Trevor, Agent 14, Tony).
+5) Run Lester last with `synthesize_final_report`.
 
 Return:
 - A concise executive summary
 - Prioritized activity plan by payout/time efficiency
+- Time-bucket plan: 30m, 1-2h, 3h+
+- Ordered action queue for immediate execution
 - Risks/constraints
 - Suggested next actions
-Format as Markdown suitable for saving under `reports/`.
+Format as Markdown and save exactly 3 week-id files under `reports/`:
+1) `weekly_master_plan_<week_id>.md`
+2) `weekly_master_plan_<week_id>_income_scenarios.md`
+3) `event_master_plan_<week_id>.md`
+Use lowercase underscore week id, e.g. `2026_w16`.
 ```
 
 ## Assistant-Specific Notes

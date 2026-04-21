@@ -43,11 +43,17 @@ GTA-V-Online-agency-plan/
 There is no Python or Node.js runtime required. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
 
 1. **Bring Data:** Grab the weekly update text from the Rockstar Newswire or GTA Forums.
-2. **Invoke your assistant:** In your preferred client (Copilot Chat, Cursor Agent/Chat, Codex, Gemini), ask:
-   > *"Here is the new GTA weekly update data... Please run `src/workflows/weekly_planning.yaml`, follow `.github/skills/gta-weekly-planning/SKILL.md`, and generate the final report in `reports/`."*
-3. The assistant should read the `SKILL.md` rulebook, instantiate agents according to `src/agents/*.yaml`, apply logic from `src/skills/`, and output Lester's Final Master Plan.
+2. **Set Player Profile:** Update `data/player_profile.json` with your bankroll, owned assets, and time constraints.
+3. **Invoke your assistant:** In your preferred client (Copilot Chat, Cursor Agent/Chat, Codex, Gemini), ask:
+   > *"Here is the new GTA weekly update data... Please run `src/workflows/weekly_planning.yaml`, use `data/player_profile.json`, follow `.github/skills/gta-weekly-planning/SKILL.md`, and generate the final report in `reports/`."*
+4. The assistant should read the `SKILL.md` rulebook, instantiate agents according to `src/agents/*.yaml`, apply logic from `src/skills/`, and output Lester's Final Master Plan.
+5. Weekly standard output in `reports/` should contain:
+   - `weekly_master_plan_<week_id>.md`
+   - `weekly_master_plan_<week_id>_income_scenarios.md`
+   - `event_master_plan_<week_id>.md`
 
 Need ready-to-use prompts by platform? See `docs/assistant-usage.md`.
+Repository-wide agent rules are documented in `AGENTS.md`.
 
 ---
 
@@ -67,8 +73,9 @@ Need ready-to-use prompts by platform? See `docs/assistant-usage.md`.
 `src/workflows/weekly_planning.yaml` currently runs in this order:
 
 1. **Schema Precheck** (`validate_weekly_schema_lightweight`)
-2. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
-3. **Executive Synthesis** (Lester via `synthesize_final_report`)
+2. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
+3. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
+4. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
 
 ---
 
