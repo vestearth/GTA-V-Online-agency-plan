@@ -392,3 +392,51 @@ vehicles:
     source_url: "https://gtacars.net"
     alias_hints: ["Sentinel GTS"]
 
+  - vehicle_name: "Western Reever"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Reever"]
+
+  - vehicle_name: "BF Club"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Club"]
+
+  - vehicle_name: "Vapid Hustler"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Hustler"]
+
+  - vehicle_name: "Dewbauchee Rapid GT Classic"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rapid GT Classic"]
+
+  - vehicle_name: "Vapid Clique"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Clique"]
+
+  - vehicle_name: "Coil Cyclone II"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cyclone II"]
+
+  - vehicle_name: "Gallivanter Baller ST-D"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Baller ST-D"]
+
+  - vehicle_name: "Vapid Festival Bus"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Festival Bus"]
+
