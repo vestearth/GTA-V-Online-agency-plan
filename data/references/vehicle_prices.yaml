@@ -1,0 +1,255 @@
+schema_version: "1.0"
+scope: "weekly_planning_2026_w14 vehicle_name coverage"
+primary_source: "https://gtacars.net"
+fallback_source: "https://gta.fandom.com"
+last_verified_at: "2026-04-21"
+notes:
+  - "Populate prices conservatively: no guessing."
+  - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
+  - "Some weekly names are typo/mismatch variants (see alias hints)."
+matching_rules:
+  - "Try exact `vehicle_name` first."
+  - "Then normalize punctuation/dashes (e.g., `V–STR` -> `V-STR`)."
+  - "Then try manufacturer-stripped name by dropping first token (e.g., `Bravado Gauntlet Interceptor` -> `Gauntlet Interceptor`)."
+  - "Then try `alias_hints`."
+
+vehicles:
+  - vehicle_name: "Maibatsu MonstroCiti"
+    base_price: 1485000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/monstrociti"
+    alias_hints: ["MonstroCiti"]
+
+  - vehicle_name: "Ocelot Swinger"
+    base_price: 909000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/swinger"
+    alias_hints: ["Swinger"]
+
+  - vehicle_name: "Western Wolfsbane"
+    base_price: 95000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/wolfsbane"
+    alias_hints: ["Wolfsbane"]
+
+  - vehicle_name: "Declasse Vamos"
+    base_price: 596000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/vamos"
+    alias_hints: ["Vamos"]
+
+  - vehicle_name: "Vulcar Fagaloa"
+    base_price: 335000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/fagaloa"
+    alias_hints: ["Fagaloa"]
+
+  - vehicle_name: "Declasse Vigero ZX Convertible"
+    base_price: 2295000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/vigero3"
+    alias_hints: ["Vigero ZX Convertible"]
+
+  - vehicle_name: "Bravado Buffalo Cruiser"
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Buffalo Cruiser", "Likely emergency/police variant; verify exact model page before pricing."]
+
+  - vehicle_name: "Bravado Buffalo STX Pursuit"
+    base_price: 5370000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/polbuffalo6"
+    alias_hints: ["Buffalo STX Pursuit"]
+
+  - vehicle_name: "Western Police Bike"
+    base_price: 4960000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/policeb2"
+    alias_hints: ["Police Bike"]
+
+  - vehicle_name: "Invetero Coquette D10 Pursuit"
+    base_price: 5620000
+    trade_price: 4215000
+    source_url: "https://gtacars.net/gta5/polcoquette4"
+    alias_hints: ["Coquette D10 Pursuit"]
+
+  - vehicle_name: "Vapid Caracara Pursuit"
+    base_price: 5335000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/polcaracara"
+    alias_hints: ["Caracara Pursuit"]
+
+  - vehicle_name: "Canis Terminus Patrol"
+    base_price: 5125000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/polterminus"
+    alias_hints: ["Terminus Patrol"]
+
+  - vehicle_name: "Willard Outreach Faction"
+    base_price: 4150000
+    trade_price: 3112500
+    source_url: "https://gtacars.net/gta5/polfaction2"
+    alias_hints: ["Outreach Faction"]
+
+  - vehicle_name: "Vapid Dominator FX Interceptor"
+    base_price: 4950000
+    trade_price: 3712500
+    source_url: "https://gtacars.net/gta5/poldominator10"
+    alias_hints: ["Dominator FX Interceptor"]
+
+  - vehicle_name: "Bravado Greenwood Cruiser"
+    base_price: 4910000
+    trade_price: 3682500
+    source_url: "https://gtacars.net/gta5/polgreenwood"
+    alias_hints: ["Greenwood Cruiser"]
+
+  - vehicle_name: "Bravado Dorado Cruiser"
+    base_price: 5005000
+    trade_price: 3753750
+    source_url: "https://gtacars.net/gta5/poldorado"
+    alias_hints: ["Dorado Cruiser"]
+
+  - vehicle_name: "Declasse Impaler LX Cruiser"
+    base_price: 4800000
+    trade_price: 3600000
+    source_url: "https://gtacars.net/gta5/polimpaler6"
+    alias_hints: ["Impaler LX Cruiser"]
+
+  - vehicle_name: "Declasse Impaler SZ Cruiser"
+    base_price: 4720000
+    trade_price: 3540000
+    source_url: "https://gtacars.net/gta5/polimpaler5"
+    alias_hints: ["Impaler SZ Cruiser"]
+
+  - vehicle_name: "Vapid Stanier LE Cruiser"
+    base_price: 4690000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/police5"
+    alias_hints: ["Stanier LE Cruiser"]
+
+  - vehicle_name: "Bravado Gauntlet Interceptor"
+    base_price: 5420000
+    trade_price: 4065000
+    source_url: "https://gtacars.net/gta5/polgauntlet"
+    alias_hints: ["Gauntlet Interceptor"]
+
+  - vehicle_name: "Vapid Unmarked Cruiser"
+    base_price: 3950000
+    trade_price: 2962500
+    source_url: "https://gtacars.net/gta5/police4"
+    alias_hints: ["Unmarked Cruiser", "Unmarked Cruiser (Stanier)"]
+
+  - vehicle_name: "Declasse Park Ranger"
+    base_price: 2980000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/pranger"
+    alias_hints: ["Park Ranger"]
+
+  - vehicle_name: "Grotti Cheetah Classic"
+    base_price: 865000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/cheetah2"
+    alias_hints: ["Cheetah Classic"]
+
+  - vehicle_name: "Vapid Ellie"
+    base_price: 565000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/ellie"
+    alias_hints: ["Ellie"]
+
+  - vehicle_name: "Bravado Greenwood"
+    base_price: 1465000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/greenwood"
+    alias_hints: ["Greenwood"]
+
+  - vehicle_name: "Albany V–STR"
+    base_price: 1285000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/vstr"
+    alias_hints: ["V-STR", "Albany V-STR"]
+
+  - vehicle_name: "Rhino Tank"
+    base_price: 1500000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/rhino"
+    alias_hints: ["Rhino Tank"]
+
+  - vehicle_name: "Bravado Dorado"
+    base_price: 1375000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/dorado"
+    alias_hints: ["Dorado"]
+
+  - vehicle_name: "Ocelot Ardent"
+    base_price: 1150000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/ardent"
+    alias_hints: ["Ardent"]
+
+  - vehicle_name: "Western Company Duster 300–H"
+    base_price: 1020000
+    trade_price: 765000
+    source_url: "https://gtacars.net/gta5/duster2"
+    alias_hints: ["Duster 300-H", "Likely model naming variant; verify exact GTACars model page."]
+
+  - vehicle_name: "Lampadati Viseris"
+    base_price: 875000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/viseris"
+    alias_hints: ["Viseris"]
+
+  - vehicle_name: "Lampadati Tropos Rallye"
+    base_price: 816000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/tropos"
+    alias_hints: ["Tropos Rallye"]
+
+  - vehicle_name: "Lampadati Casco"
+    base_price: 904400
+    trade_price: 680000
+    source_url: "https://gtacars.net/gta5/casco"
+    alias_hints: ["Casco"]
+
+  - vehicle_name: "Vapid Taxi"
+    base_price: 650000
+    trade_price: 487500
+    source_url: "https://gtacars.net/gta5/taxi"
+    alias_hints: ["Taxi"]
+
+  - vehicle_name: "Grotti Stinger"
+    base_price: 850000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/stinger"
+    alias_hints: ["Stinger"]
+
+  - vehicle_name: "Vapid Raptor"
+    base_price: 648000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/raptor"
+    alias_hints: ["Raptor", "GTACars lists manufacturer as BF."]
+
+  - vehicle_name: "Benefactor Surge"
+    base_price: 38000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/surge"
+    alias_hints: ["Surge", "GTACars lists manufacturer as Cheval."]
+
+  - vehicle_name: "Albany Hermes"
+    base_price: 535000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/hermes"
+    alias_hints: ["Hermes"]
+
+  - vehicle_name: "Hijak Ruston"
+    base_price: 430000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/ruston"
+    alias_hints: ["Ruston"]
+
+  - vehicle_name: "Enus Paragon R"
+    base_price: 905000
+    trade_price: null
+    source_url: "https://gtacars.net/gta5/paragon"
+    alias_hints: ["Paragon R"]
