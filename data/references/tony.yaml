@@ -57,13 +57,25 @@ runtime_contract:
   required_top_level:
     - goods
     - totals
+  optional_top_level:
+    - sell_mechanics
   goods_required_fields:
     - id
     - name
     - value_per_crate
+    - production_time
+    - production_time_unit
     - min_storage
     - max_storage
     - max_value
+  sell_mechanics_notes:
+    - Include Tony laundering fee percent and max amount.
+    - Include public-lobby bonus rules (2.5% per other player, max 50%, rounded up, applied after Tony fee).
+    - Include delivery vehicle crate ranges (Speedo 1-89, Mule 90-179, Pounder 180+).
+    - Include sale option metadata and Special Orders premiums.
+    - Include calculation helpers with base net multipliers after Tony fee and lobby-bonus formula.
+    - Include worked examples for public-lobby scenarios (0, 3, 10, 20 other players).
+    - Include `example_payouts_on_base_sale_1000000` for quick report-ready payout references.
   normalized_goods_id_examples:
     - cargo_and_shipments
     - sporting_goods

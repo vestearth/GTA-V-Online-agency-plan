@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "description": "Optional vehicle_name -> GTACars slug (/gta5/<slug>). Used when source_url is still the bare https://gtacars.net root. Keys must match vehicle_name in vehicle_prices.yaml exactly.",
+  "slug_by_vehicle_name": {}
+}

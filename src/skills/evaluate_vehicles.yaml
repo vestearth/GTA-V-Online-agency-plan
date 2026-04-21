@@ -34,9 +34,12 @@ execution_logic: |
   1. Normalize aliases first (`base_price` -> `price`, `discount_percentage` -> `discount_percent`).
   2. Build matching keys for `vehicle_name`: original, punctuation-normalized, and manufacturer-stripped form (drop first token, e.g., `Bravado Gauntlet Interceptor` -> `Gauntlet Interceptor`).
   3. Use those keys to resolve reference data (price/aliases) from `vehicle_price_reference` before scoring.
-  4. If `price` is still null after lookup, keep recommendation qualitative and mark purchase ROI as `Unknown Price`.
-  5. Determine `final_price` = `price` * (100 - `discount_percent`) / 100 when both are present.
-  6. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."
-  7. If `opportunity_type` is "prize_ride" or "podium", evaluate challenge effort or claim odds.
-  8. Compare performance and utility tags against player's goals and owned assets.
-  9. Recommend 'Prioritize' if discount is strong and utility is high, 'Consider' for niche/collector value, 'Skip' otherwise.
+  4. Read `vehicle_tier`, `race_tiers`, and `removed_vehicle` metadata from the matched reference record (if available).
+  5. If `removed_vehicle` is true and this week provides a purchase/test path, boost collector priority (limited reappearance window).
+  6. If `price` is still null after lookup, keep recommendation qualitative and mark purchase ROI as `Unknown Price`.
+  7. Determine `final_price` = `price` * (100 - `discount_percent`) / 100 when both are present.
+  8. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."
+  9. If `opportunity_type` is "prize_ride" or "podium", evaluate challenge effort or claim odds.
+  10. Compare performance/utility tags, `vehicle_tier`, and `race_tiers` against player's goals and owned assets.
+  11. If player goals include racing and `race_tiers` has high class grade (S/A), boost recommendation priority.
+  12. Recommend 'Prioritize' if discount/value is strong, removed-vehicle window is high-value, or race-tier fit is strong; 'Consider' for niche/collector value; 'Skip' otherwise.

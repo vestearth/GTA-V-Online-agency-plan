@@ -29,6 +29,7 @@ GTA-V-Online-agency-plan/
 │   ├── schema_v2_example.json            # Reference payload for the week
 │   └── references/                       # Lookup catalogs
 │       ├── vehicle_prices.yaml           # Used by Franklin
+│       ├── vehicle_gtacars_slugs.json    # Optional name→GTACars slug map for price fetch
 │       ├── weapon_stats.yaml             # Used by Trevor
 │       └── agent14-cayo.yaml             # Used by Agent 14
 ├── reports/                              # 📤 Agent outputs & Final Executive Overviews
@@ -85,9 +86,20 @@ Use the helper script to sync vehicle names from the latest weekly payload into 
 
 `python3 scripts/update_vehicle_prices.py`
 
+After new rows appear with `base_price: null`, fill prices from GTACars (HTTP fetch, stdlib only):
+
+`python3 scripts/fetch_gtacar_prices.py`
+
+- Add unknown names by editing `data/references/vehicle_gtacars_slugs.json` (`slug_by_vehicle_name`) or set `source_url` to `https://gtacars.net/gta5/<slug>`
+- `--dry-run` lists vehicles and GTACars URLs that would be fetched (no HTTP; no file write)
+- `--refresh-all` re-fetches every vehicle that has a resolvable slug (use sparingly; uses `--sleep` between requests)
+
 Optional:
 - Use a specific weekly file: `python3 scripts/update_vehicle_prices.py --weekly data/weekly_planning_2026_w14.json`
 - Preview only: `python3 scripts/update_vehicle_prices.py --dry-run`
+- Override tiers manually: edit `data/references/vehicle_tier_overrides.json` (manual overrides win over inferred tiers)
+- Add per-class race tiers: edit `data/references/vehicle_race_tiers.json` (sourced from GTACars)
+- The sync script validates tier strings against `allowed_tiers` / `tier_scale` and prints warnings to stderr for bad entries
 
 ### Weekly automation
 

@@ -5,7 +5,9 @@ on:
   push:
     paths:
       - "data/weekly_planning_*.json"
+      - "data/references/vehicle_gtacars_slugs.json"
       - "scripts/update_vehicle_prices.py"
+      - "scripts/fetch_gtacar_prices.py"
   schedule:
     # Every Thursday at 03:00 UTC (weekly cadence)
     - cron: "0 3 * * 4"
@@ -30,6 +32,10 @@ jobs:
 
       - name: Run vehicle price sync
         run: python3 scripts/update_vehicle_prices.py
+
+      - name: Fill missing prices from GTACars
+        continue-on-error: true
+        run: python3 scripts/fetch_gtacar_prices.py
 
       - name: Commit and push changes
         run: |

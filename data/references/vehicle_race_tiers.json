@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "source": "https://gtacars.net",
+  "captured_at": "2026-04-21",
+  "tier_scale": ["S", "A", "B", "C", "D", "unrated"],
+  "notes": [
+    "Race tiers are per class; one vehicle can have multiple class tiers if needed.",
+    "Keep this file focused on race competitiveness only."
+  ],
+  "race_tiers": {
+    "BF Club": {
+      "compacts": "S"
+    },
+    "Western Reever": {
+      "motorcycles": "A"
+    },
+    "Coil Cyclone II": {
+      "super": "A"
+    },
+    "Vapid Hustler": {
+      "muscle": "B"
+    },
+    "Dewbauchee Rapid GT Classic": {
+      "sports_classics": "B"
+    }
+  }
+}

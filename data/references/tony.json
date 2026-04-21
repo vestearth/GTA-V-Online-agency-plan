@@ -4,7 +4,7 @@
       "id": "cargo_and_shipments",
       "name": "Cargo and Shipments",
       "value_per_crate": 10000,
-      "production_time_hours":  1.1,
+      "production_time":  1.1,
       "production_time_unit" : "hours",
       "min_storage": 10,
       "max_storage": 50,
@@ -14,7 +14,7 @@
       "id": "sporting_goods",
       "name": "Sporting Goods",
       "value_per_crate": 5000,
-      "production_time_hours":  40,
+      "production_time":  40,
       "production_time_unit" : "minutes",
       "min_storage": 20,
       "max_storage": 100,
@@ -24,7 +24,7 @@
       "id": "south_american_imports",
       "name": "South American Imports",
       "value_per_crate": 27000,
-      "production_time_hours":  2,
+      "production_time":  2,
       "production_time_unit" : "hours",
       "min_storage": 2,
       "max_storage": 10,
@@ -34,7 +34,7 @@
       "id": "pharmaceutical_research",
       "name": "Pharmaceutical Research",
       "value_per_crate": 11475,
-      "production_time_hours":  1,
+      "production_time":  1,
       "production_time_unit" : "hours",
       "min_storage": 4,
       "max_storage": 20,
@@ -44,8 +44,8 @@
       "id": "organic_produce",
       "name": "Organic Produce",
       "value_per_crate": 2025,
-      "production_time_hours":  2,
-      "production_time_unit" : "hours",
+      "production_time":  20,
+      "production_time_unit" : "minutes",
       "min_storage": 16,
       "max_storage": 80,
       "max_value": 162000
@@ -54,7 +54,7 @@
       "id": "printing_and_copying",
       "name": "Printing and Copying",
       "value_per_crate": 1350,
-      "production_time_hours":  20,
+      "production_time":  15,
       "production_time_unit" : "minutes",
       "min_storage": 12,
       "max_storage": 60,
@@ -64,7 +64,7 @@
       "id": "cash_creation",
       "name": "Cash Creation",
       "value_per_crate": 4725,
-      "production_time_hours":  30,
+      "production_time":  30,
       "production_time_unit" : "minutes",
       "min_storage": 8,
       "max_storage": 40,
@@ -75,5 +75,137 @@
     "min_storage": 72,
     "max_storage": 360,
     "max_value": 1931500
+  },
+  "sell_mechanics": {
+    "tony_laundering_fee": {
+      "percent": 10,
+      "max_amount": 100000
+    },
+    "public_lobby_bonus": {
+      "per_other_player_percent": 2.5,
+      "max_percent": 50,
+      "max_other_players_counted": 20,
+      "applies_after_tony_fee": true,
+      "rounding_rule": "round_up_to_whole_percent"
+    },
+    "delivery_vehicle_crate_ranges": [
+      {
+        "vehicle": "speedo_custom",
+        "min_crates": 1,
+        "max_crates": 89
+      },
+      {
+        "vehicle": "mule_custom",
+        "min_crates": 90,
+        "max_crates": 179
+      },
+      {
+        "vehicle": "pounder_custom",
+        "min_crates": 180,
+        "max_crates": null
+      }
+    ],
+    "sale_options": [
+      {
+        "id": "sell_crates",
+        "description": "Sell individual goods type."
+      },
+      {
+        "id": "sell_all_goods",
+        "description": "Sell all stocked goods in one shipment if vehicle capacity allows."
+      },
+      {
+        "id": "special_orders",
+        "description": "Three rotating mixed-goods orders with premiums."
+      }
+    ],
+    "special_orders": {
+      "offers_per_refresh": 3,
+      "first_offer_premium_percent": 5,
+      "other_offers_premium_percent": 10,
+      "first_offer_rare_bonus": {
+        "chance_percent": 4,
+        "premium_percent": 20
+      },
+      "net_effect_after_tony_fee_percent": {
+        "first_offer_standard": -5.5,
+        "other_offers_standard": -1,
+        "first_offer_rare_bonus": 8
+      }
+    },
+    "calculation_helpers": {
+      "base_net_multipliers_after_tony_fee": {
+        "sell_crates": 0.9,
+        "sell_all_goods": 0.9,
+        "special_order_first_standard": 0.945,
+        "special_order_other_standard": 0.99,
+        "special_order_first_rare_bonus": 1.08
+      },
+      "public_lobby_bonus_multiplier_formula": "1 + min(0.50, ceil(other_players_not_in_org * 0.025 * 100) / 100)",
+      "expected_special_order_first_multiplier_with_rare_bonus": 0.9504,
+      "example_payouts_on_base_sale_1000000": {
+        "base_sale_value": 1000000,
+        "examples": [
+          {
+            "other_players_not_in_org": 0,
+            "sell_crates": 900000,
+            "special_order_other_standard": 990000,
+            "special_order_first_expected": 950400
+          },
+          {
+            "other_players_not_in_org": 3,
+            "sell_crates": 972000,
+            "special_order_other_standard": 1069200,
+            "special_order_first_expected": 1026432
+          },
+          {
+            "other_players_not_in_org": 10,
+            "sell_crates": 1125000,
+            "special_order_other_standard": 1237500,
+            "special_order_first_expected": 1188000
+          },
+          {
+            "other_players_not_in_org": 20,
+            "sell_crates": 1350000,
+            "special_order_other_standard": 1485000,
+            "special_order_first_expected": 1425600
+          }
+        ]
+      },
+      "worked_examples": [
+        {
+          "other_players_not_in_org": 0,
+          "public_lobby_bonus_percent": 0,
+          "public_lobby_bonus_multiplier": 1.0,
+          "net_multiplier_sell_crates": 0.9,
+          "net_multiplier_special_order_other_standard": 0.99,
+          "net_multiplier_special_order_first_expected": 0.9504
+        },
+        {
+          "other_players_not_in_org": 3,
+          "public_lobby_bonus_percent": 8,
+          "public_lobby_bonus_multiplier": 1.08,
+          "net_multiplier_sell_crates": 0.972,
+          "net_multiplier_special_order_other_standard": 1.0692,
+          "net_multiplier_special_order_first_expected": 1.026432
+        },
+        {
+          "other_players_not_in_org": 10,
+          "public_lobby_bonus_percent": 25,
+          "public_lobby_bonus_multiplier": 1.25,
+          "net_multiplier_sell_crates": 1.125,
+          "net_multiplier_special_order_other_standard": 1.2375,
+          "net_multiplier_special_order_first_expected": 1.188
+        },
+        {
+          "other_players_not_in_org": 20,
+          "public_lobby_bonus_percent": 50,
+          "public_lobby_bonus_multiplier": 1.5,
+          "net_multiplier_sell_crates": 1.35,
+          "net_multiplier_special_order_other_standard": 1.485,
+          "net_multiplier_special_order_first_expected": 1.4256
+        }
+      ]
+    }
   }
 }

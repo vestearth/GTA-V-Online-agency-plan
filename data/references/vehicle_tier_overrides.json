@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "description": "Manual tier overrides for evaluate_vehicles. Keys must match vehicle_name in vehicle_prices.yaml.",
+  "allowed_tiers": ["meta", "high", "mid", "collector", "utility", "special", "unrated"],
+  "notes": [
+    "Use this file to override heuristic tiering in scripts/update_vehicle_prices.py.",
+    "Manual override wins over inferred tier."
+  ],
+  "vehicle_tier_overrides": {
+    "Western Reever": "high",
+    "BF Club": "high",
+    "Vapid Hustler": "collector",
+    "Dewbauchee Rapid GT Classic": "collector",
+    "Vapid Clique": "collector",
+    "Coil Cyclone II": "high",
+    "Bravado Gauntlet Interceptor": "utility",
+    "Rhino Tank": "special",
+    "Vapid Festival Bus": "special"
+  }
+}
