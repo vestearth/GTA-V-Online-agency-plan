@@ -1,0 +1,17 @@
+# GTA V Online Agency - Agent 14 Report
+name: assess_operational_readiness
+description: >
+  Evaluates activities against player's asset ownership, constraints, and session size
+input_schema:
+  type: object
+  properties:
+    featured_activities:
+      type: array
+    owned_assets:
+      type: object
+    constraints:
+      type: object
+execution_logic: |
+  1. For each featured activity, check if `requirements` are in `owned_assets.properties`.
+  2. Map `party_size` constraints.
+  3. Ensure timebox doesn't exceed available session hours.

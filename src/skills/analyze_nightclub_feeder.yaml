@@ -1,0 +1,15 @@
+# GTA V Online Agency - Tony Prince Report
+name: analyze_nightclub_feeder
+description: >
+  Find optimization points for the Nightclub warehouse and other passive sources
+input_schema:
+  type: object
+  properties:
+    owned_businesses:
+      type: array
+    weekly_bonuses:
+      type: array
+execution_logic: |
+  1. Determine if Nightclub/Bunker/Salvage Yard are discounted or paying double money.
+  2. Check if player has required feeder MC businesses.
+  3. Output advice on technicians and popularity.

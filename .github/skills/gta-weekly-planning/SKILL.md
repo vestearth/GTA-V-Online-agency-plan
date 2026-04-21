@@ -1,5 +1,45 @@
 ---
 name: gta-weekly-planning
+description: 'Analyze GTA Online weekly planning payloads and generate character-based reports for this repository. Orchestrated natively via the Conceptual Multi-Agent Framework in src/.'
+argument-hint: 'Provide a data/*.json file path or paste a weekly payload.'
+user-invocable: true
+disable-model-invocation: false
+---
+
+# GTA Weekly Planning
+
+Use this skill for GTA Online weekly analysis tasks in this repository.
+
+## When To Use
+
+- Analyze a weekly planning payload or Rockstar Newswire text.
+- Recommend which activities, vehicles, businesses, or weapons to prioritize this week.
+- Generate or revise agent-style outputs for Michael, Franklin, Trevor, Agent 14, Lamar, Tony, Ron, or Lester.
+- Use the new YAML-based multi-agent workflow in `src/workflows`.
+
+## Required Ground Rules
+
+- Treat `src/workflows/weekly_planning.yaml` as the definitive orchestration logic.
+- Use only facts present in bare event details or repository reference files.
+- If data is missing, state that clearly instead of inventing values.
+- Prefer concise Thai output unless the user asks for another language.
+- When making ranked recommendations, abide by the agent's goal in `src/agents/*.yaml`.
+
+## Procedure
+
+1. Identify the input source (e.g. pasted text, `data/*.json`).
+2. Follow the `src/workflows/weekly_planning.yaml` DAG.
+   - For ingestion, format the data to match `schema_v2`.
+   - For specialized analysis, call on the respective agents in `src/agents/` (Michael, Franklin, Agent 14, Tony).
+   - Consolidate outputs via Lester's `synthesize_final_report` mechanic.
+3. Apply skill scripts from `src/skills/` logically before outputting values (e.g., Calculate ROI, Check Asset constraints).
+4. Output the synthesized Master Plan in Markdown format.
+
+## Repo Workflow Reference
+
+The definitive orchestration mapping is available at `src/agency.config.yaml`.
+---
+name: gta-weekly-planning
 description: 'Analyze GTA Online weekly planning payloads and generate character-based reports for this repository. Use when the user asks to review a schema v2 weekly JSON, recommend what to play this week, generate or update Michael, Franklin, Trevor, Agent 14, Lamar, Tony, Ron, or Lester outputs, validate weekly content assumptions, or use the prompt/agent workflow in this project.'
 argument-hint: 'Provide a data/*.json file path or paste a schema v2 weekly payload with the desired agent or output.'
 user-invocable: true

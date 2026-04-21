@@ -1,0 +1,25 @@
+name: calculate_business_roi
+description: Use the weekly schema data to compute the profitability and time-efficiency of an active business or job.
+input_schema:
+  type: object
+  properties:
+    activity_id:
+      type: string
+      description: The ID of the activity in the weekly schema
+    base_payout:
+      type: number
+      description: Normal payout of the activity without bonuses
+    multiplier:
+      type: number
+      description: Any 2x, 1.5x, etc. weekly bonus
+    time_minutes:
+      type: number
+      description: Typical completion time in minutes
+  required: [activity_id, base_payout, multiplier, time_minutes]
+
+execution_logic: |
+  1. Calculate `gross_payout` = `base_payout` * `multiplier`.
+  2. Deduct any known setup costs or fees to get `net_profit`.
+  3. Divide `net_profit` by (`time_minutes` / 60) to determine `profit_per_hour`.
+  4. Compare `profit_per_hour` against the baseline standard of $2,000,000/hr (Cayo Perico).
+  5. Return a 'Worth It' flag if the `profit_per_hour` exceeds $500,000.

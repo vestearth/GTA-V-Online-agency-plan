@@ -1,0 +1,26 @@
+name: evaluate_vehicles
+description: Analyze a vehicle opportunity (like Prize Ride, Test Ride, or Casino Podium) to provide recommendations based on cost, difficulty, and utility.
+input_schema:
+  type: object
+  properties:
+    vehicle_name:
+      type: string
+    base_price:
+      type: number
+    discount_percentage:
+      type: number
+    acquisition_method:
+      type: string
+    player_inventory:
+      type: array
+      items:
+        type: string
+        description: List of vehicles the player already owns
+  required: [vehicle_name, base_price, discount_percentage]
+
+execution_logic: |
+  1. Determine `final_price` = `base_price` * (100 - `discount_percentage`) / 100.
+  2. Check if the vehicle is in `player_inventory`. If yes, output: "Skip - Already Owned."
+  3. If acquisition is "Prize Ride" or "Podium": evaluate the time needed for the challenge or the odds on the wheel.
+  4. Compare vehicle stats (speed, handling, armor) against top-tier vehicles in its class.
+  5. Recommend 'Prioritize' if the discount is > 40% and performance is high, 'Consider' for niche cars, 'Skip' otherwise.

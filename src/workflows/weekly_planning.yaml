@@ -1,0 +1,51 @@
+name: GTA Weekly Planning Orchestration
+version: "1.0"
+description: >
+  Orchestrates the entire weekly update analysis for GTA V Online,
+  routing tasks through specialized agents (Michael, Franklin, Trevor, etc.)
+  and finalizing a cohesive report via Lester.
+
+entry_node: Data_Ingestion
+
+nodes:
+  - id: Data_Ingestion
+    agent: Pavel
+    skill: Parse_And_Format_JSON
+    input_source: raw_weekly_data
+    output_state: weekly_schema_v2
+    next: Schema_Validation
+
+  - id: Schema_Validation
+    agent: Vincent
+    skill: Validate_Schema_Integrity
+    input_state: weekly_schema_v2
+    on_success: Specialized_Analysis_Group
+    on_fail: Data_Ingestion
+
+  - id: Specialized_Analysis_Group
+    type: parallel
+    input_state: weekly_schema_v2
+    tasks:
+      - task_id: Financial_Analysis
+        agent: Michael
+        skill: Calculate_Business_ROI
+      - task_id: Vehicle_Analysis
+        agent: Franklin
+        skill: Evaluate_Vehicles
+      - task_id: Operations_Logistics
+        agent: Agent14
+        skill: Assess_Operational_Readiness
+      - task_id: Passive_Income
+        agent: Tony
+        skill: Analyze_Nightclub_Feeder
+    output_state: specialized_reports
+    next: Executive_Summary
+
+  - id: Executive_Summary
+    agent: Lester
+    input_state: 
+      - weekly_schema_v2
+      - specialized_reports
+    skill: Synthesize_Final_Report
+    output_state: final_weekly_plan
+    next: END

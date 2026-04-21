@@ -1,0 +1,23 @@
+# GTA V Online Agency — Proposed Orchestration Workflow (Conceptual Multi-Agent Framework)
+# -----------------------------------------------------------------------------
+# This file serves as the definitive reference for the Multi-Agent LLM Orchestrator
+# (e.g., matching CrewAI, LangGraph, AutoGen, or MCP concepts).
+# It links the schemas, workflows, agents, and skills.
+# -----------------------------------------------------------------------------
+
+schema:
+  version: "2.0"
+  mode: weekly_planning
+  example_payload: data/weekly_planning_2026_w14.json
+
+paths:
+  # -> New Architecture Paths
+  workflows: src/workflows              # Orchestration DAG and Sequence
+  agents: src/agents                    # Agent personas, goals, instructions (YAML)
+  skills: src/skills                    # Executable/conceptual tools for LLMs (YAML/Python/Markdown)
+  data: data                            # Raw JSON payloads
+
+# The new workflow execution process is strictly defined in `src/workflows/weekly_planning.yaml`.
+# 1. Data Ingestion (Pavel/Vincent)
+# 2. Parallel Specialist Analysis (Michael, Franklin, Trevor, Agent 14, Tony, Lamar, Ron)
+# 3. Executive Synthesis (Lester)
