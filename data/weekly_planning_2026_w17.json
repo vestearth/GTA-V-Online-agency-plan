@@ -1,0 +1,864 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W17",
+    "label": "April 23-30 2026 (420 Event week 2)",
+    "start_date": "2026-04-23",
+    "end_date": "2026-04-30",
+    "source": "community_weekly_digest",
+    "last_updated_at": "2026-04-23T18:00:00Z",
+    "notes": "Bonuses not live until ~5am EDT April 23. Daily Objectives TBA in source."
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "pc",
+    "gta_plus": false,
+    "rank": null,
+    "cash_on_hand": 37404748,
+    "bank_balance": null,
+    "play_style_tags": [
+      "solo",
+      "duo",
+      "grinder",
+      "hybrid"
+    ],
+    "goals_this_week": [
+      "make_money",
+      "unlock_vehicle",
+      "passive_income",
+      "buy_weapon"
+    ],
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water Money Front",
+        "Hands On Car Wash Money Front"
+      ],
+      "businesses": [
+        "Cocaine Lockup",
+        "Methamphetamine Lab",
+        "Counterfeit Cash Factory",
+        "Weed Farm",
+        "Document Forgery Office",
+        "Gunrunning Bunker",
+        "Special Cargo",
+        "Vehicle Cargo",
+        "Air Freight Cargo"
+      ],
+      "key_vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ],
+      "key_weapons": []
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": "1_2_friends",
+      "max_continuous_minutes": 120,
+      "avoid_content_tags": []
+    }
+  },
+  "planning_context": {
+    "primary_objective": "mixed",
+    "budget_limit": 10000000,
+    "risk_tolerance": "medium",
+    "reserve_floor": 30000000,
+    "session_plan": [
+      {
+        "label": "weekday_evening",
+        "hours": 1.5,
+        "party_size": "solo_or_duo"
+      },
+      {
+        "label": "weekend_morning",
+        "hours": 3,
+        "party_size": "duo"
+      }
+    ],
+    "decision_policy": {
+      "recommend_owned_only": false,
+      "allow_new_purchases": true,
+      "prioritize_limited_time_content": true
+    }
+  },
+  "weekly_content": {
+    "featured_activities": [
+      {
+        "id": "hunting_pack_featured_series_4x",
+        "name": "Featured Series: Hunting Pack trio (Get Lamar / Hunting Pack / Hunting Pack Remix)",
+        "category": "adversary_series",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 4,
+          "rp_multiplier": 4
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": 25,
+        "value_tags": [
+          "money",
+          "rp",
+          "420_event"
+        ],
+        "notes": "LD Organics Presents: The 420 Event — final week. Part of weekly challenge (win Get Lamar twice)."
+      },
+      {
+        "id": "smoke_on_the_water_legal_work_10x",
+        "name": "Smoke on the Water Money Front — Legal Work (Money Fronts)",
+        "category": "business_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 10,
+          "rp_multiplier": 10
+        },
+        "requirements": [
+          "Smoke on the Water Money Front"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 20,
+        "value_tags": [
+          "money",
+          "rp",
+          "high_multiplier"
+        ],
+        "notes": "Rockstar wording: Money Fronts business — happy customers at Smoke on the Water pay out boosted rewards this event week."
+      },
+      {
+        "id": "counterfeit_cash_sell_2x",
+        "name": "Counterfeit Cash Sell Missions",
+        "category": "business_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [
+          "Counterfeit Cash Factory"
+        ],
+        "recommended_party_size": "solo_or_duo",
+        "timebox_minutes": 30,
+        "value_tags": [
+          "money",
+          "rp",
+          "mc_business"
+        ],
+        "notes": "Factories and upgrades discounted 40%."
+      },
+      {
+        "id": "community_race_series_2x",
+        "name": "Community Race Series",
+        "category": "race",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": 15,
+        "value_tags": [
+          "rp",
+          "driving",
+          "crew_fun"
+        ],
+        "notes": null
+      },
+      {
+        "id": "street_dealer_weed_2x_cash",
+        "name": "Street Dealer — Weed Sales",
+        "category": "business_bonus",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 1
+        },
+        "requirements": [
+          "Weed Farm"
+        ],
+        "recommended_party_size": "solo",
+        "timebox_minutes": 15,
+        "value_tags": [
+          "money",
+          "low_setup"
+        ],
+        "notes": "2X GTA$ on weed street dealer sales only."
+      },
+      {
+        "id": "weekly_challenge_hunting_pack_lamar",
+        "name": "Weekly Challenge: Win Hunting Pack (Get Lamar) twice",
+        "category": "weekly_challenge",
+        "content_type": "repeatable",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "bonus": {},
+        "requirements": [],
+        "recommended_party_size": "small_group",
+        "timebox_minutes": 45,
+        "value_tags": [
+          "unlocks",
+          "limited_reward"
+        ],
+        "reward": {
+          "cash": 100000,
+          "items": [
+            "Güffy Drug Rug Hoodie"
+          ],
+          "condition": "Win Hunting Pack (Get Lamar) two times"
+        },
+        "notes": null
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_vulcar_warrener_hkr",
+        "vehicle_name": "Vulcar Warrener HKR",
+        "opportunity_type": "podium",
+        "source": "casino",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "sedans",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Casino Lucky Wheel"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.0,
+          "utility_tags": [
+            "collection",
+            "tuner_style"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "prize_ride_truffade_adder",
+        "vehicle_name": "Truffade Adder",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "super",
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": "Place Top 2 in the LS Car Meet Series 3 days in a row",
+          "qualification_rules": {
+            "required_class": "varies_by_series",
+            "min_performance_score": null,
+            "required_upgrades": []
+          }
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.8,
+          "utility_tags": [
+            "collection",
+            "classic_super"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_coil_voltic",
+        "vehicle_name": "Coil Voltic",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "super",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.5,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_grotti_gt500",
+        "vehicle_name": "Grotti GT500",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.2,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_vapid_blade",
+        "vehicle_name": "Vapid Blade",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "muscle",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.4,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "premium_test_ride_vigero_zx",
+        "vehicle_name": "Declasse Vigero ZX",
+        "opportunity_type": "premium_test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "muscle",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Test Ride (PS5 / Xbox X|S / PC Enhanced)"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.1,
+          "utility_tags": [
+            "test_before_buy",
+            "hsw_platform"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "luxury_grotti_lscm_cheetah_classic",
+        "vehicle_name": "Grotti LSCM Cheetah Classic",
+        "opportunity_type": "luxury_autos_rotation",
+        "source": "luxury_autos",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Luxury Autos showroom"
+        },
+        "evaluation_inputs": {
+          "performance_score": 8.0,
+          "utility_tags": [
+            "collection",
+            "racing"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "luxury_declasse_walton_l35_stock",
+        "vehicle_name": "Declasse Walton L35 Stock",
+        "opportunity_type": "luxury_autos_rotation",
+        "source": "luxury_autos",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": "off_road",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Luxury Autos showroom"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.8,
+          "utility_tags": [
+            "utility",
+            "off_road"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_ocelot_locust",
+        "vehicle_name": "Ocelot Locust",
+        "opportunity_type": "discount",
+        "source": "legendary_motorsport",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": "sports",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsport weekly discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.6,
+          "utility_tags": [
+            "racing",
+            "value"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_vapid_retinue_removed",
+        "vehicle_name": "Vapid Retinue",
+        "opportunity_type": "discount",
+        "source": "legendary_motorsport",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": "sports_classic",
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsport weekly discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": 6.9,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_grotti_cheetah",
+        "vehicle_name": "Grotti Cheetah",
+        "opportunity_type": "discount",
+        "source": "legendary_motorsport",
+        "availability": {
+          "start": "2026-04-23",
+          "end": "2026-04-30"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": "super",
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Legendary Motorsport weekly discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": 7.5,
+          "utility_tags": [
+            "vintage_super",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      }
+    ],
+    "weapon_and_gear_opportunities": [
+      {
+        "id": "baseball_bat_gun_van_free",
+        "name": "Baseball Bat",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "melee"
+        ],
+        "urgency": "must_claim",
+        "notes": "Free from Gun Van this week."
+      },
+      {
+        "id": "battle_rifle_gun_van_50",
+        "name": "Battle Rifle",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 50,
+        "gta_plus_only": false,
+        "combat_role_tags": [
+          "rifle"
+        ],
+        "urgency": "good_pick",
+        "notes": null
+      },
+      {
+        "id": "body_armor_gun_van_gta_plus",
+        "name": "Body Armor",
+        "opportunity_type": "gun_van_discount",
+        "discount_percent": 70,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "survival"
+        ],
+        "urgency": "optional",
+        "notes": "Listed as 70% off for GTA+ members."
+      },
+      {
+        "id": "stun_gun_gun_van_gta_plus_free",
+        "name": "Stun Gun",
+        "opportunity_type": "gun_van_free",
+        "discount_percent": 100,
+        "gta_plus_only": true,
+        "combat_role_tags": [
+          "utility",
+          "disable"
+        ],
+        "urgency": "good_pick",
+        "notes": "Free for GTA+ members this week."
+      }
+    ],
+    "business_opportunities": [
+      {
+        "id": "counterfeit_cash_week",
+        "name": "Counterfeit Cash — sell bonus + upgrade sale",
+        "business_type": "mc_counterfeit_cash",
+        "bonus": {
+          "gta_cash_multiplier": 2,
+          "rp_multiplier": 2
+        },
+        "requires_owned_business": true,
+        "requirements": [
+          "Counterfeit Cash Factory"
+        ],
+        "estimated_value_tags": [
+          "make_money",
+          "active_grind"
+        ],
+        "notes": "40% off factory and upgrades."
+      },
+      {
+        "id": "smoke_on_the_water_money_front",
+        "name": "Smoke on the Water Money Front",
+        "business_type": "money_fronts",
+        "bonus": {
+          "gta_cash_multiplier": 10,
+          "rp_multiplier": 10
+        },
+        "requires_owned_business": true,
+        "requirements": [
+          "Smoke on the Water Money Front"
+        ],
+        "estimated_value_tags": [
+          "make_money",
+          "high_multiplier"
+        ],
+        "notes": "50% off Smoke on the Water Money Front property during event pricing window (per weekly digest)."
+      },
+      {
+        "id": "salvage_yard_weekly_targets_w17",
+        "name": "Salvage Yard Robberies — weekly vehicles",
+        "business_type": "salvage_yard",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "Salvage Yard"
+        ],
+        "estimated_value_tags": [
+          "unlock_vehicle",
+          "active_grind"
+        ],
+        "notes": "Targets rotate per robbery contract."
+      },
+      {
+        "id": "nightclub_passive_cycle",
+        "name": "Nightclub passive goods",
+        "business_type": "nightclub",
+        "bonus": {},
+        "requires_owned_business": true,
+        "requirements": [
+          "Nightclub"
+        ],
+        "estimated_value_tags": [
+          "passive_income",
+          "low_attention"
+        ],
+        "notes": "Drinks 50% off at nightclub bars (quality-of-life)."
+      }
+    ],
+    "time_trials_and_races": [
+      {
+        "id": "time_trial_raton_canyon",
+        "name": "Time Trial: Raton Canyon",
+        "type": "time_trial",
+        "vehicle_restrictions": [],
+        "recommended_vehicle_classes": [
+          "motorcycle",
+          "sports"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Standard weekly time trial."
+      },
+      {
+        "id": "hsw_time_trial_terminal_chiliad",
+        "name": "HSW Time Trial: Terminal to Chiliad Mountain State Wilderness",
+        "type": "time_trial",
+        "vehicle_restrictions": [
+          "HSW_eligible"
+        ],
+        "recommended_vehicle_classes": [
+          "HSW"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "PS5 / Xbox X|S / PC Enhanced only."
+      },
+      {
+        "id": "premium_race_congestion_charge",
+        "name": "Premium Race: Congestion Charge (Super class)",
+        "type": "premium_race",
+        "vehicle_restrictions": [
+          "super"
+        ],
+        "recommended_vehicle_classes": [
+          "super"
+        ],
+        "reward": {
+          "cash": null
+        },
+        "notes": "Locked to Super."
+      }
+    ],
+    "salvage_yard_targets": [
+      {
+        "id": "duggan_robbery_sentinel_classic",
+        "robbery_name": "The Duggan Robbery",
+        "vehicle_name": "Übermacht Sentinel Classic",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": null
+      },
+      {
+        "id": "mctony_robbery_everon",
+        "robbery_name": "The McTony Robbery",
+        "vehicle_name": "Karin Everon",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": null
+      },
+      {
+        "id": "gangbanger_robbery_vagner",
+        "robbery_name": "The Gangbanger Robbery",
+        "vehicle_name": "Dewbauchee Vagner",
+        "claimable": true,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": null
+      }
+    ],
+    "world_events": [
+      {
+        "id": "most_wanted_gtaweb",
+        "name": "Most Wanted Targets",
+        "category": "bail_enforcement",
+        "notes": "GTAWEB — verify in-session bounty board."
+      },
+      {
+        "id": "fib_priority_brute_force",
+        "name": "FIB Priority File",
+        "category": "agency_file",
+        "notes": "The Brute Force File."
+      }
+    ]
+  },
+  "business_state": {
+    "nightclub": {
+      "owned": true,
+      "safe_cash": null,
+      "popularity_percent": null,
+      "technicians_total": 5,
+      "technician_assignments": [],
+      "goods_stock": [],
+      "upgrade_flags": [
+        "equipment_upgrade"
+      ]
+    },
+    "feeder_businesses": [
+      {
+        "business_type": "bunker",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": null,
+        "stock_level_percent": null,
+        "upgrade_flags": [
+          "equipment_upgrade"
+        ]
+      },
+      {
+        "business_type": "mc_cocaine",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": null,
+        "stock_level_percent": null,
+        "upgrade_flags": [
+          "equipment_upgrade"
+        ]
+      },
+      {
+        "business_type": "mc_cash",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": null,
+        "stock_level_percent": null,
+        "upgrade_flags": []
+      },
+      {
+        "business_type": "mc_weed",
+        "owned": true,
+        "operational": true,
+        "supply_level_percent": null,
+        "stock_level_percent": null,
+        "upgrade_flags": []
+      }
+    ]
+  },
+  "crew_context": {
+    "crew_name": null,
+    "active_members": [],
+    "usual_party_size": "duo",
+    "coordination_level": "medium",
+    "notes": "Preferred session size 2; max continuous play 120 minutes."
+  },
+  "analysis_hints": {
+    "missing_data_policy": "state_unknown_explicitly",
+    "recommendation_style": "ranked_list",
+    "language": "th",
+    "max_recommendations": 8,
+    "must_cite_ids": true
+  },
+  "data_quality": {
+    "coverage": {
+      "player_context_complete": true,
+      "business_state_complete": false,
+      "crew_context_complete": false
+    },
+    "known_gaps": [
+      "Daily Objectives marked TBA in source.",
+      "Exact discount sale prices not ingested; compare in-game.",
+      "Player profile does not confirm LS Car Meet membership or HSW garage.",
+      "Hands On Car Wash Money Front listed in player_profile but not tied to a weekly cash multiplier in this digest."
+    ],
+    "confidence_level": "medium"
+  }
+}

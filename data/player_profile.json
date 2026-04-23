@@ -3,8 +3,8 @@
   "player_name": "-CarlosZ-",
   "platform": "PC",
   "bankroll": {
-    "cash_on_hand": 34404748,
-    "max_spend_this_week": 4000000,
+    "cash_on_hand": 37404748,
+    "max_spend_this_week": 10000000,
     "reserve_floor": 30000000
   },
   "owned_assets": {
@@ -23,7 +23,9 @@
       "Special Cargo Warehouses",
       "Salvage Yard",
       "Bottom Dollar Bail Enforcement Office",
-      "The Garment Factory"
+      "The Garment Factory",
+      "Smoke on the Water Money Front",
+      "Hands On Car Wash Money Front"
     ],
     "missing_properties": [
       "Galaxy Super Yacht",
