@@ -17,7 +17,7 @@
 ## 📄 แบบที่ 2: มีไฟล์ข้อมูล JSON ของสัปดาห์นั้นแล้ว
 ถ้าคุณทำไฟล์ JSON ของสัปดาห์นั้นๆ ไว้แล้ว (เช่น `data/weekly_planning_2026_w15.json`):
 
-> *"รัน `src/workflows/weekly_planning.yaml` ให้หน่อย โดยใช้ข้อมูลกิจกรรมวิเคราะห์จากไฟล์ `data/weekly_planning_2026_w15.json` และ `data/player_profile.json` (ข้ามขั้นตอน Ingestion ไปดึงข้อมูลมาวิเคราะห์ได้เลย) จากนั้นสรุป Final Report จากมุมมองของ Lester ออกมาให้ที โดยต้องมี time buckets (30m, 1-2h, 3h+) และ action queue"*
+> *"รัน `src/workflows/weekly_planning.yaml` ให้หน่อย โดยใช้ข้อมูลกิจกรรมวิเคราะห์จากไฟล์ `data/weekly_planning_2026_w15.json` และ `data/player_profile.json` (ข้ามขั้นตอน Ingestion ไปดึงข้อมูลมาวิเคราะห์ได้เลย) จากนั้นสรุป Final Report จากมุมมองของ Lester ออกมาให้ที โดยต้องมี time buckets (30m, 1-2h, 3h+) และ action queue และสรุป Weekly Discounts ให้ครบทุก tier (50/40/30) แบบไม่ตกหล่น"*
 
 ---
 
@@ -35,4 +35,41 @@
 
 ---
 
-💡 **Tip:** ไม่ว่าคุณใช้ผู้ช่วยตัวไหน ให้ระบุ `src/workflows/weekly_planning.yaml`, `.github/skills/gta-weekly-planning/SKILL.md` และ `AGENTS.md` ใน prompt จะช่วยให้ผลลัพธ์สม่ำเสมอขึ้นมาก
+## 🧩 Discount Template (ใส่ใน weekly JSON ได้ทันที)
+
+วางโครงนี้ใต้ `weekly_content` ของไฟล์ `data/weekly_planning_<week_id>.json`:
+
+```json
+"discounts": [
+  {
+    "tier_percent": 50,
+    "items": [
+      "รายการลด 50% #1",
+      "รายการลด 50% #2"
+    ]
+  },
+  {
+    "tier_percent": 40,
+    "items": [
+      "รายการลด 40% #1"
+    ]
+  },
+  {
+    "tier_percent": 30,
+    "items": [
+      "รายการลด 30% #1",
+      "รายการลด 30% #2"
+    ]
+  }
+]
+```
+
+Checklist ก่อนรัน:
+- ต้องมีทุก tier ที่ประกาศในสัปดาห์นั้น (เช่น 50/40/30)
+- `items` ต้องไม่ว่าง
+- ชื่อ item ควรใช้คำเต็มแบบ Rockstar
+
+---
+
+💡 **Tip:** ไม่ว่าคุณใช้ผู้ช่วยตัวไหน ให้ระบุ `src/workflows/weekly_planning.yaml`, `.github/skills/gta-weekly-planning/SKILL.md` และ `AGENTS.md` ใน prompt จะช่วยให้ผลลัพธ์สม่ำเสมอขึ้นมาก  
+และถ้ามีส่วนลดประจำสัปดาห์ ให้กำชับว่า payload ต้องมี `weekly_content.discounts` (เช่น tiers 50/40/30 + items ครบ)

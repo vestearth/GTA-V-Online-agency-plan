@@ -247,6 +247,39 @@
         "notes": null
       }
     ],
+    "discounts": [
+      {
+        "tier_percent": 50,
+        "items": [
+          "Smoke on the Water Money Front",
+          "Vapid Festival Bus",
+          "Drinks at Nightclub Bars, The Diamond Casino, The Music Locker"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "items": [
+          "Counterfeit Cash Factories",
+          "Counterfeit Cash Factory Upgrades"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Enus Deity",
+          "Lampadati Corsita",
+          "HVY Menacer",
+          "Kraken Avisa",
+          "Progen Itali GTB",
+          "Vapid GB200",
+          "Classique Broadway",
+          "Annis Hellion",
+          "Vapid Peyote Gasser",
+          "Obey 8F Drafter",
+          "Grotti Cheetah"
+        ]
+      }
+    ],
     "vehicle_opportunities": [
       {
         "id": "podium_vulcar_warrener_hkr",

@@ -23,6 +23,7 @@ execution_logic: |
   5. Always include a complete `Weekly Discounts Snapshot` when discount data is present:
      - Group by each available tier (for example 50% / 40% / 30%)
      - Include all listed discount items in each tier, not only prioritized picks
+     - Analyze discount impact and map items into `What to Buy` / `What to Ignore` based on budget, ownership, and time-fit
      - If any tier is missing or partial, add a warning under `insufficient_data`
   6. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
   7. Always include an `Action Queue` with ordered steps the player can execute immediately.
