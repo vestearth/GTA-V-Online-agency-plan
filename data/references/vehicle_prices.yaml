@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-04-21"
+last_verified_at: "2026-04-23"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
