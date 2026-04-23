@@ -43,6 +43,7 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 6. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
    - Time buckets: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`
    - Ordered `Action Queue`
+   - `Weekly Discounts Snapshot` grouped by each discount tier (include all listed items, not only recommended picks)
    - Warnings and insufficient data
 7. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
    - `weekly_master_plan_<week_id>.md`

@@ -45,6 +45,7 @@ Do not reorder workflow nodes unless the user explicitly asks for an alternative
 - Keep recommendations actionable and ranked
 - Call out constraints and assumptions
 - Use concise Markdown suitable for saving under `reports/`
+- When weekly discount data exists, include a complete discount snapshot grouped by tiers (e.g. 50% / 40% / 30%) with all listed items
 - For each weekly run, generate exactly 3 week-id report files:
   1) `reports/weekly_master_plan_<week_id>.md`
   2) `reports/weekly_master_plan_<week_id>_income_scenarios.md`

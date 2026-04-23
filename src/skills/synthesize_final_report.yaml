@@ -20,6 +20,10 @@ execution_logic: |
   3. Compute a single priority score for each candidate item:
      `priority_score = payout_per_hour * reliability * time_fit_multiplier`.
   4. Produce final sections: What to Play, What to Buy, What to Ignore.
-  5. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
-  6. Always include an `Action Queue` with ordered steps the player can execute immediately.
-  7. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
+  5. Always include a complete `Weekly Discounts Snapshot` when discount data is present:
+     - Group by each available tier (for example 50% / 40% / 30%)
+     - Include all listed discount items in each tier, not only prioritized picks
+     - If any tier is missing or partial, add a warning under `insufficient_data`
+  6. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
+  7. Always include an `Action Queue` with ordered steps the player can execute immediately.
+  8. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
