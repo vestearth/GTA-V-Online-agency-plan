@@ -26,6 +26,20 @@ def discover_latest_weekly(data_dir: Path) -> Path:
     candidates = [Path(p) for p in glob.glob(str(data_dir / "weekly_planning_*.json"))]
     if not candidates:
         raise FileNotFoundError("No weekly_planning_*.json found in data/")
+    # Prefer deterministic week-id selection over filesystem mtime.
+    # Git checkouts can produce misleading mtimes (or ties), which may cause
+    # the script to pick an older weekly payload in CI.
+    week_id_pattern = re.compile(r"^weekly_planning_(\d{4})_w(\d{1,2})\.json$")
+    week_candidates: list[tuple[int, int, Path]] = []
+    for p in candidates:
+        m = week_id_pattern.match(p.name)
+        if not m:
+            continue
+        year = int(m.group(1))
+        week = int(m.group(2))
+        week_candidates.append((year, week, p))
+    if week_candidates:
+        return max(week_candidates, key=lambda x: (x[0], x[1]))[2]
     return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
