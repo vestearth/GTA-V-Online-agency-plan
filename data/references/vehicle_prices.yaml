@@ -749,8 +749,8 @@ vehicles:
   - vehicle_name: "Coil Voltic"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: 150000
     trade_price: null
     source_url: "https://gtacars.net/gta5/voltic"
@@ -759,8 +759,8 @@ vehicles:
   - vehicle_name: "Grotti GT500"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: 785000
     trade_price: null
     source_url: "https://gtacars.net/gta5/gt500"
@@ -769,8 +769,8 @@ vehicles:
   - vehicle_name: "Vapid Blade"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: 160000
     trade_price: null
     source_url: "https://gtacars.net/gta5/blade"
@@ -819,8 +819,8 @@ vehicles:
   - vehicle_name: "Vapid Retinue"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: 615000
     trade_price: null
     source_url: "https://gtacars.net/gta5/retinue"
