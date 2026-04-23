@@ -747,30 +747,30 @@ vehicles:
     alias_hints: ["Adder"]
 
   - vehicle_name: "Coil Voltic"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Voltic"]
 
   - vehicle_name: "Grotti GT500"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["GT500"]
 
   - vehicle_name: "Vapid Blade"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
@@ -817,10 +817,10 @@ vehicles:
     alias_hints: ["Locust"]
 
   - vehicle_name: "Vapid Retinue"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W17"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
