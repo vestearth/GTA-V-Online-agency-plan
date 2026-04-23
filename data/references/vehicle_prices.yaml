@@ -731,9 +731,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1260000
+    trade_price: 945000
+    source_url: "https://gtacars.net/gta5/warrener2"
     alias_hints: ["Warrener HKR"]
 
   - vehicle_name: "Truffade Adder"
@@ -741,39 +741,39 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1000000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/adder"
     alias_hints: ["Adder"]
 
   - vehicle_name: "Coil Voltic"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: true
-    removed_vehicle_weeks: ["2026-W17"]
-    base_price: null
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: 150000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/voltic"
     alias_hints: ["Voltic"]
 
   - vehicle_name: "Grotti GT500"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: true
-    removed_vehicle_weeks: ["2026-W17"]
-    base_price: null
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: 785000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/gt500"
     alias_hints: ["GT500"]
 
   - vehicle_name: "Vapid Blade"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: true
-    removed_vehicle_weeks: ["2026-W17"]
-    base_price: null
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: 160000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/blade"
     alias_hints: ["Blade"]
 
   - vehicle_name: "Declasse Vigero ZX"
@@ -781,9 +781,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1947000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/vigero2"
     alias_hints: ["Vigero ZX"]
 
   - vehicle_name: "Grotti LSCM Cheetah Classic"
@@ -791,9 +791,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 865000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cheetah2"
     alias_hints: ["LSCM Cheetah Classic"]
 
   - vehicle_name: "Declasse Walton L35 Stock"
@@ -801,9 +801,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1303700
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/l352"
     alias_hints: ["Walton L35 Stock"]
 
   - vehicle_name: "Ocelot Locust"
@@ -811,19 +811,19 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1625000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/locust"
     alias_hints: ["Locust"]
 
   - vehicle_name: "Vapid Retinue"
     vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: true
-    removed_vehicle_weeks: ["2026-W17"]
-    base_price: null
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: 615000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/retinue"
     alias_hints: ["Retinue"]
 
   - vehicle_name: "Grotti Cheetah"
@@ -831,8 +831,8 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 650000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cheetah"
     alias_hints: ["Cheetah"]
 

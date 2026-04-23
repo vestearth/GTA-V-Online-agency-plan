@@ -1,5 +1,17 @@
 {
   "schema_version": "1.0",
   "description": "Optional vehicle_name -> GTACars slug (/gta5/<slug>). Used when source_url is still the bare https://gtacars.net root. Keys must match vehicle_name in vehicle_prices.yaml exactly.",
-  "slug_by_vehicle_name": {}
+  "slug_by_vehicle_name": {
+    "Vulcar Warrener HKR": "warrener2",
+    "Truffade Adder": "adder",
+    "Coil Voltic": "voltic",
+    "Grotti GT500": "gt500",
+    "Vapid Blade": "blade",
+    "Declasse Vigero ZX": "vigero2",
+    "Declasse Walton L35 Stock": "l352",
+    "Grotti LSCM Cheetah Classic": "cheetah2",
+    "Ocelot Locust": "locust",
+    "Vapid Retinue": "retinue",
+    "Grotti Cheetah": "cheetah"
+  }
 }
