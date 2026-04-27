@@ -14,7 +14,7 @@ It is not a runtime app with a required Python/Node entrypoint.
 - `src/agents/*.yaml`
 - `src/skills/*.yaml`
 - `.github/skills/gta-weekly-planning/SKILL.md`
-- `data/schema_v2_example.json`
+- `data/examples_bundle.json` (consolidated examples)
 - `data/player_profile.json`
 
 When answering, prefer these files over assumptions.

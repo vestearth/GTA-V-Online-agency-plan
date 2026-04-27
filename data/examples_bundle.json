@@ -1,0 +1,133 @@
+{
+  "schema_v2_example": {
+    "schema_version": "2.0",
+    "schema_mode": "weekly_planning",
+    "week": {
+      "id": "2026-W14",
+      "label": "April 2-9 2026",
+      "start_date": "2026-04-02",
+      "end_date": "2026-04-09",
+      "source": "rockstar_newswire",
+      "last_updated_at": "2026-04-07T10:00:00Z"
+    },
+    "player_context": {
+      "player_name": "ExamplePlanner",
+      "platform": "pc",
+      "gta_plus": true,
+      "rank": 186,
+      "cash_on_hand": 950000,
+      "bank_balance": 4850000,
+      "play_style_tags": [
+        "solo",
+        "duo",
+        "grinder",
+        "vehicle_collector",
+        "combat"
+      ],
+      "goals_this_week": [
+        "make_money",
+        "unlock_vehicle",
+        "passive_income",
+        "buy_weapon"
+      ],
+      "owned_assets": {
+        "properties": [
+          "agency",
+          "nightclub",
+          "salvage_yard",
+          "bunker",
+          "auto_shop",
+          "ls_car_meet_membership"
+        ],
+        "businesses": [
+          "nightclub",
+          "bunker",
+          "salvage_yard",
+          "mc_cocaine",
+          "mc_cash"
+        ],
+        "key_vehicles": [
+          "Armored Kuruma",
+          "Oppressor Mk II",
+          "Grotti Turismo Omaggio"
+        ],
+        "key_weapons": [
+          "Heavy Rifle",
+          "Compact EMP Launcher",
+          "Stun Gun"
+        ]
+      },
+      "constraints": {
+        "hours_available": 9,
+        "preferred_session_size": "1_2_friends",
+        "avoid_content_tags": [
+          "long_heist_setup_chain"
+        ]
+      }
+    },
+    "planning_context": {
+      "primary_objective": "mixed",
+      "budget_limit": 1500000,
+      "risk_tolerance": "medium",
+      "session_plan": [
+        {
+          "label": "weekday_short",
+          "hours": 1.5,
+          "party_size": "solo"
+        },
+        {
+          "label": "weekend_duo",
+          "hours": 3,
+          "party_size": "1_2_friends"
+        }
+      ],
+      "decision_policy": {
+        "recommend_owned_only": false,
+        "allow_new_purchases": true,
+        "prioritize_limited_time_content": true
+      }
+    }
+  },
+  "weekly_activity_template": {
+    "week": "2026-W15",
+    "date_range": "1-7 April 2026",
+    "player": "PlayerName",
+    "crew": "CrewName",
+    "playtime_hours": 18.5,
+    "financials": {
+      "earnings_total": 4250000,
+      "expenses_total": 890000,
+      "net_profit": 3360000,
+      "currency": "GTA$"
+    }
+  },
+  "weekly_activity_simple_template": {
+    "week": {
+      "label": "April 2-9 2026",
+      "start_date": "2026-04-02",
+      "end_date": "2026-04-09"
+    },
+    "player_context": {
+      "player_name": "PlayerName",
+      "gta_plus": false,
+      "cash_on_hand": 0,
+      "bank_balance": 0,
+      "goals_this_week": [
+        "make_money",
+        "unlock_vehicle"
+      ]
+    }
+  },
+  "sample_week": {
+    "week": "2024-W15 (8-14 April 2024)",
+    "player": "YourGTAName",
+    "crew": "Los Santos Syndicate",
+    "playtime_hours": 18.5,
+    "financials": {
+      "earnings_total": 4250000,
+      "expenses_total": 890000,
+      "net_profit": 3360000,
+      "currency": "GTA$"
+    }
+  }
+}

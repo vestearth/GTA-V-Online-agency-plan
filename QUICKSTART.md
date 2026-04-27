@@ -10,7 +10,7 @@
 ## 📋 แบบที่ 1: มีข่าวสัปดาห์ใหม่เป็น "ข้อความดิบ" (Raw Text)
 ก็อปปี้อัปเดตจากเว็บ Rockstar Newswire หรือบอร์ดเกม แล้วใช้คำสั่งนี้เลย:
 
-> *"นี่คือข้อมูลอัปเดต GTA ของสัปดาห์ใหม่: [วางเนื้อหาข่าวตรงนี้] ...ช่วยนำข้อมูลนี้ไปรันผ่าน `src/workflows/weekly_planning.yaml` โดยใช้ `data/player_profile.json` ด้วย ให้ทีมงานเปรียบเทียบกับเป้าหมายของผู้เล่นใน `data/schema_v2_example.json` แล้วสร้างรายงานสรุปแผนการเล่น (Master Plan) โดย Lester เซฟลงในโฟลเดอร์ `reports/` แบบ Markdown ให้ด้วยนะ และต้องมี time buckets (30m, 1-2h, 3h+) กับ action queue"*
+> *"นี่คือข้อมูลอัปเดต GTA ของสัปดาห์ใหม่: [วางเนื้อหาข่าวตรงนี้] ...ช่วยนำข้อมูลนี้ไปรันผ่าน `src/workflows/weekly_planning.yaml` โดยใช้ `data/player_profile.json` ด้วย ให้ทีมงานเปรียบเทียบกับเป้าหมายของผู้เล่นใน `data/examples_bundle.json` (key: `schema_v2_example`) แล้วสร้างรายงานสรุปแผนการเล่น (Master Plan) โดย Lester เซฟลงในโฟลเดอร์ `reports/` แบบ Markdown ให้ด้วยนะ และต้องมี time buckets (30m, 1-2h, 3h+) กับ action queue"*
 
 ---
 

@@ -11,7 +11,7 @@
 
 ## โหมดใช้งานแบบง่ายสำหรับ weekly summary มือกรอกเอง
 
-ถ้าจุดประสงค์จริงคือ "สรุปกิจกรรมแต่ละอาทิตย์" และไม่ได้ต้องการกรอก `schema v2` เต็มทุกครั้ง ให้ใช้ไฟล์ตัวอย่าง [data/weekly_activity_simple_template.json](../data/weekly_activity_simple_template.json) แทนได้
+ถ้าจุดประสงค์จริงคือ "สรุปกิจกรรมแต่ละอาทิตย์" และไม่ได้ต้องการกรอก `schema v2` เต็มทุกครั้ง ให้ใช้ไฟล์ตัวอย่าง [data/examples_bundle.json](../data/examples_bundle.json) (key: `weekly_activity_simple_template`) แทนได้
 
 โหมดนี้เหมาะกับ workflow แบบนี้:
 
@@ -366,4 +366,4 @@ Use this section when you want Michael or other agents to compare current week t
 
 ## ตัวอย่าง payload
 
-ดู payload ตัวอย่างเต็มได้ที่ `data/schema_v2_example.json`
+ดู payload ตัวอย่างเต็มได้ที่ `data/examples_bundle.json` (key: `schema_v2_example`)

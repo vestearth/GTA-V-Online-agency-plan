@@ -8,7 +8,7 @@
 
 This repo is a **specification and prompt library** for a multi-agent “GTA V Online weekly planning” workflow. It is **not** a runnable application: there is **no** Python/Node entrypoint, `requirements.txt`, or automated orchestrator in-tree.
 
-- **Canonical weekly payload**: `data/schema_v2_example.json` (schema v2).
+- **Canonical weekly payload**: `data/examples_bundle.json` (see key `schema_v2_example`) (schema v2).
 - **Framework narrative & roles**: `README.md`, `src/agents/*.yaml`, `src/skills/*.yaml`.
 - **Assistant integration promptbook**: `.github/skills/gta-weekly-planning/SKILL.md`.
 - **Workflow index**: `src/agency.config.yaml` and `src/workflows/weekly_planning.yaml`.
@@ -26,7 +26,7 @@ When editing or generating content:
 
 ที่เก็บนี้เป็น **เอกสารสเปกและชุด prompt** สำหรับเวิร์กโฟลว์หลายเอเย่นต์ “วางแผน GTA V Online รายสัปดาห์” **ไม่ใช่แอปที่รันได้ทันที** — ไม่มี entrypoint ภาษา Python/Node, `requirements.txt` หรือตัว orchestrator อัตโนมัติใน repo
 
-- **ตัวอย่าง payload มาตรฐาน**: `data/schema_v2_example.json` (schema v2)
+- **ตัวอย่าง payload มาตรฐาน**: `data/examples_bundle.json` (ดูคีย์ `schema_v2_example`) (schema v2)
 - **บทบาทและกรอบงาน**: `README.md`, `src/agents/*.yaml`, `src/skills/*.yaml`
 - **จุดเชื่อมผู้ช่วย AI**: `.github/skills/gta-weekly-planning/SKILL.md`
 - **ดัชนีเวิร์กโฟลว์**: `src/agency.config.yaml` และ `src/workflows/weekly_planning.yaml`

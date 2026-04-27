@@ -6,10 +6,10 @@ This reference is assistant-agnostic and can be used from Copilot, Cursor, Codex
 
 ## Canonical Inputs
 
-- Primary schema example: `data/schema_v2_example.json`
-- Player profile baseline: `data/player_profile.json`
-- Weekly samples: `data/weekly_planning_2026_w14.json`, `data/weekly_planning_2026_w15.json`, `data/sample_week.json`
-- Capture templates: `data/weekly_activity_template.json`, `data/weekly_activity_simple_template.json`
+-- Primary schema example: `data/examples_bundle.json` (key: `schema_v2_example`)
+-- Player profile baseline: `data/player_profile.json`
+-- Weekly samples: `data/weekly_planning_2026_w14.json`, `data/weekly_planning_2026_w15.json`, `data/examples_bundle.json` (key: `sample_week`)
+-- Capture templates: `data/examples_bundle.json` (keys: `weekly_activity_template`, `weekly_activity_simple_template`)
 
 ## Orchestration Sources
 

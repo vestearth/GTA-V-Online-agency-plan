@@ -26,7 +26,7 @@ GTA-V-Online-agency-plan/
 │   ├── agents/                           # Agent definitions (Michael, Lester, etc.)
 │   └── skills/                           # Agent capabilites/tools
 ├── data/                                 # 📥 Data Payloads
-│   ├── schema_v2_example.json            # Reference payload for the week
+│   ├── examples_bundle.json              # Consolidated reference payloads and templates (data/examples_bundle.json)
 │   └── references/                       # Lookup catalogs
 │       ├── vehicle_prices.yaml           # Used by Franklin
 │       ├── vehicle_gtacars_slugs.json    # Optional name→GTACars slug map for price fetch
