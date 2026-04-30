@@ -28,3 +28,12 @@ execution_logic: |
   6. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
   7. Always include an `Action Queue` with ordered steps the player can execute immediately.
   8. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
+  9. Never treat a Salvage Yard robbery vehicle as claimable unless `salvage_yard_targets[].claimable` is explicitly true or the source text directly confirms the vehicle can be kept.
+  10. If Salvage Yard claimability is false or uncertain, describe the item as a robbery target only and avoid placing it in acquisition recommendations.
+  11. Do not recommend activities that fail the readiness gate as immediate priorities; move them to blockers, assumptions, or conditional recommendations.
+  12. Respect platform-gated content exactly as written. If a bonus, test ride, or feature is limited to PS5 / Xbox Series / PC Enhanced or similar subsets, do not present it as universally available.
+  13. Do not invent payouts, prices, trade prices, keep eligibility, or unlock paths. If a value is missing after reference lookup, keep the recommendation qualitative and mark the relevant decision as uncertain.
+  14. Do not treat showroom presence, display rotation, or test ride availability as proof of a discount. Distinguish clearly between `on display`, `discounted`, `claimable`, and `testable`.
+  15. Do not recommend purchases that violate player budget, reserve-floor intent, owned-only policy, or already-owned status when those constraints are available.
+  16. When a vehicle is marked removed from standard sale, separate collector rarity from practical performance instead of collapsing both into a single buy/skip rule.
+  17. If weekly discounts or vehicle/showroom sections appear incomplete, keep the snapshot complete for known items and add an explicit missing-data warning rather than silently filling gaps.

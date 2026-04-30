@@ -1,0 +1,21 @@
+name: normalize_featured_activities
+description: >
+  Normalize weekly activity surfaces so downstream readiness and specialist skills
+  can consume a canonical `weekly_content.featured_activities` list even when the
+  source payload only provides `weekly_content.events`.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+  required: [weekly_schema_v2]
+execution_logic: |
+  1. Read `weekly_schema_v2.weekly_content.featured_activities`.
+  2. If it already exists and is non-empty, preserve it unchanged.
+  3. Otherwise inspect `weekly_schema_v2.weekly_content.events`.
+  4. Convert each event into a normalized featured-activity candidate using available hints such as:
+     - `name` or fallback label as `activity_id`
+     - `type` as the primary category
+     - `platforms`, `requirement`, `reward`, `multiplier`, `vehicle`, and `location` as descriptive metadata
+  5. Write the normalized list back to `weekly_schema_v2.weekly_content.featured_activities`.
+  6. Return the updated `weekly_schema_v2` plus a note indicating whether the activity list was preserved or derived from `events`.

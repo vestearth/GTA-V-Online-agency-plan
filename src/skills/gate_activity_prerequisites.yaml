@@ -11,11 +11,14 @@ input_schema:
       type: object
   required: [weekly_schema_v2, player_profile]
 execution_logic: |
-  1. Inspect each `weekly_content.featured_activities[]` requirement block.
-  2. Mark `ready` only if required assets/properties are present in `player_profile.owned_assets`.
-  3. Mark `crew_fit` by comparing activity team-size hints against `player_profile.session_constraints`.
-  4. Mark `time_fit` by checking activity timebox hints against `player_profile.session_constraints`.
-  5. Emit:
+  1. Normalize the activities to inspect:
+     - Prefer `weekly_content.featured_activities[]` when present.
+     - If absent, derive the gate list from `weekly_content.events[]`.
+  2. Inspect each normalized activity requirement block.
+  3. Mark `ready` only if required assets/properties are present in `player_profile.owned_assets`.
+  4. Mark `crew_fit` by comparing activity team-size hints against `player_profile.session_constraints`.
+  5. Mark `time_fit` by checking activity timebox hints against `player_profile.session_constraints`.
+  6. Emit:
      - `readiness_matrix` (ready/not_ready per activity)
      - `blocking_gaps` (must-fix before running activity)
      - `non_blocking_gaps` (missing detail or uncertain assumptions)

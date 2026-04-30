@@ -22,11 +22,13 @@ When answering, prefer these files over assumptions.
 ## Required Execution Order
 
 1. Run schema precheck first: `validate_weekly_schema_lightweight`
-2. If blocking schema issues exist, stop and return data issues only
-3. Run readiness gate: `gate_activity_prerequisites` with `player_profile`
-4. If hard readiness blockers exist, stop and return blockers first
-5. Run specialist analysis in parallel (Michael, Franklin, Trevor, Agent 14, Tony)
-6. Run Lester last: `synthesize_final_report`
+2. Normalize activities: `normalize_featured_activities`
+3. Normalize vehicles: `normalize_vehicle_opportunities`
+4. If blocking schema issues exist, stop and return data issues only
+5. Run readiness gate: `gate_activity_prerequisites` with `player_profile`
+6. If hard readiness blockers exist, stop and return blockers first
+7. Run specialist analysis in parallel (Michael, Franklin, Trevor, Agent 14, Tony)
+8. Run Lester last: `synthesize_final_report`
 
 Do not reorder workflow nodes unless the user explicitly asks for an alternative flow.
 
@@ -62,3 +64,8 @@ Keep technical identifiers (file paths, JSON keys, agent/skill ids) in canonical
 - Do not invent hidden APIs, scripts, or env files
 - Do not claim execution results without grounding in repository context
 - If data quality is insufficient, report blockers before analysis
+- Do not treat a Salvage Yard robbery vehicle as claimable unless the source or `salvage_yard_targets[].claimable` explicitly confirms keep eligibility
+- Do not present platform-gated content as universally available
+- Do not treat showroom presence or test-ride availability as proof of a discount or purchase path
+- Do not invent prices, payouts, or unlock conditions when the payload or references do not provide them
+- Do not recommend actions that conflict with readiness blockers, ownership status, or stated budget constraints when those are available

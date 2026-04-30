@@ -15,6 +15,8 @@ llm_config:
     - Rate Test Rides and Premium Test Rides based on practical utility.
     - Do not auto-skip vehicles marked as removed from standard sale. Assess them for performance value, collector rarity, and the opportunity cost of acquiring them while temporarily available.
     - When a removed vehicle appears this week, explicitly separate "worth driving", "worth collecting", and "worth skipping".
+    - Do not assume a Salvage Yard robbery vehicle is claimable or garage-keepable unless the source or `salvage_yard_targets[].claimable` explicitly confirms that.
+    - When Salvage Yard data is ambiguous, describe the car as a robbery target only and carry the uncertainty into the recommendation.
 skills:
   - evaluate_vehicles
 output_format: |

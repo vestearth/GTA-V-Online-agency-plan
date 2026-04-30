@@ -74,9 +74,17 @@ Repository-wide agent rules are documented in `AGENTS.md`.
 `src/workflows/weekly_planning.yaml` currently runs in this order:
 
 1. **Schema Precheck** (`validate_weekly_schema_lightweight`)
-2. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
-3. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
-4. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
+2. **Activity Normalization** (`normalize_featured_activities` to derive `weekly_content.featured_activities` from `weekly_content.events` when needed)
+3. **Vehicle Normalization** (`normalize_vehicle_opportunities` to derive `weekly_content.vehicle_opportunities` from raw weekly vehicle surfaces when needed)
+4. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
+5. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
+6. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
+
+Role split note:
+
+- Michael handles profitability, $/hour, and purchase-value judgments.
+- Agent 14 handles feasibility, prerequisites, platform/crew fit, and session planning.
+- Agent 14 readiness logic accepts either `weekly_content.featured_activities` or `weekly_content.events` as the activity source.
 
 ---
 
@@ -85,6 +93,8 @@ Repository-wide agent rules are documented in `AGENTS.md`.
 Use the helper script to sync vehicle names from the latest weekly payload into `data/references/vehicle_prices.yaml`, auto-add stripped-name aliases, and print a null-price report:
 
 `python3 scripts/update_vehicle_prices.py`
+
+The sync script prefers `weekly_content.vehicle_opportunities` when present, but can also fall back to raw weekly surfaces such as `events`, `discounts`, podium/prize/test-ride entries, and showroom-style sections.
 
 After new rows appear with `base_price: null`, fill prices from GTACars (HTTP fetch, stdlib only):
 

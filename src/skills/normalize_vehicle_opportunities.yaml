@@ -1,0 +1,27 @@
+name: normalize_vehicle_opportunities
+description: >
+  Normalize weekly vehicle surfaces so downstream vehicle analysis can consume a
+  canonical `weekly_content.vehicle_opportunities` list even when the source
+  payload only provides raw events, showroom lists, or discount tiers.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+  required: [weekly_schema_v2]
+execution_logic: |
+  1. Read `weekly_schema_v2.weekly_content.vehicle_opportunities`.
+  2. If it already exists and is non-empty, preserve it unchanged.
+  3. Otherwise inspect raw weekly vehicle surfaces in this order:
+     - `weekly_schema_v2.weekly_content.events`
+     - `weekly_schema_v2.weekly_content.discounts`
+     - showroom-style sections such as `luxury_autos`, `premium_deluxe_motorsports`, `test_rides`, `premium_test_rides`
+     - direct vehicle fields such as podium, prize ride, and premium test ride entries
+  4. Convert each discovered vehicle into a normalized opportunity object containing, when available:
+     - `id`, `vehicle_name`, `opportunity_type`, `source`, `availability`
+     - `discount_percent`, `price`, `trade_price`, `class`
+     - `limited`, `removed_vehicle`, `gta_plus_only`
+     - `acquisition` and `evaluation_inputs`
+  5. Mark removed-vehicle entries as limited collector opportunities when the source text indicates `Removed Vehicle`.
+  6. Write the normalized list back to `weekly_schema_v2.weekly_content.vehicle_opportunities`.
+  7. Return the updated `weekly_schema_v2` plus a note indicating whether the vehicle list was preserved or derived from raw weekly surfaces.

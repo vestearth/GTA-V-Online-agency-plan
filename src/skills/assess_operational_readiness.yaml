@@ -7,6 +7,8 @@ input_schema:
   properties:
     featured_activities:
       type: array
+    weekly_schema_v2:
+      type: object
     owned_assets:
       type: object
     constraints:
@@ -14,7 +16,12 @@ input_schema:
     planning_context:
       type: object
 execution_logic: |
-  1. For each featured activity, check if `requirements` exist in `owned_assets.properties`.
-  2. Map party-size fit using `recommended_party_size` against `constraints.preferred_session_size`.
-  3. Use `timebox_minutes` when present; if null, flag as non-blocking uncertainty.
-  4. Ensure selected plan does not exceed `constraints.hours_available` or `planning_context.session_plan`.
+  1. Normalize the activity list first:
+     - Prefer `featured_activities` when explicitly provided.
+     - Otherwise derive an operational list from `weekly_schema_v2.weekly_content.featured_activities`.
+     - If that list is absent, fall back to `weekly_schema_v2.weekly_content.events` and treat each event as a candidate activity.
+  2. For each normalized activity, check whether any declared `requirements` exist in `owned_assets.properties`.
+  3. Map party-size fit using `recommended_party_size` against `constraints.preferred_session_size`.
+  4. Use `timebox_minutes` when present; if null, flag as non-blocking uncertainty.
+  5. Ensure the selected plan does not exceed `constraints.hours_available` or `planning_context.session_plan`.
+  6. Return feasibility and sequencing guidance only; do not score payout or ROI.

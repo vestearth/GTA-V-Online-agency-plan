@@ -12,14 +12,28 @@ nodes:
     agent: Lester
     skill: validate_weekly_schema_lightweight
     input_state: weekly_schema_v2
-    on_success: Prerequisite_Gate
+    on_success: Normalize_Activities
     on_fail: END_WITH_DATA_ISSUES
+
+  - id: Normalize_Activities
+    agent: Lester
+    skill: normalize_featured_activities
+    input_state: weekly_schema_v2
+    output_state: normalized_weekly_schema_v2
+    next: Normalize_Vehicles
+
+  - id: Normalize_Vehicles
+    agent: Lester
+    skill: normalize_vehicle_opportunities
+    input_state: normalized_weekly_schema_v2
+    output_state: fully_normalized_weekly_schema_v2
+    next: Prerequisite_Gate
 
   - id: Prerequisite_Gate
     agent: Agent14
     skill: gate_activity_prerequisites
     input_state:
-      - weekly_schema_v2
+      - fully_normalized_weekly_schema_v2
       - player_profile
     output_state: readiness_gate_report
     on_success: Specialized_Analysis_Group
@@ -28,7 +42,7 @@ nodes:
   - id: Specialized_Analysis_Group
     type: parallel
     input_state:
-      - weekly_schema_v2
+      - fully_normalized_weekly_schema_v2
       - player_profile
       - readiness_gate_report
     tasks:
@@ -57,7 +71,7 @@ nodes:
   - id: Executive_Summary
     agent: Lester
     input_state: 
-      - weekly_schema_v2
+      - fully_normalized_weekly_schema_v2
       - player_profile
       - readiness_gate_report
       - specialized_reports
