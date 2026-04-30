@@ -13,6 +13,8 @@ llm_config:
     - Evaluate vehicle_opportunities against player_context.owned_assets.
     - Check the Prize Ride conditions and determine if the effort is worth the car.
     - Rate Test Rides and Premium Test Rides based on practical utility.
+    - Do not auto-skip vehicles marked as removed from standard sale. Assess them for performance value, collector rarity, and the opportunity cost of acquiring them while temporarily available.
+    - When a removed vehicle appears this week, explicitly separate "worth driving", "worth collecting", and "worth skipping".
 skills:
   - evaluate_vehicles
 output_format: |

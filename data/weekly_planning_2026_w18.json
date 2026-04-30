@@ -1,0 +1,75 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W18",
+    "label": "Apr 30 - May 7 2026",
+    "start_date": "2026-04-30",
+    "end_date": "2026-05-07",
+    "source": "user_submission",
+    "last_updated_at": "2026-04-30T00:00:00Z"
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true
+  },
+  "weekly_content": {
+    "headline": "Weekly Bonuses and Discounts - April 30th to May 7th",
+    "summary": "Community Mission 'Old School Hits', 4x GTA$ & RP on Corona at Legion Square (PS5/Xbox Series/PC Enhanced), various race and hit bonuses, new Annis Minimus livery, Salvage Yard Robberies and discounts.",
+    "platform_notes": "Some bonuses (Community Mission, PS5/Xbox Series X|S/PC Enhanced) are platform-limited as noted.",
+    "events": [
+      {"name":"Community Mission - Old School Hits","type":"community_mission","platforms":"PS5,XboxSeries,PC_Enhanced","reward":"4x GTA$ & RP (through 2026-05-06)"},
+      {"name":"Visit the corona at Legion Square","type":"bonus_location","platforms":"PS5,XboxSeries,PC_Enhanced","reward":"4x GTA$ & RP"},
+      {"name":"Madrazo Hits / Payphone Hits","type":"bonus","multiplier":"3x"},
+      {"name":"Open Wheel Races and Time Trials","type":"race_bonus","multiplier":"3x"},
+      {"name":"Prize Ride Challenge","type":"prize_ride","requirement":"Place Top 2 in LS Car Meet Series 4 days in a row","vehicle":"Vapid Uranus LozSpeed"},
+      {"name":"Podium Vehicle","vehicle":"Zirconium Journey II"},
+      {"name":"Time Trial","location":"Down Chiliad"},
+      {"name":"Premium Race","name_extra":"Across the Wilderness (Off-Road locked)"},
+      {"name":"HSW Time Trial","location":"Pacific Bluffs to Mount Gordo"},
+      {"name":"Premium Test Ride","vehicle":"Karin S95"},
+      {"name":"This Week's Salvage Yard Robberies","items":[{"job":"Gangbanger Robbery","vehicle":"Canis Kamacho"},{"job":"Duggan Robbery","vehicle":"Ocelot Jugular"},{"job":"McTony Robbery","vehicle":"Grotti Itali GTO"}]}
+    ],
+    "discounts": [
+      {
+        "tier_percent": 40,
+        "items":["Precision Rifle"]
+      },
+      {
+        "tier_percent": 30,
+        "items":[
+          "Progen PR4",
+          "Benefactor BR8",
+          "Declasse DR1",
+          "Pegassi Osiris",
+          "Obey Omnis e-GT",
+          "Dinka RT3000",
+          "Vapid Dominator FX",
+          "Dewbauchee Vagner",
+          "Invetero Coquette D1",
+          "Pfister Comet SR",
+          "Grotti Turismo Classic",
+          "MTL Wastelander"
+        ]
+      }
+    ],
+    "weapons_discounts": [{"vendor":"Gun Van","discounts":[{"item":"Precision Rifle","percent":40},{"item":"Combat Shotgun","percent":30,"note":"30% for GTA+ Members"}]}],
+    "gun_van_stock": [
+      {"item":"Combat Shotgun","discount_base":10,"discount_gta_plus":30},
+      {"item":"Tactical SMG","discount_base":10,"discount_gta_plus":20},
+      {"item":"Precision Rifle","discount_base":40,"discount_gta_plus":40},
+      {"item":"Combat MG","discount_base":10,"discount_gta_plus":20},
+      {"item":"Assault SMG","discount_base":10,"discount_gta_plus":20},
+      {"item":"Stun Gun","discount_base":10,"discount_gta_plus":100},
+      {"item":"Baseball Bat","discount_base":0,"discount_gta_plus":0},
+      {"item":"Knife","discount_base":10,"discount_gta_plus":20},
+      {"item":"Molotov","discount_base":10,"discount_gta_plus":20},
+      {"item":"Proximity Mine","discount_base":10,"discount_gta_plus":20},
+      {"item":"Tear Gas","discount_base":10,"discount_gta_plus":20}
+    ],
+    "new_content": ["Community Mission Series - Old School Hits","Big Minimus Energy livery for Annis Minimus"],
+    "returning_content": [],
+    "notes": "Data copied from user submission; vehicles marked 'Removed Vehicle' should be treated as temporary availability signals and evaluated for both quality and collector rarity rather than auto-skipped. If additional discount tiers (50%) exist, they were not provided in the submission."
+  }
+}
