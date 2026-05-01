@@ -18,6 +18,7 @@ llm_config:
     - When feasibility is uncertain, label the activity `Unknown ROI pending readiness` instead of making an operational ruling.
 skills:
   - calculate_business_roi
+  - calculate_activity_loop_roi
 output_format: |
   **1. Executive Financial Summary**: A snapshot of the best money makers this week.
   **2. Top ROI Activities**: Ranked by pure profit and efficiency.
