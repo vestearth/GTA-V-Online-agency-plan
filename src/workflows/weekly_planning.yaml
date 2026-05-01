@@ -1,5 +1,5 @@
 name: GTA Weekly Planning Orchestration
-version: "1.0"
+version: "1.1"
 description: >
   Orchestrates the entire weekly update analysis for GTA V Online,
   routing tasks through specialized agents (Michael, Franklin, Trevor, Agent 14, Tony)
@@ -49,6 +49,9 @@ nodes:
       - task_id: Financial_Analysis
         agent: Michael
         skill: calculate_business_roi
+      - task_id: Loop_ROI_Analysis
+        agent: Michael
+        skill: calculate_activity_loop_roi
       - task_id: Vehicle_Analysis
         agent: Franklin
         skill: evaluate_vehicles

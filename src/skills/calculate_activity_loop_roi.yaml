@@ -1,0 +1,156 @@
+name: calculate_activity_loop_roi
+description: >
+  Build practical weekly money loops by combining boosted active jobs,
+  cooldown windows, and passive/background production. Use this when a
+  weekly event contains high-multiplier jobs such as Payphone Hits,
+  Madrazo Hits, Dr. Dre, Dispatch Work, or other repeatable activities.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+      description: Normalized weekly payload containing featured activities, events, bonuses, and discounts.
+    player_profile:
+      type: object
+      description: Player bankroll, owned assets, upgrades, preferences, GTA+ status when available, and session constraints.
+    candidate_activities:
+      type: array
+      description: Optional preselected activity candidates. If missing, derive from weekly_content.featured_activities or weekly_content.events.
+      items:
+        type: object
+        properties:
+          activity_id:
+            type: string
+          name:
+            type: string
+          base_payout:
+            type: number
+          bonus_multiplier:
+            type: number
+          active_minutes:
+            type: number
+          cooldown_minutes:
+            type: number
+          setup_minutes:
+            type: number
+          reliability:
+            type: number
+          requires_property:
+            type: array
+            items:
+              type: string
+            description: >
+              List of properties/assets the player must own. Mapped from
+              weekly_content.featured_activities[].requirements[] via the
+              `requirements` field alias. An empty array means no property is required.
+          requires_gta_plus:
+            type: boolean
+          effort_level:
+            type: string
+          repeatable:
+            type: boolean
+          notes:
+            type: string
+    passive_income_sources:
+      type: array
+      description: Optional passive or semi-passive income sources that can run while active jobs are performed.
+      items:
+        type: object
+        properties:
+          source_id:
+            type: string
+          name:
+            type: string
+          payout:
+            type: number
+          production_minutes:
+            type: number
+          boosted_production_minutes:
+            type: number
+          boost_source:
+            type: string
+          requires_property:
+            type: string
+          requires_upgrade:
+            type: string
+  required: [weekly_schema_v2, player_profile]
+field_aliases:
+  reward_cash: base_payout
+  multiplier: bonus_multiplier
+  timebox_minutes: active_minutes
+  time_minutes: active_minutes
+  cooldown: cooldown_minutes
+  setup_time_minutes: setup_minutes
+  gta_plus_only: requires_gta_plus
+  requirements: requires_property
+
+execution_logic: |
+  1. Normalize candidate activities from aliases and weekly data:
+     - Prefer `weekly_content.featured_activities` when available.
+     - Fall back to `weekly_content.events` when the normalized field is absent.
+     - Preserve unknown payouts instead of inventing them.
+  2. Apply player readiness:
+     - `requires_property` is an array (mapped from `requirements[]` via alias). Treat a missing or null `requires_property` the same as an empty array (no property check). If any entry in a non-empty array is absent from `player_profile.owned_assets.properties`, mark the activity as `blocked`.
+     - If `requires_gta_plus` is true and `weekly_schema_v2.player_context.gta_plus` is not true, mark as `conditional_gta_plus` rather than universally recommended.
+     - If a required upgrade is missing, mark the passive source as `degraded` and calculate only the non-upgraded/known fallback.
+  3. For each active activity with enough data, calculate:
+     - `gross_payout = base_payout * bonus_multiplier` (default multiplier = 1)
+     - `cycle_minutes = active_minutes + cooldown_minutes + setup_minutes` where missing cooldown/setup default to 0
+     - `theoretical_active_cash_per_hour = gross_payout / (active_minutes / 60)`
+     - `effective_cash_per_hour = gross_payout / (cycle_minutes / 60)`
+     - `active_cash_per_minute = gross_payout / active_minutes`
+  4. For passive sources, calculate:
+     - `passive_cash_per_hour = payout / (production_minutes / 60)`
+     - If `boosted_production_minutes` exists and the boost source is owned/enabled, also calculate `boosted_passive_cash_per_hour`.
+     - Include the incremental lift from boost as `boost_delta_cash_per_hour`.
+  5. Build loop recommendations for the player's `session_constraints.max_continuous_minutes` and standard buckets of 30, 60, and 120 minutes:
+     - Fill each bucket with the highest value ready activities first.
+     - Use cooldown windows for filler activities, passive collection, resupply, or travel buffers.
+     - Keep loops realistic: do not schedule more repetitions than cooldowns allow.
+  6. Compare activities using both active and effective metrics:
+     - Use `theoretical_active_cash_per_hour` for burst value.
+     - Use `effective_cash_per_hour` for repeatable loop value.
+     - Use passive income as stackable background value, not as an exclusive replacement for active jobs.
+  7. Return:
+     - `ranked_activities`
+     - `passive_stack`
+     - `best_30m_loop`
+     - `best_60m_loop`
+     - `best_120m_loop`
+     - `do_now`
+     - `filler_options`
+     - `blocked_or_conditional`
+     - `insufficient_data`
+     - `assumptions`
+  8. Never fabricate payouts, cooldowns, GTA+ eligibility, or production times. If a weekly source lacks a value, mark it under `insufficient_data` and keep the ranking conditional.
+output_contract:
+  ranked_activities:
+    type: array
+    description: Activities sorted by ready-state, effective cash/hour, active cash/minute, and reliability.
+  passive_stack:
+    type: array
+    description: Passive or semi-passive income sources that should run in the background.
+  best_30m_loop:
+    type: array
+    description: Actionable short-session plan.
+  best_60m_loop:
+    type: array
+    description: Actionable one-hour plan.
+  best_120m_loop:
+    type: array
+    description: Actionable two-hour plan respecting max continuous session constraints.
+  do_now:
+    type: array
+    description: Immediate actions with highest practical ROI.
+  filler_options:
+    type: array
+    description: Activities to run during cooldown gaps.
+  blocked_or_conditional:
+    type: array
+    description: Activities blocked by missing properties, upgrades, subscriptions, or uncertain prerequisites.
+  insufficient_data:
+    type: array
+    description: Missing payout/time/cooldown fields that prevent precise ROI.
+  assumptions:
+    type: array
+    description: Explicit assumptions used for any estimate.
