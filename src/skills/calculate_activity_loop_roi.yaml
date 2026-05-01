@@ -36,7 +36,13 @@ input_schema:
           reliability:
             type: number
           requires_property:
-            type: string
+            type: array
+            items:
+              type: string
+            description: >
+              List of properties/assets the player must own. Mapped from
+              weekly_content.featured_activities[].requirements[] via the
+              `requirements` field alias. An empty array means no property is required.
           requires_gta_plus:
             type: boolean
           effort_level:
@@ -76,6 +82,7 @@ field_aliases:
   cooldown: cooldown_minutes
   setup_time_minutes: setup_minutes
   gta_plus_only: requires_gta_plus
+  requirements: requires_property
 
 execution_logic: |
   1. Normalize candidate activities from aliases and weekly data:
@@ -83,7 +90,7 @@ execution_logic: |
      - Fall back to `weekly_content.events` when the normalized field is absent.
      - Preserve unknown payouts instead of inventing them.
   2. Apply player readiness:
-     - If `requires_property` is missing from `player_profile.owned_assets.properties`, mark the activity as `blocked`.
+     - `requires_property` is an array (mapped from `requirements[]` via alias). If any entry in the array is absent from `player_profile.owned_assets.properties`, mark the activity as `blocked`. An empty array means no property check is needed.
      - If `requires_gta_plus` is true and `weekly_schema_v2.player_context.gta_plus` is not true, mark as `conditional_gta_plus` rather than universally recommended.
      - If a required upgrade is missing, mark the passive source as `degraded` and calculate only the non-upgraded/known fallback.
   3. For each active activity with enough data, calculate:
