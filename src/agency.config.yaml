@@ -20,5 +20,5 @@ paths:
 # The new workflow execution process is strictly defined in `src/workflows/weekly_planning.yaml`.
 # 1. Schema Precheck (Lester + validate_weekly_schema_lightweight)
 # 2. Prerequisite Gate (Agent 14 + gate_activity_prerequisites + player_profile)
-# 3. Parallel Specialist Analysis (Michael, Franklin, Trevor, Agent 14, Tony)
+# 3. Parallel Specialist Analysis (Michael ×2: calculate_business_roi + calculate_activity_loop_roi, Franklin, Trevor, Agent 14, Tony)
 # 4. Executive Synthesis (Lester + priority scoring + action queue)

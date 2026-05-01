@@ -75,7 +75,7 @@ Repository-wide agent rules are documented in `AGENTS.md`.
 
 1. **Schema Precheck** (`validate_weekly_schema_lightweight`)
 2. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
-3. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
+3. **Parallel Specialist Analysis** (Michael ×2: Business ROI + Loop ROI, Franklin, Trevor, Agent 14, Tony)
 4. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
 
 ---
