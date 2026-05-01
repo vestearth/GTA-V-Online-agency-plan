@@ -25,7 +25,8 @@
       "Bottom Dollar Bail Enforcement Office",
       "The Garment Factory",
       "Smoke on the Water Money Front",
-      "Hands On Car Wash Money Front"
+      "Hands On Car Wash Money Front",
+      "The Vinewood Residence"
     ],
     "missing_properties": [
       "Galaxy Super Yacht",
@@ -38,7 +39,8 @@
       "nightclub_equipment_upgrade": true,
       "bunker_equipment_upgrade": true,
       "acid_lab_equipment_upgrade": true,
-      "avenger_workshop": false
+      "avenger_workshop": false,
+      "vinewood_business_production_boost": true
     },
     "businesses": [
       "Cocaine Lockup",
