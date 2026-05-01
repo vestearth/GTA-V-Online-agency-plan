@@ -13,6 +13,9 @@ llm_config:
     - Measure every activity from the weekly raw data against financial return and time investment ($/hour).
     - Provide a definitive 'Play / Skip / Consider' ruling for any discounted business or double money event.
     - Do not invent stats; if exact payout isn't in the schema, classify it as 'Unknown ROI'.
+    - Treat readiness and logistics as upstream constraints, not your core job. Assume Agent 14 decides whether an activity is operationally feasible.
+    - Restrict your judgment to profitability, efficiency, and purchase value. Do not rank activities based on crew size, platform access, or owned-property gating except where those clearly change cost or downtime.
+    - When feasibility is uncertain, label the activity `Unknown ROI pending readiness` instead of making an operational ruling.
 skills:
   - calculate_business_roi
 output_format: |

@@ -54,6 +54,710 @@
         ]
       }
     ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_zirconium_journey_ii",
+        "vehicle_name": "Zirconium Journey II",
+        "opportunity_type": "podium",
+        "source": "casino",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Casino Lucky Wheel"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "collection",
+            "free_claim"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "prize_ride_vapid_uranus_lozspeed",
+        "vehicle_name": "Vapid Uranus LozSpeed",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "challenge": "Place Top 2 in the LS Car Meet Series 4 days in a row",
+          "qualification_rules": {
+            "required_class": "varies_by_series",
+            "min_performance_score": null,
+            "required_upgrades": []
+          }
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "limited_reward",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_dinka_jester_removed",
+        "vehicle_name": "Dinka Jester",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_canis_seminole_frontier_removed",
+        "vehicle_name": "Canis Seminole Frontier",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "test_ride_pegassi_esskey_removed",
+        "vehicle_name": "Pegassi Esskey",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "LS Car Meet Test Ride"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "premium_test_ride_karin_s95",
+        "vehicle_name": "Karin S95",
+        "opportunity_type": "premium_test_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": true,
+        "acquisition": {
+          "claim_path": "Premium Test Ride (PS5 / Xbox X|S / PC Enhanced)"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "test_before_buy",
+            "hsw_platform"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "luxury_autos_annis_minimus",
+        "vehicle_name": "Annis Minimus",
+        "opportunity_type": "discount",
+        "source": "luxury_autos",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Luxury Autos showroom with Big Minimus Energy livery"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "showroom",
+            "new_livery",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "luxury_autos_karin_woodlander",
+        "vehicle_name": "Karin Woodlander",
+        "opportunity_type": "discount",
+        "source": "luxury_autos",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Luxury Autos showroom"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "showroom",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_ubermacht_sentinel_xs4",
+        "vehicle_name": "Ubermacht Sentinel XS4",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsports showroom"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "showroom",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_declasse_tulip_removed",
+        "vehicle_name": "Declasse Tulip",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": true,
+        "removed_vehicle": true,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsports showroom (Removed Vehicle)"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "removed_vehicle",
+            "collector"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_pegassi_torero_xo",
+        "vehicle_name": "Pegassi Torero XO",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": null,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsports showroom"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "showroom",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_progen_pr4_discount",
+        "vehicle_name": "Progen PR4",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsports showroom and weekly 30% discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "open_wheel"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "pdm_declasse_dr1_discount",
+        "vehicle_name": "Declasse DR1",
+        "opportunity_type": "discount",
+        "source": "premium_deluxe_motorsport",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Premium Deluxe Motorsports showroom and weekly 30% discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "open_wheel"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_benefactor_br8",
+        "vehicle_name": "Benefactor BR8",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "open_wheel"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_pegassi_osiris",
+        "vehicle_name": "Pegassi Osiris",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_obey_omnis_e_gt",
+        "vehicle_name": "Obey Omnis e-GT",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "utility"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_dinka_rt3000",
+        "vehicle_name": "Dinka RT3000",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "tuner"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_vapid_dominator_fx",
+        "vehicle_name": "Vapid Dominator FX",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "muscle"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_dewbauchee_vagner",
+        "vehicle_name": "Dewbauchee Vagner",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "super"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_invetero_coquette_d1",
+        "vehicle_name": "Invetero Coquette D1",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "collection"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_pfister_comet_sr",
+        "vehicle_name": "Pfister Comet SR",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "sports"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_grotti_turismo_classic",
+        "vehicle_name": "Grotti Turismo Classic",
+        "opportunity_type": "discount",
+        "source": "unknown",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "sports_classic"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      },
+      {
+        "id": "discount_mtl_wastelander",
+        "vehicle_name": "MTL Wastelander",
+        "opportunity_type": "discount",
+        "source": "warstock",
+        "availability": {
+          "start": "2026-04-30",
+          "end": "2026-05-07"
+        },
+        "discount_percent": 30,
+        "price": null,
+        "trade_price": null,
+        "class": null,
+        "limited": false,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {
+          "claim_path": "Weekly 30% vehicle discount"
+        },
+        "evaluation_inputs": {
+          "performance_score": null,
+          "utility_tags": [
+            "discount",
+            "special"
+          ],
+          "weaponized": false,
+          "service_vehicle": false
+        }
+      }
+    ],
+    "salvage_yard_targets": [
+      {
+        "id": "gangbanger_robbery_canis_kamacho",
+        "robbery_name": "The Gangbanger Robbery",
+        "vehicle_name": "Canis Kamacho",
+        "claimable": false,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Listed in source as this week's Salvage Yard robbery vehicle, but claimability was not explicitly confirmed. Do not treat robbery availability alone as proof that the vehicle can be kept."
+      },
+      {
+        "id": "duggan_robbery_ocelot_jugular",
+        "robbery_name": "The Duggan Robbery",
+        "vehicle_name": "Ocelot Jugular",
+        "claimable": false,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Listed in source as this week's Salvage Yard robbery vehicle, but claimability was not explicitly confirmed. Do not treat robbery availability alone as proof that the vehicle can be kept."
+      },
+      {
+        "id": "mctony_robbery_grotti_itali_gto",
+        "robbery_name": "The McTony Robbery",
+        "vehicle_name": "Grotti Itali GTO",
+        "claimable": false,
+        "salvage_value": null,
+        "sell_value": null,
+        "notes": "Listed in source as this week's Salvage Yard robbery vehicle, but claimability was not explicitly confirmed. Do not treat robbery availability alone as proof that the vehicle can be kept."
+      }
+    ],
     "weapons_discounts": [{"vendor":"Gun Van","discounts":[{"item":"Precision Rifle","percent":40},{"item":"Combat Shotgun","percent":30,"note":"30% for GTA+ Members"}]}],
     "gun_van_stock": [
       {"item":"Combat Shotgun","discount_base":10,"discount_gta_plus":30},
@@ -70,6 +774,6 @@
     ],
     "new_content": ["Community Mission Series - Old School Hits","Big Minimus Energy livery for Annis Minimus"],
     "returning_content": [],
-    "notes": "Data copied from user submission; vehicles marked 'Removed Vehicle' should be treated as temporary availability signals and evaluated for both quality and collector rarity rather than auto-skipped. If additional discount tiers (50%) exist, they were not provided in the submission."
+    "notes": "Data copied from user submission; `vehicle_opportunities` was normalized into canonical schema fields from the weekly source text so Franklin and downstream price sync tooling can operate even when raw weekly input arrives as events/showroom lists. `salvage_yard_targets` for this week were recorded conservatively with `claimable: false` because the source only confirmed robbery vehicles, not keep-eligibility. Vehicles marked 'Removed Vehicle' should be treated as temporary availability signals and evaluated for both quality and collector rarity rather than auto-skipped. If additional discount tiers (50%) exist, they were not provided in the submission."
   }
 }

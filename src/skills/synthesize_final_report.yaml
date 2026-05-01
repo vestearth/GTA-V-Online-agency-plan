@@ -28,3 +28,60 @@ execution_logic: |
   6. Always include time-bucket plans: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`.
   7. Always include an `Action Queue` with ordered steps the player can execute immediately.
   8. Preserve uncertainty from upstream reports in `warnings` and `insufficient_data`.
+  9. Never treat a Salvage Yard robbery vehicle as claimable unless `salvage_yard_targets[].claimable` is explicitly true or the source text directly confirms the vehicle can be kept.
+  10. If Salvage Yard claimability is false or uncertain, describe the item as a robbery target only and avoid placing it in acquisition recommendations.
+  11. Do not recommend activities that fail the readiness gate as immediate priorities; move them to blockers, assumptions, or conditional recommendations.
+  12. Respect platform-gated content exactly as written. If a bonus, test ride, or feature is limited to PS5 / Xbox Series / PC Enhanced or similar subsets, do not present it as universally available.
+  13. Do not invent payouts, prices, trade prices, keep eligibility, or unlock paths. If a value is missing after reference lookup, keep the recommendation qualitative and mark the relevant decision as uncertain.
+  14. Do not treat showroom presence, display rotation, or test ride availability as proof of a discount. Distinguish clearly between `on display`, `discounted`, `claimable`, and `testable`.
+  15. Do not recommend purchases that violate player budget, reserve-floor intent, owned-only policy, or already-owned status when those constraints are available.
+  16. When a vehicle is marked removed from standard sale, separate collector rarity from practical performance instead of collapsing both into a single buy/skip rule.
+  17. If weekly discounts or vehicle/showroom sections appear incomplete, keep the snapshot complete for known items and add an explicit missing-data warning rather than silently filling gaps.
+  18. If `specialized_reports` contains output from `calculate_activity_loop_roi`:
+
+      - Extract:
+        - `best_30m_loop`
+        - `best_60m_loop`
+        - `best_120m_loop`
+        - `passive_stack`
+        - `ranked_activities`
+
+      - Generate a new output artifact:
+        `weekly_money_loop_<week_id>.md`
+
+      - The file MUST contain:
+
+        ## BEST LOOP
+        - Select highest `effective_cash_per_hour`
+        - Show ordered steps with:
+          - activity name
+          - duration
+          - payout
+        - Include:
+          - total loop time
+          - total payout
+          - effective $/hour
+
+        ## SAFE LOOP
+        - Lower risk / lower effort loop
+        - Prefer high reliability activities
+
+        ## SHORT SESSION (30m)
+        - Use `best_30m_loop`
+
+        ## CORE SESSION (60–120m)
+        - Use `best_60m_loop` and `best_120m_loop`
+
+        ## PASSIVE STACK
+        - List all passive income sources
+        - Highlight boosted production (e.g., Acid Lab boost)
+
+        ## AVOID
+        - Activities with:
+          - low `effective_cash_per_hour`
+          - missing payout data
+          - poor reliability
+
+      - If loop data is incomplete:
+        - Add warning under `insufficient_data`
+        - Do NOT fabricate missing values

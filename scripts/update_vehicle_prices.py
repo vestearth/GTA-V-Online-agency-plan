@@ -3,6 +3,9 @@
 
 This script updates `data/references/vehicle_prices.yaml` by:
 1) reading vehicle names from a weekly JSON payload,
+    pulling from `vehicle_opportunities` when present and otherwise falling back
+    to raw weekly surfaces such as `events`, `discounts`, podium/prize/test-ride
+    entries, and showroom-style sections,
 2) ensuring every vehicle has a record in the YAML file,
 3) auto-adding manufacturer-stripped alias hints,
 4) updating `last_verified_at`,
@@ -20,6 +23,199 @@ import json
 import re
 import sys
 from pathlib import Path
+
+
+NON_VEHICLE_SUBSTRINGS = (
+    "gta$",
+    " rp",
+    "community mission",
+    "mission series",
+    "community race series",
+    "time trial",
+    "weekly challenge",
+    "daily objective",
+    "targets",
+    "priority file",
+    "money front",
+    "factory",
+    "upgrades",
+    "upgrade",
+    "drinks at",
+    "diamond casino",
+    "music locker",
+    "legal work",
+    "rifle",
+    "shotgun",
+    "smg",
+    "combat mg",
+    "stun gun",
+    "knife",
+    "molotov",
+    "proximity mine",
+    "tear gas",
+    "livery",
+)
+
+RAW_VEHICLE_SECTION_KEYS = (
+    "luxury_autos",
+    "premium_deluxe_motorsports",
+    "premium_deluxe_motorsport",
+    "test_rides",
+    "premium_test_rides",
+)
+
+
+def has_removed_vehicle_marker(value: str) -> bool:
+    return "removed vehicle" in value.casefold()
+
+
+def clean_vehicle_candidate(value: str) -> str:
+    cleaned = re.sub(r"\(\s*Removed Vehicle\s*\)", "", value, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s+wrapped in .*", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s+\([^)]*Enhanced[^)]*\)", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" :-")
+    return cleaned.strip()
+
+
+def looks_like_vehicle_name(value: str) -> bool:
+    cleaned = clean_vehicle_candidate(value)
+    if not cleaned:
+        return False
+    lowered = cleaned.casefold()
+    if lowered.startswith(("place top ", "win ", "complete ", "visit ")):
+        return False
+    return not any(fragment in lowered for fragment in NON_VEHICLE_SUBSTRINGS)
+
+
+def append_vehicle_name(names: list[str], seen: set[str], raw_value: str) -> None:
+    cleaned = clean_vehicle_candidate(raw_value)
+    if not looks_like_vehicle_name(cleaned) or cleaned in seen:
+        return
+    seen.add(cleaned)
+    names.append(cleaned)
+
+
+def iter_dict_vehicle_candidates(item: dict) -> list[tuple[str, bool]]:
+    candidates: list[tuple[str, bool]] = []
+    removed = bool(item.get("removed_vehicle"))
+    for key in ("vehicle_name", "vehicle"):
+        value = item.get(key)
+        if isinstance(value, str):
+            candidates.append((value, removed or has_removed_vehicle_marker(value)))
+    if "name" in item and any(k in item for k in ("price", "discount_percent", "source", "availability")):
+        value = item.get("name")
+        if isinstance(value, str):
+            candidates.append((value, removed or has_removed_vehicle_marker(value)))
+    nested_items = item.get("items")
+    if isinstance(nested_items, list):
+        for nested in nested_items:
+            if isinstance(nested, dict):
+                candidates.extend(iter_dict_vehicle_candidates(nested))
+            elif isinstance(nested, str):
+                candidates.append((nested, has_removed_vehicle_marker(nested)))
+    nested_vehicles = item.get("vehicles")
+    if isinstance(nested_vehicles, list):
+        for nested in nested_vehicles:
+            if isinstance(nested, dict):
+                candidates.extend(iter_dict_vehicle_candidates(nested))
+            elif isinstance(nested, str):
+                candidates.append((nested, has_removed_vehicle_marker(nested)))
+    return candidates
+
+
+def extract_vehicle_names_from_weekly_payload(payload: dict) -> list[str]:
+    weekly_content = payload.get("weekly_content", {}) if isinstance(payload, dict) else {}
+    names: list[str] = []
+    seen: set[str] = set()
+
+    opportunities = weekly_content.get("vehicle_opportunities", [])
+    if isinstance(opportunities, list):
+        for item in opportunities:
+            if not isinstance(item, dict):
+                continue
+            name = item.get("vehicle_name")
+            if isinstance(name, str):
+                append_vehicle_name(names, seen, name)
+
+    events = weekly_content.get("events", [])
+    if isinstance(events, list):
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            for candidate, _removed in iter_dict_vehicle_candidates(event):
+                append_vehicle_name(names, seen, candidate)
+
+    for section_key in RAW_VEHICLE_SECTION_KEYS:
+        section = weekly_content.get(section_key)
+        if isinstance(section, list):
+            for item in section:
+                if isinstance(item, dict):
+                    for candidate, _removed in iter_dict_vehicle_candidates(item):
+                        append_vehicle_name(names, seen, candidate)
+                elif isinstance(item, str):
+                    append_vehicle_name(names, seen, item)
+
+    for field_name in ("podium_vehicle", "prize_ride_vehicle", "premium_test_ride"):
+        value = weekly_content.get(field_name)
+        if isinstance(value, str):
+            append_vehicle_name(names, seen, value)
+
+    discounts = weekly_content.get("discounts", [])
+    if isinstance(discounts, list):
+        for tier in discounts:
+            if not isinstance(tier, dict):
+                continue
+            items = tier.get("items", [])
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                if isinstance(item, str):
+                    append_vehicle_name(names, seen, item)
+
+    return names
+
+
+def extract_removed_vehicle_names_from_weekly_payload(payload: dict) -> set[str]:
+    weekly_content = payload.get("weekly_content", {}) if isinstance(payload, dict) else {}
+    removed_names: set[str] = set()
+
+    opportunities = weekly_content.get("vehicle_opportunities", [])
+    if isinstance(opportunities, list):
+        for item in opportunities:
+            if not isinstance(item, dict) or not bool(item.get("removed_vehicle")):
+                continue
+            name = item.get("vehicle_name")
+            if isinstance(name, str):
+                cleaned = clean_vehicle_candidate(name)
+                if looks_like_vehicle_name(cleaned):
+                    removed_names.add(cleaned)
+
+    events = weekly_content.get("events", [])
+    if isinstance(events, list):
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            for candidate, removed in iter_dict_vehicle_candidates(event):
+                cleaned = clean_vehicle_candidate(candidate)
+                if removed and looks_like_vehicle_name(cleaned):
+                    removed_names.add(cleaned)
+
+    for section_key in RAW_VEHICLE_SECTION_KEYS:
+        section = weekly_content.get(section_key)
+        if not isinstance(section, list):
+            continue
+        for item in section:
+            if isinstance(item, dict):
+                for candidate, removed in iter_dict_vehicle_candidates(item):
+                    cleaned = clean_vehicle_candidate(candidate)
+                    if removed and looks_like_vehicle_name(cleaned):
+                        removed_names.add(cleaned)
+            elif isinstance(item, str) and has_removed_vehicle_marker(item):
+                cleaned = clean_vehicle_candidate(item)
+                if looks_like_vehicle_name(cleaned):
+                    removed_names.add(cleaned)
+
+    return removed_names
 
 
 def discover_latest_weekly(data_dir: Path) -> Path:
@@ -45,24 +241,7 @@ def discover_latest_weekly(data_dir: Path) -> Path:
 
 def load_vehicle_names(weekly_path: Path) -> list[str]:
     payload = json.loads(weekly_path.read_text(encoding="utf-8"))
-    opportunities = (
-        payload.get("weekly_content", {}).get("vehicle_opportunities", [])
-        if isinstance(payload, dict)
-        else []
-    )
-    names: list[str] = []
-    for item in opportunities:
-        name = (item or {}).get("vehicle_name")
-        if isinstance(name, str) and name.strip():
-            names.append(name.strip())
-    # stable unique
-    out: list[str] = []
-    seen: set[str] = set()
-    for n in names:
-        if n not in seen:
-            seen.add(n)
-            out.append(n)
-    return out
+    return extract_vehicle_names_from_weekly_payload(payload if isinstance(payload, dict) else {})
 
 
 def collect_weekly_removed_map(data_dir: Path) -> dict[str, set[str]]:
@@ -75,13 +254,8 @@ def collect_weekly_removed_map(data_dir: Path) -> dict[str, set[str]]:
         week_id = (payload.get("week") or {}).get("id")
         if not isinstance(week_id, str) or not week_id:
             continue
-        opportunities = (payload.get("weekly_content") or {}).get("vehicle_opportunities") or []
-        for item in opportunities:
-            name = (item or {}).get("vehicle_name")
-            is_removed = bool((item or {}).get("removed_vehicle"))
-            if not isinstance(name, str) or not name.strip() or not is_removed:
-                continue
-            removed_map.setdefault(name.strip(), set()).add(week_id)
+        for name in extract_removed_vehicle_names_from_weekly_payload(payload):
+            removed_map.setdefault(name, set()).add(week_id)
     return removed_map
 
 

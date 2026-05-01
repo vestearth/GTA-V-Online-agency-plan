@@ -23,6 +23,8 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 - Validate schema basics before specialist analysis.
 - Use only facts from provided JSON and repository references.
 - If data is missing, state uncertainty explicitly instead of inventing values.
+- Treat Salvage Yard robbery vehicles conservatively: do not call them claimable unless the source data explicitly says they can be kept.
+- Respect readiness blockers, platform restrictions, ownership/budget constraints, and the distinction between discounted / on-display / test-ride / claimable content.
 - Prefer concise Thai output unless the user asks for another language.
 
 ## Procedure
@@ -31,21 +33,23 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
    - Prefer a concrete payload in `data/`.
    - If the user pasted JSON, verify `schema_version: 2.0` and `schema_mode: weekly_planning`.
 2. Run `validate_weekly_schema_lightweight` logic before specialist analysis.
-3. Run `gate_activity_prerequisites` using `data/player_profile.json`.
+3. Normalize activities with `normalize_featured_activities` so downstream steps can rely on `weekly_content.featured_activities` even when the payload starts with `weekly_content.events`.
+4. Normalize vehicles with `normalize_vehicle_opportunities` so Franklin and downstream tooling can rely on `weekly_content.vehicle_opportunities` even when the payload starts with raw showroom or event lists.
+5. Run `gate_activity_prerequisites` using `data/player_profile.json`.
    - If hard readiness blockers exist, stop and report blockers first.
-4. Execute specialist lenses:
+6. Execute specialist lenses:
    - `Michael` -> `calculate_business_roi`
    - `Franklin` -> `evaluate_vehicles`
    - `Trevor` -> `evaluate_combat_value`
    - `Agent14` -> `assess_operational_readiness`
    - `Tony` -> `analyze_nightclub_feeder`
-5. Synthesize via `Lester` using `synthesize_final_report`.
-6. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
+7. Synthesize via `Lester` using `synthesize_final_report`.
+8. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
    - Time buckets: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`
    - Ordered `Action Queue`
    - `Weekly Discounts Snapshot` grouped by each discount tier (include all listed items, not only recommended picks)
    - Warnings and insufficient data
-7. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
+9. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
    - `weekly_master_plan_<week_id>.md`
    - `weekly_master_plan_<week_id>_income_scenarios.md`
    - `event_master_plan_<week_id>.md`

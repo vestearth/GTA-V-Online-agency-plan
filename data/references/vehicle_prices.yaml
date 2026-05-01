@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-04-23"
+last_verified_at: "2026-04-30"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
@@ -835,4 +835,264 @@ vehicles:
     trade_price: null
     source_url: "https://gtacars.net/gta5/cheetah"
     alias_hints: ["Cheetah"]
+
+  - vehicle_name: "Zirconium Journey II"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Journey II"]
+
+  - vehicle_name: "Vapid Uranus LozSpeed"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Uranus LozSpeed"]
+
+  - vehicle_name: "Dinka Jester"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Jester"]
+
+  - vehicle_name: "Canis Seminole Frontier"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Seminole Frontier"]
+
+  - vehicle_name: "Pegassi Esskey"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Esskey"]
+
+  - vehicle_name: "Karin S95"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["S95"]
+
+  - vehicle_name: "Annis Minimus"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Minimus"]
+
+  - vehicle_name: "Karin Woodlander"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Woodlander"]
+
+  - vehicle_name: "Ubermacht Sentinel XS4"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Sentinel XS4"]
+
+  - vehicle_name: "Declasse Tulip"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Tulip"]
+
+  - vehicle_name: "Pegassi Torero XO"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Torero XO"]
+
+  - vehicle_name: "Progen PR4"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["PR4"]
+
+  - vehicle_name: "Declasse DR1"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["DR1"]
+
+  - vehicle_name: "Benefactor BR8"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["BR8"]
+
+  - vehicle_name: "Pegassi Osiris"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Osiris"]
+
+  - vehicle_name: "Obey Omnis e-GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Omnis e-GT"]
+
+  - vehicle_name: "Dinka RT3000"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["RT3000"]
+
+  - vehicle_name: "Vapid Dominator FX"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Dominator FX"]
+
+  - vehicle_name: "Dewbauchee Vagner"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Vagner"]
+
+  - vehicle_name: "Invetero Coquette D1"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Coquette D1"]
+
+  - vehicle_name: "Pfister Comet SR"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Comet SR"]
+
+  - vehicle_name: "Grotti Turismo Classic"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Turismo Classic"]
+
+  - vehicle_name: "MTL Wastelander"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Wastelander"]
+
+  - vehicle_name: "Canis Kamacho"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Kamacho"]
+
+  - vehicle_name: "Ocelot Jugular"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Jugular"]
+
+  - vehicle_name: "Grotti Itali GTO"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Itali GTO"]
 

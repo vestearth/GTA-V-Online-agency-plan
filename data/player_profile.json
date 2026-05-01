@@ -3,7 +3,7 @@
   "player_name": "-CarlosZ-",
   "platform": "PC",
   "bankroll": {
-    "cash_on_hand": 37404748,
+    "cash_on_hand": 40404748,
     "max_spend_this_week": 10000000,
     "reserve_floor": 30000000
   },
@@ -25,7 +25,8 @@
       "Bottom Dollar Bail Enforcement Office",
       "The Garment Factory",
       "Smoke on the Water Money Front",
-      "Hands On Car Wash Money Front"
+      "Hands On Car Wash Money Front",
+      "The Vinewood Residence"
     ],
     "missing_properties": [
       "Galaxy Super Yacht",
@@ -38,7 +39,8 @@
       "nightclub_equipment_upgrade": true,
       "bunker_equipment_upgrade": true,
       "acid_lab_equipment_upgrade": true,
-      "avenger_workshop": false
+      "avenger_workshop": false,
+      "vinewood_business_production_boost": true
     },
     "businesses": [
       "Cocaine Lockup",

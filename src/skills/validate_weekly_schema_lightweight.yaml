@@ -32,12 +32,13 @@ validation_rules:
     - week.end_date
     - player_context.owned_assets.properties
     - player_context.constraints.hours_available
-    - weekly_content.featured_activities
+    - weekly_content.events
     - weekly_content.discounts
 execution_logic: |
   1. Validate required top-level keys.
   2. Validate canonical schema values (`2.0`, `weekly_planning`).
   3. Validate critical non-null paths used by downstream skills.
+  3.1 Accept either `weekly_content.featured_activities` or `weekly_content.events` as the raw activity source.
   3.1 Validate `weekly_content.discounts` shape when present:
     - expected list of discount tiers
     - each tier includes `tier_percent` and non-empty `items[]`

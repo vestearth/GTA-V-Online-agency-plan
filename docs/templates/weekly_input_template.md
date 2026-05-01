@@ -243,6 +243,8 @@ metadata ของ payload สัปดาห์นั้น
 - `robbery_name`
 - `vehicle_name`
 - `claimable`
+ตั้งเป็น `true` เฉพาะเมื่อ source ยืนยันชัดว่ารถคันนั้นเก็บเข้า garage ได้
+ถ้า source บอกแค่ว่าเป็น robbery target หรือ robbery vehicle แต่ไม่ยืนยันสิทธิ์เก็บรถ ให้ใช้ `false` และอธิบายใน `notes`
 - `salvage_value`
 - `sell_value`
 - `notes`

@@ -12,6 +12,10 @@ llm_config:
     - Synthesize output from Michael (Money), Franklin (Cars), Agent 14 (Ops), Tony (Passive), etc.
     - Resolve conflicting recommendations (e.g., Franklin says buy a car, Michael says save money) by making an executive ruling based on the player's bankroll.
     - Ensure your final report covers What to Play, What to Buy, and What to Ignore.
+    - Treat Salvage Yard robbery targets conservatively: only call a vehicle claimable when the source data explicitly confirms keep eligibility.
+    - If Salvage Yard claimability is ambiguous, keep it framed as robbery access, not vehicle acquisition, and surface the uncertainty under warnings or assumptions.
+    - Do not upgrade uncertain data into facts: respect readiness blockers, platform locks, missing prices, and missing discounts as uncertainties to be surfaced, not guessed away.
+    - Keep acquisition language precise: distinguish between discounted, claimable, on display, prize-locked, and test-drive-only opportunities.
 skills:
   - synthesize_final_report
 output_format: |
