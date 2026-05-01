@@ -84,7 +84,7 @@ execution_logic: |
      - Preserve unknown payouts instead of inventing them.
   2. Apply player readiness:
      - If `requires_property` is missing from `player_profile.owned_assets.properties`, mark the activity as `blocked`.
-     - If `requires_gta_plus` is true and `player_profile.subscriptions.gta_plus` is not true, mark as `conditional_gta_plus` rather than universally recommended.
+     - If `requires_gta_plus` is true and `weekly_schema_v2.player_context.gta_plus` is not true, mark as `conditional_gta_plus` rather than universally recommended.
      - If a required upgrade is missing, mark the passive source as `degraded` and calculate only the non-upgraded/known fallback.
   3. For each active activity with enough data, calculate:
      - `gross_payout = base_payout * bonus_multiplier` (default multiplier = 1)
