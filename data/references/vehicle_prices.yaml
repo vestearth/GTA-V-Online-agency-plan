@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-04-30"
+last_verified_at: "2026-05-01"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
@@ -857,30 +857,30 @@ vehicles:
     alias_hints: ["Uranus LozSpeed"]
 
   - vehicle_name: "Dinka Jester"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Jester"]
 
   - vehicle_name: "Canis Seminole Frontier"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Seminole Frontier"]
 
   - vehicle_name: "Pegassi Esskey"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
@@ -927,10 +927,10 @@ vehicles:
     alias_hints: ["Sentinel XS4"]
 
   - vehicle_name: "Declasse Tulip"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
