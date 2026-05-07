@@ -17,8 +17,10 @@ env/
 .env
 *.env
 
-# Reports output (user-generated, not tracked)
-reports/
+# Reports output
+reports/*
+!reports/
+!reports/*.md
 
 # IDE
 .vscode/
