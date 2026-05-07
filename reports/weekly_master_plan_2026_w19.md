@@ -1,7 +1,7 @@
 # Weekly Master Plan — 2026-W19
 
 **ช่วงเวลา:** 7–14 พฤษภาคม 2026  
-**ผู้เล่น:** -CarlosZ-  
+**ผู้เล่น:** -CarlosZ- (`data/player_profile.json` → `player_name`)  
 **แพลตฟอร์ม:** PC  
 **ผู้สรุป:** Lester
 
@@ -9,12 +9,12 @@
 - Schema precheck: ผ่าน
 - Normalize activities: ผ่าน
 - Normalize vehicles: ผ่าน
-- Readiness gate กับ `/home/runner/work/GTA-V-Online-agency-plan/GTA-V-Online-agency-plan/data/player_profile.json`: ผ่าน
+- Readiness gate กับ `data/player_profile.json`: ผ่าน
 - Specialist analysis: Michael / Franklin / Trevor / Agent 14 / Tony
 - Final synthesis: Lester
 
 ## เทียบกับเป้าหมายผู้เล่น
-อิงแนวเป้าหมายจาก `schema_v2_example` ใน `/home/runner/work/GTA-V-Online-agency-plan/GTA-V-Online-agency-plan/data/examples_bundle.json`:
+อิงแนวเป้าหมายจาก `schema_v2_example` ใน `data/examples_bundle.json`:
 - **make_money / passive_income**: สัปดาห์นี้ตรงมาก เพราะ Nightclub ได้ 2X รายได้รายวัน + 2X ความเร็วผลิตคลัง
 - **unlock_vehicle**: มี Podium Vehicle และ Prize Ride แต่ไม่เด่นเท่าลูปทำเงิน
 - **buy_weapon**: Heavy Rifle ลด 30% ยังเป็นตัวเลือกดีถ้ายังไม่มี

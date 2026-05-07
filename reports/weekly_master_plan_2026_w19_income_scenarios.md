@@ -1,7 +1,7 @@
 # Weekly Master Plan Income Scenarios — 2026-W19
 
 **ผู้สรุป:** Michael + Tony  
-**ฐานข้อมูลผู้เล่น:** `/home/runner/work/GTA-V-Online-agency-plan/GTA-V-Online-agency-plan/data/player_profile.json`
+**ฐานข้อมูลผู้เล่น:** `data/player_profile.json`
 
 > ตัวเลขเป็นช่วงประมาณการเพื่อใช้วางแผน ไม่ใช่ตัวเลขยืนยันจาก payload ต้นทาง
 
