@@ -1,0 +1,137 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W19",
+    "label": "May 7 - May 14 2026",
+    "start_date": "2026-05-07",
+    "end_date": "2026-05-14",
+    "source": "user_submission",
+    "last_updated_at": "2026-05-08T00:00:00Z"
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true
+  },
+  "weekly_content": {
+    "headline": "Weekly Bonuses and Discounts - May 7th to May 14th",
+    "summary": "2X Nightclub Daily Income, 2X Nightclub Warehouse Production Speed, Weekly Challenge: 3 Nightclub Management Missions for GTA$100,000 + Cherenkov Tee, Old School Hits (Community Mission) awards 3X GTA$ & RP on supported platforms, multiple discounts and Salvage Yard robberies.",
+    "platform_notes": "Some bonuses (Old School Hits 3X, HSW Time Trial) are PS5 / Xbox Series X|S / PC Enhanced only. Some Community Race Series bonuses apply to legacy platforms.",
+    "bonuses": [
+      {"name":"Nightclub Daily Income","multiplier":"2x"},
+      {"name":"Nightclub Warehouse Stock Production Speed","multiplier":"2x"},
+      {"name":"Nightclub Management Missions","multiplier":"2x"},
+      {"name":"Old School Hits (Community Missions Series)","multiplier":"3x","platforms":"PS5,XboxSeries,PC_Enhanced"},
+      {"name":"Terrorbyte Client Jobs","multiplier":"2x"},
+      {"name":"Yohan’s Nightclub Goods Missions","multiplier":"2x"}
+    ],
+    "events": [
+      {"name":"Weekly Challenge - Nightclub Management Missions","type":"challenge","requirement":"Complete 3 Nightclub Management Missions","reward":"GTA$100,000 + Cherenkov Tee"},
+      {"name":"Old School Hits (Community Missions Series)","type":"community_mission","reward":"3x GTA$ & RP","platforms":"PS5,XboxSeries,PC_Enhanced"},
+      {"name":"Podium Vehicle","vehicle":"Överflöd Imorgon","source":"Lucky Wheel"},
+      {"name":"Prize Ride Challenge","vehicle":"Annis Minimus","requirement":"Win in the LS Car Meet Series for four days in a row"},
+      {"name":"Time Trial","location":"Elysian Island"},
+      {"name":"Premium Race","name_extra":"Arms Race (locked to Super)"},
+      {"name":"HSW Time Trial","location":"North Chumash to Palomino Highlands","platforms":"PS5,XboxSeries,PC_Enhanced"},
+      {"name":"Premium Test Ride","vehicle":"Penaud La Coureuse"}
+    ],
+    "salvage_yard_robberies": [
+      {"job":"The Podium Robbery","vehicle":"Pfister Growler"},
+      {"job":"The Cargo Ship Robbery","vehicle":"Dinka Jester Classic"},
+      {"job":"The Gangbanger Robbery","vehicle":"Albany Cavalcade XL"}
+    ],
+    "weekly_most_wanted": ["GTAWEB"],
+    "fib_priority_files": ["The Project Breakaway File"],
+    "notes": "Test Ride entries: Western Zombie Bobber, Enus Cognoscenti Cabrio, Dinka Verus are listed as Removed. Some Premium Deluxe items marked Removed." 
+  },
+  "discounts": [
+    {
+      "tier_percent": 40,
+      "items": [
+        "Nightclub Properties",
+        "Nightclub Upgrades and Modifications"
+      ]
+    },
+    {
+      "tier_percent": 30,
+      "items": [
+        "Grotti Itali GTO",
+        "Western Company Cargobob",
+        "Karin Boor",
+        "Willard Eudora",
+        "Pfister 811",
+        "Declasse Drift Tampa",
+        "Grotti Stinger GT",
+        "Übermacht Sentinel",
+        "Canis Freecrawler",
+        "Heavy Rifle (Gun Van)"
+      ]
+    }
+  ],
+  "vehicle_opportunities": [
+    {
+      "id": "podium_overflod_imorgon",
+      "vehicle_name": "Överflöd Imorgon",
+      "opportunity_type": "podium",
+      "source": "casino_lucky_wheel",
+      "availability": {"start":"2026-05-07","end":"2026-05-14"},
+      "removed_vehicle": false,
+      "gta_plus_only": false
+    },
+    {
+      "id": "prize_ride_annnis_minimus",
+      "vehicle_name": "Annis Minimus",
+      "opportunity_type": "prize_ride",
+      "source": "ls_car_meet",
+      "availability": {"start":"2026-05-07","end":"2026-05-14"},
+      "limited": true,
+      "removed_vehicle": false,
+      "gta_plus_only": false,
+      "acquisition": {"challenge":"Win in the LS Car Meet Series for four days in a row"}
+    },
+    {
+      "id": "time_trial_elysian_island",
+      "vehicle_name": null,
+      "opportunity_type": "time_trial",
+      "source": "time_trial",
+      "availability": {"start":"2026-05-07","end":"2026-05-14"}
+    },
+    {
+      "id": "premium_race_arms_race_super",
+      "vehicle_name": null,
+      "opportunity_type": "premium_race",
+      "source": "premium_race",
+      "availability": {"start":"2026-05-07","end":"2026-05-14"},
+      "class_locked":"super"
+    },
+    {
+      "id": "premium_test_ride_penaud_la_coureuse",
+      "vehicle_name": "Penaud La Coureuse",
+      "opportunity_type": "premium_test_ride",
+      "source": "test_ride",
+      "availability": {"start":"2026-05-07","end":"2026-05-14"}
+    },
+    {
+      "id": "test_ride_removed_western_zombie_bobber",
+      "vehicle_name": "Western Zombie Bobber",
+      "opportunity_type": "test_ride",
+      "removed_vehicle": true,
+      "availability": {"start":"2026-05-07","end":"2026-05-14"}
+    },
+    {
+      "id": "test_ride_removed_enus_cognoscenti_cabrio",
+      "vehicle_name": "Enus Cognoscenti Cabrio",
+      "opportunity_type": "test_ride",
+      "removed_vehicle": true,
+      "availability": {"start":"2026-05-07","end":"2026-05-14"}
+    },
+    {
+      "id": "test_ride_removed_dinka_verus",
+      "vehicle_name": "Dinka Verus",
+      "opportunity_type": "test_ride",
+      "removed_vehicle": true,
+      "availability": {"start":"2026-05-07","end":"2026-05-14"}
+    }
+  ]
+}

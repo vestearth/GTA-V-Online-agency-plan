@@ -18,7 +18,7 @@ env/
 *.env
 
 # Reports output
-reports/*
+reports/
 
 # IDE
 .vscode/
