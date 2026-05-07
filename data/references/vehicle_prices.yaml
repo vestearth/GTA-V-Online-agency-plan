@@ -1096,3 +1096,33 @@ vehicles:
     source_url: "https://gtacars.net"
     alias_hints: ["Itali GTO"]
 
+  - vehicle_name: "Överflöd Imorgon"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Imorgon"]
+
+  - vehicle_name: "Podium Vehicle"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Vehicle"]
+
+  - vehicle_name: "Penaud La Coureuse"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["La Coureuse"]
+
