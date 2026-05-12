@@ -1127,30 +1127,30 @@ vehicles:
     alias_hints: ["La Coureuse"]
 
   - vehicle_name: "Western Zombie Bobber"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Zombie Bobber"]
 
   - vehicle_name: "Enus Cognoscenti Cabrio"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Cognoscenti Cabrio"]
 
   - vehicle_name: "Dinka Verus"
-    vehicle_tier: "unrated"
+    vehicle_tier: "collector"
     race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
     base_price: null
     trade_price: null
     source_url: "https://gtacars.net"
