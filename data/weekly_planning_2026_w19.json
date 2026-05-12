@@ -43,95 +43,95 @@
     ],
     "weekly_most_wanted": ["GTAWEB"],
     "fib_priority_files": ["The Project Breakaway File"],
-    "notes": "Test Ride entries: Western Zombie Bobber, Enus Cognoscenti Cabrio, Dinka Verus are listed as Removed. Some Premium Deluxe items marked Removed." 
-  },
-  "discounts": [
-    {
-      "tier_percent": 40,
-      "items": [
-        "Nightclub Properties",
-        "Nightclub Upgrades and Modifications"
-      ]
-    },
-    {
-      "tier_percent": 30,
-      "items": [
-        "Grotti Itali GTO",
-        "Western Company Cargobob",
-        "Karin Boor",
-        "Willard Eudora",
-        "Pfister 811",
-        "Declasse Drift Tampa",
-        "Grotti Stinger GT",
-        "Übermacht Sentinel",
-        "Canis Freecrawler",
-        "Heavy Rifle (Gun Van)"
-      ]
-    }
-  ],
-  "vehicle_opportunities": [
-    {
-      "id": "podium_overflod_imorgon",
-      "vehicle_name": "Överflöd Imorgon",
-      "opportunity_type": "podium",
-      "source": "casino_lucky_wheel",
-      "availability": {"start":"2026-05-07","end":"2026-05-14"},
-      "removed_vehicle": false,
-      "gta_plus_only": false
-    },
-    {
-      "id": "prize_ride_annnis_minimus",
-      "vehicle_name": "Annis Minimus",
-      "opportunity_type": "prize_ride",
-      "source": "ls_car_meet",
-      "availability": {"start":"2026-05-07","end":"2026-05-14"},
-      "limited": true,
-      "removed_vehicle": false,
-      "gta_plus_only": false,
-      "acquisition": {"challenge":"Win in the LS Car Meet Series for four days in a row"}
-    },
-    {
-      "id": "time_trial_elysian_island",
-      "vehicle_name": null,
-      "opportunity_type": "time_trial",
-      "source": "time_trial",
-      "availability": {"start":"2026-05-07","end":"2026-05-14"}
-    },
-    {
-      "id": "premium_race_arms_race_super",
-      "vehicle_name": null,
-      "opportunity_type": "premium_race",
-      "source": "premium_race",
-      "availability": {"start":"2026-05-07","end":"2026-05-14"},
-      "class_locked":"super"
-    },
-    {
-      "id": "premium_test_ride_penaud_la_coureuse",
-      "vehicle_name": "Penaud La Coureuse",
-      "opportunity_type": "premium_test_ride",
-      "source": "test_ride",
-      "availability": {"start":"2026-05-07","end":"2026-05-14"}
-    },
-    {
-      "id": "test_ride_removed_western_zombie_bobber",
-      "vehicle_name": "Western Zombie Bobber",
-      "opportunity_type": "test_ride",
-      "removed_vehicle": true,
-      "availability": {"start":"2026-05-07","end":"2026-05-14"}
-    },
-    {
-      "id": "test_ride_removed_enus_cognoscenti_cabrio",
-      "vehicle_name": "Enus Cognoscenti Cabrio",
-      "opportunity_type": "test_ride",
-      "removed_vehicle": true,
-      "availability": {"start":"2026-05-07","end":"2026-05-14"}
-    },
-    {
-      "id": "test_ride_removed_dinka_verus",
-      "vehicle_name": "Dinka Verus",
-      "opportunity_type": "test_ride",
-      "removed_vehicle": true,
-      "availability": {"start":"2026-05-07","end":"2026-05-14"}
-    }
-  ]
+    "notes": "Test Ride entries: Western Zombie Bobber, Enus Cognoscenti Cabrio, Dinka Verus are listed as Removed. Some Premium Deluxe items marked Removed.",
+    "discounts": [
+      {
+        "tier_percent": 40,
+        "items": [
+          "Nightclub Properties",
+          "Nightclub Upgrades and Modifications"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Grotti Itali GTO",
+          "Western Company Cargobob",
+          "Karin Boor",
+          "Willard Eudora",
+          "Pfister 811",
+          "Declasse Drift Tampa",
+          "Grotti Stinger GT",
+          "Übermacht Sentinel",
+          "Canis Freecrawler",
+          "Heavy Rifle (Gun Van)"
+        ]
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_overflod_imorgon",
+        "vehicle_name": "Överflöd Imorgon",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel",
+        "availability": {"start":"2026-05-07","end":"2026-05-14"},
+        "removed_vehicle": false,
+        "gta_plus_only": false
+      },
+      {
+        "id": "prize_ride_annnis_minimus",
+        "vehicle_name": "Annis Minimus",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {"start":"2026-05-07","end":"2026-05-14"},
+        "limited": true,
+        "removed_vehicle": false,
+        "gta_plus_only": false,
+        "acquisition": {"challenge":"Win in the LS Car Meet Series for four days in a row"}
+      },
+      {
+        "id": "time_trial_elysian_island",
+        "vehicle_name": null,
+        "opportunity_type": "time_trial",
+        "source": "time_trial",
+        "availability": {"start":"2026-05-07","end":"2026-05-14"}
+      },
+      {
+        "id": "premium_race_arms_race_super",
+        "vehicle_name": null,
+        "opportunity_type": "premium_race",
+        "source": "premium_race",
+        "availability": {"start":"2026-05-07","end":"2026-05-14"},
+        "class_locked":"super"
+      },
+      {
+        "id": "premium_test_ride_penaud_la_coureuse",
+        "vehicle_name": "Penaud La Coureuse",
+        "opportunity_type": "premium_test_ride",
+        "source": "test_ride",
+        "availability": {"start":"2026-05-07","end":"2026-05-14"}
+      },
+      {
+        "id": "test_ride_removed_western_zombie_bobber",
+        "vehicle_name": "Western Zombie Bobber",
+        "opportunity_type": "test_ride",
+        "removed_vehicle": true,
+        "availability": {"start":"2026-05-07","end":"2026-05-14"}
+      },
+      {
+        "id": "test_ride_removed_enus_cognoscenti_cabrio",
+        "vehicle_name": "Enus Cognoscenti Cabrio",
+        "opportunity_type": "test_ride",
+        "removed_vehicle": true,
+        "availability": {"start":"2026-05-07","end":"2026-05-14"}
+      },
+      {
+        "id": "test_ride_removed_dinka_verus",
+        "vehicle_name": "Dinka Verus",
+        "opportunity_type": "test_ride",
+        "removed_vehicle": true,
+        "availability": {"start":"2026-05-07","end":"2026-05-14"}
+      }
+    ]
+  }
 }

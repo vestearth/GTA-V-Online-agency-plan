@@ -1,0 +1,23 @@
+# Mapping for Rockstar Newswire keywords to Schema v2.0 fields
+bonus_keywords:
+  "2X": "2x"
+  "3X": "3x"
+  "4X": "4x"
+  "DOUBLE": "2x"
+  "TRIPLE": "3x"
+
+event_types:
+  "Lucky Wheel": "podium"
+  "LS Car Meet": "prize_ride"
+  "Time Trial": "time_trial"
+  "Premium Race": "premium_race"
+  "Salvage Yard": "salvage_yard_robbery"
+
+discount_patterns:
+  - "([0-9]+)% Off"
+  - "([0-9]+)% Discount"
+
+category_identifiers:
+  bonuses: ["GTA$ and RP", "Bonuses", "Rewards"]
+  discounts: ["Discounts", "Sale", "Off"]
+  vehicles: ["Podium", "Prize Ride", "Test Track", "Showroom"]
