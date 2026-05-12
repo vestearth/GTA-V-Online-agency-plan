@@ -1,0 +1,77 @@
+name: validate_report_completeness
+description: >
+  Run a final quality gate over Lester's weekly reports before delivery,
+  checking required sections, standard filenames, discount completeness,
+  uncertainty preservation, and GTA Online-specific guardrails.
+input_schema:
+  type: object
+  properties:
+    final_weekly_plan:
+      type: object
+      description: Lester's synthesized plan or parsed Markdown sections.
+    generated_reports:
+      type: array
+      description: Report filenames and contents generated for the week.
+      items:
+        type: object
+        properties:
+          filename:
+            type: string
+          content:
+            type: string
+    weekly_schema_v2:
+      type: object
+    player_profile:
+      type: object
+    readiness_gate_report:
+      type: object
+    week_id:
+      type: string
+  required: [generated_reports, weekly_schema_v2]
+execution_logic: |
+  1. Normalize `week_id` to lowercase underscore format such as `2026_w16`.
+  2. Check that the standard weekly run generated exactly these three week-id report files:
+     - `reports/weekly_master_plan_<week_id>.md`
+     - `reports/weekly_master_plan_<week_id>_income_scenarios.md`
+     - `reports/event_master_plan_<week_id>.md`
+  3. Allow optional companion artifacts only when explicitly requested; do not count them as standard weekly outputs.
+  4. Validate required content coverage:
+     - What to Play / Prioritize
+     - What to Buy / Acquisitions
+     - What to Ignore / Skip
+     - Quick Win (30m)
+     - Core Loop (1-2h)
+     - Extended Session (3h+)
+     - Action Queue
+     - Weekly Discounts Snapshot when discount data exists
+     - Warnings or insufficient data when uncertainty exists
+  5. If weekly discount data exists, confirm every known discount tier is represented and all listed items are present. Do not invent missing tiers or items.
+  6. Check guardrail language:
+     - Do not invent prices, payouts, unlock conditions, or platform eligibility.
+     - Do not treat showroom or test-ride presence as proof of discount or purchase path.
+     - Do not treat Salvage Yard robbery vehicles as claimable without explicit keep eligibility.
+     - Do not recommend hard readiness blockers as immediate actions.
+  7. Compare purchase recommendations against `player_profile.bankroll` and owned assets when available. Flag any buy recommendation that appears to break reserve floor, exceed max weekly spend, or recommend already-owned items.
+  8. Return blocking issues first. If blockers exist, the assistant should fix the report or return data/report issues instead of presenting the plan as final.
+output_contract:
+  status:
+    type: string
+    description: "`pass`, `pass_with_warnings`, or `fail`."
+  blocking_issues:
+    type: array
+    description: Must-fix report or guardrail violations.
+  warnings:
+    type: array
+    description: Non-blocking caveats or missing low-risk details.
+  required_files:
+    type: array
+    description: The three standard report filenames expected for the normalized week id.
+  optional_files:
+    type: array
+    description: Explicitly requested optional companion files.
+  section_coverage:
+    type: object
+    description: Boolean map of required report sections.
+  discount_snapshot_audit:
+    type: object
+    description: Known discount tiers, missing tiers, included items, and missing items.

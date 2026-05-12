@@ -1,0 +1,70 @@
+name: design_weekly_route
+description: >
+  Convert Lester's weekly strategy into practical play routes for the player's
+  actual session windows, using readiness, cooldowns, passive collections, and
+  route fatigue as constraints.
+input_schema:
+  type: object
+  properties:
+    final_weekly_plan:
+      type: object
+    weekly_schema_v2:
+      type: object
+    player_profile:
+      type: object
+    readiness_gate_report:
+      type: object
+    activity_loop_roi:
+      type: object
+      description: Optional output from `calculate_activity_loop_roi`.
+    route_mode:
+      type: string
+      description: "`money_first`, `balanced`, `low_stress`, or `unlock_first`."
+  required: [weekly_schema_v2, player_profile]
+execution_logic: |
+  1. Use `player_profile.session_constraints` to set route length and breakpoints:
+     - preferred session size
+     - max continuous minutes
+     - hours available per week
+     - play windows
+  2. Start from activities that passed `gate_activity_prerequisites`. Move hard blockers to `blocked_now` and never schedule them as immediate route steps.
+  3. Prioritize steps from Lester's final plan and `calculate_activity_loop_roi` when available:
+     - daily/weekly claims first
+     - boosted passive collections
+     - best active money loop
+     - filler activities during cooldowns
+     - optional fun or unlock steps near the end
+  4. Build route buckets:
+     - `30m_route`
+     - `60m_route`
+     - `120m_route`
+     - `weekly_cadence`
+  5. Keep routes realistic. Include travel/setup buffers when the payload or specialist reports provide them; otherwise state that exact timing is approximate.
+  6. Do not invent payouts, cooldowns, production times, or availability. If route timing depends on missing values, mark the step as approximate and add it to `insufficient_data`.
+  7. Keep route steps actionable: each step should start with a verb and name the activity, business, or claim target.
+  8. Respect platform-gated content and player-owned assets. Do not schedule platform-gated or missing-property content as universal.
+output_contract:
+  route_mode:
+    type: string
+    description: Route optimization mode used for the output.
+  thirty_minute_route:
+    type: array
+    description: Ordered steps for a short login session.
+  sixty_minute_route:
+    type: array
+    description: Ordered steps for a standard one-hour session.
+  one_twenty_minute_route:
+    type: array
+    description: Ordered steps for the player's max continuous session.
+  weekly_cadence:
+    type: array
+    description: Suggested distribution across the player's available weekly play windows.
+  cooldown_fillers:
+    type: array
+    description: Safe activities to insert when the main loop is cooling down.
+  blocked_now:
+    type: array
+    description: Activities excluded from routes because of readiness, platform, or data blockers.
+  insufficient_data:
+    type: array
+    description: Missing timing, payout, cooldown, or availability details.

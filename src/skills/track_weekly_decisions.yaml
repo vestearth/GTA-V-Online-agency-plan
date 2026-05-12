@@ -1,0 +1,66 @@
+name: track_weekly_decisions
+description: >
+  Maintain advisory memory of weekly recommendations and user decisions so
+  future reports avoid stale repeat advice and can explain recurring buy,
+  play, and skip decisions.
+input_schema:
+  type: object
+  properties:
+    week_id:
+      type: string
+    final_weekly_plan:
+      type: object
+    generated_reports:
+      type: array
+      items:
+        type: object
+    player_profile:
+      type: object
+    decision_history:
+      type: array
+      description: Optional prior decisions loaded from a concrete history file or previous reports.
+      items:
+        type: object
+        properties:
+          week_id:
+            type: string
+          item_or_activity:
+            type: string
+          decision:
+            type: string
+          reason:
+            type: string
+          outcome:
+            type: string
+  required: [week_id, final_weekly_plan]
+execution_logic: |
+  1. Treat decision memory as advisory unless a concrete history file, previous report, or user-provided history exists.
+  2. Extract decisions from the final weekly plan:
+     - activities to play
+     - purchases to buy
+     - purchases or activities to ignore
+     - warnings, blockers, and conditional recommendations
+  3. Normalize names without losing source spelling. Keep vehicle names, property names, and activity ids traceable to the weekly payload.
+  4. Compare against `decision_history` when available:
+     - Mark repeated recommendations.
+     - Mark previously skipped items and preserve the reason.
+     - Mark previously bought or completed items so future reports can avoid recommending them again.
+  5. Do not invent outcomes. If the user has not confirmed that an item was bought, completed, or skipped, leave `outcome` as `unconfirmed`.
+  6. Do not mutate `data/player_profile.json` automatically. Instead, emit suggested profile updates such as newly owned vehicles or properties for the user to confirm.
+  7. Return a compact memory record that can be saved later under `data/decision_history.json` if the user chooses to add persistent memory.
+output_contract:
+  memory_records:
+    type: array
+    description: Normalized buy/play/ignore decisions for the current week.
+  repeated_recommendations:
+    type: array
+    description: Items or activities that appeared in prior decision history.
+  suggested_profile_updates:
+    type: array
+    description: Ownership or preference updates requiring user confirmation.
+  unresolved_outcomes:
+    type: array
+    description: Decisions that need future user confirmation.
+  warnings:
+    type: array
+    description: Missing history, ambiguous names, or conflicting prior decisions.

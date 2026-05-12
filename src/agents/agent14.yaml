@@ -17,6 +17,7 @@ llm_config:
 skills:
   - assess_operational_readiness
   - gate_activity_prerequisites
+  - design_weekly_route
 output_format: |
   **1. Operational Brief**: Overview of the week's logistics.
   **2. Readiness Check**: Can we actually run the featured content? (Assets & Crew size).

@@ -38,18 +38,25 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 5. Run `gate_activity_prerequisites` using `data/player_profile.json`.
    - If hard readiness blockers exist, stop and report blockers first.
 6. Execute specialist lenses:
+   - `Lester` -> `compare_week_over_week` for advisory change context when prior payloads are available
    - `Michael` -> `calculate_business_roi`
+   - `Michael` -> `calculate_activity_loop_roi`
    - `Franklin` -> `evaluate_vehicles`
+   - `Franklin` -> `evaluate_purchase_fit`
    - `Trevor` -> `evaluate_combat_value`
    - `Agent14` -> `assess_operational_readiness`
    - `Tony` -> `analyze_nightclub_feeder`
 7. Synthesize via `Lester` using `synthesize_final_report`.
-8. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
+8. After synthesis, run post-synthesis helpers:
+   - `Agent14` -> `design_weekly_route` to turn the executive plan into realistic 30m / 60m / 120m routes.
+   - `Lester` -> `track_weekly_decisions` to produce advisory decision memory. Do not claim prior outcomes unless a concrete history file, previous report, or user confirmation exists.
+   - `Lester` -> `validate_report_completeness` before final delivery.
+9. Output a concise Master Plan with `Prioritize`, `Consider`, `Skip`, plus:
    - Time buckets: `Quick Win (30m)`, `Core Loop (1-2h)`, `Extended Session (3h+)`
    - Ordered `Action Queue`
    - `Weekly Discounts Snapshot` grouped by each discount tier (include all listed items, not only recommended picks)
    - Warnings and insufficient data
-9. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
+10. Save outputs under `reports/` as exactly 3 week-id files per weekly run:
    - `weekly_master_plan_<week_id>.md`
    - `weekly_master_plan_<week_id>_income_scenarios.md`
    - `event_master_plan_<week_id>.md`

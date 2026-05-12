@@ -23,4 +23,7 @@ paths:
 # 3. Vehicle Normalization (Lester + normalize_vehicle_opportunities)
 # 4. Prerequisite Gate (Agent 14 + gate_activity_prerequisites + player_profile)
 # 5. Parallel Specialist Analysis (Michael, Franklin, Trevor, Agent 14, Tony)
+#    - Includes helper context from compare_week_over_week and evaluate_purchase_fit
 # 6. Executive Synthesis (Lester + priority scoring + action queue)
+# 7. Post-Synthesis Quality Group (route design, advisory decision memory,
+#    and validate_report_completeness)

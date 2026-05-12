@@ -48,6 +48,9 @@ There is no Python or Node.js runtime required. The intelligence lives in prompt
 3. **Invoke your assistant:** In your preferred client (Copilot Chat, Cursor Agent/Chat, Codex, Gemini), ask:
    > *"Here is the new GTA weekly update data... Please run `src/workflows/weekly_planning.yaml`, use `data/player_profile.json`, follow `.github/skills/gta-weekly-planning/SKILL.md`, and generate the final report in `reports/`."*
 4. The assistant should read the `SKILL.md` rulebook, instantiate agents according to `src/agents/*.yaml`, apply logic from `src/skills/`, and output Lester's Final Master Plan.
+   - Purchase recommendations should pass through `evaluate_purchase_fit` so discounts are checked against bankroll, reserve floor, ownership, and profile goals.
+   - Lester may use `compare_week_over_week` and advisory decision memory from `track_weekly_decisions` when prior payloads, reports, or confirmed user history are available.
+   - Before delivery, run `validate_report_completeness` to confirm required sections, discount snapshots, guardrails, and the exactly 3 standard week-id report files.
 5. Weekly standard output in `reports/` should contain:
    - `weekly_master_plan_<week_id>.md`
    - `weekly_master_plan_<week_id>_income_scenarios.md`
@@ -79,12 +82,17 @@ Repository-wide agent rules are documented in `AGENTS.md`.
 4. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
 5. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
 6. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
+7. **Post-Synthesis Quality Group** (Agent 14 route design via `design_weekly_route`, Lester decision memory via `track_weekly_decisions`, and final QA via `validate_report_completeness`)
 
 Role split note:
 
 - Michael handles profitability, $/hour, and purchase-value judgments.
+- Franklin handles vehicle value and `evaluate_purchase_fit` checks for cars and other weekly purchases before Lester makes the final buy/skip ruling.
 - Agent 14 handles feasibility, prerequisites, platform/crew fit, and session planning.
+- Lester handles week-over-week context, final synthesis, advisory decision memory, and report completeness validation.
 - Agent 14 readiness logic accepts either `weekly_content.featured_activities` or `weekly_content.events` as the activity source.
+
+Decision memory is advisory. Unless a concrete history file, prior report, or user confirmation exists, assistants should not claim that a past recommendation was actually bought, completed, or skipped.
 
 ---
 
