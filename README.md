@@ -25,13 +25,16 @@ GTA-V-Online-agency-plan/
 │   ├── workflows/weekly_planning.yaml    # Step-by-Step execution sequence
 │   ├── agents/                           # Agent definitions (Michael, Lester, etc.)
 │   └── skills/                           # Agent capabilites/tools
-├── data/                                 # 📥 Data Payloads
-│   ├── examples_bundle.json              # Consolidated reference payloads and templates (data/examples_bundle.json)
-│   └── references/                       # Lookup catalogs
-│       ├── vehicle_prices.yaml           # Used by Franklin
-│       ├── vehicle_gtacars_slugs.json    # Optional name→GTACars slug map for price fetch
-│       ├── weapon_stats.yaml             # Used by Trevor
-│       └── agent14-cayo.yaml             # Used by Agent 14
+├── scripts/                                # 🛠️ Automation Tools
+│   ├── scrape_weekly_update.py             # Auto-discovery & data extraction (v2.6)
+│   ├── generate_weekly_report.py           # Dashboard generator (v1.1)
+│   ├── update_vehicle_prices.py            # Reference sync
+│   └── fetch_gtacar_prices.py              # Price fetcher
+├── data/                                   # 📥 Data Payloads
+│   ├── references/                         # Lookup catalogs
+│   │   ├── scraper_mapping.yaml            # Scraper regex & keywords mapping
+│   │   ├── vehicle_prices.yaml             # Used by Franklin
+│   │   └── ...
 ├── reports/                              # 📤 Agent outputs & Final Executive Overviews
 ├── docs/                                 # 📚 Templates and documentation
 └── .github/skills/gta-weekly-planning/   # 🤖 Reusable skill/prompt hook (portable)
@@ -93,6 +96,26 @@ Role split note:
 - Agent 14 readiness logic accepts either `weekly_content.featured_activities` or `weekly_content.events` as the activity source.
 
 Decision memory is advisory. Unless a concrete history file, prior report, or user confirmation exists, assistants should not claim that a past recommendation was actually bought, completed, or skipped.
+
+---
+
+## ⚡ Automated Weekly Workflow (New)
+
+You can now automate the initial data gathering and dashboard generation:
+
+1. **Scrape Data:** Automatically find and extract the latest update (from Reddit/Newswire).
+   ```bash
+   python3 scripts/scrape_weekly_update.py
+   ```
+   *Generates: `data/weekly_planning_YYYY_WXX.json` (integrated with your `player_profile.json` metadata).*
+
+2. **Generate Dashboard:** Create a readable Markdown report with profit projections and price context.
+   ```bash
+   python3 scripts/generate_weekly_report.py data/weekly_planning_YYYY_WXX.json
+   ```
+   *Outputs: `reports/weekly_report_YYYY_WXX.md` with "Discounted Asset Review" and profit hints.*
+
+3. **Orchestrate:** Feed the generated JSON to your AI assistant to run the full Multi-Agent workflow (see Quickstart).
 
 ---
 
