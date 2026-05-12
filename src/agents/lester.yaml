@@ -17,7 +17,10 @@ llm_config:
     - Do not upgrade uncertain data into facts: respect readiness blockers, platform locks, missing prices, and missing discounts as uncertainties to be surfaced, not guessed away.
     - Keep acquisition language precise: distinguish between discounted, claimable, on display, prize-locked, and test-drive-only opportunities.
 skills:
+  - compare_week_over_week
   - synthesize_final_report
+  - track_weekly_decisions
+  - validate_report_completeness
 output_format: |
   **1. The Master Plan (TL;DR)**: One paragraph summary for the week.
   **2. Operations Brief**: The top 3 activities to grind, ranked by Lester.

@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-05-07"
+last_verified_at: "2026-05-12"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
@@ -1106,16 +1106,6 @@ vehicles:
     source_url: "https://gtacars.net"
     alias_hints: ["Imorgon"]
 
-  - vehicle_name: "Podium Vehicle"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Vehicle"]
-
   - vehicle_name: "Penaud La Coureuse"
     vehicle_tier: "unrated"
     race_tiers: {}
@@ -1126,3 +1116,112 @@ vehicles:
     source_url: "https://gtacars.net"
     alias_hints: ["La Coureuse"]
 
+  - vehicle_name: "Western Zombie Bobber"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Zombie Bobber"]
+
+  - vehicle_name: "Enus Cognoscenti Cabrio"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cognoscenti Cabrio"]
+
+  - vehicle_name: "Dinka Verus"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W19"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Verus"]
+
+  - vehicle_name: "Western Company Cargobob"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Company Cargobob"]
+
+  - vehicle_name: "Karin Boor"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Boor"]
+
+  - vehicle_name: "Willard Eudora"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Eudora"]
+
+  - vehicle_name: "Pfister 811"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["811"]
+
+  - vehicle_name: "Declasse Drift Tampa"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Drift Tampa"]
+
+  - vehicle_name: "Grotti Stinger GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Stinger GT"]
+
+  - vehicle_name: "Übermacht Sentinel"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Sentinel"]
+
+  - vehicle_name: "Canis Freecrawler"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Freecrawler"]

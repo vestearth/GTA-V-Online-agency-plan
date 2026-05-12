@@ -32,3 +32,6 @@ htmlcov/
 
 # macOS
 .DS_Store
+
+# Scraper temps
+data/temp_weekly_planning_*.json

@@ -7,6 +7,32 @@
 
 ---
 
+## ⚡ แบบที่ 0: ระบบกึ่งอัตโนมัติ (NEW - Recommended)
+ใช้สคริปต์ที่เราพัฒนาใหม่เพื่อดึงข้อมูลและสร้าง Dashboard เบื้องต้นได้ทันทีโดยไม่ต้องก๊อปปี้ข้อความเอง:
+
+1. **ดึงข้อมูลจาก URL ของโพสต์ข่าว/กระทู้ที่ต้องการ:**
+   ```bash
+   python3 scripts/scrape_weekly_update.py --url "https://www.rockstargames.com/newswire/article/..."
+   ```
+   *ให้ส่ง URL ของหน้าอัปเดตจริง เช่น Rockstar Newswire post หรือ Reddit thread; สคริปต์จะ scrape จาก URL ที่ระบุ แล้วเช็คกับ `player_profile.json` ของคุณ*
+
+   ตัวอย่าง URL ที่ใช้ได้:
+   ```text
+   https://www.rockstargames.com/newswire/article/...
+   https://www.reddit.com/r/gtaonline/comments/...
+   ```
+
+2. **สร้าง Dashboard สำหรับอ่านเอง:**
+   ```bash
+   python3 scripts/generate_weekly_report.py data/weekly_planning_2026_wXX.json
+   ```
+   *คุณจะได้ไฟล์สรุปใน `reports/` ที่มีตารางคำนวณกำไรและราคารถ*
+
+3. **สั่ง Agent รันแผนเต็มรูปแบบ:**
+   ส่งไฟล์ JSON ที่ได้จากข้อ 1 ให้ AI แล้วสั่งรันตาม **แบบที่ 2** ด้านล่าง
+
+---
+
 ## 📋 แบบที่ 1: มีข่าวสัปดาห์ใหม่เป็น "ข้อความดิบ" (Raw Text)
 ก็อปปี้อัปเดตจากเว็บ Rockstar Newswire หรือบอร์ดเกม แล้วใช้คำสั่งนี้เลย:
 

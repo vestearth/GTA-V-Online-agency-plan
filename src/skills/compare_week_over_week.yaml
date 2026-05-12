@@ -1,0 +1,56 @@
+name: compare_week_over_week
+description: >
+  Compare the current weekly payload with prior weekly payloads to identify
+  genuinely new opportunities, returning bonuses, repeated discounts, and
+  rare reappearances worth calling out.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+      description: The current week's normalized payload (alias accepted: current_weekly_schema_v2 or fully_normalized_weekly_schema_v2).
+    previous_weekly_schema_v2:
+      type: object
+    historical_weekly_payloads:
+      type: array
+      items:
+        type: object
+    player_profile:
+      type: object
+  required: [weekly_schema_v2]
+field_aliases:
+  current_weekly_schema_v2: weekly_schema_v2
+  fully_normalized_weekly_schema_v2: weekly_schema_v2
+execution_logic: |
+  1. Resolve `weekly_schema_v2` from `current_weekly_schema_v2` or `fully_normalized_weekly_schema_v2` aliases if the canonical key is absent. Normalize current and historical payloads through the same activity and vehicle opportunity fields used by the main workflow.
+  2. Compare activity ids, display names, bonus multipliers, discount tiers, vehicle opportunities, podium/prize entries, and platform-gated offers.
+  3. Classify each current opportunity:
+     - `new_this_week`
+     - `returning`
+     - `repeated_from_last_week`
+     - `improved_bonus_or_discount`
+     - `weaker_than_recent`
+     - `rare_reappearance`
+  4. Highlight items that matter to the player profile, especially money, unlocks, low_setup, owned assets, missing properties, and reserve-floor constraints.
+  5. Do not invent historical context. If only one payload is available, compare within that payload and state that week-over-week history is insufficient.
+  6. Do not present a repeated showroom/test-ride entry as a purchase opportunity unless the current source confirms a purchase path.
+  7. Preserve platform locks exactly as written in the payload.
+output_contract:
+  change_summary:
+    type: array
+    description: High-signal week-over-week changes for Lester to mention.
+  new_this_week:
+    type: array
+    description: Current opportunities not found in available history.
+  returning_or_repeated:
+    type: array
+    description: Opportunities seen recently with prior week references.
+  rare_reappearances:
+    type: array
+    description: Removed, limited, or uncommon opportunities with current confirmed access.
+  improved_or_weaker_value:
+    type: array
+    description: Items whose multiplier, discount, or usefulness changed versus history.
+  insufficient_data:
+    type: array
+    description: Missing prior payloads, incomparable fields, or uncertain identity matches.

@@ -29,15 +29,25 @@ Use `src/agents/*.yaml` and `src/skills/*.yaml` as the source of truth.
 Execution order:
 1) Run `validate_weekly_schema_lightweight` first.
 2) If blocking schema issues exist, stop and report only data issues.
-3) Run `gate_activity_prerequisites`; if hard blockers exist, return blockers first.
-4) Otherwise run specialist analyses (Michael, Franklin, Trevor, Agent 14, Tony).
-5) Run Lester last with `synthesize_final_report`.
+3) Normalize activities with `normalize_featured_activities`.
+4) Normalize vehicles with `normalize_vehicle_opportunities`.
+5) Run `gate_activity_prerequisites`; if hard blockers exist, return blockers first.
+6) Otherwise run specialist analyses (Michael, Franklin, Trevor, Agent 14, Tony), including:
+   - `compare_week_over_week` when prior payloads are available
+   - `evaluate_purchase_fit` for discounted or limited-time purchases
+7) Run Lester synthesis with `synthesize_final_report`.
+8) Run post-synthesis helpers:
+   - `design_weekly_route`
+   - `track_weekly_decisions` as advisory decision memory only
+   - `validate_report_completeness`
 
 Return:
 - A concise executive summary
 - Prioritized activity plan by payout/time efficiency
 - Time-bucket plan: 30m, 1-2h, 3h+
 - Ordered action queue for immediate execution
+- Purchase rulings grounded by budget, reserve floor, ownership, and profile goals
+- Route steps that fit the player session constraints
 - Risks/constraints
 - Suggested next actions
 Format as Markdown and save exactly 3 week-id files under `reports/`:
@@ -45,6 +55,9 @@ Format as Markdown and save exactly 3 week-id files under `reports/`:
 2) `weekly_master_plan_<week_id>_income_scenarios.md`
 3) `event_master_plan_<week_id>.md`
 Use lowercase underscore week id, e.g. `2026_w16`.
+
+Do not claim decision memory outcomes unless a concrete history file, previous
+report, or user confirmation exists.
 ```
 
 ## Assistant-Specific Notes
@@ -106,4 +119,3 @@ Return:
 3) minimal fix suggestions
 Do not run full analysis yet.
 ```
-

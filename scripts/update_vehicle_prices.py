@@ -38,8 +38,12 @@ NON_VEHICLE_SUBSTRINGS = (
     "priority file",
     "money front",
     "factory",
+    "property",
+    "properties",
     "upgrades",
     "upgrade",
+    "modification",
+    "modifications",
     "drinks at",
     "diamond casino",
     "music locker",
@@ -54,7 +58,16 @@ NON_VEHICLE_SUBSTRINGS = (
     "proximity mine",
     "tear gas",
     "livery",
+    "gun van",
 )
+
+NON_VEHICLE_EXACT_NAMES = {
+    "podium vehicle",
+    "prize ride",
+    "nightclub properties",
+    "nightclub upgrades and modifications",
+    "heavy rifle (gun van)",
+}
 
 RAW_VEHICLE_SECTION_KEYS = (
     "luxury_autos",
@@ -82,6 +95,8 @@ def looks_like_vehicle_name(value: str) -> bool:
     if not cleaned:
         return False
     lowered = cleaned.casefold()
+    if lowered in NON_VEHICLE_EXACT_NAMES:
+        return False
     if lowered.startswith(("place top ", "win ", "complete ", "visit ")):
         return False
     return not any(fragment in lowered for fragment in NON_VEHICLE_SUBSTRINGS)
@@ -600,4 +615,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

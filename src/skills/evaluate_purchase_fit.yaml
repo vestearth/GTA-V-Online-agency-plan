@@ -1,0 +1,117 @@
+name: evaluate_purchase_fit
+description: >
+  Judge whether weekly discounted or limited-time purchases fit the player's
+  bankroll, ownership state, goals, and opportunity cost. Use this after
+  vehicle normalization and before Lester's final buy/ignore ruling.
+input_schema:
+  type: object
+  properties:
+    weekly_schema_v2:
+      type: object
+      description: >
+        The normalized weekly payload. When `purchase_candidates` is not provided,
+        derive candidates from `weekly_schema_v2.weekly_content.discounts` and
+        `weekly_schema_v2.weekly_content.vehicle_opportunities`. Accepts
+        `fully_normalized_weekly_schema_v2` as an alias via `field_aliases`.
+    purchase_candidates:
+      type: array
+      description: >
+        Optional. Discounted vehicles, weapons, properties, upgrades, or other
+        weekly purchase opportunities. If omitted, derived internally from
+        `weekly_schema_v2.weekly_content.discounts` and `vehicle_opportunities`.
+      items:
+        type: object
+        properties:
+          item_name:
+            type: string
+          item_type:
+            type: string
+          base_price:
+            type: number
+          discount_percent:
+            type: number
+          final_price:
+            type: number
+          opportunity_type:
+            type: string
+          platform:
+            type: string
+          acquisition:
+            type: object
+          tags:
+            type: array
+            items:
+              type: string
+          source_notes:
+            type: string
+    player_profile:
+      type: object
+      description: Bankroll, reserve floor, max spend, owned assets, and preference tags.
+    readiness_gate_report:
+      type: object
+      description: Blocking or conditional prerequisites from Agent 14.
+    reference_records:
+      type: object
+      description: Optional vehicle, weapon, property, or upgrade reference data.
+  required: [player_profile]
+field_aliases:
+  fully_normalized_weekly_schema_v2: weekly_schema_v2
+  vehicle_name: item_name
+  price: base_price
+  discount_percentage: discount_percent
+  discount: discount_percent
+  category: item_type
+execution_logic: |
+  0. Derive purchase candidates when `purchase_candidates` is not explicitly provided:
+     resolve `weekly_schema_v2` (or alias `fully_normalized_weekly_schema_v2`), then build
+     candidates from `weekly_schema_v2.weekly_content.discounts` (each item in each tier)
+     and `weekly_schema_v2.weekly_content.vehicle_opportunities`. Set `opportunity_type` and
+     `discount_percent` from the source tier. Add an `insufficient_data` entry for any
+     candidate whose price cannot be resolved.
+  1. Normalize aliases first, preserving the original source fields for traceability.
+  2. Calculate `final_price` only when `base_price` and `discount_percent` are both present. If the weekly payload already provides `final_price`, keep it and note its source.
+  3. Read player bankroll constraints from `player_profile.bankroll`:
+     - `cash_on_hand`
+     - `max_spend_this_week`
+     - `reserve_floor`
+  4. For each purchase candidate, classify budget fit:
+     - `safe_buy` when `final_price` is known, does not exceed `max_spend_this_week`, and leaves cash at or above `reserve_floor`.
+     - `over_weekly_cap` when the item exceeds `max_spend_this_week` but does not break the reserve floor.
+     - `breaks_reserve_floor` when buying would leave cash below `reserve_floor`.
+     - `unknown_price` when the price cannot be resolved.
+  5. Check owned status against all relevant `player_profile.owned_assets` arrays. If already owned, recommend `skip_already_owned` unless the item is an upgrade/modification with a distinct owned state.
+  6. Match candidate tags against `player_profile.preferences.focus_tags`. Boost items that directly support money, unlocks, low_setup, or the profile's explicit focus tags.
+  7. Penalize purchases that duplicate a stronger owned tool unless the candidate has clear collector, unlock, or weekly-limited value.
+  8. Preserve weekly opportunity type exactly:
+     - Discounted means buyable at reduced price.
+     - On display means visible only unless purchase path is explicit.
+     - Test ride means testable only unless purchase path is explicit.
+     - Prize/podium means claim or chance path, not a discount.
+  9. Do not invent prices, payouts, unlock conditions, platform eligibility, or ownership state. If a required value is missing, keep the recommendation qualitative and add an `insufficient_data` entry.
+  10. Do not treat a Salvage Yard robbery vehicle as claimable unless `salvage_yard_targets[].claimable` is explicitly true or the source directly confirms keep eligibility.
+  11. Return a purchase ruling for each candidate:
+      - `buy_now`
+      - `consider_if_you_want_it`
+      - `skip`
+      - `unknown_price_hold`
+      - `blocked_or_platform_gated`
+  12. Include concise reasoning that Lester can reuse in `What to Buy` and `What to Ignore`.
+output_contract:
+  purchase_rulings:
+    type: array
+    description: Candidate-level buy/consider/skip rulings with budget fit, owned-state, and reason codes.
+  buy_now:
+    type: array
+    description: Purchases that fit budget, profile goals, and weekly opportunity value.
+  consider:
+    type: array
+    description: Purchases that are affordable but niche, collector-oriented, or preference-dependent.
+  skip:
+    type: array
+    description: Purchases to avoid because of ownership, low fit, budget pressure, or weak value.
+  blocked_or_platform_gated:
+    type: array
+    description: Purchases that should not be presented as universal due to missing prerequisites or platform locks.
+  insufficient_data:
+    type: array
+    description: Missing prices, paths, platform details, ownership state, or unlock rules that prevent a firm ruling.

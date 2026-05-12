@@ -25,13 +25,16 @@ GTA-V-Online-agency-plan/
 │   ├── workflows/weekly_planning.yaml    # Step-by-Step execution sequence
 │   ├── agents/                           # Agent definitions (Michael, Lester, etc.)
 │   └── skills/                           # Agent capabilites/tools
-├── data/                                 # 📥 Data Payloads
-│   ├── examples_bundle.json              # Consolidated reference payloads and templates (data/examples_bundle.json)
-│   └── references/                       # Lookup catalogs
-│       ├── vehicle_prices.yaml           # Used by Franklin
-│       ├── vehicle_gtacars_slugs.json    # Optional name→GTACars slug map for price fetch
-│       ├── weapon_stats.yaml             # Used by Trevor
-│       └── agent14-cayo.yaml             # Used by Agent 14
+├── scripts/                                # 🛠️ Automation Tools
+│   ├── scrape_weekly_update.py             # Auto-discovery & data extraction (v2.6)
+│   ├── generate_weekly_report.py           # Dashboard generator (v1.1)
+│   ├── update_vehicle_prices.py            # Reference sync
+│   └── fetch_gtacar_prices.py              # Price fetcher
+├── data/                                   # 📥 Data Payloads
+│   ├── references/                         # Lookup catalogs
+│   │   ├── scraper_mapping.yaml            # Scraper regex & keywords mapping
+│   │   ├── vehicle_prices.yaml             # Used by Franklin
+│   │   └── ...
 ├── reports/                              # 📤 Agent outputs & Final Executive Overviews
 ├── docs/                                 # 📚 Templates and documentation
 └── .github/skills/gta-weekly-planning/   # 🤖 Reusable skill/prompt hook (portable)
@@ -41,13 +44,18 @@ GTA-V-Online-agency-plan/
 
 ## 🎯 How to Use (Copilot / Cursor / Codex / Gemini)
 
-There is no Python or Node.js runtime required. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
+No Python or Node.js runtime is required for the core workflow. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
+
+> **Optional automation scripts** in `scripts/` require Python 3. They are not part of the primary AI workflow — see [Automation Scripts](#automation-scripts) below if you want to use them.
 
 1. **Bring Data:** Grab the weekly update text from the Rockstar Newswire or GTA Forums.
 2. **Set Player Profile:** Update `data/player_profile.json` with your bankroll, owned assets, and time constraints.
 3. **Invoke your assistant:** In your preferred client (Copilot Chat, Cursor Agent/Chat, Codex, Gemini), ask:
    > *"Here is the new GTA weekly update data... Please run `src/workflows/weekly_planning.yaml`, use `data/player_profile.json`, follow `.github/skills/gta-weekly-planning/SKILL.md`, and generate the final report in `reports/`."*
 4. The assistant should read the `SKILL.md` rulebook, instantiate agents according to `src/agents/*.yaml`, apply logic from `src/skills/`, and output Lester's Final Master Plan.
+   - Purchase recommendations should pass through `evaluate_purchase_fit` so discounts are checked against bankroll, reserve floor, ownership, and profile goals.
+   - Lester may use `compare_week_over_week` and advisory decision memory from `track_weekly_decisions` when prior payloads, reports, or confirmed user history are available.
+   - Before delivery, run `validate_report_completeness` to confirm required sections, discount snapshots, guardrails, and the exactly 3 standard week-id report files.
 5. Weekly standard output in `reports/` should contain:
    - `weekly_master_plan_<week_id>.md`
    - `weekly_master_plan_<week_id>_income_scenarios.md`
@@ -55,6 +63,25 @@ There is no Python or Node.js runtime required. The intelligence lives in prompt
 
 Need ready-to-use prompts by platform? See `docs/assistant-usage.md`.
 Repository-wide agent rules are documented in `AGENTS.md`.
+
+---
+
+### Automation Scripts
+
+> **Requires Python 3.** These scripts are optional helpers and not part of the core AI workflow.
+
+**Scrape a weekly update from a Newswire URL:**
+```bash
+python3 scripts/scrape_weekly_update.py --url <newswire_url>
+# Add --overwrite to replace an existing file for the same week.
+```
+
+**Run a simulation with built-in sample data (no network):**
+```bash
+python3 scripts/scrape_weekly_update.py --simulate
+```
+
+Running the script without `--url` or `--simulate` prints usage help and exits.
 
 ---
 
@@ -79,12 +106,37 @@ Repository-wide agent rules are documented in `AGENTS.md`.
 4. **Prerequisite Gate** (`gate_activity_prerequisites` via Agent 14 + `player_profile`)
 5. **Parallel Specialist Analysis** (Michael, Franklin, Trevor, Agent 14, Tony)
 6. **Executive Synthesis** (Lester via `synthesize_final_report` + priority scoring + action queue)
+7. **Post-Synthesis Quality Group** (Agent 14 route design via `design_weekly_route`, Lester decision memory via `track_weekly_decisions`, and final QA via `validate_report_completeness`)
 
 Role split note:
 
 - Michael handles profitability, $/hour, and purchase-value judgments.
+- Franklin handles vehicle value and `evaluate_purchase_fit` checks for cars and other weekly purchases before Lester makes the final buy/skip ruling.
 - Agent 14 handles feasibility, prerequisites, platform/crew fit, and session planning.
+- Lester handles week-over-week context, final synthesis, advisory decision memory, and report completeness validation.
 - Agent 14 readiness logic accepts either `weekly_content.featured_activities` or `weekly_content.events` as the activity source.
+
+Decision memory is advisory. Unless a concrete history file, prior report, or user confirmation exists, assistants should not claim that a past recommendation was actually bought, completed, or skipped.
+
+---
+
+## ⚡ Automated Weekly Workflow (New)
+
+You can now automate the initial data gathering and dashboard generation:
+
+1. **Scrape Data:** Automatically find and extract the latest update (from Reddit/Newswire).
+   ```bash
+   python3 scripts/scrape_weekly_update.py
+   ```
+   *Generates: `data/weekly_planning_YYYY_WXX.json` (integrated with your `player_profile.json` metadata).*
+
+2. **Generate Dashboard:** Create a readable Markdown report with profit projections and price context.
+   ```bash
+   python3 scripts/generate_weekly_report.py data/weekly_planning_YYYY_WXX.json
+   ```
+   *Outputs: `reports/weekly_report_YYYY_WXX.md` with "Discounted Asset Review" and profit hints.*
+
+3. **Orchestrate:** Feed the generated JSON to your AI assistant to run the full Multi-Agent workflow (see Quickstart).
 
 ---
 
@@ -129,5 +181,5 @@ If you also want local automation on your machine:
    `0 10 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
 
 ---
-**Last Updated**: May 1, 2026 (docs freshness rule enforced)  
+**Last Updated**: May 12, 2026 (docs freshness rule enforced)  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0

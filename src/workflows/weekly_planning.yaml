@@ -46,6 +46,9 @@ nodes:
       - player_profile
       - readiness_gate_report
     tasks:
+      - task_id: Week_Over_Week_Context
+        agent: Lester
+        skill: compare_week_over_week
       - task_id: Financial_Analysis
         agent: Michael
         skill: calculate_business_roi
@@ -57,6 +60,9 @@ nodes:
         skill: evaluate_vehicles
         references:
           vehicle_price_reference: data/references/vehicle_prices.yaml
+      - task_id: Purchase_Fit_Analysis
+        agent: Franklin
+        skill: evaluate_purchase_fit
       - task_id: Combat_Analysis
         agent: Trevor
         skill: evaluate_combat_value
@@ -80,6 +86,30 @@ nodes:
       - specialized_reports
     skill: synthesize_final_report
     output_state: final_weekly_plan
+    next: Post_Synthesis_Quality_Group
+
+  - id: Post_Synthesis_Quality_Group
+    type: parallel
+    input_state:
+      - fully_normalized_weekly_schema_v2
+      - player_profile
+      - readiness_gate_report
+      - specialized_reports
+      - final_weekly_plan
+      # week_id is derived by skills from fully_normalized_weekly_schema_v2.week.id when not
+      # explicitly present. Pass it here for skills that accept it as an optional field.
+      - week_id: fully_normalized_weekly_schema_v2.week.id
+    tasks:
+      - task_id: Weekly_Route_Design
+        agent: Agent14
+        skill: design_weekly_route
+      - task_id: Decision_Memory_Update
+        agent: Lester
+        skill: track_weekly_decisions
+      - task_id: Report_Completeness_QA
+        agent: Lester
+        skill: validate_report_completeness
+    output_state: post_synthesis_reports
     next: END
 
   - id: END_WITH_READINESS_ISSUES
