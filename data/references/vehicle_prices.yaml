@@ -1156,16 +1156,6 @@ vehicles:
     source_url: "https://gtacars.net"
     alias_hints: ["Verus"]
 
-  - vehicle_name: "Nightclub Properties"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Properties"]
-
   - vehicle_name: "Western Company Cargobob"
     vehicle_tier: "unrated"
     race_tiers: {}
