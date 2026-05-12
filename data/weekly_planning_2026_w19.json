@@ -133,5 +133,70 @@
         "availability": {"start":"2026-05-07","end":"2026-05-14"}
       }
     ]
+  },
+  "scraper_metadata": {
+    "ownership_checks": [
+      {
+        "item": "Nightclub Properties",
+        "status": "upgrade_available",
+        "tier_percent": 40
+      },
+      {
+        "item": "Nightclub Upgrades and Modifications",
+        "status": "upgrade_available",
+        "tier_percent": 40
+      },
+      {
+        "item": "Grotti Itali GTO",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Western Company Cargobob",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Karin Boor",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Willard Eudora",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Pfister 811",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Declasse Drift Tampa",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Grotti Stinger GT",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Übermacht Sentinel",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Canis Freecrawler",
+        "status": "unknown",
+        "tier_percent": 30
+      },
+      {
+        "item": "Heavy Rifle (Gun Van)",
+        "status": "unknown",
+        "tier_percent": 30
+      }
+    ],
+    "price_context": {}
   }
 }
