@@ -10,11 +10,17 @@
 ## ⚡ แบบที่ 0: ระบบกึ่งอัตโนมัติ (NEW - Recommended)
 ใช้สคริปต์ที่เราพัฒนาใหม่เพื่อดึงข้อมูลและสร้าง Dashboard เบื้องต้นได้ทันทีโดยไม่ต้องก๊อปปี้ข้อความเอง:
 
-1. **ดึงข้อมูลจากแหล่งออนไลน์อัตโนมัติ:**
+1. **ดึงข้อมูลจาก URL ของโพสต์ข่าว/กระทู้ที่ต้องการ:**
    ```bash
-   python3 scripts/scrape_weekly_update.py
+   python3 scripts/scrape_weekly_update.py --url "https://www.rockstargames.com/newswire/article/..."
    ```
-   *สคริปต์จะค้นหา Reddit/Newswire และเช็คกับ `player_profile.json` ของคุณให้เสร็จ*
+   *ให้ส่ง URL ของหน้าอัปเดตจริง เช่น Rockstar Newswire post หรือ Reddit thread; สคริปต์จะ scrape จาก URL ที่ระบุ แล้วเช็คกับ `player_profile.json` ของคุณ*
+
+   ตัวอย่าง URL ที่ใช้ได้:
+   ```text
+   https://www.rockstargames.com/newswire/article/...
+   https://www.reddit.com/r/gtaonline/comments/...
+   ```
 
 2. **สร้าง Dashboard สำหรับอ่านเอง:**
    ```bash
