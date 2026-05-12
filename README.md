@@ -44,7 +44,9 @@ GTA-V-Online-agency-plan/
 
 ## 🎯 How to Use (Copilot / Cursor / Codex / Gemini)
 
-There is no Python or Node.js runtime required. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
+No Python or Node.js runtime is required for the core workflow. The intelligence lives in prompt templates and YAML specs; your chosen AI assistant acts as the Orchestrator.
+
+> **Optional automation scripts** in `scripts/` require Python 3. They are not part of the primary AI workflow — see [Automation Scripts](#automation-scripts) below if you want to use them.
 
 1. **Bring Data:** Grab the weekly update text from the Rockstar Newswire or GTA Forums.
 2. **Set Player Profile:** Update `data/player_profile.json` with your bankroll, owned assets, and time constraints.
@@ -61,6 +63,25 @@ There is no Python or Node.js runtime required. The intelligence lives in prompt
 
 Need ready-to-use prompts by platform? See `docs/assistant-usage.md`.
 Repository-wide agent rules are documented in `AGENTS.md`.
+
+---
+
+### Automation Scripts
+
+> **Requires Python 3.** These scripts are optional helpers and not part of the core AI workflow.
+
+**Scrape a weekly update from a Newswire URL:**
+```bash
+python3 scripts/scrape_weekly_update.py --url <newswire_url>
+# Add --overwrite to replace an existing file for the same week.
+```
+
+**Run a simulation with built-in sample data (no network):**
+```bash
+python3 scripts/scrape_weekly_update.py --simulate
+```
+
+Running the script without `--url` or `--simulate` prints usage help and exits.
 
 ---
 
@@ -160,5 +181,5 @@ If you also want local automation on your machine:
    `0 10 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
 
 ---
-**Last Updated**: May 1, 2026 (docs freshness rule enforced)  
+**Last Updated**: May 12, 2026 (docs freshness rule enforced)  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0

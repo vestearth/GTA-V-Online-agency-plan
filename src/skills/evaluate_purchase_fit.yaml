@@ -6,9 +6,19 @@ description: >
 input_schema:
   type: object
   properties:
+    weekly_schema_v2:
+      type: object
+      description: >
+        The normalized weekly payload. When `purchase_candidates` is not provided,
+        derive candidates from `weekly_schema_v2.weekly_content.discounts` and
+        `weekly_schema_v2.weekly_content.vehicle_opportunities`. Accepts
+        `fully_normalized_weekly_schema_v2` as an alias via `field_aliases`.
     purchase_candidates:
       type: array
-      description: Discounted vehicles, weapons, properties, upgrades, or other weekly purchase opportunities.
+      description: >
+        Optional. Discounted vehicles, weapons, properties, upgrades, or other
+        weekly purchase opportunities. If omitted, derived internally from
+        `weekly_schema_v2.weekly_content.discounts` and `vehicle_opportunities`.
       items:
         type: object
         properties:
@@ -43,14 +53,21 @@ input_schema:
     reference_records:
       type: object
       description: Optional vehicle, weapon, property, or upgrade reference data.
-  required: [purchase_candidates, player_profile]
+  required: [player_profile]
 field_aliases:
+  fully_normalized_weekly_schema_v2: weekly_schema_v2
   vehicle_name: item_name
   price: base_price
   discount_percentage: discount_percent
   discount: discount_percent
   category: item_type
 execution_logic: |
+  0. Derive purchase candidates when `purchase_candidates` is not explicitly provided:
+     resolve `weekly_schema_v2` (or alias `fully_normalized_weekly_schema_v2`), then build
+     candidates from `weekly_schema_v2.weekly_content.discounts` (each item in each tier)
+     and `weekly_schema_v2.weekly_content.vehicle_opportunities`. Set `opportunity_type` and
+     `discount_percent` from the source tier. Add an `insufficient_data` entry for any
+     candidate whose price cannot be resolved.
   1. Normalize aliases first, preserving the original source fields for traceability.
   2. Calculate `final_price` only when `base_price` and `discount_percent` are both present. If the weekly payload already provides `final_price`, keep it and note its source.
   3. Read player bankroll constraints from `player_profile.bankroll`:

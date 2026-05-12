@@ -96,6 +96,9 @@ nodes:
       - readiness_gate_report
       - specialized_reports
       - final_weekly_plan
+      # week_id is derived by skills from fully_normalized_weekly_schema_v2.week.id when not
+      # explicitly present. Pass it here for skills that accept it as an optional field.
+      - week_id: fully_normalized_weekly_schema_v2.week.id
     tasks:
       - task_id: Weekly_Route_Design
         agent: Agent14

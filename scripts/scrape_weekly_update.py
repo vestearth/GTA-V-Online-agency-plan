@@ -41,7 +41,7 @@ class WeeklyScraper:
             "player_context": {
                 "player_name": self.player_profile.get("player_name", "Unknown"),
                 "platform": self.player_profile.get("platform", "PC"),
-                "gta_plus": self.player_profile.get("gta_plus", True)
+                "gta_plus": self.player_profile.get("gta_plus", False)
             },
             "weekly_content": {
                 "headline": "GTA Online Weekly Update",
@@ -185,9 +185,19 @@ class WeeklyScraper:
         print(f"Saved: {output_path} (Week: {self.week_id})")
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--url"); parser.add_argument("--simulate", action="store_true"); parser.add_argument("--overwrite", action="store_true")
+    parser = argparse.ArgumentParser(
+        description="GTA V Online Weekly Scraper",
+        epilog="One of --url or --simulate is required.",
+    )
+    parser.add_argument("--url", help="Newswire URL to fetch and parse.")
+    parser.add_argument("--simulate", action="store_true", help="Run with built-in sample data (no network).")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite an existing output file for the same week.")
     args = parser.parse_args()
+
+    if not args.url and not args.simulate:
+        parser.print_help()
+        sys.exit(1)
+
     scraper = WeeklyScraper(is_simulation=args.simulate)
     content = None
     if args.simulate:
@@ -196,9 +206,20 @@ def main():
         try:
             headers = {'User-Agent': 'Mozilla/5.0'}
             req = urllib.request.Request(args.url, headers=headers)
-            with urllib.request.urlopen(req) as response: content = response.read().decode('utf-8')
-        except: pass
+            with urllib.request.urlopen(req) as response:
+                content = response.read().decode('utf-8')
+        except urllib.error.HTTPError as exc:
+            print(f"Error: HTTP {exc.code} when fetching {args.url}: {exc.reason}", file=sys.stderr)
+            sys.exit(1)
+        except urllib.error.URLError as exc:
+            print(f"Error: Failed to reach {args.url}: {exc.reason}", file=sys.stderr)
+            sys.exit(1)
+        except Exception as exc:
+            print(f"Error: Unexpected error fetching {args.url}: {exc}", file=sys.stderr)
+            sys.exit(1)
     if content:
-        scraper.parse_content(content); scraper.run_metadata_checks(); scraper.save(overwrite=args.overwrite)
+        scraper.parse_content(content)
+        scraper.run_metadata_checks()
+        scraper.save(overwrite=args.overwrite)
 
 if __name__ == "__main__": main()

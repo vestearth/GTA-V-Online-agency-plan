@@ -28,9 +28,9 @@ Use `src/agents/*.yaml` and `src/skills/*.yaml` as the source of truth.
 
 Execution order:
 1) Run `validate_weekly_schema_lightweight` first.
-2) Normalize activities with `normalize_featured_activities`.
-3) Normalize vehicles with `normalize_vehicle_opportunities`.
-4) If blocking schema issues exist, stop and report only data issues.
+2) If blocking schema issues exist, stop and report only data issues.
+3) Normalize activities with `normalize_featured_activities`.
+4) Normalize vehicles with `normalize_vehicle_opportunities`.
 5) Run `gate_activity_prerequisites`; if hard blockers exist, return blockers first.
 6) Otherwise run specialist analyses (Michael, Franklin, Trevor, Agent 14, Tony), including:
    - `compare_week_over_week` when prior payloads are available

@@ -8,8 +8,17 @@ input_schema:
   properties:
     week_id:
       type: string
+      description: >
+        Optional. If omitted, derive from `fully_normalized_weekly_schema_v2.week.id`
+        or `weekly_schema_v2.week.id`. Raise a warning if neither source is available.
     final_weekly_plan:
       type: object
+    fully_normalized_weekly_schema_v2:
+      type: object
+      description: Optional. Used to derive week_id when the explicit field is not provided.
+    weekly_schema_v2:
+      type: object
+      description: Optional alias for fully_normalized_weekly_schema_v2 when deriving week_id.
     generated_reports:
       type: array
       items:
@@ -32,8 +41,11 @@ input_schema:
             type: string
           outcome:
             type: string
-  required: [week_id, final_weekly_plan]
+  required: [final_weekly_plan]
 execution_logic: |
+  0. Resolve week_id: use the explicit `week_id` input if provided; otherwise derive from
+     `fully_normalized_weekly_schema_v2.week.id` or `weekly_schema_v2.week.id` (whichever
+     is available). If week_id cannot be resolved, add a warning and proceed without it.
   1. Treat decision memory as advisory unless a concrete history file, previous report, or user-provided history exists.
   2. Extract decisions from the final weekly plan:
      - activities to play

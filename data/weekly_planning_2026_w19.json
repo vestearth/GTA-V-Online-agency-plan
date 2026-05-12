@@ -79,7 +79,7 @@
         "gta_plus_only": false
       },
       {
-        "id": "prize_ride_annnis_minimus",
+        "id": "prize_ride_annis_minimus",
         "vehicle_name": "Annis Minimus",
         "opportunity_type": "prize_ride",
         "source": "ls_car_meet",

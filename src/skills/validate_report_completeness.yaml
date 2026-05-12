@@ -11,7 +11,10 @@ input_schema:
       description: Lester's synthesized plan or parsed Markdown sections.
     generated_reports:
       type: array
-      description: Report filenames and contents generated for the week.
+      description: >
+        Optional. Report filenames and contents generated for the week.
+        When omitted, derive expected filenames from `week_id` (or `weekly_schema_v2.week.id`)
+        and validate against `final_weekly_plan` content only.
       items:
         type: object
         properties:
@@ -21,14 +24,23 @@ input_schema:
             type: string
     weekly_schema_v2:
       type: object
+      description: >
+        The normalized weekly payload. Accepts `fully_normalized_weekly_schema_v2` as an alias
+        via `field_aliases` when the canonical key is absent.
     player_profile:
       type: object
     readiness_gate_report:
       type: object
     week_id:
       type: string
-  required: [generated_reports, weekly_schema_v2]
+  required: [final_weekly_plan]
+field_aliases:
+  fully_normalized_weekly_schema_v2: weekly_schema_v2
 execution_logic: |
+  0. Resolve inputs: use the `fully_normalized_weekly_schema_v2` alias for `weekly_schema_v2`
+     when the canonical key is absent. If `generated_reports` is omitted, derive expected
+     report filenames from `week_id` (or `weekly_schema_v2.week.id`) and validate content
+     coverage using `final_weekly_plan` only.
   1. Normalize `week_id` to lowercase underscore format such as `2026_w16`.
   2. Check that the standard weekly run generated exactly these three week-id report files:
      - `reports/weekly_master_plan_<week_id>.md`

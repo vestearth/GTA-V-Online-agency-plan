@@ -6,8 +6,9 @@ description: >
 input_schema:
   type: object
   properties:
-    current_weekly_schema_v2:
+    weekly_schema_v2:
       type: object
+      description: The current week's normalized payload (alias accepted: current_weekly_schema_v2 or fully_normalized_weekly_schema_v2).
     previous_weekly_schema_v2:
       type: object
     historical_weekly_payloads:
@@ -16,9 +17,12 @@ input_schema:
         type: object
     player_profile:
       type: object
-  required: [current_weekly_schema_v2]
+  required: [weekly_schema_v2]
+field_aliases:
+  current_weekly_schema_v2: weekly_schema_v2
+  fully_normalized_weekly_schema_v2: weekly_schema_v2
 execution_logic: |
-  1. Normalize current and historical payloads through the same activity and vehicle opportunity fields used by the main workflow.
+  1. Resolve `weekly_schema_v2` from `current_weekly_schema_v2` or `fully_normalized_weekly_schema_v2` aliases if the canonical key is absent. Normalize current and historical payloads through the same activity and vehicle opportunity fields used by the main workflow.
   2. Compare activity ids, display names, bonus multipliers, discount tiers, vehicle opportunities, podium/prize entries, and platform-gated offers.
   3. Classify each current opportunity:
      - `new_this_week`
