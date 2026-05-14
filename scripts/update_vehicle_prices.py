@@ -22,6 +22,7 @@ import glob
 import json
 import re
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 
@@ -59,14 +60,28 @@ NON_VEHICLE_SUBSTRINGS = (
     "tear gas",
     "livery",
     "gun van",
+    "membership",
+    "customization",
+    "tuning",
+    "racing suit",
+    "racing suits",
+    "garage",
+    "launcher",
+    "body armor",
 )
 
 NON_VEHICLE_EXACT_NAMES = {
     "podium vehicle",
     "prize ride",
+    "login reward",
+    "prize ride challenge",
     "nightclub properties",
     "nightclub upgrades and modifications",
     "heavy rifle (gun van)",
+    "ls car meet membership",
+    "horn customization",
+    "turbo tuning",
+    "body armor",
 }
 
 RAW_VEHICLE_SECTION_KEYS = (
@@ -76,6 +91,12 @@ RAW_VEHICLE_SECTION_KEYS = (
     "test_rides",
     "premium_test_rides",
 )
+
+
+@dataclass(frozen=True)
+class SlugClassification:
+    resolved: dict[str, str]
+    unresolved: list[str]
 
 
 def has_removed_vehicle_marker(value: str) -> bool:
@@ -117,7 +138,13 @@ def iter_dict_vehicle_candidates(item: dict) -> list[tuple[str, bool]]:
         value = item.get(key)
         if isinstance(value, str):
             candidates.append((value, removed or has_removed_vehicle_marker(value)))
-    if "name" in item and any(k in item for k in ("price", "discount_percent", "source", "availability")):
+    event_type = str(item.get("type", "")).casefold()
+    is_non_vehicle_event = event_type in {"reward", "challenge"}
+    if (
+        "name" in item
+        and not is_non_vehicle_event
+        and any(k in item for k in ("price", "discount_percent", "source", "availability"))
+    ):
         value = item.get("name")
         if isinstance(value, str):
             candidates.append((value, removed or has_removed_vehicle_marker(value)))
@@ -257,6 +284,52 @@ def discover_latest_weekly(data_dir: Path) -> Path:
 def load_vehicle_names(weekly_path: Path) -> list[str]:
     payload = json.loads(weekly_path.read_text(encoding="utf-8"))
     return extract_vehicle_names_from_weekly_payload(payload if isinstance(payload, dict) else {})
+
+
+def load_slug_overrides(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"warning: could not read slug map {path}: {exc}", file=sys.stderr)
+        return {}
+    raw = payload.get("slug_by_vehicle_name", payload)
+    if not isinstance(raw, dict):
+        return {}
+    out: dict[str, str] = {}
+    for k, v in raw.items():
+        if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
+            slug = v.strip().strip("/")
+            if re.fullmatch(r"[a-zA-Z0-9_-]+", slug):
+                out[k.strip()] = slug
+            else:
+                print(f"warning: invalid GTACars slug for {k.strip()!r}: {v!r}", file=sys.stderr)
+    return out
+
+
+def slug_from_record_block(block: tuple[str, ...] | list[str]) -> str | None:
+    for line in block:
+        m = re.search(r'source_url:\s*"https://gtacars\.net/gta5/([^/"?#]+)', line)
+        if m:
+            return m.group(1)
+    return None
+
+
+def classify_new_vehicle_slugs(
+    vehicle_names: list[str],
+    records: dict[str, tuple[str, ...] | list[str]],
+    slug_overrides: dict[str, str],
+) -> SlugClassification:
+    resolved: dict[str, str] = {}
+    unresolved: list[str] = []
+    for name in vehicle_names:
+        slug = slug_overrides.get(name) or slug_from_record_block(records.get(name, ()))
+        if slug:
+            resolved[name] = slug
+        else:
+            unresolved.append(name)
+    return SlugClassification(resolved=resolved, unresolved=unresolved)
 
 
 def collect_weekly_removed_map(data_dir: Path) -> dict[str, set[str]]:
@@ -426,11 +499,12 @@ def ensure_alias_in_block(block: list[str], alias: str) -> list[str]:
     return block
 
 
-def build_new_record(name: str) -> list[str]:
+def build_new_record(name: str, slug: str | None = None) -> list[str]:
     alias = stripped_alias(name)
     aliases = [alias] if alias else []
     removed = False
     tier = infer_vehicle_tier(name, removed)
+    source_url = f"https://gtacars.net/gta5/{slug}" if slug else "https://gtacars.net"
     return [
         f'  - vehicle_name: "{name}"',
         f'    vehicle_tier: "{tier}"',
@@ -439,7 +513,7 @@ def build_new_record(name: str) -> list[str]:
         "    removed_vehicle_weeks: []",
         "    base_price: null",
         "    trade_price: null",
-        '    source_url: "https://gtacars.net"',
+        f'    source_url: "{source_url}"',
         "    " + format_aliases(aliases),
         "",
     ]
@@ -466,6 +540,17 @@ def main() -> int:
         default=Path("data/references/vehicle_race_tiers.json"),
         help="Path to optional per-class race tier JSON",
     )
+    parser.add_argument(
+        "--slug-map",
+        type=Path,
+        default=Path("data/references/vehicle_gtacars_slugs.json"),
+        help="Optional JSON map for vehicle_name -> GTACars slug.",
+    )
+    parser.add_argument(
+        "--strict-new-vehicles",
+        action="store_true",
+        help="Fail before writing if a new vehicle has no GTACars slug.",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Show changes without writing files")
     args = parser.parse_args()
 
@@ -479,6 +564,7 @@ def main() -> int:
     removed_map = collect_weekly_removed_map(Path("data"))
     tier_overrides = load_tier_overrides(args.tier_overrides)
     race_tiers = load_race_tiers(args.race_tiers)
+    slug_overrides = load_slug_overrides(args.slug_map)
     if not vehicle_names:
         print(f"warning: no vehicle names found in {weekly_path}")
         return 0
@@ -508,11 +594,14 @@ def main() -> int:
             block_starts.append(i)
 
     records: dict[str, tuple[int, int]] = {}
+    record_blocks: dict[str, tuple[str, ...]] = {}
     for idx, s in enumerate(block_starts):
         e = block_starts[idx + 1] if idx + 1 < len(block_starts) else len(lines)
         m = re.match(r'\s*-\s+vehicle_name:\s+"(.*)"\s*$', lines[s])
         if m:
-            records[m.group(1)] = (s, e)
+            name = m.group(1)
+            records[name] = (s, e)
+            record_blocks[name] = tuple(lines[s:e])
 
     added: list[str] = []
     # update aliases in existing blocks, from end to start so indexes stay valid
@@ -568,11 +657,21 @@ def main() -> int:
     # refresh records after potential line edits
     current_names = set(records.keys())
     missing = [n for n in vehicle_names if n not in current_names]
+    slug_classification = classify_new_vehicle_slugs(missing, record_blocks, slug_overrides)
+    if missing:
+        print(f"new vehicle candidates: {len(missing)}")
+    if slug_classification.unresolved:
+        print(f"vehicles needing slug: {len(slug_classification.unresolved)}")
+        for name in slug_classification.unresolved:
+            print(f"  ! {name}")
+        if args.strict_new_vehicles:
+            print("error: unresolved new vehicle slugs in strict mode", file=sys.stderr)
+            return 1
     if missing:
         if lines and lines[-1] != "":
             lines.append("")
         for name in missing:
-            lines.extend(build_new_record(name))
+            lines.extend(build_new_record(name, slug_classification.resolved.get(name)))
             added.append(name)
 
     # null price report
