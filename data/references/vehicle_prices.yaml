@@ -1001,9 +1001,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1715000
+    trade_price: 1286250
+    source_url: "https://gtacars.net/gta5/rt3000"
     alias_hints: ["RT3000"]
 
   - vehicle_name: "Vapid Dominator FX"
@@ -1061,9 +1061,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 658350
+    trade_price: 495000
+    source_url: "https://gtacars.net/gta5/wastelander"
     alias_hints: ["Wastelander"]
 
   - vehicle_name: "Canis Kamacho"
@@ -1071,9 +1071,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 345000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/kamacho"
     alias_hints: ["Kamacho"]
 
   - vehicle_name: "Ocelot Jugular"
@@ -1081,9 +1081,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1225000
+    trade_price: 918750
+    source_url: "https://gtacars.net/gta5/jugular"
     alias_hints: ["Jugular"]
 
   - vehicle_name: "Grotti Itali GTO"
@@ -1091,9 +1091,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1965000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/italigto"
     alias_hints: ["Itali GTO"]
 
   - vehicle_name: "Överflöd Imorgon"
@@ -1101,9 +1101,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 2165000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/imorgon"
     alias_hints: ["Imorgon"]
 
   - vehicle_name: "Penaud La Coureuse"
@@ -1141,9 +1141,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W19"]
-    base_price: null
+    base_price: 192000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/verus"
     alias_hints: ["Verus"]
 
   - vehicle_name: "Western Company Cargobob"
@@ -1161,9 +1161,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1280000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/boor"
     alias_hints: ["Boor"]
 
   - vehicle_name: "Willard Eudora"
@@ -1171,9 +1171,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1250000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/eudora"
     alias_hints: ["Eudora"]
 
   - vehicle_name: "Pfister 811"
@@ -1191,9 +1191,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 200000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/drifttampa"
     alias_hints: ["Drift Tampa"]
 
   - vehicle_name: "Grotti Stinger GT"
@@ -1201,9 +1201,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 875000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/stingergt"
     alias_hints: ["Stinger GT"]
 
   - vehicle_name: "Übermacht Sentinel"
@@ -1211,9 +1211,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 60000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/sentinel"
     alias_hints: ["Sentinel"]
 
   - vehicle_name: "Canis Freecrawler"
@@ -1221,9 +1221,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 597000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/freecrawler"
     alias_hints: ["Freecrawler"]
 
   - vehicle_name: "Benefactor LM87"
