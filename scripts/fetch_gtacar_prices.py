@@ -83,6 +83,59 @@ def load_slug_overrides(path: Path | None) -> dict[str, str]:
     return out
 
 
+def sync_slug_map(path: Path, updates: dict[str, str], dry_run: bool = False) -> list[str]:
+    if not updates:
+        return []
+
+    existing_payload: dict[str, object] = {}
+    if path.exists():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                existing_payload = loaded
+        except Exception as exc:
+            print(f"warning: could not read slug map {path}: {exc}", file=sys.stderr)
+
+    raw_map = existing_payload.get("slug_by_vehicle_name", {})
+    existing_map: dict[str, str] = {}
+    if isinstance(raw_map, dict):
+        for k, v in raw_map.items():
+            if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
+                existing_map[k.strip()] = v.strip().strip("/")
+
+    changed: list[str] = []
+    for name, slug in sorted(updates.items(), key=lambda item: item[0].lower()):
+        clean_slug = slug.strip().strip("/")
+        if not clean_slug:
+            continue
+        if existing_map.get(name) != clean_slug:
+            existing_map[name] = clean_slug
+            changed.append(name)
+
+    if not changed:
+        return []
+
+    payload = dict(existing_payload)
+    payload.setdefault("schema_version", "1.0")
+    payload.setdefault(
+        "description",
+        "Optional vehicle_name -> GTACars slug (/gta5/<slug>). Used when source_url is still the bare https://gtacars.net root. Keys must match vehicle_name in vehicle_prices.yaml exactly.",
+    )
+    payload["slug_by_vehicle_name"] = dict(sorted(existing_map.items(), key=lambda item: item[0].lower()))
+
+    if dry_run:
+        print(f"[dry-run] would sync {len(changed)} slug map entr{'y' if len(changed) == 1 else 'ies'}")
+        for name in changed:
+            print(f"  + {name} -> {existing_map[name]}")
+        return changed
+
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"updated slug map: {path}")
+    for name in changed:
+        print(f"  + {name} -> {existing_map[name]}")
+    return changed
+
+
 def slug_from_source_url(url: str) -> str | None:
     m = re.search(r"gtacars\.net/gta5/([^/\"?#]+)/?", url, flags=re.I)
     if not m:
@@ -287,6 +340,8 @@ def main() -> int:
         for name, reason in skipped:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
         return 0
+
+    sync_slug_map(args.slug_map, {name: slug for name, slug, _base, _trade in planned}, dry_run=args.dry_run)
 
     # Apply edits: re-locate blocks after any prior logic (indices unchanged)
     name_to_update = {p[0]: (p[1], p[2], p[3]) for p in planned}

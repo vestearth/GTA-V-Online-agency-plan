@@ -1,10 +1,12 @@
 import json
 import unittest
+import tempfile
 from pathlib import Path
 
 from scripts.update_vehicle_prices import (
     classify_new_vehicle_slugs,
     extract_vehicle_names_from_weekly_payload,
+    sync_slug_map,
 )
 
 
@@ -39,6 +41,36 @@ class VehicleExtractionTests(unittest.TestCase):
 
         self.assertEqual(classified.resolved, {"Benefactor LM87": "lm87"})
         self.assertEqual(classified.unresolved, ["Imaginary Future Car"])
+
+    def test_classifies_new_vehicle_using_fallback_slug_hint(self):
+        classified = classify_new_vehicle_slugs(["Benefactor LM87"], {}, {})
+
+        self.assertEqual(classified.resolved, {"Benefactor LM87": "lm87"})
+        self.assertEqual(classified.unresolved, [])
+
+    def test_sync_slug_map_writes_sorted_updates(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            slug_map_path = Path(tmpdir) / "vehicle_gtacars_slugs.json"
+            slug_map_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "1.0",
+                        "description": "test",
+                        "slug_by_vehicle_name": {"Zed Car": "zed"},
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            changed = sync_slug_map(slug_map_path, {"Alpha Car": "alpha", "Zed Car": "zed"}, dry_run=False)
+            payload = json.loads(slug_map_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(changed, ["Alpha Car"])
+            self.assertEqual(
+                payload["slug_by_vehicle_name"],
+                {"Alpha Car": "alpha", "Zed Car": "zed"},
+            )
 
 
 if __name__ == "__main__":

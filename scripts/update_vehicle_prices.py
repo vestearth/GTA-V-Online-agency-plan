@@ -25,6 +25,8 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.fetch_gtacar_prices import resolve_slug
+
 
 NON_VEHICLE_SUBSTRINGS = (
     "gta$",
@@ -308,9 +310,70 @@ def load_slug_overrides(path: Path) -> dict[str, str]:
     return out
 
 
+def sync_slug_map(path: Path, updates: dict[str, str], dry_run: bool = False) -> list[str]:
+    if not updates:
+        return []
+
+    existing_payload: dict[str, object] = {}
+    if path.exists():
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                existing_payload = loaded
+        except Exception as exc:
+            print(f"warning: could not read slug map {path}: {exc}", file=sys.stderr)
+
+    raw_map = existing_payload.get("slug_by_vehicle_name", {})
+    existing_map: dict[str, str] = {}
+    if isinstance(raw_map, dict):
+        for k, v in raw_map.items():
+            if isinstance(k, str) and isinstance(v, str) and k.strip() and v.strip():
+                existing_map[k.strip()] = v.strip().strip("/")
+
+    changed: list[str] = []
+    for name, slug in sorted(updates.items(), key=lambda item: item[0].lower()):
+        clean_slug = slug.strip().strip("/")
+        if not clean_slug:
+            continue
+        if existing_map.get(name) != clean_slug:
+            existing_map[name] = clean_slug
+            changed.append(name)
+
+    if not changed:
+        return []
+
+    payload = dict(existing_payload)
+    payload.setdefault("schema_version", "1.0")
+    payload.setdefault(
+        "description",
+        "Optional vehicle_name -> GTACars slug (/gta5/<slug>). Used when source_url is still the bare https://gtacars.net root. Keys must match vehicle_name in vehicle_prices.yaml exactly.",
+    )
+    payload["slug_by_vehicle_name"] = dict(sorted(existing_map.items(), key=lambda item: item[0].lower()))
+
+    if dry_run:
+        print(f"[dry-run] would sync {len(changed)} slug map entr{'y' if len(changed) == 1 else 'ies'}")
+        for name in changed:
+            print(f"  + {name} -> {existing_map[name]}")
+        return changed
+
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"updated slug map: {path}")
+    for name in changed:
+        print(f"  + {name} -> {existing_map[name]}")
+    return changed
+
+
 def slug_from_record_block(block: tuple[str, ...] | list[str]) -> str | None:
     for line in block:
         m = re.search(r'source_url:\s*"https://gtacars\.net/gta5/([^/"?#]+)', line)
+        if m:
+            return m.group(1)
+    return None
+
+
+def source_url_from_record_block(block: tuple[str, ...] | list[str]) -> str | None:
+    for line in block:
+        m = re.search(r'source_url:\s*"([^"]+)"', line)
         if m:
             return m.group(1)
     return None
@@ -324,7 +387,8 @@ def classify_new_vehicle_slugs(
     resolved: dict[str, str] = {}
     unresolved: list[str] = []
     for name in vehicle_names:
-        slug = slug_overrides.get(name) or slug_from_record_block(records.get(name, ()))
+        source_url = source_url_from_record_block(records.get(name, ())) or ""
+        slug = resolve_slug(name, source_url, slug_overrides)
         if slug:
             resolved[name] = slug
         else:
@@ -657,6 +721,12 @@ def main() -> int:
     # refresh records after potential line edits
     current_names = set(records.keys())
     missing = [n for n in vehicle_names if n not in current_names]
+    resolved_slug_updates: dict[str, str] = {}
+    for name, block in record_blocks.items():
+        source_url = source_url_from_record_block(block) or ""
+        slug = resolve_slug(name, source_url, slug_overrides)
+        if slug:
+            resolved_slug_updates[name] = slug
     slug_classification = classify_new_vehicle_slugs(missing, record_blocks, slug_overrides)
     if missing:
         print(f"new vehicle candidates: {len(missing)}")
@@ -667,6 +737,8 @@ def main() -> int:
         if args.strict_new_vehicles:
             print("error: unresolved new vehicle slugs in strict mode", file=sys.stderr)
             return 1
+    if resolved_slug_updates:
+        sync_slug_map(args.slug_map, resolved_slug_updates, dry_run=args.dry_run)
     if missing:
         if lines and lines[-1] != "":
             lines.append("")
