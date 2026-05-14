@@ -26,20 +26,19 @@
       "The Garment Factory",
       "Smoke on the Water Money Front",
       "Hands On Car Wash Money Front",
-      "The Vinewood Residence"
-    ],
-    "missing_properties": [
+      "The Vinewood Residence",
       "Galaxy Super Yacht",
       "Mammoth Avenger",
       "Hangar"
     ],
+    "missing_properties": [],
     "notes": "Owns almost all major properties. Missing only Yacht, Avenger, and the newest patch house.",
     "upgrades": {
       "kosatka_sparrow": true,
       "nightclub_equipment_upgrade": true,
       "bunker_equipment_upgrade": true,
       "acid_lab_equipment_upgrade": true,
-      "avenger_workshop": false,
+      "avenger_workshop": true,
       "vinewood_business_production_boost": true
     },
     "businesses": [
