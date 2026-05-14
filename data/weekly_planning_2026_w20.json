@@ -1,0 +1,480 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W20",
+    "label": "May 14 - May 21 2026",
+    "start_date": "2026-05-14",
+    "end_date": "2026-05-21",
+    "source": "manual_web_research",
+    "last_updated_at": "2026-05-15T00:00:00Z",
+    "source_urls": [
+      "https://www.rockstargames.com/newswire/article/4k1a3a13ako84a/buckle-up-for-two-weeks-of-motor-madness-in-gta-online",
+      "https://rockstarintel.com/gta-online-event-week-motor-madness-special-may-14th-20th/",
+      "https://www.dexerto.com/gta/gta-online-weekly-update-patch-notes-1498644/"
+    ]
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true,
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water Money Front",
+        "Hands On Car Wash Money Front",
+        "The Vinewood Residence"
+      ],
+      "vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ]
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": 2,
+      "max_continuous_minutes": 120
+    }
+  },
+  "weekly_content": {
+    "headline": "Motor Madness Special",
+    "summary": "Motor Madness race week with boosted Land Races, Simeon Contact Missions, HSW Time Trial, Tow Truck Service, Community Race Series, Nightclub Management Missions, vehicle and tuning discounts, and new Vapid FMJ MK V Water Like livery.",
+    "platform_notes": "Premium Test Ride and HSW Time Trial are PS5, Xbox Series X|S, and PC Enhanced content. GTA+ members get two Lucky Wheel spins per 24 hours.",
+    "bonuses": [
+      {
+        "name": "Land Races",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "HSW Time Trial",
+        "multiplier": "3x",
+        "reward_type": "GTA$ & RP",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Simeon Contact Missions",
+        "multiplier": "3x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Tow Truck Service",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Community Race Series",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Nightclub Management Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$"
+      },
+      {
+        "name": "FIB Priority File - The Black Box File",
+        "multiplier": "2x",
+        "reward_type": "GTA$",
+        "note": "Priority File pays double this week."
+      }
+    ],
+    "events": [
+      {
+        "name": "Weekly Challenge - Win any two Races",
+        "type": "challenge",
+        "requirement": "Win any two Races",
+        "reward": "Dark Manor Racing Suit + GTA$100,000"
+      },
+      {
+        "name": "Login Reward",
+        "type": "reward",
+        "reward": "Rockstar Helmet",
+        "availability": {
+          "end": "2026-05-27"
+        }
+      },
+      {
+        "name": "Premium Deluxe Motorsport Purchase Reward",
+        "type": "reward",
+        "requirement": "Purchase any vehicle from Premium Deluxe Motorsport",
+        "reward": "Rockstar Racing Suit within 72 hours"
+      },
+      {
+        "name": "Luxury Autos Purchase Reward",
+        "type": "reward",
+        "requirement": "Purchase any vehicle from Luxury Autos",
+        "reward": "LS Customs Varsity Jacket within 72 hours"
+      },
+      {
+        "name": "LS Car Meet Purchase Reward",
+        "type": "reward",
+        "requirement": "Purchase any vehicle featured in the LS Car Meet",
+        "reward": "Blue Banshee Tee within 72 hours"
+      },
+      {
+        "name": "Podium Vehicle",
+        "vehicle": "Benefactor LM87",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "name": "Prize Ride Challenge",
+        "vehicle": "Benefactor Krieger",
+        "requirement": "Place top 5 in 5 LS Car Meet Series races",
+        "source": "ls_car_meet"
+      },
+      {
+        "name": "Premium Test Ride",
+        "vehicle": "Weeny Issi Rally",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Premium Race",
+        "location": "The Commute"
+      },
+      {
+        "name": "HSW Time Trial",
+        "location": "East Vinewood",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Time Trial",
+        "location": "Galileo Park"
+      }
+    ],
+    "featured_activities": [
+      {
+        "activity_id": "land_races",
+        "name": "Land Races",
+        "category": "race",
+        "multiplier": "4x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "weekly_challenge_win_two_races",
+        "name": "Weekly Challenge - Win any two Races",
+        "category": "challenge",
+        "reward": "GTA$100,000 + Dark Manor Racing Suit",
+        "timebox_minutes": 45,
+        "requirements": {}
+      },
+      {
+        "activity_id": "tow_truck_service",
+        "name": "Tow Truck Service",
+        "category": "salvage_yard",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {
+          "properties": [
+            "Salvage Yard"
+          ]
+        }
+      },
+      {
+        "activity_id": "nightclub_management_missions",
+        "name": "Nightclub Management Missions",
+        "category": "nightclub",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {
+          "properties": [
+            "Nightclub"
+          ]
+        }
+      },
+      {
+        "activity_id": "simeon_contact_missions",
+        "name": "Simeon Contact Missions",
+        "category": "contact_mission",
+        "multiplier": "3x",
+        "timebox_minutes": 60,
+        "requirements": {}
+      },
+      {
+        "activity_id": "fib_black_box_file",
+        "name": "FIB Priority File - The Black Box File",
+        "category": "garment_factory",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "The Garment Factory"
+          ]
+        }
+      }
+    ],
+    "salvage_yard_robberies": [
+      {
+        "job": "The Podium Robbery",
+        "vehicle": "Invetero Coquette D10",
+        "claimable": true,
+        "claimable_note": "Listed with LS Pounders vanity plate."
+      },
+      {
+        "job": "The Gangbanger Robbery",
+        "vehicle": "Vapid Dominator GT",
+        "claimable": false
+      },
+      {
+        "job": "The Duggan Robbery",
+        "vehicle": "Karin Previon",
+        "claimable": false
+      }
+    ],
+    "fib_priority_files": [
+      "The Black Box File"
+    ],
+    "discounts": [
+      {
+        "tier_percent": 100,
+        "tier_label": "FREE",
+        "items": [
+          "LS Car Meet Membership",
+          "Horn Customization"
+        ]
+      },
+      {
+        "tier_percent": 50,
+        "items": [
+          "LS Tuners Racing Suits",
+          "HSW Performance Upgrades",
+          "Benny's Conversion Upgrades",
+          "Turbo Tuning",
+          "Blue & Yellow Tire Smoke Customization"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "items": [
+          "Salvage Yard Properties",
+          "Salvage Yard Upgrades and Modifications",
+          "Eclipse Blvd Garage",
+          "Bravado Banshee GTS",
+          "Canis Castigator",
+          "Dewbauchee JB 700",
+          "Dewbauchee Rapid GT Cabrio",
+          "Grotti Itali RSX",
+          "Karin 190z",
+          "Lampadati Furore GT",
+          "Nagasaki Shotaro",
+          "Overflod Pipistrello",
+          "Western Rat Bike"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Bravado Gauntlet Classic",
+          "Coil Brawler",
+          "Declasse Impaler SZ",
+          "Lampadati Novak",
+          "Ubermacht Rhinehart"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "tier_label": "Gun Van",
+        "items": [
+          "Compact EMP Launcher"
+        ]
+      },
+      {
+        "tier_percent": 10,
+        "tier_label": "Gun Van",
+        "items": [
+          "Military Rifle",
+          "Precision Rifle",
+          "Pump Shotgun",
+          "Homing Launcher",
+          "Pool Cue",
+          "Molotov",
+          "Tear Gas",
+          "Proximity Mine",
+          "Body Armor"
+        ]
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_benefactor_lm87",
+        "vehicle_name": "Benefactor LM87",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel",
+        "availability": {
+          "start": "2026-05-14",
+          "end": "2026-05-21"
+        },
+        "gta_plus_note": "GTA+ members get 2 spins per 24 hours."
+      },
+      {
+        "id": "prize_ride_benefactor_krieger",
+        "vehicle_name": "Benefactor Krieger",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "availability": {
+          "start": "2026-05-14",
+          "end": "2026-05-21"
+        },
+        "acquisition": {
+          "challenge": "Place top 5 in 5 LS Car Meet Series races"
+        }
+      },
+      {
+        "id": "salvage_claimable_invetero_coquette_d10",
+        "vehicle_name": "Invetero Coquette D10",
+        "opportunity_type": "salvage_yard_claim",
+        "source": "salvage_yard",
+        "claimable": true,
+        "acquisition": {
+          "job": "The Podium Robbery",
+          "note": "LS Pounders vanity plate"
+        }
+      },
+      {
+        "id": "premium_test_ride_weeny_issi_rally",
+        "vehicle_name": "Weeny Issi Rally",
+        "opportunity_type": "premium_test_ride",
+        "source": "test_ride",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "id": "test_track_bravado_banshee_gts",
+        "vehicle_name": "Bravado Banshee GTS",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_track_grotti_itali_rsx",
+        "vehicle_name": "Grotti Itali RSX",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet",
+        "limited_livery": "Monochrome"
+      },
+      {
+        "id": "test_track_overflod_pipistrello",
+        "vehicle_name": "Overflod Pipistrello",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet",
+        "limited_livery": "Street Camo Right"
+      },
+      {
+        "id": "luxury_autos_ubermacht_sentinel_xs4",
+        "vehicle_name": "Ubermacht Sentinel XS4",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "luxury_autos_vapid_fmj_mk_v",
+        "vehicle_name": "Vapid FMJ MK V",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos",
+        "limited_livery": "Water Like"
+      },
+      {
+        "id": "pdm_dewbauchee_jb_700",
+        "vehicle_name": "Dewbauchee JB 700",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_dewbauchee_rapid_gt_cabrio",
+        "vehicle_name": "Dewbauchee Rapid GT Cabrio",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_karin_190z",
+        "vehicle_name": "Karin 190z",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_lampadati_furore_gt",
+        "vehicle_name": "Lampadati Furore GT",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_western_rat_bike",
+        "vehicle_name": "Western Rat Bike",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      }
+    ],
+    "gun_van": {
+      "weapons": [
+        {
+          "name": "Compact EMP Launcher",
+          "discount_percent": 40,
+          "gta_plus_discount_percent": 40
+        },
+        {
+          "name": "Military Rifle",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Precision Rifle",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 40
+        },
+        {
+          "name": "Pump Shotgun",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Homing Launcher",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Pool Cue",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        }
+      ]
+    }
+  },
+  "scraper_metadata": {
+    "ownership_checks": [
+      {
+        "item": "Salvage Yard Properties",
+        "status": "owned",
+        "tier_percent": 40
+      },
+      {
+        "item": "Salvage Yard Upgrades and Modifications",
+        "status": "upgrade_available",
+        "tier_percent": 40
+      },
+      {
+        "item": "Eclipse Blvd Garage",
+        "status": "unknown",
+        "tier_percent": 40
+      }
+    ],
+    "price_context": {},
+    "data_quality_notes": [
+      "Prices and exact purchase totals were not inferred where not supplied by source payload or local references.",
+      "Showroom/test ride entries are not treated as discounts unless they also appear in discounts."
+    ]
+  }
+}
