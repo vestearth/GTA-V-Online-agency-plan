@@ -52,8 +52,9 @@ class VehicleExtractionTests(unittest.TestCase):
         self.assertEqual(classified.resolved, {"Bravado Banshee GTS": "banshee3"})
         self.assertEqual(classified.unresolved, [])
 
-    def test_resolve_slug_uses_vehicle_name_hint_when_root_source_url_is_unhelpful(self):
-        self.assertEqual(resolve_slug("Ocelot Jugular", "https://gtacars.net", {}, ["Jugular"]), "jugular")
+    def test_resolve_slug_uses_builtin_fallbacks_for_root_source_urls(self):
+        self.assertEqual(resolve_slug("Pfister Comet SR", "https://gtacars.net", {}), "comet5")
+        self.assertEqual(resolve_slug("Penaud La Coureuse", "https://gtacars.net", {}), "coureur")
 
     def test_extract_prices_from_html_handles_visible_price_text(self):
         html = """

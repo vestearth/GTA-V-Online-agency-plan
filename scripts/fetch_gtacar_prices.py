@@ -62,6 +62,16 @@ FALLBACK_SLUG_BY_VEHICLE_NAME: dict[str, str] = {
     "Coil Cyclone II": "cyclone2",
     "Gallivanter Baller ST-D": "baller8",
     "Vapid Festival Bus": "pbus2",
+    "Declasse DR1": "openwheel2",
+    "Benefactor BR8": "openwheel1",
+    "Invetero Coquette D1": "coquette5",
+    "Pfister Comet SR": "comet5",
+    "Grotti Turismo Classic": "turismo2",
+    "Penaud La Coureuse": "coureur",
+    "Western Zombie Bobber": "zombiea",
+    "Enus Cognoscenti Cabrio": "cogcabrio",
+    "Western Company Cargobob": "cargobob",
+    "Pfister 811": "pfister811",
 }
 
 
@@ -175,15 +185,15 @@ def resolve_slug(
     fb = FALLBACK_SLUG_BY_VEHICLE_NAME.get(vehicle_name)
     if fb:
         candidates.append(fb)
-    alias_slug = slug_from_alias_hint(alias_hints)
-    if alias_slug:
-        candidates.append(alias_slug)
     if not candidates:
         target_key = normalize_vehicle_key(vehicle_name)
         for name, slug in slug_overrides.items():
             if normalize_vehicle_key(name) == target_key:
                 candidates.append(slug)
                 break
+    alias_slug = slug_from_alias_hint(alias_hints)
+    if alias_slug and normalize_vehicle_key(alias_slug) == normalize_vehicle_key(vehicle_name):
+        candidates.append(alias_slug)
     for raw in candidates:
         slug = raw.strip().strip("/")
         if slug and re.fullmatch(r"[a-zA-Z0-9_-]+", slug):
