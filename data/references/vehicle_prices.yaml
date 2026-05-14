@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-05-12"
+last_verified_at: "2026-05-14"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
@@ -1225,3 +1225,314 @@ vehicles:
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Freecrawler"]
+
+  - vehicle_name: "Benefactor LM87"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["LM87"]
+
+  - vehicle_name: "Benefactor Krieger"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Krieger"]
+
+  - vehicle_name: "Invetero Coquette D10"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Coquette D10"]
+
+  - vehicle_name: "Weeny Issi Rally"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Issi Rally"]
+
+  - vehicle_name: "Grotti Itali RSX"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Itali RSX"]
+
+  - vehicle_name: "Overflod Pipistrello"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Pipistrello"]
+
+  - vehicle_name: "Vapid FMJ MK V"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["FMJ MK V"]
+
+  - vehicle_name: "Dewbauchee JB 700"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["JB 700"]
+
+  - vehicle_name: "Dewbauchee Rapid GT Cabrio"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rapid GT Cabrio"]
+
+  - vehicle_name: "Karin 190z"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["190z"]
+
+  - vehicle_name: "Lampadati Furore GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Furore GT"]
+
+  - vehicle_name: "Western Rat Bike"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rat Bike"]
+
+  - vehicle_name: "Login Reward"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Reward"]
+
+  - vehicle_name: "Prize Ride Challenge"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Ride Challenge"]
+
+  - vehicle_name: "LS Car Meet Membership"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Car Meet Membership"]
+
+  - vehicle_name: "Horn Customization"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Customization"]
+
+  - vehicle_name: "LS Tuners Racing Suits"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Tuners Racing Suits"]
+
+  - vehicle_name: "Turbo Tuning"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Tuning"]
+
+  - vehicle_name: "Blue & Yellow Tire Smoke Customization"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["& Yellow Tire Smoke Customization"]
+
+  - vehicle_name: "Eclipse Blvd Garage"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Blvd Garage"]
+
+  - vehicle_name: "Canis Castigator"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Castigator"]
+
+  - vehicle_name: "Nagasaki Shotaro"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Shotaro"]
+
+  - vehicle_name: "Bravado Gauntlet Classic"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Gauntlet Classic"]
+
+  - vehicle_name: "Coil Brawler"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Brawler"]
+
+  - vehicle_name: "Declasse Impaler SZ"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Impaler SZ"]
+
+  - vehicle_name: "Lampadati Novak"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Novak"]
+
+  - vehicle_name: "Ubermacht Rhinehart"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rhinehart"]
+
+  - vehicle_name: "Compact EMP Launcher"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["EMP Launcher"]
+
+  - vehicle_name: "Homing Launcher"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Launcher"]
+
+  - vehicle_name: "Pool Cue"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cue"]
+
+  - vehicle_name: "Body Armor"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Armor"]
+
