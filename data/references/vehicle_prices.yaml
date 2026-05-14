@@ -841,9 +841,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 790000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/journey2"
     alias_hints: ["Journey II"]
 
   - vehicle_name: "Vapid Uranus LozSpeed"
@@ -851,9 +851,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1140000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/uranus"
     alias_hints: ["Uranus LozSpeed"]
 
   - vehicle_name: "Dinka Jester"
@@ -863,7 +863,7 @@ vehicles:
     removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/jester"
     alias_hints: ["Jester"]
 
   - vehicle_name: "Canis Seminole Frontier"
@@ -873,7 +873,7 @@ vehicles:
     removed_vehicle_weeks: ["2026-W18"]
     base_price: null
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/seminole2"
     alias_hints: ["Seminole Frontier"]
 
   - vehicle_name: "Pegassi Esskey"
@@ -881,7 +881,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W18"]
-    base_price: null
+    base_price: 264000
     trade_price: null
     source_url: "https://gtacars.net"
     alias_hints: ["Esskey"]
@@ -893,7 +893,7 @@ vehicles:
     removed_vehicle_weeks: []
     base_price: null
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/s95"
     alias_hints: ["S95"]
 
   - vehicle_name: "Annis Minimus"
@@ -901,9 +901,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1417000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/minimus"
     alias_hints: ["Minimus"]
 
   - vehicle_name: "Karin Woodlander"
@@ -911,9 +911,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1611000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/woodlander"
     alias_hints: ["Woodlander"]
 
   - vehicle_name: "Ubermacht Sentinel XS4"
@@ -931,9 +931,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W18"]
-    base_price: null
+    base_price: 718000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/tulip"
     alias_hints: ["Tulip"]
 
   - vehicle_name: "Pegassi Torero XO"
@@ -941,9 +941,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 2890000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/torero2"
     alias_hints: ["Torero XO"]
 
   - vehicle_name: "Progen PR4"
@@ -953,7 +953,7 @@ vehicles:
     removed_vehicle_weeks: []
     base_price: null
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/formula"
     alias_hints: ["PR4"]
 
   - vehicle_name: "Declasse DR1"
@@ -981,9 +981,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1950000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/osiris"
     alias_hints: ["Osiris"]
 
   - vehicle_name: "Obey Omnis e-GT"
@@ -991,9 +991,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1795000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/omnisegt"
     alias_hints: ["Omnis e-GT"]
 
   - vehicle_name: "Dinka RT3000"
@@ -1011,9 +1011,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1550000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/dominator10"
     alias_hints: ["Dominator FX"]
 
   - vehicle_name: "Dewbauchee Vagner"
@@ -1021,9 +1021,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1535000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/vagner"
     alias_hints: ["Vagner"]
 
   - vehicle_name: "Invetero Coquette D1"
