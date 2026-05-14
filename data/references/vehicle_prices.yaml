@@ -961,9 +961,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 2997000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/openwheel2"
     alias_hints: ["DR1"]
 
   - vehicle_name: "Benefactor BR8"
@@ -971,9 +971,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 3400000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/openwheel1"
     alias_hints: ["BR8"]
 
   - vehicle_name: "Pegassi Osiris"
@@ -1031,9 +1031,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1500000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/coquette5"
     alias_hints: ["Coquette D1"]
 
   - vehicle_name: "Pfister Comet SR"
@@ -1041,9 +1041,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1145000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/comet5"
     alias_hints: ["Comet SR"]
 
   - vehicle_name: "Grotti Turismo Classic"
@@ -1051,9 +1051,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 705000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/turismo2"
     alias_hints: ["Turismo Classic"]
 
   - vehicle_name: "MTL Wastelander"
@@ -1111,9 +1111,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1990000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/coureur"
     alias_hints: ["La Coureuse"]
 
   - vehicle_name: "Western Zombie Bobber"
@@ -1121,9 +1121,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W19"]
-    base_price: null
+    base_price: 99000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/zombiea"
     alias_hints: ["Zombie Bobber"]
 
   - vehicle_name: "Enus Cognoscenti Cabrio"
@@ -1131,9 +1131,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W19"]
-    base_price: null
+    base_price: 185000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cogcabrio"
     alias_hints: ["Cognoscenti Cabrio"]
 
   - vehicle_name: "Dinka Verus"
@@ -1151,9 +1151,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1790000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cargobob"
     alias_hints: ["Company Cargobob"]
 
   - vehicle_name: "Karin Boor"
@@ -1181,9 +1181,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1135000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/pfister811"
     alias_hints: ["811"]
 
   - vehicle_name: "Declasse Drift Tampa"
