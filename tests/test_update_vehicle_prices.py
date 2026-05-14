@@ -10,7 +10,7 @@ from scripts.update_vehicle_prices import (
     extract_vehicle_names_from_weekly_payload,
     sync_slug_map,
 )
-from scripts.fetch_gtacar_prices import resolve_slug
+from scripts.fetch_gtacar_prices import extract_prices_from_html, resolve_slug
 
 
 class VehicleExtractionTests(unittest.TestCase):
@@ -54,6 +54,20 @@ class VehicleExtractionTests(unittest.TestCase):
 
     def test_resolve_slug_uses_vehicle_name_hint_when_root_source_url_is_unhelpful(self):
         self.assertEqual(resolve_slug("Ocelot Jugular", "https://gtacars.net", {}, ["Jugular"]), "jugular")
+
+    def test_extract_prices_from_html_handles_visible_price_text(self):
+        html = """
+        <div>
+          <h3>Buying, Storing & Upgrading</h3>
+          <div>Price: $ 1,225,000</div>
+          <div>Trade price: $ 918,750</div>
+        </div>
+        """
+
+        self.assertEqual(
+            extract_prices_from_html(html, "https://gtacars.net/gta5/jugular"),
+            (1225000, 918750),
+        )
 
     def test_sync_slug_map_writes_sorted_updates(self):
         with tempfile.TemporaryDirectory() as tmpdir:

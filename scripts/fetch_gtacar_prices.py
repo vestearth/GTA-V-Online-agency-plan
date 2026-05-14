@@ -196,11 +196,24 @@ def fetch_prices(slug: str, user_agent: str) -> tuple[int, int | None]:
     req = urllib.request.Request(url, headers={"User-Agent": user_agent})
     with urllib.request.urlopen(req, timeout=30) as resp:
         html = resp.read().decode("utf-8", errors="replace")
-    pm = re.search(r'Price:</span>\s*<data[^>]*value="(\d+)"', html)
+    return extract_prices_from_html(html, url)
+
+
+def extract_prices_from_html(html: str, url: str) -> tuple[int, int | None]:
+    pm = re.search(r'Price:</span>\s*<data[^>]*value="(\d+)"', html, flags=re.I)
     if not pm:
-        raise ValueError(f"no Price data tag on page {url!r}")
-    base = int(pm.group(1))
-    tm = re.search(r'Trade price:</span>\s*<span[^>]*>\$\s*([\d,]+)</span>', html)
+        text = re.sub(r"<[^>]+>", " ", html)
+        text = re.sub(r"\s+", " ", text)
+        pm = re.search(r"Price:\s*\$\s*([\d,]+)", text, flags=re.I)
+    if not pm:
+        raise ValueError(f"no Price data found on page {url!r}")
+    base = int(pm.group(1).replace(",", ""))
+
+    tm = re.search(r'Trade price:</span>\s*<span[^>]*>\$\s*([\d,]+)</span>', html, flags=re.I)
+    if not tm:
+        text = re.sub(r"<[^>]+>", " ", html)
+        text = re.sub(r"\s+", " ", text)
+        tm = re.search(r"Trade price:\s*\$\s*([\d,]+)", text, flags=re.I)
     trade = int(tm.group(1).replace(",", "")) if tm else None
     return base, trade
 
