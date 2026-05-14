@@ -1416,13 +1416,3 @@ vehicles:
     source_url: "https://gtacars.net/gta5/rhinehart"
     alias_hints: ["Rhinehart"]
 
-  - vehicle_name: "Pool Cue"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Cue"]
-

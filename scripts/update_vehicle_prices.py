@@ -767,6 +767,9 @@ def main() -> int:
         if lines and lines[-1] != "":
             lines.append("")
         for name in missing:
+            if not looks_like_vehicle_name(name):
+                print(f"skip non-vehicle record: {name}")
+                continue
             lines.extend(build_new_record(name, slug_classification.resolved.get(name)))
             added.append(name)
 
