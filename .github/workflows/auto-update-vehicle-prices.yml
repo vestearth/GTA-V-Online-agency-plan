@@ -15,6 +15,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: auto-update-vehicle-prices-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   sync-vehicle-prices:
     runs-on: ubuntu-latest
@@ -47,4 +51,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(data): auto-refresh vehicle price references"
-          git push
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
