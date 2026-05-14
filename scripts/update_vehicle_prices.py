@@ -25,7 +25,13 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.fetch_gtacar_prices import resolve_slug
+try:
+    from scripts.fetch_gtacar_prices import resolve_slug
+except ModuleNotFoundError:
+    script_dir = Path(__file__).resolve().parent
+    if str(script_dir) not in sys.path:
+        sys.path.insert(0, str(script_dir))
+    from fetch_gtacar_prices import resolve_slug
 
 
 NON_VEHICLE_SUBSTRINGS = (

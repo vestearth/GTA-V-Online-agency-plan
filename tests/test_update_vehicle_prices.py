@@ -1,6 +1,7 @@
 import json
 import unittest
 import tempfile
+import importlib.util
 from pathlib import Path
 
 from scripts.update_vehicle_prices import (
@@ -71,6 +72,16 @@ class VehicleExtractionTests(unittest.TestCase):
                 payload["slug_by_vehicle_name"],
                 {"Alpha Car": "alpha", "Zed Car": "zed"},
             )
+
+    def test_update_script_loads_when_executed_from_file_path(self):
+        script_path = Path("scripts/update_vehicle_prices.py").resolve()
+        spec = importlib.util.spec_from_file_location("update_vehicle_prices_direct", script_path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+
+        spec.loader.exec_module(module)
+
+        self.assertTrue(hasattr(module, "classify_new_vehicle_slugs"))
 
 
 if __name__ == "__main__":
