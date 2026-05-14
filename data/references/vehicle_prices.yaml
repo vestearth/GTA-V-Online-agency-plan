@@ -861,7 +861,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W18"]
-    base_price: null
+    base_price: 240000
     trade_price: null
     source_url: "https://gtacars.net/gta5/jester"
     alias_hints: ["Jester"]
@@ -871,7 +871,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W18"]
-    base_price: null
+    base_price: 678000
     trade_price: null
     source_url: "https://gtacars.net/gta5/seminole2"
     alias_hints: ["Seminole Frontier"]
@@ -891,7 +891,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1995000
     trade_price: null
     source_url: "https://gtacars.net/gta5/s95"
     alias_hints: ["S95"]
@@ -951,7 +951,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 3515000
     trade_price: null
     source_url: "https://gtacars.net/gta5/formula"
     alias_hints: ["PR4"]
@@ -1415,4 +1415,14 @@ vehicles:
     trade_price: null
     source_url: "https://gtacars.net/gta5/rhinehart"
     alias_hints: ["Rhinehart"]
+
+  - vehicle_name: "Pool Cue"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cue"]
 
