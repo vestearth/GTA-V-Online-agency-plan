@@ -144,10 +144,27 @@ def slug_from_source_url(url: str) -> str | None:
     return slug or None
 
 
+def normalize_vehicle_key(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", value.casefold())
+
+
+def slug_from_alias_hint(alias_hints: list[str] | None) -> str | None:
+    if not alias_hints:
+        return None
+    for hint in alias_hints:
+        if not isinstance(hint, str):
+            continue
+        slug = re.sub(r"[^a-zA-Z0-9_-]+", "", hint).strip().strip("/").casefold()
+        if slug:
+            return slug
+    return None
+
+
 def resolve_slug(
     vehicle_name: str,
     source_url: str,
     slug_overrides: dict[str, str],
+    alias_hints: list[str] | None = None,
 ) -> str | None:
     candidates: list[str] = []
     if vehicle_name in slug_overrides:
@@ -158,6 +175,15 @@ def resolve_slug(
     fb = FALLBACK_SLUG_BY_VEHICLE_NAME.get(vehicle_name)
     if fb:
         candidates.append(fb)
+    alias_slug = slug_from_alias_hint(alias_hints)
+    if alias_slug:
+        candidates.append(alias_slug)
+    if not candidates:
+        target_key = normalize_vehicle_key(vehicle_name)
+        for name, slug in slug_overrides.items():
+            if normalize_vehicle_key(name) == target_key:
+                candidates.append(slug)
+                break
     for raw in candidates:
         slug = raw.strip().strip("/")
         if slug and re.fullmatch(r"[a-zA-Z0-9_-]+", slug):
@@ -233,6 +259,22 @@ def parse_int_price(token: str) -> int | None:
         return None
 
 
+def get_alias_hints(lines: list[str], s: int, e: int) -> list[str]:
+    for i in range(s, e):
+        line = lines[i]
+        if "alias_hints:" not in line:
+            continue
+        m = re.search(r'alias_hints:\s*\[(.*)\]\s*$', line)
+        if not m:
+            return []
+        raw = m.group(1).strip()
+        if not raw:
+            return []
+        values = re.findall(r'"((?:\\.|[^"])*)"', raw)
+        return [v.replace('\\"', '"').replace("\\\\", "\\") for v in values]
+    return []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch GTA vehicle prices from GTACars into vehicle_prices.yaml.")
     parser.add_argument(
@@ -298,8 +340,9 @@ def main() -> int:
 
         source_url_field = get_field(lines, s, e, "source_url") or ""
         source_url = source_url_field.strip('"')
+        alias_hints = get_alias_hints(lines, s, e)
 
-        slug = resolve_slug(name, source_url, slug_overrides)
+        slug = resolve_slug(name, source_url, slug_overrides, alias_hints)
         if not slug:
             skipped.append((name, "no slug (set source_url or add to slug map JSON)"))
             continue

@@ -87,6 +87,7 @@ NON_VEHICLE_EXACT_NAMES = {
     "nightclub upgrades and modifications",
     "heavy rifle (gun van)",
     "ls car meet membership",
+    "pool cue",
     "horn customization",
     "turbo tuning",
     "body armor",
@@ -385,6 +386,21 @@ def source_url_from_record_block(block: tuple[str, ...] | list[str]) -> str | No
     return None
 
 
+def alias_hints_from_record_block(block: tuple[str, ...] | list[str]) -> list[str]:
+    for line in block:
+        if "alias_hints:" not in line:
+            continue
+        m = re.search(r'alias_hints:\s*\[(.*)\]\s*$', line)
+        if not m:
+            return []
+        raw = m.group(1).strip()
+        if not raw:
+            return []
+        values = re.findall(r'"((?:\\.|[^"])*)"', raw)
+        return [v.replace('\\"', '"').replace("\\\\", "\\") for v in values]
+    return []
+
+
 def classify_new_vehicle_slugs(
     vehicle_names: list[str],
     records: dict[str, tuple[str, ...] | list[str]],
@@ -393,8 +409,10 @@ def classify_new_vehicle_slugs(
     resolved: dict[str, str] = {}
     unresolved: list[str] = []
     for name in vehicle_names:
-        source_url = source_url_from_record_block(records.get(name, ())) or ""
-        slug = resolve_slug(name, source_url, slug_overrides)
+        block = records.get(name, ())
+        source_url = source_url_from_record_block(block) or ""
+        alias_hints = alias_hints_from_record_block(block)
+        slug = resolve_slug(name, source_url, slug_overrides, alias_hints)
         if slug:
             resolved[name] = slug
         else:

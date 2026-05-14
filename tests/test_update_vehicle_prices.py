@@ -2,6 +2,7 @@ import json
 import unittest
 import tempfile
 import importlib.util
+import sys
 from pathlib import Path
 
 from scripts.update_vehicle_prices import (
@@ -9,6 +10,7 @@ from scripts.update_vehicle_prices import (
     extract_vehicle_names_from_weekly_payload,
     sync_slug_map,
 )
+from scripts.fetch_gtacar_prices import resolve_slug
 
 
 class VehicleExtractionTests(unittest.TestCase):
@@ -31,6 +33,7 @@ class VehicleExtractionTests(unittest.TestCase):
         self.assertNotIn("Eclipse Blvd Garage", names)
         self.assertNotIn("Compact EMP Launcher", names)
         self.assertNotIn("Homing Launcher", names)
+        self.assertNotIn("Pool Cue", names)
         self.assertNotIn("Body Armor", names)
 
     def test_classifies_new_vehicles_without_resolvable_slugs(self):
@@ -44,10 +47,13 @@ class VehicleExtractionTests(unittest.TestCase):
         self.assertEqual(classified.unresolved, ["Imaginary Future Car"])
 
     def test_classifies_new_vehicle_using_fallback_slug_hint(self):
-        classified = classify_new_vehicle_slugs(["Benefactor LM87"], {}, {})
+        classified = classify_new_vehicle_slugs(["Bravado Banshee GTS"], {}, {})
 
-        self.assertEqual(classified.resolved, {"Benefactor LM87": "lm87"})
+        self.assertEqual(classified.resolved, {"Bravado Banshee GTS": "banshee3"})
         self.assertEqual(classified.unresolved, [])
+
+    def test_resolve_slug_uses_vehicle_name_hint_when_root_source_url_is_unhelpful(self):
+        self.assertEqual(resolve_slug("Ocelot Jugular", "https://gtacars.net", {}, ["Jugular"]), "jugular")
 
     def test_sync_slug_map_writes_sorted_updates(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -79,6 +85,7 @@ class VehicleExtractionTests(unittest.TestCase):
         module = importlib.util.module_from_spec(spec)
         assert spec.loader is not None
 
+        sys.modules[spec.name] = module
         spec.loader.exec_module(module)
 
         self.assertTrue(hasattr(module, "classify_new_vehicle_slugs"))
