@@ -87,3 +87,4 @@ output_contract:
   discount_snapshot_audit:
     type: object
     description: Known discount tiers, missing tiers, included items, and missing items.
+  
