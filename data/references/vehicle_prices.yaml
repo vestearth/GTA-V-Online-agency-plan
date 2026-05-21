@@ -1416,3 +1416,223 @@ vehicles:
     source_url: "https://gtacars.net/gta5/rhinehart"
     alias_hints: ["Rhinehart"]
 
+  - vehicle_name: "Ocelot R88"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["R88"]
+
+  - vehicle_name: "Ocelot Virtue"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Virtue"]
+
+  - vehicle_name: "Ubermacht Niobe"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Niobe"]
+
+  - vehicle_name: "Emperor Vectre"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Vectre"]
+
+  - vehicle_name: "Ubermacht Cypher"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Cypher"]
+
+  - vehicle_name: "Progen Luiva"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Luiva"]
+
+  - vehicle_name: "Shitzu Keitora"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Keitora"]
+
+  - vehicle_name: "Lampadati Felon GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Felon GT"]
+
+  - vehicle_name: "Declasse Lifeguard"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Lifeguard"]
+
+  - vehicle_name: "Dewbauchee Rapid GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Rapid GT"]
+
+  - vehicle_name: "Overflod Entity XF"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Entity XF"]
+
+  - vehicle_name: "Übermacht Niobe"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Niobe"]
+
+  - vehicle_name: "Nagasaki Hot Rod Blazer"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Hot Rod Blazer"]
+
+  - vehicle_name: "RC Bandito"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Bandito"]
+
+  - vehicle_name: "HVY Chernobog"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Chernobog"]
+
+  - vehicle_name: "Pegassi Torero"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Torero"]
+
+  - vehicle_name: "Vapid Desert Raid"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Desert Raid"]
+
+  - vehicle_name: "Dashound"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: []
+
+  - vehicle_name: "Railgun"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: []
+
+  - vehicle_name: "MG"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: []
+
+  - vehicle_name: "Machete"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: []
+
+  - vehicle_name: "Grenade"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: []
+
