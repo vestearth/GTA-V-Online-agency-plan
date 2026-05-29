@@ -2,7 +2,7 @@ schema_version: "1.0"
 scope: "weekly_planning_2026_w14-w16 vehicle_name coverage"
 primary_source: "https://gtacars.net"
 fallback_source: "https://gta.fandom.com"
-last_verified_at: "2026-05-29"
+last_verified_at: "2026-05-30"
 notes:
   - "Populate prices conservatively: no guessing."
   - "If a value cannot be verified quickly, keep it null and rely on qualitative evaluation."
@@ -883,7 +883,7 @@ vehicles:
     removed_vehicle_weeks: ["2026-W18"]
     base_price: 264000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/esskey"
     alias_hints: ["Esskey"]
 
   - vehicle_name: "Karin S95"
@@ -1421,9 +1421,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 3115000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/formula2"
     alias_hints: ["R88"]
 
   - vehicle_name: "Ocelot Virtue"
@@ -1431,9 +1431,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 2980000
+    trade_price: 2235000
+    source_url: "https://gtacars.net/gta5/virtue"
     alias_hints: ["Virtue"]
 
   - vehicle_name: "Ubermacht Niobe"
@@ -1441,9 +1441,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1880000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/niobe"
     alias_hints: ["Niobe"]
 
   - vehicle_name: "Emperor Vectre"
@@ -1451,9 +1451,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1785000
+    trade_price: 1338750
+    source_url: "https://gtacars.net/gta5/vectre"
     alias_hints: ["Vectre"]
 
   - vehicle_name: "Ubermacht Cypher"
@@ -1461,9 +1461,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1550000
+    trade_price: 1162500
+    source_url: "https://gtacars.net/gta5/cypher"
     alias_hints: ["Cypher"]
 
   - vehicle_name: "Progen Luiva"
@@ -1471,9 +1471,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 2697500
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/luiva"
     alias_hints: ["Luiva"]
 
   - vehicle_name: "Shitzu Keitora"
@@ -1481,9 +1481,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 810000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/keitora"
     alias_hints: ["Keitora"]
 
   - vehicle_name: "Lampadati Felon GT"
@@ -1491,9 +1491,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 95000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/felon2"
     alias_hints: ["Felon GT"]
 
   - vehicle_name: "Declasse Lifeguard"
@@ -1501,9 +1501,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 865000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/lguard"
     alias_hints: ["Lifeguard"]
 
   - vehicle_name: "Dewbauchee Rapid GT"
@@ -1511,9 +1511,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 132000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/rapidgt"
     alias_hints: ["Rapid GT"]
 
   - vehicle_name: "Overflod Entity XF"
@@ -1521,9 +1521,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 795000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/entityxf"
     alias_hints: ["Entity XF"]
 
   - vehicle_name: "Übermacht Niobe"
@@ -1531,9 +1531,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1880000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/niobe"
     alias_hints: ["Niobe"]
 
   - vehicle_name: "Nagasaki Hot Rod Blazer"
@@ -1541,9 +1541,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 69000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/blazer3"
     alias_hints: ["Hot Rod Blazer"]
 
   - vehicle_name: "RC Bandito"
@@ -1551,9 +1551,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1590000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/rcbandito"
     alias_hints: ["Bandito"]
 
   - vehicle_name: "HVY Chernobog"
@@ -1561,9 +1561,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1500000
+    trade_price: 1125000
+    source_url: "https://gtacars.net/gta5/chernobog"
     alias_hints: ["Chernobog"]
 
   - vehicle_name: "Pegassi Torero"
@@ -1571,9 +1571,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 998000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/torero"
     alias_hints: ["Torero"]
 
   - vehicle_name: "Vapid Desert Raid"
@@ -1581,9 +1581,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 695000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/trophytruck2"
     alias_hints: ["Desert Raid"]
 
   - vehicle_name: "Dashound"
@@ -1591,49 +1591,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 525000
     trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: []
-
-  - vehicle_name: "Railgun"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: []
-
-  - vehicle_name: "MG"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: []
-
-  - vehicle_name: "Machete"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: []
-
-  - vehicle_name: "Grenade"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/coach"
     alias_hints: []
 
   - vehicle_name: "Lampadati Komoda"
@@ -1641,9 +1601,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1700000
+    trade_price: 1275000
+    source_url: "https://gtacars.net/gta5/komoda"
     alias_hints: ["Komoda"]
 
   - vehicle_name: "Truffade Nero"
@@ -1651,9 +1611,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1440000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/nero"
     alias_hints: ["Nero"]
 
   - vehicle_name: "Ubermacht Oracle XS"
@@ -1661,9 +1621,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 82000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/oracle"
     alias_hints: ["Oracle XS"]
 
   - vehicle_name: "Annis Hardy"
@@ -1671,9 +1631,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1380000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/hardy"
     alias_hints: ["Hardy"]
 
   - vehicle_name: "Grotti GT750"
@@ -1681,9 +1641,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1247000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/gt750"
     alias_hints: ["GT750"]
 
   - vehicle_name: "Bravado Verlierer"
@@ -1691,9 +1651,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 695000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/verlierer2"
     alias_hints: ["Verlierer"]
 
   - vehicle_name: "Western Cliffhanger"
@@ -1701,49 +1661,19 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 225000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cliffhanger"
     alias_hints: ["Cliffhanger"]
-
-  - vehicle_name: "Higgins Helitours"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Helitours"]
-
-  - vehicle_name: "Hands On Car Wash"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["On Car Wash"]
-
-  - vehicle_name: "Smoke on the Water Dispensary"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["on the Water Dispensary"]
 
   - vehicle_name: "Albany Cavalcade XL"
     vehicle_tier: "unrated"
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1665000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/cavalcade3"
     alias_hints: ["Cavalcade XL"]
 
   - vehicle_name: "Benefactor Terrorbyte"
@@ -1751,9 +1681,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1375000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/terbyte"
     alias_hints: ["Terrorbyte"]
 
   - vehicle_name: "Buckingham Howard NX-25"
@@ -1761,9 +1691,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1296750
+    trade_price: 975000
+    source_url: "https://gtacars.net/gta5/howard"
     alias_hints: ["Howard NX-25"]
 
   - vehicle_name: "Buckingham Vestra"
@@ -1771,9 +1701,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 950000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/vestra"
     alias_hints: ["Vestra"]
 
   - vehicle_name: "Grotti Brioso 300"
@@ -1781,9 +1711,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 610000
+    trade_price: 457500
+    source_url: "https://gtacars.net/gta5/brioso2"
     alias_hints: ["Brioso 300"]
 
   - vehicle_name: "Imponte Ruiner ZZ-8"
@@ -1791,9 +1721,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1320000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/ruiner4"
     alias_hints: ["Ruiner ZZ-8"]
 
   - vehicle_name: "Jobuilt Velum 5-Seater"
@@ -1801,9 +1731,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1323350
+    trade_price: 995000
+    source_url: "https://gtacars.net/gta5/velum2"
     alias_hints: ["Velum 5-Seater"]
 
   - vehicle_name: "Karin Previon"
@@ -1811,9 +1741,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1490000
+    trade_price: 1117500
+    source_url: "https://gtacars.net/gta5/previon"
     alias_hints: ["Previon"]
 
   - vehicle_name: "Maibatsu Penumbra FF"
@@ -1821,9 +1751,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1380000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/penumbra2"
     alias_hints: ["Penumbra FF"]
 
   - vehicle_name: "Obey Tailgater S"
@@ -1831,9 +1761,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1495000
+    trade_price: 1121250
+    source_url: "https://gtacars.net/gta5/tailgater2"
     alias_hints: ["Tailgater S"]
 
   - vehicle_name: "Sea Sparrow"
@@ -1841,88 +1771,8 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1815000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/seasparrow"
     alias_hints: ["Sparrow"]
-
-  - vehicle_name: "Heavy Pistol"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Pistol"]
-
-  - vehicle_name: "Pipe Bomb"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Bomb"]
-
-  - vehicle_name: "Sticky Bomb"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Bomb"]
-
-  - vehicle_name: "Super Light Armor"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Light Armor"]
-
-  - vehicle_name: "Light Armor"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Armor"]
-
-  - vehicle_name: "Standard Armor"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Armor"]
-
-  - vehicle_name: "Heavy Armor"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Armor"]
-
-  - vehicle_name: "Super Heavy Armor"
-    vehicle_tier: "unrated"
-    race_tiers: {}
-    removed_vehicle: false
-    removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
-    alias_hints: ["Heavy Armor"]
 

@@ -37,6 +37,9 @@ except ModuleNotFoundError:
 NON_VEHICLE_SUBSTRINGS = (
     "gta$",
     " rp",
+    "armor",
+    "bomb",
+    "car wash",
     "community mission",
     "mission series",
     "community race series",
@@ -55,8 +58,11 @@ NON_VEHICLE_SUBSTRINGS = (
     "modifications",
     "drinks at",
     "diamond casino",
+    "dispensary",
+    "helitours",
     "music locker",
     "legal work",
+    "pistol",
     "rifle",
     "shotgun",
     "smg",
@@ -91,6 +97,17 @@ NON_VEHICLE_EXACT_NAMES = {
     "horn customization",
     "turbo tuning",
     "body armor",
+    "higgins helitours",
+    "hands on car wash",
+    "smoke on the water dispensary",
+    "heavy pistol",
+    "pipe bomb",
+    "sticky bomb",
+    "super light armor",
+    "light armor",
+    "standard armor",
+    "heavy armor",
+    "super heavy armor",
 }
 
 RAW_VEHICLE_SECTION_KEYS = (
@@ -291,7 +308,7 @@ def discover_latest_weekly(data_dir: Path) -> Path:
 
 
 def load_vehicle_names(weekly_path: Path) -> list[str]:
-    payload = json.loads(weekly_path.read_text(encoding="utf-8"))
+    payload = json.loads(weekly_path.read_text(encoding="utf-8-sig"))
     return extract_vehicle_names_from_weekly_payload(payload if isinstance(payload, dict) else {})
 
 
@@ -299,7 +316,7 @@ def load_slug_overrides(path: Path) -> dict[str, str]:
     if not path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
     except Exception as exc:
         print(f"warning: could not read slug map {path}: {exc}", file=sys.stderr)
         return {}
@@ -324,7 +341,7 @@ def sync_slug_map(path: Path, updates: dict[str, str], dry_run: bool = False) ->
     existing_payload: dict[str, object] = {}
     if path.exists():
         try:
-            loaded = json.loads(path.read_text(encoding="utf-8"))
+            loaded = json.loads(path.read_text(encoding="utf-8-sig"))
             if isinstance(loaded, dict):
                 existing_payload = loaded
         except Exception as exc:
@@ -424,7 +441,7 @@ def collect_weekly_removed_map(data_dir: Path) -> dict[str, set[str]]:
     removed_map: dict[str, set[str]] = {}
     for p in [Path(x) for x in glob.glob(str(data_dir / "weekly_planning_*.json"))]:
         try:
-            payload = json.loads(p.read_text(encoding="utf-8"))
+            payload = json.loads(p.read_text(encoding="utf-8-sig"))
         except Exception:
             continue
         week_id = (payload.get("week") or {}).get("id")
@@ -467,7 +484,7 @@ def load_tier_overrides(path: Path) -> dict[str, str]:
     if not path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
     except Exception:
         return {}
     overrides = payload.get("vehicle_tier_overrides", {})
@@ -502,7 +519,7 @@ def load_race_tiers(path: Path) -> dict[str, dict[str, str]]:
     if not path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
     except Exception:
         return {}
     race_tiers = payload.get("race_tiers", {})

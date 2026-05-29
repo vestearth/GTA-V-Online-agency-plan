@@ -38,16 +38,15 @@ jobs:
         run: python3 scripts/update_vehicle_prices.py
 
       - name: Fill missing prices from GTACars
-        continue-on-error: true
-        run: python3 scripts/fetch_gtacar_prices.py
+        run: python3 scripts/fetch_gtacar_prices.py --fail-on-skipped
 
       - name: Commit and push changes
         run: |
-          if git diff --quiet -- data/references/vehicle_prices.yaml; then
+          if git diff --quiet -- data/references/vehicle_prices.yaml data/references/vehicle_gtacars_slugs.json; then
             echo "No changes to commit."
             exit 0
           fi
-          git add data/references/vehicle_prices.yaml
+          git add data/references/vehicle_prices.yaml data/references/vehicle_gtacars_slugs.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(data): auto-refresh vehicle price references"

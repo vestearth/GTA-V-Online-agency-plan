@@ -79,7 +79,7 @@ def load_slug_overrides(path: Path | None) -> dict[str, str]:
     if path is None or not path.exists():
         return {}
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
     except Exception as exc:
         print(f"warning: could not read slug map {path}: {exc}", file=sys.stderr)
         return {}
@@ -100,7 +100,7 @@ def sync_slug_map(path: Path, updates: dict[str, str], dry_run: bool = False) ->
     existing_payload: dict[str, object] = {}
     if path.exists():
         try:
-            loaded = json.loads(path.read_text(encoding="utf-8"))
+            loaded = json.loads(path.read_text(encoding="utf-8-sig"))
             if isinstance(loaded, dict):
                 existing_payload = loaded
         except Exception as exc:
@@ -329,6 +329,11 @@ def main() -> int:
         default="GTA-V-Online-agency-plan/fetch_gtacar_prices (contact: repo maintainer)",
         help="User-Agent sent to GTACars",
     )
+    parser.add_argument(
+        "--fail-on-skipped",
+        action="store_true",
+        help="Return exit code 1 when every missing-price vehicle is skipped before fetching.",
+    )
     args = parser.parse_args()
 
     prices_path: Path = args.prices
@@ -375,7 +380,7 @@ def main() -> int:
         print("nothing to update (no matching vehicles or all skipped)")
         for name, reason in skipped:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
-        return 0
+        return 1 if args.fail_on_skipped and skipped else 0
 
     if args.dry_run:
         print(f"[dry-run] would fetch {len(targets)} vehicle(s) (no HTTP); not writing {prices_path}")
@@ -405,7 +410,7 @@ def main() -> int:
         print("no prices applied (all fetches failed or were skipped)")
         for name, reason in skipped:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
-        return 0
+        return 1 if args.fail_on_skipped and skipped else 0
 
     sync_slug_map(args.slug_map, {name: slug for name, slug, _base, _trade in planned}, dry_run=args.dry_run)
 
