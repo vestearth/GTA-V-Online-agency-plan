@@ -189,3 +189,7 @@ If you also want local automation on your machine:
 ## Static Planning Dashboard
 
 Open `dashboard.html` in a browser for a quick visual overview of owned assets, weekly priorities, ROI/passive notes, and decision notes. It is intentionally static HTML + CSS: no npm, no build step, no backend.
+
+GitHub Pages is enabled from `main` / root:
+- Site: https://vestearth.github.io/GTA-V-Online-agency-plan/
+- Dashboard: https://vestearth.github.io/GTA-V-Online-agency-plan/dashboard.html
