@@ -1,0 +1,288 @@
+﻿<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GTA Online Planning Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">GTA Online planner</p>
+        <h1>Agency Dashboard</h1>
+        <p class="subtitle">Visual README สำหรับดู asset, weekly priority, ROI/passive income, upgrade checklist และ decision log โดยไม่ต้องเปิด Markdown หลายไฟล์.</p>
+        <nav class="nav" aria-label="Dashboard sections">
+          <a href="#assets">Assets</a>
+          <a href="#weekly">Weekly Plan</a>
+          <a href="#roi">ROI</a>
+          <a href="#decisions">Decisions</a>
+        </nav>
+      </div>
+      <aside class="meta" aria-label="Player and week metadata">
+        <p><strong>-CarlosZ-</strong> / PC</p>
+        <p>Week 2026-W22: May 28 - June 3 2026</p>
+        <p>Bankroll: <strong>GTA$37.4M</strong></p>
+        <p>Weekly spend cap: <strong>GTA$10M</strong></p>
+      </aside>
+    </header>
+
+    <section class="grid summary-grid" aria-label="Summary cards">
+      <article class="card">
+        <div>
+          <p class="label">Owned Major Assets</p>
+          <p class="value">21</p>
+        </div>
+        <p class="card-note">Properties from `owned_assets.properties`.</p>
+      </article>
+      <article class="card">
+        <div>
+          <p class="label">Missing Major Assets</p>
+          <p class="value">0</p>
+        </div>
+        <p class="card-note">Uses `missing_properties`; profile note looks stale.</p>
+      </article>
+      <article class="card">
+        <div>
+          <p class="label">Current Focus</p>
+          <p class="value text">Money Fronts</p>
+        </div>
+        <p class="card-note">4x Money Laundering + car wash challenge.</p>
+      </article>
+      <article class="card">
+        <div>
+          <p class="label">Next Claim / Buy</p>
+          <p class="value text">Higgins Helitours</p>
+        </div>
+        <p class="card-note">Free claim first; Terrorbyte only after ownership check.</p>
+      </article>
+    </section>
+
+    <section id="assets" class="grid split">
+      <article class="section">
+        <div class="section-head">
+          <h2>Asset Overview</h2>
+          <p>สถานะนี้ยึดจาก profile ปัจจุบัน ไม่เดาจาก showroom/test ride หรือ report text.</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Asset</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Asset">Hands On Car Wash</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority high">High</span></td>
+              <td data-label="Note">Core ของสัปดาห์นี้: Legal Missions, Money Laundering 4x, free Higgins claim.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Smoke on the Water</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">อยู่ใน Money Fronts network แล้ว จึงไม่ใช่ buy signal แม้มีส่วนลด 40%.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Nightclub</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">Equipment upgrade done; ใช้เป็น passive filler ระหว่าง active jobs.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Agency</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">Contracts และ Payphone work ยังเป็น fallback loop ที่ไว้ใจได้.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Bunker</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">Equipment upgrade done; ปล่อย passive stock ระหว่างทำ event loop.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">The Garment Factory</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">ปลด The Fine Art File 2x สำหรับ session ยาวหรืออยากเปลี่ยนจังหวะ.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Kosatka + Sparrow</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority medium">Medium</span></td>
+              <td data-label="Note">Solo infrastructure หลัก; Sea Sparrow discount ไม่จำเป็นเพราะ use case ซ้ำ.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Mammoth Avenger</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority low">Low</span></td>
+              <td data-label="Note">Workshop upgrade marked done; convenience/utility มากกว่า ROI ด่วน.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Galaxy Super Yacht</td>
+              <td data-label="Status"><span class="pill owned">Owned</span></td>
+              <td data-label="Priority"><span class="priority low">Low</span></td>
+              <td data-label="Note">Luxury/status asset; ไม่มี weekly action ที่ต้องรีบ.</td>
+            </tr>
+            <tr>
+              <td data-label="Asset">Benefactor Terrorbyte</td>
+              <td data-label="Status"><span class="pill watch">Check</span></td>
+              <td data-label="Priority"><span class="priority medium">Conditional</span></td>
+              <td data-label="Note">30% off at GTA$962,500; ซื้อเฉพาะถ้ายังไม่มีและอยากใช้ client jobs / Mk II ecosystem.</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <aside class="section">
+        <div class="section-head">
+          <h2>Upgrade Checklist</h2>
+        </div>
+        <ul class="checklist">
+          <li><span class="checkmark">✓</span><span>Kosatka Sparrow</span><span class="pill owned">Done</span></li>
+          <li><span class="checkmark">✓</span><span>Nightclub equipment</span><span class="pill owned">Done</span></li>
+          <li><span class="checkmark">✓</span><span>Bunker equipment</span><span class="pill owned">Done</span></li>
+          <li><span class="checkmark">✓</span><span>Acid Lab equipment</span><span class="pill owned">Done</span></li>
+          <li><span class="checkmark">✓</span><span>Avenger workshop</span><span class="pill owned">Done</span></li>
+          <li><span class="checkmark">✓</span><span>Vinewood business boost</span><span class="pill owned">Done</span></li>
+        </ul>
+        <div class="source">
+          Data quality note: `owned_assets.notes` ยังบอกว่า missing Yacht/Avenger แต่ arrays จริงบอกว่า owned แล้ว จึงแสดงเป็น owned และ flag ไว้ใน decision log.
+        </div>
+      </aside>
+    </section>
+
+    <section id="weekly" class="grid split">
+      <article class="section">
+        <div class="section-head">
+          <h2>Weekly Action Plan</h2>
+          <p>เรียงตาม reliability, payout/hour, time-fit และ ownership readiness.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <div>
+              <h3>Claim free Higgins Helitours</h3>
+              <p class="card-note">Zero spend และขยาย Money Fronts network ก่อนหมด event week.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Finish Hands On Car Wash weekly challenge</h3>
+              <p class="card-note">ทำ Legal Missions ให้ครบ 3 รอบเพื่อรับ GTA$100,000.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Run Money Laundering 4x as main loop</h3>
+              <p class="card-note">Estimate ประมาณ GTA$140k ต่อ mission เมื่อ base GTA$35k applies.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Use Lamar 5x / FIB 2x as rotation</h3>
+              <p class="card-note">Lamar payout แกว่งตามเวลา/difficulty/player count; Fine Art File เหมาะกับ session ยาวกว่า.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Keep passive businesses ticking</h3>
+              <p class="card-note">Nightclub, Bunker, Acid Lab และ laundered income เป็น background money ไม่ใช่แกนหลัก.</p>
+            </div>
+          </li>
+        </ol>
+      </article>
+
+      <aside id="roi" class="section">
+        <div class="section-head">
+          <h2>ROI / Passive Income</h2>
+        </div>
+        <div class="mini-grid">
+          <div class="mini">
+            <h3>Best Active ROI</h3>
+            <p>Money Fronts Money Laundering 4x เพราะพร้อมเล่นจาก owned assets และ payout ชัดสุด.</p>
+          </div>
+          <div class="mini">
+            <h3>Quick Bonus</h3>
+            <p>Weekly challenge GTA$100k จาก 3 Legal Missions เป็นงานสั้นที่ควรปิดก่อน.</p>
+          </div>
+          <div class="mini">
+            <h3>Passive Layer</h3>
+            <p>Nightclub, Bunker, Acid Lab และ Car Wash income เติม cashflow ระหว่าง loop.</p>
+          </div>
+          <div class="mini">
+            <h3>Convenience Spend</h3>
+            <p>Terrorbyte เป็น utility-first; รถลดราคา 30% ส่วนใหญ่เป็น collect/cosmetic.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="decisions" class="grid balanced">
+      <article class="section">
+        <div class="section-head">
+          <h2>What to Buy / Ignore</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Ruling</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Item">Higgins Helitours</td>
+              <td data-label="Ruling"><span class="pill owned">Claim</span></td>
+              <td data-label="Reason">Free and relevant to Money Fronts week.</td>
+            </tr>
+            <tr>
+              <td data-label="Item">Terrorbyte</td>
+              <td data-label="Ruling"><span class="pill watch">Check</span></td>
+              <td data-label="Reason">Buy only if not owned and if utility matters this week.</td>
+            </tr>
+            <tr>
+              <td data-label="Item">Hands On / Smoke on the Water</td>
+              <td data-label="Ruling"><span class="pill low">Skip</span></td>
+              <td data-label="Reason">Already owned; discount is not actionable.</td>
+            </tr>
+            <tr>
+              <td data-label="Item">Showroom / test ride cars</td>
+              <td data-label="Ruling"><span class="pill low">Ignore</span></td>
+              <td data-label="Reason">Presence is not discount proof or purchase-path proof.</td>
+            </tr>
+            <tr>
+              <td data-label="Item">Salvage Yard vehicles</td>
+              <td data-label="Ruling"><span class="pill warn">Do not claim</span></td>
+              <td data-label="Reason">No keep eligibility confirmed in current sources.</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <aside class="section">
+        <div class="section-head">
+          <h2>Decision Log</h2>
+        </div>
+        <ul class="notes">
+          <li><strong>Nightclub location:</strong> West Vinewood vs Downtown Vinewood ยังเป็น open comparison; ต้องเทียบ access flow, garage spawn, route friction ก่อน relocation.</li>
+          <li><strong>Profile consistency:</strong> `missing_properties` ว่าง และ Yacht/Avenger อยู่ใน owned arrays แล้ว แต่ profile note ยังเขียนว่า missing.</li>
+          <li><strong>Discount discipline:</strong> ซื้อเฉพาะของที่ผ่าน ownership + ROI/unlock value; ไม่ซื้อเพราะเห็นป้ายลดราคาอย่างเดียว.</li>
+          <li><strong>Platform gate:</strong> Premium Test Ride และ HSW Time Trial เป็น PS5 / Xbox Series X|S / PC Enhanced.</li>
+          <li><strong>Assumption:</strong> Repo นี้ไม่มี frontend component library แยกต่างหาก จึงใช้ static CSS tokens ในไฟล์นี้เป็น design system และคง layout ให้ตรงกับ screenshot reference ล่าสุด.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <footer>
+      Static dashboard v1.1. No npm, no build step, no backend. Update manually from `data/player_profile.json`, latest `data/weekly_planning_*.json`, and the three report files in `reports/`.
+    </footer>
+  </main>
+</body>
+</html>
+

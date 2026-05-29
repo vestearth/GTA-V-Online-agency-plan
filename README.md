@@ -183,3 +183,9 @@ If you also want local automation on your machine:
 ---
 **Last Updated**: May 12, 2026 (docs freshness rule enforced)  
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0
+
+---
+
+## Static Planning Dashboard
+
+Open `dashboard.html` in a browser for a quick visual overview of owned assets, weekly priorities, ROI/passive notes, and decision notes. It is intentionally static HTML + CSS: no npm, no build step, no backend.
