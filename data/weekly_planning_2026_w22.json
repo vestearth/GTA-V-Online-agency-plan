@@ -1,0 +1,575 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W22",
+    "label": "May 28 - June 3 2026",
+    "start_date": "2026-05-28",
+    "end_date": "2026-06-03",
+    "source": "manual_web_research",
+    "last_updated_at": "2026-05-30T00:00:00+07:00",
+    "source_urls": [
+      "https://www.rockstargames.com/newswire/article/ak4791a8383k35/launder-your-bottom-line-with-money-fronts-bonuses",
+      "https://www.gtabase.com/articles/grand-theft-auto-v/news/gta-online-weekly-update-may-28-june-3-money-fronts-4x-rewards-bonuses-discount",
+      "https://rockstarintel.com/gta-online-event-week-money-fronts-special-may-28th-june-3rd/",
+      "https://powerupgaming.co.uk/2026/05/27/gta-online-weekly-update-may-28-june-3/",
+      "https://www.reddit.com/r/gtaonline/comments/1tpflvd/weekly_bonuses_and_discounts_may_28th_to_june_4th/"
+    ]
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true,
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water",
+        "Hands On Car Wash",
+        "The Vinewood Residence",
+        "Galaxy Super Yacht",
+        "Mammoth Avenger",
+        "Hangar"
+      ],
+      "vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ]
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": 2,
+      "max_continuous_minutes": 120
+    }
+  },
+  "weekly_content": {
+    "headline": "Money Fronts Special",
+    "summary": "Money Fronts focus week with 4x Money Laundering Missions, 5x Lamar Contact Missions, 2x Mr. Faber Work, 2x Random Transform Races, 2x Community Combat Series, 2x Laundered Income at Hands On Car Wash, free Higgins Helitours, and 30% vehicle discounts.",
+    "platform_notes": "Premium Test Ride and HSW Time Trial are PS5, Xbox Series X|S, and PC Enhanced content. GTA+ members get two Lucky Wheel spins per 24 hours.",
+    "bonuses": [
+      {
+        "name": "Lamar Contact Missions",
+        "multiplier": "5x",
+        "reward_type": "GTA$ & RP",
+        "payout_note": "Base Lamar missions are roughly GTA$18,300-19,800 before weekly multiplier and time/difficulty/player adjustments; at 5x this is roughly GTA$91,500-99,000 before extra difficulty/player modifiers when full payout is achieved."
+      },
+      {
+        "name": "Money Fronts Money Laundering Missions",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP",
+        "payout_note": "Known base Money Laundering examples pay GTA$35,000; 4x makes the planning estimate GTA$140,000 per mission where that base applies."
+      },
+      {
+        "name": "Mr. Faber Work",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Random Transform Races",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Community Combat Series",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Laundered Income at Hands On Car Wash",
+        "multiplier": "2x",
+        "reward_type": "GTA$"
+      },
+      {
+        "name": "FIB Priority File - The Fine Art File",
+        "multiplier": "2x",
+        "reward_type": "GTA$",
+        "note": "Priority File pays double this week."
+      }
+    ],
+    "events": [
+      {
+        "name": "Weekly Challenge - Complete three Hands On Car Wash Legal Missions",
+        "type": "challenge",
+        "requirement": "Complete three Hands On Car Wash Legal Missions",
+        "reward": "GTA$100,000"
+      },
+      {
+        "name": "Free Business Claim",
+        "type": "reward",
+        "vehicle": "Higgins Helitours",
+        "requirement": "Hands On Car Wash owner",
+        "reward": "Higgins Helitours free through June 3"
+      },
+      {
+        "name": "Podium Vehicle",
+        "vehicle": "Lampadati Komoda",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "name": "Prize Ride Challenge",
+        "vehicle": "Truffade Nero",
+        "requirement": "Place Top 2 in the LS Car Meet Series for two consecutive days",
+        "source": "ls_car_meet"
+      },
+      {
+        "name": "Premium Test Ride",
+        "vehicle": "Vapid FMJ MK V",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Premium Race",
+        "location": "Route 68"
+      },
+      {
+        "name": "HSW Time Trial",
+        "location": "Sandy Shores to La Puerta",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Time Trial",
+        "location": "Vinewood Hills"
+      }
+    ],
+    "featured_activities": [
+      {
+        "activity_id": "money_fronts_money_laundering_missions",
+        "name": "Money Fronts Money Laundering Missions",
+        "category": "money_fronts",
+        "multiplier": "4x",
+        "timebox_minutes": 20,
+        "requirements": {
+          "properties": [
+            "Hands On Car Wash Money Front"
+          ]
+        }
+      },
+      {
+        "activity_id": "weekly_challenge_three_car_wash_legal_missions",
+        "name": "Weekly Challenge - Complete three Hands On Car Wash Legal Missions",
+        "category": "challenge",
+        "reward": "GTA$100,000",
+        "timebox_minutes": 30,
+        "requirements": {
+          "properties": [
+            "Hands On Car Wash Money Front"
+          ]
+        }
+      },
+      {
+        "activity_id": "lamar_contact_missions",
+        "name": "Lamar Contact Missions",
+        "category": "contact_mission",
+        "multiplier": "5x",
+        "timebox_minutes": 20,
+        "requirements": {}
+      },
+      {
+        "activity_id": "mr_faber_work",
+        "name": "Mr. Faber Work",
+        "category": "money_fronts",
+        "multiplier": "2x",
+        "timebox_minutes": 20,
+        "requirements": {
+          "properties": [
+            "Hands On Car Wash Money Front"
+          ]
+        }
+      },
+      {
+        "activity_id": "fib_fine_art_file",
+        "name": "FIB Priority File - The Fine Art File",
+        "category": "garment_factory",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "The Garment Factory"
+          ]
+        }
+      },
+      {
+        "activity_id": "ls_car_meet_prize_ride_truffade_nero",
+        "name": "Prize Ride - Truffade Nero",
+        "category": "challenge",
+        "requirement": "Place Top 2 in the LS Car Meet Series for two consecutive days",
+        "timebox_minutes": 90,
+        "requirements": {}
+      },
+      {
+        "activity_id": "random_transform_races",
+        "name": "Random Transform Races",
+        "category": "race",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "community_combat_series",
+        "name": "Community Combat Series",
+        "category": "combat",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "casino_lucky_wheel",
+        "name": "Casino Lucky Wheel - Lampadati Komoda",
+        "category": "casino",
+        "timebox_minutes": 5,
+        "requirements": {}
+      }
+    ],
+    "salvage_yard_robberies": [
+      {
+        "job": "The Duggan Robbery",
+        "vehicle": "Toundra Panthere",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Cargo Ship Robbery",
+        "vehicle": "Albany V-STR",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Podium Robbery",
+        "vehicle": "Willard Eudora",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      }
+    ],
+    "fib_priority_files": [
+      "The Fine Art File"
+    ],
+    "discounts": [
+      {
+        "tier_percent": 100,
+        "tier_label": "FREE",
+        "items": [
+          "Higgins Helitours"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "items": [
+          "Hands On Car Wash",
+          "Smoke on the Water Dispensary"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Albany Cavalcade XL",
+          "Benefactor Terrorbyte",
+          "Buckingham Howard NX-25",
+          "Buckingham Vestra",
+          "Grotti Brioso 300",
+          "Imponte Ruiner ZZ-8",
+          "Jobuilt Velum 5-Seater",
+          "Karin Previon",
+          "Maibatsu Penumbra FF",
+          "Obey Tailgater S",
+          "Sea Sparrow"
+        ]
+      },
+      {
+        "tier_percent": 50,
+        "tier_label": "Gun Van",
+        "items": [
+          "Heavy Rifle"
+        ]
+      },
+      {
+        "tier_percent": 10,
+        "tier_label": "Gun Van",
+        "items": [
+          "Military Rifle",
+          "Tactical SMG",
+          "Marksman Rifle",
+          "Knife",
+          "Heavy Pistol",
+          "Pipe Bomb",
+          "Sticky Bomb",
+          "Molotov",
+          "Super Light Armor",
+          "Light Armor",
+          "Standard Armor",
+          "Heavy Armor",
+          "Super Heavy Armor"
+        ]
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_lampadati_komoda",
+        "vehicle_name": "Lampadati Komoda",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel",
+        "gta_plus_note": "GTA+ members get 2 spins per 24 hours."
+      },
+      {
+        "id": "prize_ride_truffade_nero",
+        "vehicle_name": "Truffade Nero",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "acquisition": {
+          "challenge": "Place Top 2 in the LS Car Meet Series for two consecutive days"
+        }
+      },
+      {
+        "id": "premium_test_ride_vapid_fmj_mk_v",
+        "vehicle_name": "Vapid FMJ MK V",
+        "opportunity_type": "premium_test_ride",
+        "source": "test_ride",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "id": "test_track_grotti_stinger",
+        "vehicle_name": "Grotti Stinger",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_track_ubermacht_oracle_xs",
+        "vehicle_name": "Ubermacht Oracle XS",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_track_vulcar_fagaloa",
+        "vehicle_name": "Vulcar Fagaloa",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "luxury_autos_annis_hardy",
+        "vehicle_name": "Annis Hardy",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "luxury_autos_grotti_gt750",
+        "vehicle_name": "Grotti GT750",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "pdm_bravado_verlierer",
+        "vehicle_name": "Bravado Verlierer",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_enus_cognoscenti",
+        "vehicle_name": "Enus Cognoscenti",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_hijak_ruston",
+        "vehicle_name": "Hijak Ruston",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_western_cliffhanger",
+        "vehicle_name": "Western Cliffhanger",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_western_wolfsbane",
+        "vehicle_name": "Western Wolfsbane",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      }
+    ],
+    "gun_van": {
+      "weapons": [
+        {
+          "name": "Heavy Rifle",
+          "discount_percent": 50,
+          "gta_plus_discount_percent": 50
+        },
+        {
+          "name": "Military Rifle",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 40
+        },
+        {
+          "name": "Tactical SMG",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Marksman Rifle",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Knife",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Heavy Pistol",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        }
+      ],
+      "throwables": [
+        {
+          "name": "Pipe Bomb",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Sticky Bomb",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Molotov",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        }
+      ],
+      "armor": [
+        {
+          "name": "Super Light Armor",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Light Armor",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Standard Armor",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Heavy Armor",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        },
+        {
+          "name": "Super Heavy Armor",
+          "discount_percent": 10,
+          "gta_plus_discount_percent": 20
+        }
+      ]
+    }
+  },
+  "scraper_metadata": {
+    "ownership_checks": [
+      {
+        "item": "Higgins Helitours",
+        "status": "claim_free",
+        "tier_percent": 100
+      },
+      {
+        "item": "Hands On Car Wash",
+        "status": "owned",
+        "tier_percent": 40
+      },
+      {
+        "item": "Smoke on the Water Dispensary",
+        "status": "owned",
+        "tier_percent": 40
+      },
+      {
+        "item": "Benefactor Terrorbyte",
+        "status": "check_ownership_optional",
+        "tier_percent": 30
+      },
+      {
+        "item": "Sea Sparrow",
+        "status": "low_priority_owned_equivalent",
+        "tier_percent": 30
+      }
+    ],
+    "price_context": {
+      "Albany Cavalcade XL": {
+        "base_price": 1665000,
+        "discounted_price_30": 1165500
+      },
+      "Benefactor Terrorbyte": {
+        "base_price": 1375000,
+        "discounted_price_30": 962500
+      },
+      "Buckingham Howard NX-25": {
+        "base_price": 1296750,
+        "discounted_price_30": 907725
+      },
+      "Buckingham Vestra": {
+        "base_price": 950000,
+        "discounted_price_30": 665000
+      },
+      "Grotti Brioso 300": {
+        "base_price": 610000,
+        "discounted_price_30": 427000
+      },
+      "Imponte Ruiner ZZ-8": {
+        "base_price": 1320000,
+        "discounted_price_30": 924000
+      },
+      "Jobuilt Velum 5-Seater": {
+        "base_price": 1323350,
+        "discounted_price_30": 926345
+      },
+      "Karin Previon": {
+        "base_price": 1490000,
+        "discounted_price_30": 1043000
+      },
+      "Maibatsu Penumbra FF": {
+        "base_price": 1380000,
+        "discounted_price_30": 966000
+      },
+      "Obey Tailgater S": {
+        "base_price": 1495000,
+        "discounted_price_30": 1046500
+      },
+      "Sea Sparrow": {
+        "base_price": 1815000,
+        "discounted_price_30": 1270500
+      },
+      "Money Fronts Money Laundering Missions": {
+        "base_payout_example": 35000,
+        "weekly_multiplier": 4,
+        "estimated_payout": 140000
+      },
+      "Lamar Contact Missions": {
+        "base_payout_range": "GTA$18,300-19,800",
+        "weekly_multiplier": 5,
+        "estimated_full_payout_range": "GTA$91,500-99,000 before extra difficulty/player modifiers"
+      }
+    },
+    "data_quality_notes": [
+      "Current repository local data previously ended at 2026-W21; this 2026-W22 payload was assembled from live weekly sources.",
+      "Contact mission payouts vary by time taken, difficulty, and player count.",
+      "Money Laundering payout uses known GTA$35,000 base examples; individual mission behavior may vary.",
+      "Premium Test Ride and HSW Time Trial require PS5/Xbox Series/PC Enhanced; standard PC Legacy may not access.",
+      "Showroom/test track entries are not treated as discounts unless they also appear in discounts.",
+      "Salvage Yard robbery vehicles are not marked claimable because current sources did not confirm keep eligibility."
+    ]
+  }
+}
