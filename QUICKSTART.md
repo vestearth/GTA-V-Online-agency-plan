@@ -1,101 +1,204 @@
-# 🚀 Quickstart: วิธีใช้งานสำหรับสัปดาห์ถัดไป (How to Run Next Week)
+# Quickstart: วิธีใช้งานสัปดาห์ถัดไป
 
-คู่มือฉบับย่อสำหรับก๊อปปี้ไปวางในผู้ช่วย AI (เช่น Copilot/Cursor/Codex/Gemini) เพื่อสั่งงานระบบ Multi-Agent Orchestrator ในสัปดาห์ต่อๆ ไป
+คู่มือสั้นสำหรับรัน workflow รายสัปดาห์ของโปรเจกต์นี้ให้ตรงกับโครงปัจจุบันของ repo
 
-ก่อนใช้งาน แนะนำให้อ้างอิงกติกากลางของโปรเจกต์ใน `AGENTS.md` ร่วมด้วย
-และอัปเดต `data/player_profile.json` ให้ตรงกับบัญชีของคุณ (เงิน, ทรัพย์สิน, เวลาที่เล่นได้)
+ก่อนเริ่มทุกครั้ง:
+- อ่านกติกากลางใน `AGENTS.md`
+- อัปเดต `data/player_profile.json` ให้ตรงกับบัญชีของคุณ
+- ถ้ามี weekly payload ใหม่ ให้ใช้รูปแบบชื่อ `data/weekly_planning_<year>_w<week>.json`
 
----
-
-## ⚡ แบบที่ 0: ระบบกึ่งอัตโนมัติ (NEW - Recommended)
-ใช้สคริปต์ที่เราพัฒนาใหม่เพื่อดึงข้อมูลและสร้าง Dashboard เบื้องต้นได้ทันทีโดยไม่ต้องก๊อปปี้ข้อความเอง:
-
-1. **ดึงข้อมูลจาก URL ของโพสต์ข่าว/กระทู้ที่ต้องการ:**
-   ```bash
-   python3 scripts/scrape_weekly_update.py --url "https://www.rockstargames.com/newswire/article/..."
-   ```
-   *ให้ส่ง URL ของหน้าอัปเดตจริง เช่น Rockstar Newswire post หรือ Reddit thread; สคริปต์จะ scrape จาก URL ที่ระบุ แล้วเช็คกับ `player_profile.json` ของคุณ*
-
-   ตัวอย่าง URL ที่ใช้ได้:
-   ```text
-   https://www.rockstargames.com/newswire/article/...
-   https://www.reddit.com/r/gtaonline/comments/...
-   ```
-
-2. **สร้าง Dashboard สำหรับอ่านเอง:**
-   ```bash
-   python3 scripts/generate_weekly_report.py data/weekly_planning_2026_wXX.json
-   ```
-   *คุณจะได้ไฟล์สรุปใน `reports/` ที่มีตารางคำนวณกำไรและราคารถ*
-
-3. **สั่ง Agent รันแผนเต็มรูปแบบ:**
-   ส่งไฟล์ JSON ที่ได้จากข้อ 1 ให้ AI แล้วสั่งรันตาม **แบบที่ 2** ด้านล่าง
+ตัวอย่าง:
+- `data/weekly_planning_2026_w22.json`
+- `reports/weekly_master_plan_2026_w22.md`
 
 ---
 
-## 📋 แบบที่ 1: มีข่าวสัปดาห์ใหม่เป็น "ข้อความดิบ" (Raw Text)
-ก็อปปี้อัปเดตจากเว็บ Rockstar Newswire หรือบอร์ดเกม แล้วใช้คำสั่งนี้เลย:
+## ทางลัดที่แนะนำ
 
-> *"นี่คือข้อมูลอัปเดต GTA ของสัปดาห์ใหม่: [วางเนื้อหาข่าวตรงนี้] ...ช่วยนำข้อมูลนี้ไปรันผ่าน `src/workflows/weekly_planning.yaml` โดยใช้ `data/player_profile.json` ด้วย ให้ทีมงานเปรียบเทียบกับเป้าหมายของผู้เล่นใน `data/examples_bundle.json` (key: `schema_v2_example`) แล้วสร้างรายงานสรุปแผนการเล่น (Master Plan) โดย Lester เซฟลงในโฟลเดอร์ `reports/` แบบ Markdown ให้ด้วยนะ และต้องมี time buckets (30m, 1-2h, 3h+) กับ action queue"*
+ลำดับที่ใช้งานจริงใน repo นี้คือ:
 
----
-
-## 📄 แบบที่ 2: มีไฟล์ข้อมูล JSON ของสัปดาห์นั้นแล้ว
-ถ้าคุณทำไฟล์ JSON ของสัปดาห์นั้นๆ ไว้แล้ว (เช่น `data/weekly_planning_2026_w15.json`):
-
-> *"รัน `src/workflows/weekly_planning.yaml` ให้หน่อย โดยใช้ข้อมูลกิจกรรมวิเคราะห์จากไฟล์ `data/weekly_planning_2026_w15.json` และ `data/player_profile.json` (ข้ามขั้นตอน Ingestion ไปดึงข้อมูลมาวิเคราะห์ได้เลย) จากนั้นสรุป Final Report จากมุมมองของ Lester ออกมาให้ที โดยต้องมี time buckets (30m, 1-2h, 3h+) และ action queue และสรุป Weekly Discounts ให้ครบทุก tier (50/40/30) แบบไม่ตกหล่น"*
+1. scrape หรือเตรียม weekly payload
+2. ให้ AI รัน `src/workflows/weekly_planning.yaml`
+3. สร้างรายงานลง `reports/`
+4. อัปเดต dashboard ด้วย `scripts/generate_dashboard.py`
 
 ---
 
-## 🎯 แบบที่ 3: สั่งวิเคราะห์เจาะจงเฉพาะเรื่อง (เลือก Agent)
-ถ้าไม่อยากได้รายงานเต็มรูปแบบ แต่อยากถามเจาะจงรายคน:
+## แบบที่ 1: มี URL ข่าวประจำสัปดาห์
 
-**ถามเรื่องรถ (Franklin):**
-> *"ให้ Franklin ช่วยวิเคราะห์รถลดราคา รถ Test Ride และ Prize Ride ประจำสัปดาห์นี้จากเนื้อหาที่ให้มาที อ้างอิงเงื่อนไขจาก `src/agents/franklin.yaml` แล้วบอกมาว่าคันไหนควรซื้อ คันไหนควรข้าม"*
+ถ้ามี Rockstar Newswire หรือ Reddit thread แล้ว ให้เริ่มจาก scrape:
 
-**ถามเรื่อง Nightclub & ธุรกิจ (Tony):**
-> *"ให้ Tony Prince เช็คข้อมูลสัปดาห์นี้ โฟกัสตามหน้าที่ใน `src/agents/tony.yaml` ว่ามีธุรกิจ Passive ไหนลดราคา หรือมีธุรกิจไหนได้โบนัสบ้าง ควรโยก Technician ไปคุมอะไรดี?"*
-
-**ถามเรื่องความคุ้มค่าและเงิน (Michael):**
-> *"ให้ Michael คำนวณ ROI ประจำสัปดาห์นี้ตามกฎใน `src/skills/calculate_business_roi.yaml` กิจกรรมไหนทำเงินต่อชั่วโมงได้คุ้มที่สุด?"*
-
----
-
-## 🧩 Discount Template (ใส่ใน weekly JSON ได้ทันที)
-
-วางโครงนี้ใต้ `weekly_content` ของไฟล์ `data/weekly_planning_<week_id>.json`:
-
-```json
-"discounts": [
-  {
-    "tier_percent": 50,
-    "items": [
-      "รายการลด 50% #1",
-      "รายการลด 50% #2"
-    ]
-  },
-  {
-    "tier_percent": 40,
-    "items": [
-      "รายการลด 40% #1"
-    ]
-  },
-  {
-    "tier_percent": 30,
-    "items": [
-      "รายการลด 30% #1",
-      "รายการลด 30% #2"
-    ]
-  }
-]
+```bash
+python3 scripts/scrape_weekly_update.py --url "https://www.rockstargames.com/newswire/article/..."
 ```
 
-Checklist ก่อนรัน:
-- ต้องมีทุก tier ที่ประกาศในสัปดาห์นั้น (เช่น 50/40/30)
-- `items` ต้องไม่ว่าง
-- ชื่อ item ควรใช้คำเต็มแบบ Rockstar
+หรือ
+
+```bash
+python3 scripts/scrape_weekly_update.py --url "https://www.reddit.com/r/gtaonline/comments/..."
+```
+
+สิ่งที่ควรได้หลังจบขั้นนี้:
+- weekly payload ใหม่ใน `data/`
+- ข้อมูลตั้งต้นที่พร้อมส่งเข้า workflow
+
+จากนั้นให้ใช้ prompt ลักษณะนี้กับผู้ช่วย AI:
+
+> "นี่คือ weekly payload ใหม่ของ GTA Online ช่วยรันตาม `src/workflows/weekly_planning.yaml` โดยใช้อ้างอิง `AGENTS.md`, `.github/skills/gta-weekly-planning/SKILL.md`, `data/player_profile.json` และ `data/examples_bundle.json` ด้วย แล้วสรุปรายงานแบบ Lester ลง `reports/` ให้ครบ 3 ไฟล์ของสัปดาห์นี้ ได้แก่ `weekly_master_plan_<week_id>.md`, `weekly_master_plan_<week_id>_income_scenarios.md`, และ `event_master_plan_<week_id>.md`"
 
 ---
 
-💡 **Tip:** ไม่ว่าคุณใช้ผู้ช่วยตัวไหน ให้ระบุ `src/workflows/weekly_planning.yaml`, `.github/skills/gta-weekly-planning/SKILL.md` และ `AGENTS.md` ใน prompt จะช่วยให้ผลลัพธ์สม่ำเสมอขึ้นมาก  
-และถ้ามีส่วนลดประจำสัปดาห์ ให้กำชับว่า payload ต้องมี `weekly_content.discounts` (เช่น tiers 50/40/30 + items ครบ)
+## แบบที่ 2: มี weekly payload JSON อยู่แล้ว
+
+ถ้าคุณมีไฟล์อย่าง `data/weekly_planning_2026_w22.json` อยู่แล้ว ให้ข้ามขั้น scrape ได้เลย
+
+ใช้ prompt นี้:
+
+> "รัน `src/workflows/weekly_planning.yaml` โดยใช้ `data/weekly_planning_2026_w22.json` กับ `data/player_profile.json` แล้วสรุปผลเป็นรายงานของ Lester ลง `reports/` ให้ครบ 3 ไฟล์ พร้อม time buckets, action queue, และ discount snapshot ที่ไม่ตกหล่น"
+
+สิ่งที่รายงานควรมี:
+- `What to Play`
+- `What to Buy`
+- `What to Ignore`
+- time buckets (`30m`, `1-2h`, `3h+`)
+- ordered action queue
+- weekly discounts ครบทุก tier ที่มีจริงใน payload
+
+---
+
+## แบบที่ 3: มีแค่ raw text
+
+ถ้ายังไม่มี JSON และอยากให้ผู้ช่วยแปลงข้อมูลเองจากข้อความข่าว:
+
+> "นี่คือข้อมูลอัปเดต GTA Online ประจำสัปดาห์: [วางข้อความดิบที่นี่] ช่วยแปลงเป็น weekly planning payload ตามโครงของโปรเจกต์นี้ แล้วรัน `src/workflows/weekly_planning.yaml` โดยใช้อ้างอิง `AGENTS.md`, `.github/skills/gta-weekly-planning/SKILL.md`, `data/player_profile.json` และ `data/examples_bundle.json` จากนั้นสร้างรายงานลง `reports/` ให้ครบ 3 ไฟล์"
+
+หมายเหตุ:
+- ถ้ามี discount data ต้องจัดลง `weekly_content.discounts`
+- ถ้ามี showroom, test ride, prize ride, podium ให้แยกเป็น `vehicle_opportunities`
+- อย่าเดาราคา, payout, หรือเงื่อนไข unlock ถ้า source ไม่ยืนยัน
+
+---
+
+## อัปเดต Dashboard
+
+หลังได้ weekly payload และ reports แล้ว ให้ regenerate dashboard:
+
+```bash
+python scripts/generate_dashboard.py --check-markers
+python scripts/generate_dashboard.py --dry-run
+python scripts/generate_dashboard.py
+```
+
+ถ้าจะบังคับใช้ไฟล์สัปดาห์ใดสัปดาห์หนึ่ง:
+
+```bash
+python scripts/generate_dashboard.py --weekly data/weekly_planning_2026_w22.json
+```
+
+เปิด dashboard:
+
+```bash
+open dashboard.html
+```
+
+Dashboard ปัจจุบันจะอัปเดตได้อย่างน้อย:
+- header metadata
+- summary cards
+- weekly deals snapshot
+- weekly vehicle spotlight
+- current focus
+- next claim / buy
+- weekly action plan
+- what to buy / ignore
+- asset overview
+
+ยังคงเป็น manual:
+- ROI notes บางส่วน
+- decision log
+
+---
+
+## คำสั่งที่มีประโยชน์
+
+อัปเดตราคาอ้างอิงรถ:
+
+```bash
+python3 scripts/update_vehicle_prices.py
+```
+
+dry run:
+
+```bash
+python3 scripts/update_vehicle_prices.py --dry-run
+```
+
+ล็อก weekly file:
+
+```bash
+python3 scripts/update_vehicle_prices.py --weekly data/weekly_planning_2026_w22.json
+```
+
+---
+
+## ตัวอย่าง prompt แบบเจาะเฉพาะเรื่อง
+
+### Franklin: รถประจำสัปดาห์
+
+> "ให้ Franklin ช่วยวิเคราะห์รถลดราคา, Test Track, Prize Ride, Podium, และ showroom vehicles ประจำสัปดาห์นี้จาก payload ที่ให้มา โดยอ้างอิง `src/agents/franklin.yaml` แล้วสรุปว่าคันไหนควรซื้อ คันไหนควรข้าม และคันไหนเป็นแค่ availability signal"
+
+### Tony: ธุรกิจ passive
+
+> "ให้ Tony Prince วิเคราะห์โบนัสและส่วนลดของธุรกิจ passive ประจำสัปดาห์นี้ โดยอ้างอิง `src/agents/tony.yaml` แล้วสรุปว่าควรโฟกัสธุรกิจไหนก่อน"
+
+### Michael: ความคุ้มค่า
+
+> "ให้ Michael ประเมิน ROI ของกิจกรรมและธุรกิจประจำสัปดาห์นี้ โดยอ้างอิง `src/skills/calculate_business_roi.yaml` แล้วจัดอันดับกิจกรรมที่คุ้มที่สุดตามเวลาเล่น"
+
+---
+
+## Checklist ของ weekly payload
+
+ก่อนรัน workflow ควรเช็กว่าข้อมูลมีอย่างน้อย:
+
+- `week.id` และ `week.label`
+- `weekly_content.discounts`
+- `weekly_content.vehicle_opportunities`
+- `weekly_content.headline`
+- `weekly_content.summary`
+
+ถ้ามี discount data:
+- ต้องเก็บครบทุก tier ที่มีจริง
+- อย่าตัดรายการทิ้งเพียงเพราะไม่คิดว่าจะสำคัญ
+- Gun Van ควรแยกเป็นกลุ่มของมันเอง
+
+ถ้ามี vehicle opportunities:
+- showroom/test ride/prize ride/podium เป็นคนละ signal กัน
+- อย่าตีความว่าโชว์ใน showroom เท่ากับลดราคา
+- อย่าตีความว่า Salvage Yard robbery vehicle จะ claim ได้ ถ้า source ไม่ยืนยัน
+
+---
+
+## Output ที่คาดหวัง
+
+ต่อ 1 สัปดาห์ ควรมีรายงานหลักครบ 3 ไฟล์:
+
+1. `reports/weekly_master_plan_<week_id>.md`
+2. `reports/weekly_master_plan_<week_id>_income_scenarios.md`
+3. `reports/event_master_plan_<week_id>.md`
+
+และถ้ารัน dashboard generator ต่อ:
+
+- `dashboard.html` ควรสะท้อน weekly payload ล่าสุด
+- ถ้ามี unresolved prices หรือ ambiguous values ให้ generator รายงานเตือน ไม่เดาข้อมูล
+
+---
+
+## Tip
+
+ถ้าคุณใช้ผู้ช่วย AI:
+- ระบุ `src/workflows/weekly_planning.yaml`
+- ระบุ `.github/skills/gta-weekly-planning/SKILL.md`
+- ระบุ `AGENTS.md`
+- ระบุ `data/player_profile.json`
+
+จะช่วยให้ผลลัพธ์สม่ำเสมอและตรง guardrails ของโปรเจกต์มากขึ้น
