@@ -38,6 +38,12 @@ PHASE1_MARKERS = [
     "data_status_note",
 ]
 
+PHASE2_MARKERS = [
+    "weekly_action_plan",
+    "what_to_buy_ignore",
+    "asset_overview",
+]
+
 SPOTLIGHT_GROUP_ORDER = [
     "LS Car Meet",
     "Luxury Autos",
@@ -68,6 +74,26 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def week_id_to_report_suffix(week_id: str) -> str:
+    return week_id.lower().replace("-", "_")
+
+
+def find_matching_reports(week_id: str) -> dict[str, Path]:
+    suffix = week_id_to_report_suffix(week_id)
+    reports_dir = ROOT / "reports"
+    return {
+        "weekly_master_plan": reports_dir / f"weekly_master_plan_{suffix}.md",
+        "event_master_plan": reports_dir / f"event_master_plan_{suffix}.md",
+        "income_scenarios": reports_dir / f"weekly_master_plan_{suffix}_income_scenarios.md",
+    }
+
+
+def load_text_if_exists(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    return path.read_text(encoding="utf-8")
+
+
 def validate_required_markers(html_text: str, required_markers: list[str]) -> None:
     missing: list[str] = []
     for marker in required_markers:
@@ -79,6 +105,17 @@ def validate_required_markers(html_text: str, required_markers: list[str]) -> No
 
 def available_markers(html_text: str) -> list[str]:
     return re.findall(r"<!-- START: ([a-z0-9_]+) -->", html_text)
+
+
+def extract_marker_block(html_text: str, marker: str) -> str | None:
+    pattern = re.compile(
+        rf"<!-- START: {re.escape(marker)} -->\s*(?P<body>.*?)\s*<!-- END: {re.escape(marker)} -->",
+        flags=re.DOTALL,
+    )
+    match = pattern.search(html_text)
+    if not match:
+        return None
+    return match.group("body").strip()
 
 
 def replace_marker_block(html_text: str, marker: str, replacement: str) -> str:
@@ -503,6 +540,218 @@ def render_weekly_vehicle_spotlight(context: dict[str, object], vehicle_prices: 
     return "\n".join(lines)
 
 
+def extract_markdown_section(markdown_text: str, heading: str) -> str | None:
+    pattern = re.compile(
+        rf"^{re.escape(heading)}\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    match = pattern.search(markdown_text)
+    if not match:
+        return None
+    body = match.group("body").strip()
+    return body or None
+
+
+def _parse_ordered_items(section_text: str) -> list[str]:
+    items: list[str] = []
+    for line in section_text.splitlines():
+        match = re.match(r"^\d+\.\s+(.*\S)\s*$", line.strip())
+        if match:
+            items.append(match.group(1).strip())
+    return items
+
+
+def _strip_markdown(text: str) -> str:
+    return text.replace("**", "").replace("`", "").strip()
+
+
+def _action_step_note(step_text: str) -> str:
+    lowered = step_text.casefold()
+    if "higgins helitours" in lowered:
+        return "Free weekly claim before the event week ends."
+    if "lucky wheel" in lowered or "komoda" in lowered:
+        return "Quick casino spin to cover the podium chance before longer loops."
+    if "legal mission" in lowered or "hands on car wash" in lowered:
+        return "Completes the weekly challenge for GTA$100,000 while supporting the Money Fronts loop."
+    if "money laundering" in lowered:
+        return "Primary money loop from the weekly master plan."
+    if "lamar" in lowered:
+        return "Use as a shorter rotation when you want a break from Money Fronts."
+    if "fine art file" in lowered:
+        return "Strong solo filler for longer sessions once the main loop is underway."
+    if "terrorbyte" in lowered:
+        return "Ownership check first; only buy if the utility matters this week."
+    if "budget" in lowered or "รถลด" in step_text:
+        return "Protect the spend cap by skipping collection buys that do not improve cashflow."
+    return "Generated from the weekly master plan action queue."
+
+
+def render_weekly_action_plan(weekly_report_text: str) -> str | None:
+    section = extract_markdown_section(weekly_report_text, "## Action Queue")
+    if not section:
+        return None
+    steps = _parse_ordered_items(section)
+    if len(steps) < 3:
+        return None
+    lines = ['<ol class="steps">']
+    for step in steps:
+        title = _strip_markdown(step)
+        note = _action_step_note(title)
+        lines.extend(
+            [
+                "  <li>",
+                "    <div>",
+                f"      <h3>{html.escape(title)}</h3>",
+                f'      <p class="card-note">{html.escape(note)}</p>',
+                "    </div>",
+                "  </li>",
+            ]
+        )
+    lines.append("</ol>")
+    return "\n".join(lines)
+
+
+def _parse_report_entries(section_text: str, ordered: bool) -> list[tuple[str, str]]:
+    if ordered:
+        pattern = re.compile(r"^\d+\.\s+\*\*(.*?)\*\*\s*-\s*(.+)$")
+    else:
+        pattern = re.compile(r"^-\s+\*\*(.*?)\*\*\s*-\s*(.+)$")
+    entries: list[tuple[str, str]] = []
+    for line in section_text.splitlines():
+        match = pattern.match(line.strip())
+        if not match:
+            continue
+        entries.append((_strip_markdown(match.group(1)), _strip_markdown(match.group(2))))
+    return entries
+
+
+def _clean_entry_label(label: str) -> str:
+    if " - " in label:
+        return label.split(" - ", 1)[0].strip()
+    return label.strip()
+
+
+def _buy_ruling(label: str, reason: str) -> tuple[str, str]:
+    lowered = f"{label} {reason}".casefold()
+    if "free" in lowered or "ฟรี" in lowered or "claim" in lowered:
+        return ("Claim", "owned")
+    if "ถ้ายังไม่มี" in reason or "buy only if" in lowered or "check" in lowered:
+        return ("Check", "watch")
+    return ("Buy", "watch")
+
+
+def _ignore_ruling(label: str, reason: str) -> tuple[str, str]:
+    lowered = f"{label} {reason}".casefold()
+    if "claimable" in lowered or "keep eligibility" in lowered or "salvage yard" in lowered:
+        return ("Do not claim", "warn")
+    if "already owned" in lowered or "มีอยู่แล้ว" in lowered:
+        return ("Skip", "low")
+    return ("Ignore", "low")
+
+
+def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | None = None) -> str | None:
+    buy_section = extract_markdown_section(weekly_report_text, "## What to Buy")
+    ignore_section = extract_markdown_section(weekly_report_text, "## What to Ignore")
+    if not buy_section or not ignore_section:
+        return None
+    buy_entries = _parse_report_entries(buy_section, ordered=True)
+    ignore_entries = _parse_report_entries(ignore_section, ordered=False)
+    if not buy_entries or not ignore_entries:
+        return None
+    rows: list[tuple[str, str, str, str]] = []
+    for label, reason in buy_entries:
+        ruling, css_class = _buy_ruling(label, reason)
+        rows.append((_clean_entry_label(label), ruling, css_class, reason))
+    for label, reason in ignore_entries:
+        ruling, css_class = _ignore_ruling(label, reason)
+        rows.append((_clean_entry_label(label), ruling, css_class, reason))
+
+    lines: list[str] = ["<tbody>"]
+    for item, ruling, css_class, reason in rows:
+        lines.extend(
+            [
+                "  <tr>",
+                f'    <td data-label="Item">{html.escape(item)}</td>',
+                '    <td data-label="Ruling">',
+                f'      <span class="pill {css_class}">{html.escape(ruling)}</span>',
+                "    </td>",
+                f'    <td data-label="Reason">{html.escape(reason)}</td>',
+                "  </tr>",
+            ]
+        )
+    lines.append("</tbody>")
+    return "\n".join(lines)
+
+
+def _owned_properties_set(player_profile: dict[str, object]) -> set[str]:
+    owned_assets = player_profile.get("owned_assets", {})
+    properties = owned_assets.get("properties", []) if isinstance(owned_assets, dict) else []
+    return {prop for prop in properties if isinstance(prop, str)}
+
+
+def _owned_vehicles_set(player_profile: dict[str, object]) -> set[str]:
+    owned_assets = player_profile.get("owned_assets", {})
+    vehicles = owned_assets.get("vehicles", []) if isinstance(owned_assets, dict) else []
+    return {vehicle for vehicle in vehicles if isinstance(vehicle, str)}
+
+
+def render_asset_overview(player_profile: dict[str, object], weekly_payload: dict[str, object], weekly_report_text: str) -> str | None:
+    owned_properties = _owned_properties_set(player_profile)
+    owned_vehicles = _owned_vehicles_set(player_profile)
+    upgrades = player_profile.get("owned_assets", {}).get("upgrades", {})
+    rows: list[tuple[str, str, str, str, str, str]] = []
+
+    def add_row(asset: str, status_label: str, status_class: str, priority_label: str, priority_class: str, note: str) -> None:
+        rows.append((asset, status_label, status_class, priority_label, priority_class, note))
+
+    if "Hands On Car Wash Money Front" in owned_properties:
+        add_row("Hands On Car Wash", "Owned", "owned", "High", "high", "Core weekly loop for legal missions, money laundering, and the free Higgins claim.")
+    if "Smoke on the Water Money Front" in owned_properties:
+        add_row("Smoke on the Water", "Owned", "owned", "Medium", "medium", "Already in the Money Fronts network, so the 40% discount is not a buy signal.")
+    if "Nightclub" in owned_properties:
+        add_row("Nightclub", "Owned", "owned", "Medium", "medium", "Passive filler between active weekly jobs.")
+    if "Agency" in owned_properties:
+        add_row("Agency", "Owned", "owned", "Medium", "medium", "Reliable fallback loop when you want to rotate away from Money Fronts.")
+    if "Bunker" in owned_properties:
+        add_row("Bunker", "Owned", "owned", "Medium", "medium", "Passive stock remains useful while the event loop does the heavy lifting.")
+    if "The Garment Factory" in owned_properties:
+        add_row("The Garment Factory", "Owned", "owned", "Medium", "medium", "Unlocks The Fine Art File 2x as a longer-session solo option.")
+    if "Kosatka" in owned_properties or "Sparrow" in owned_vehicles:
+        add_row("Kosatka + Sparrow", "Owned", "owned", "Medium", "medium", "Core solo infrastructure; the Sea Sparrow discount overlaps an existing use case.")
+    if "Mammoth Avenger" in owned_properties:
+        avenger_note = "Workshop upgrade marked done; convenience utility matters more than urgent ROI."
+        if isinstance(upgrades, dict) and not upgrades.get("avenger_workshop", False):
+            avenger_note = "Owned, but check workshop readiness before treating it as a utility anchor."
+        add_row("Mammoth Avenger", "Owned", "owned", "Low", "low", avenger_note)
+    if "Galaxy Super Yacht" in owned_properties:
+        add_row("Galaxy Super Yacht", "Owned", "owned", "Low", "low", "Luxury/status asset with no urgent weekly action attached.")
+
+    if "benefactor terrorbyte" not in {vehicle.casefold() for vehicle in owned_vehicles} and "Terrorbyte" in weekly_report_text:
+        add_row("Benefactor Terrorbyte", "Check", "watch", "Conditional", "medium", "Discounted this week; buy only if it is still missing and the utility matters.")
+
+    if len(rows) < 5:
+        return None
+
+    lines = ["<tbody>"]
+    for asset, status_label, status_class, priority_label, priority_class, note in rows:
+        lines.extend(
+            [
+                "  <tr>",
+                f'    <td data-label="Asset">{html.escape(asset)}</td>',
+                '    <td data-label="Status">',
+                f'      <span class="pill {status_class}">{html.escape(status_label)}</span>',
+                "    </td>",
+                '    <td data-label="Priority">',
+                f'      <span class="priority {priority_class}">{html.escape(priority_label)}</span>',
+                "    </td>",
+                f'    <td data-label="Note">{html.escape(note)}</td>',
+                "  </tr>",
+            ]
+        )
+    lines.append("</tbody>")
+    return "\n".join(lines)
+
+
 def plan_phase1_updates(available_markers: list[str]) -> list[str]:
     return [marker for marker in PHASE1_MARKERS if marker in available_markers]
 
@@ -517,8 +766,43 @@ def build_phase1_replacements(context: dict[str, object], vehicle_prices: dict[s
     }
 
 
+def plan_phase2_updates(available_markers: list[str]) -> list[str]:
+    return [marker for marker in PHASE2_MARKERS if marker in available_markers]
+
+
+def build_phase2_replacements(
+    html_text: str,
+    weekly_payload: dict[str, object],
+    player_profile: dict[str, object],
+    weekly_report_text: str | None,
+    event_report_text: str | None,
+) -> tuple[dict[str, str], list[str], list[str]]:
+    replacements: dict[str, str] = {}
+    updated_markers: list[str] = []
+    preserved_markers: list[str] = []
+
+    marker_to_renderer = {
+        "weekly_action_plan": lambda: render_weekly_action_plan(weekly_report_text or ""),
+        "what_to_buy_ignore": lambda: render_what_to_buy_ignore(weekly_report_text or "", event_report_text),
+        "asset_overview": lambda: render_asset_overview(player_profile, weekly_payload, weekly_report_text or ""),
+    }
+
+    for marker, renderer in marker_to_renderer.items():
+        existing = extract_marker_block(html_text, marker)
+        if existing is None:
+            continue
+        replacement = renderer()
+        if replacement is None:
+            preserved_markers.append(marker)
+            continue
+        replacements[marker] = replacement
+        updated_markers.append(marker)
+
+    return replacements, updated_markers, preserved_markers
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate deterministic Phase 1 dashboard blocks.")
+    parser = argparse.ArgumentParser(description="Generate dashboard blocks from repository data.")
     parser.add_argument("--weekly", type=Path, help="Path to a specific weekly_planning_*.json file")
     parser.add_argument("--output", type=Path, default=DEFAULT_DASHBOARD, help="Dashboard HTML output path")
     parser.add_argument("--dry-run", action="store_true", help="Validate inputs and report planned updates without writing")
@@ -531,7 +815,9 @@ def main(argv: list[str] | None = None) -> int:
     dashboard_path = DEFAULT_DASHBOARD
     html_text = dashboard_path.read_text(encoding="utf-8")
     validate_required_markers(html_text, PHASE1_MARKERS)
-    marker_plan = plan_phase1_updates(available_markers(html_text))
+    available = available_markers(html_text)
+    marker_plan = plan_phase1_updates(available)
+    phase2_plan = plan_phase2_updates(available)
 
     if args.check_markers:
         print(f"ok: validated {len(marker_plan)} Phase 1 markers in {dashboard_path.name}")
@@ -543,20 +829,40 @@ def main(argv: list[str] | None = None) -> int:
     vehicle_prices = load_vehicle_price_reference(DEFAULT_VEHICLE_PRICES)
     context = build_phase1_context(weekly_payload, player_profile, vehicle_prices)
     replacements = build_phase1_replacements(context, vehicle_prices)
+    report_paths = find_matching_reports(str(context["week_id"]))
+    weekly_report_text = load_text_if_exists(report_paths["weekly_master_plan"])
+    event_report_text = load_text_if_exists(report_paths["event_master_plan"])
+    phase2_replacements, phase2_updated, phase2_preserved = build_phase2_replacements(
+        html_text,
+        weekly_payload,
+        player_profile,
+        weekly_report_text,
+        event_report_text,
+    )
 
     if args.dry_run:
         print(f"week: {context['week_id']} ({weekly_path.name})")
         print("planned_updates:")
         for marker in marker_plan:
             print(f"  - {marker}")
+        for marker in phase2_updated:
+            print(f"  - {marker}")
+        if phase2_preserved:
+            print("preserved_blocks:")
+            for marker in phase2_preserved:
+                print(f"  - {marker}")
         if context["unresolved_discount_items"]:
             print(f"warning: unresolved discounted items: {', '.join(context['unresolved_discount_items'])}")
         if context["unresolved_vehicle_prices"]:
             print(f"warning: unresolved vehicle prices: {', '.join(context['unresolved_vehicle_prices'])}")
+        if not weekly_report_text:
+            print("warning: weekly master plan report missing; Phase 2 report-derived blocks preserved where applicable")
         return 0
 
     updated_html = html_text
     for marker, replacement in replacements.items():
+        updated_html = replace_marker_block(updated_html, marker, replacement)
+    for marker, replacement in phase2_replacements.items():
         updated_html = replace_marker_block(updated_html, marker, replacement)
 
     args.output.write_text(updated_html, encoding="utf-8")
@@ -564,6 +870,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"warning: unresolved discounted items: {', '.join(context['unresolved_discount_items'])}", file=sys.stderr)
     if context["unresolved_vehicle_prices"]:
         print(f"warning: skipped {len(context['unresolved_vehicle_prices'])} unresolved vehicle prices for All Cars Needed", file=sys.stderr)
+    if phase2_preserved:
+        print(f"warning: preserved Phase 2 blocks due to low confidence: {', '.join(phase2_preserved)}", file=sys.stderr)
     print(f"updated dashboard: {args.output}")
     return 0
 

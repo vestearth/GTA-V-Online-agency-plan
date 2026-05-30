@@ -14,15 +14,15 @@ Update generated regions with the script first, then review the remaining curate
 | All Cars Needed | latest `data/weekly_planning_*.json` + `data/references/vehicle_prices.yaml` | Generated in Phase 1 from unique weekly vehicle appearances with known base prices; skip but report unresolved prices. |
 | Owned Major Assets | `data/player_profile.json` -> `owned_assets.properties` | Generated in Phase 1 from the current array length. |
 | Missing Major Assets | `data/player_profile.json` -> `owned_assets.missing_properties` | Generated in Phase 1 from the current list length; if notes conflict, prefer the arrays. |
-| Asset Overview table | `data/player_profile.json`, latest `data/weekly_planning_*.json`, and weekly reports in `reports/` | Curated manually in Phase 2. Use profile ownership as the source of truth, then add weekly priority notes from the latest plan. |
+| Asset Overview table | `data/player_profile.json`, latest `data/weekly_planning_*.json`, and weekly reports in `reports/` | Generated in Phase 2 when profile + report confidence is high enough. Otherwise preserve the existing dashboard block unchanged. |
 | Upgrade Checklist | `data/player_profile.json` -> `owned_assets.upgrades` | No longer shown as the primary sidebar block. Keep it as profile readiness reference data and surface it in documentation or decision notes when relevant. |
 | Weekly Deals Snapshot | latest `data/weekly_planning_*.json` plus weekly reports in `reports/` | Generated in Phase 1 as a grouped summary by weekly offer tier. Show every confirmed group and item present in the current payload, allow additional future tiers, and use explicit value states such as `Free`, `GTA$xxx`, `Check source`, or `Unknown`. |
 | Weekly Vehicle Spotlight | latest `data/weekly_planning_*.json` | Generated in Phase 1 as a summary of every confirmed showroom, meet, prize, podium, or other weekly vehicle surface present in the current payload. Do not imply discounts unless the payload explicitly confirms them. |
-| Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Curated manually in Phase 2. Preserve existing copy if report parsing is not yet confident enough. |
-| Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Curated manually in Phase 2. Preserve existing copy if report parsing is not yet confident enough. |
-| Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Curated manually in Phase 2. Preserve existing copy if report parsing is not yet confident enough. |
+| Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Deferred. The current dashboard markup does not expose a dedicated generated block for this label yet. |
+| Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Deferred. The current dashboard markup does not expose a dedicated generated block for this label yet. |
+| Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 when the `## Action Queue` section parses confidently. Otherwise preserve the existing dashboard block unchanged. |
 | ROI / Passive Income | `reports/weekly_master_plan_<week_id>_income_scenarios.md` and `reports/weekly_master_plan_<week_id>.md` | Curated manually until a later generator phase touches it. |
-| What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Curated manually in Phase 2. Preserve existing copy if report parsing is not yet confident enough. |
+| What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Generated in Phase 2 when buy/ignore sections parse confidently. Otherwise preserve the existing dashboard block unchanged. |
 | Decision Log | weekly reports in `reports/` plus user-confirmed history | Advisory only. Do not imply historical decisions were executed unless reports or the user confirm it. |
 | Data source note | `data/player_profile.json`, latest `data/weekly_planning_*.json`, `reports/` | Generated in Phase 1. Keep the note visible in `dashboard.html` and let the generator report unresolved totals when present. |
 | Last reviewed | generator run date | Generated in Phase 1 using `YYYY-MM-DD`. |
@@ -36,6 +36,7 @@ Update generated regions with the script first, then review the remaining curate
 - If no spotlight surfaces are confirmed, hide the spotlight block or show a compact note such as `No spotlight vehicles confirmed`.
 - `Upgrade Checklist` remains part of the dashboard ecosystem as readiness/profile reference data even though it is no longer the primary sidebar card.
 - Phase 1 requires only the Phase 1 markers: `header_meta`, `summary_cards`, `weekly_deals`, `weekly_vehicle_spotlight`, and `data_status_note`.
+- Phase 2 currently owns these existing-section markers: `weekly_action_plan`, `what_to_buy_ignore`, and `asset_overview`.
 
 ## Current Weekly Source Convention
 
@@ -50,6 +51,6 @@ Example current week in this repository: `2026_w22`.
 
 ## Future Roadmap
 
-- Extend `scripts/generate_dashboard.py` into Phase 2 only after the report-derived parsing and fallback rules are stable enough.
+- Extend `scripts/generate_dashboard.py` beyond the current Phase 2 blocks only after the report-derived parsing and fallback rules are stable enough.
 - Keep the generator optional and marker-based so the dashboard stays editable as static HTML.
 - Do not move to React, Vue, Next, Tailwind, or another dynamic dashboard stack unless the static workflow becomes painful and there is a concrete need for filtering, sorting, live data loading, or repeated weekly generation.

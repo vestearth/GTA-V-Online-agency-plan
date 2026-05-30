@@ -214,7 +214,8 @@ python scripts/generate_dashboard.py --weekly data/weekly_planning_2026_w22.json
 
 Current generator scope:
 - Phase 1 generated blocks: header metadata, summary cards, weekly deals snapshot, weekly vehicle spotlight, and the data status note
-- Phase 2 still manual: current focus, next claim / buy, weekly action plan, what to buy / ignore, ROI notes, decision log, and asset overview
+- Phase 2 generated blocks: weekly action plan, what to buy / ignore, and asset overview when report parsing is confident enough
+- Still manual: ROI notes, decision log, and any future `Current Focus` / `Next Claim / Buy` UI that is not currently present in `dashboard.html`
 
 GitHub Pages is enabled from `main` / root:
 - Site: https://vestearth.github.io/GTA-V-Online-agency-plan/
@@ -223,5 +224,6 @@ GitHub Pages is enabled from `main` / root:
 Because the dashboard is plain static HTML/CSS, it can be hosted directly from the repository root on GitHub Pages without a build pipeline.
 
 Future roadmap:
-- Extend `scripts/generate_dashboard.py` to cover the curated recommendation sections only after the parsing and fallback rules for report-derived content are stable enough.
+- Extend `scripts/generate_dashboard.py` further only for report-derived sections whose parsing and fallback rules stay reliable in practice.
+- Add dedicated `Current Focus` / `Next Claim / Buy` dashboard blocks only if the page regains explicit markup for them.
 - Keep the static HTML/CSS dashboard as the default surface even if generation expands; avoid a heavier app stack unless there is a concrete need for filtering, sorting, or live data loading.
