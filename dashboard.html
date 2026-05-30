@@ -40,35 +40,36 @@
           </nav>
         </div>
         <aside class="meta" aria-label="Player and week metadata">
+          <!-- START: header_meta -->
           <p>
             <strong>
               -CarlosZ-
             </strong>
             / PC
           </p>
+          <p>Week 2026-W22: May 28 - June 3 2026</p>
           <p>
-            Week 2026-W22: May 28 - June 3 2026
-          </p>
-          <p>
-            Bankroll:
+            Discounted Items Total:
             <strong>
-              GTA$37.4M
+              GTA$10.3M
             </strong>
           </p>
           <p>
-            Weekly spend cap:
+            All Cars Needed:
             <strong>
-              GTA$10M
+              GTA$26.4M
             </strong>
           </p>
+          <!-- END: header_meta -->
         </aside>
       </header>
       <section class="provenance" aria-label="Dashboard data source">
+        <!-- START: data_status_note -->
         <p>
           <strong>
             Data source:
           </strong>
-          manual snapshot from
+          generated snapshot from
           <code>
             data/player_profile.json
           </code>
@@ -78,7 +79,7 @@
           </code>
           +
           <code>
-            reports/
+            vehicle_prices.yaml
           </code>
         </p>
         <div class="provenance-grid">
@@ -92,70 +93,50 @@
             <strong>
               Data status:
             </strong>
-            Manual / Needs sync
+            Generated / Clean
           </p>
         </div>
+        <!-- END: data_status_note -->
       </section>
       <section class="grid summary-grid" aria-label="Summary cards">
+        <!-- START: summary_cards -->
         <article class="card">
           <div>
-            <p class="label">
-              Owned Major Assets
-            </p>
-            <p class="value">
-              21
-            </p>
+            <p class="label">Owned Major Assets</p>
+            <p class="value">21</p>
           </div>
-          <p class="card-note">
-            Properties from `owned_assets.properties`.
-          </p>
+          <p class="card-note">Properties from `owned_assets.properties`.</p>
         </article>
         <article class="card">
           <div>
-            <p class="label">
-              Missing Major Assets
-            </p>
-            <p class="value">
-              0
-            </p>
+            <p class="label">Missing Major Assets</p>
+            <p class="value">0</p>
           </div>
-          <p class="card-note">
-            Uses `missing_properties`; profile note looks stale.
-          </p>
+          <p class="card-note">Uses `missing_properties`; profile note looks stale.</p>
         </article>
         <article class="card">
           <div>
-            <p class="label">
-              Current Focus
-            </p>
-            <p class="value text">
-              Money Fronts
-            </p>
+            <p class="label">Discounted Items Total</p>
+            <p class="value text">GTA$10.3M</p>
           </div>
-          <p class="card-note">
-            4x Money Laundering + car wash challenge.
-          </p>
+          <p class="card-note">Known discounted values only; unresolved item prices are reported above when present.</p>
         </article>
         <article class="card">
           <div>
-            <p class="label">
-              Next Claim / Buy
-            </p>
-            <p class="value text">
-              Higgins Helitours
-            </p>
+            <p class="label">All Cars Needed</p>
+            <p class="value text">GTA$26.4M</p>
           </div>
-          <p class="card-note">
-            Free claim first; Terrorbyte only after ownership check.
-          </p>
+          <p class="card-note">Unique weekly vehicles only; unresolved reference prices are reported above when present.</p>
         </article>
+        <!-- END: summary_cards -->
       </section>
       <section id="highlights" class="grid split" aria-label="Weekly highlights">
         <article class="section weekly-deals" aria-labelledby="weekly-deals-title">
+          <!-- START: weekly_deals -->
           <div class="section-head">
             <div>
               <h2 id="weekly-deals-title">Weekly Deals Snapshot</h2>
-              <p>Confirmed W22 grouped offers from the latest payload. Show every confirmed group with explicit value states.</p>
+              <p>Confirmed grouped offers from the latest payload. Show every confirmed group with explicit value states.</p>
             </div>
           </div>
           <ul class="deal-groups" aria-label="Weekly deal groups">
@@ -175,17 +156,17 @@
             <li class="deal-group">
               <h3 class="tier-label pill">30% Off</h3>
               <ul class="deal-list">
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cavalcade3" target="_blank" rel="noreferrer">Albany Cavalcade XL</a></span><span class="pill value-state value-price">GTA$1,165,500</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/terbyte" target="_blank" rel="noreferrer">Benefactor Terrorbyte</a></span><span class="pill value-state value-price">GTA$962,500</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/howard" target="_blank" rel="noreferrer">Buckingham Howard NX-25</a></span><span class="pill value-state value-price">GTA$907,725</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/vestra" target="_blank" rel="noreferrer">Buckingham Vestra</a></span><span class="pill value-state value-price">GTA$665,000</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/brioso2" target="_blank" rel="noreferrer">Grotti Brioso 300</a></span><span class="pill value-state value-price">GTA$427,000</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/ruiner4" target="_blank" rel="noreferrer">Imponte Ruiner ZZ-8</a></span><span class="pill value-state value-price">GTA$924,000</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/velum2" target="_blank" rel="noreferrer">Jobuilt Velum 5-Seater</a></span><span class="pill value-state value-price">GTA$926,345</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/previon" target="_blank" rel="noreferrer">Karin Previon</a></span><span class="pill value-state value-price">GTA$1,043,000</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/penumbra2" target="_blank" rel="noreferrer">Maibatsu Penumbra FF</a></span><span class="pill value-state value-price">GTA$966,000</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/tailgater2" target="_blank" rel="noreferrer">Obey Tailgater S</a></span><span class="pill value-state value-price">GTA$1,046,500</span></li>
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/seasparrow" target="_blank" rel="noreferrer">Sea Sparrow</a></span><span class="pill value-state value-price">GTA$1,270,500</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cavalcade3" target="_blank" rel="noopener noreferrer">Albany Cavalcade XL</a></span><span class="pill value-state value-price">GTA$1,165,500</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/terbyte" target="_blank" rel="noopener noreferrer">Benefactor Terrorbyte</a></span><span class="pill value-state value-price">GTA$962,500</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/howard" target="_blank" rel="noopener noreferrer">Buckingham Howard NX-25</a></span><span class="pill value-state value-price">GTA$907,725</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/vestra" target="_blank" rel="noopener noreferrer">Buckingham Vestra</a></span><span class="pill value-state value-price">GTA$665,000</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/brioso2" target="_blank" rel="noopener noreferrer">Grotti Brioso 300</a></span><span class="pill value-state value-price">GTA$427,000</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/ruiner4" target="_blank" rel="noopener noreferrer">Imponte Ruiner ZZ-8</a></span><span class="pill value-state value-price">GTA$924,000</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/velum2" target="_blank" rel="noopener noreferrer">Jobuilt Velum 5-Seater</a></span><span class="pill value-state value-price">GTA$926,345</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/previon" target="_blank" rel="noopener noreferrer">Karin Previon</a></span><span class="pill value-state value-price">GTA$1,043,000</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/penumbra2" target="_blank" rel="noopener noreferrer">Maibatsu Penumbra FF</a></span><span class="pill value-state value-price">GTA$966,000</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/tailgater2" target="_blank" rel="noopener noreferrer">Obey Tailgater S</a></span><span class="pill value-state value-price">GTA$1,046,500</span></li>
+                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/seasparrow" target="_blank" rel="noopener noreferrer">Sea Sparrow</a></span><span class="pill value-state value-price">GTA$1,270,500</span></li>
               </ul>
             </li>
             <li class="deal-group">
@@ -213,49 +194,51 @@
               </ul>
             </li>
           </ul>
-          <!-- Swap the grouped rows for this compact fallback when a weekly payload has no confirmed deals. -->
           <div class="compact-empty" hidden>
             No weekly deals confirmed.
           </div>
+          <!-- END: weekly_deals -->
         </article>
         <aside class="section weekly-spotlight" aria-labelledby="weekly-spotlight-title">
+          <!-- START: weekly_vehicle_spotlight -->
           <div class="section-head">
             <div>
               <h2 id="weekly-spotlight-title">Weekly Vehicle Spotlight</h2>
-              <p>Confirmed W22 vehicle surfaces from the latest payload. Presence does not imply discount unless the payload says so.</p>
+              <p>Confirmed vehicle surfaces from the latest payload. Presence does not imply discount unless the payload says so.</p>
             </div>
           </div>
           <ul class="spotlight-group" aria-label="LS Car Meet spotlight vehicles">
             <li class="spotlight-title pill">LS Car Meet</li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/nero" target="_blank" rel="noreferrer">Truffade Nero</a></span><span class="pill spotlight-note">Prize Ride</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/stinger" target="_blank" rel="noreferrer">Grotti Stinger</a></span><span class="pill spotlight-note">Test Track</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/oracle" target="_blank" rel="noreferrer">Ubermacht Oracle XS</a></span><span class="pill spotlight-note">Test Track</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/fagaloa" target="_blank" rel="noreferrer">Vulcar Fagaloa</a></span><span class="pill spotlight-note">Test Track</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/nero" target="_blank" rel="noopener noreferrer">Truffade Nero</a></span><span class="pill spotlight-note">Prize Ride</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/stinger" target="_blank" rel="noopener noreferrer">Grotti Stinger</a></span><span class="pill spotlight-note">Test Track</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/oracle" target="_blank" rel="noopener noreferrer">Ubermacht Oracle XS</a></span><span class="pill spotlight-note">Test Track</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/fagaloa" target="_blank" rel="noopener noreferrer">Vulcar Fagaloa</a></span><span class="pill spotlight-note">Test Track</span></li>
           </ul>
           <ul class="spotlight-group" aria-label="Luxury Autos spotlight vehicles">
             <li class="spotlight-title pill">Luxury Autos</li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/hardy" target="_blank" rel="noreferrer">Annis Hardy</a></span><span class="pill spotlight-note">Showroom</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/gt750" target="_blank" rel="noreferrer">Grotti GT750</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/hardy" target="_blank" rel="noopener noreferrer">Annis Hardy</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/gt750" target="_blank" rel="noopener noreferrer">Grotti GT750</a></span><span class="pill spotlight-note">Showroom</span></li>
           </ul>
           <ul class="spotlight-group" aria-label="Premium Deluxe Motorsport spotlight vehicles">
             <li class="spotlight-title pill">Premium Deluxe Motorsport</li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/verlierer2" target="_blank" rel="noreferrer">Bravado Verlierer</a></span><span class="pill spotlight-note">Showroom</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cognoscenti" target="_blank" rel="noreferrer">Enus Cognoscenti</a></span><span class="pill spotlight-note">Showroom</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/ruston" target="_blank" rel="noreferrer">Hijak Ruston</a></span><span class="pill spotlight-note">Showroom</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cliffhanger" target="_blank" rel="noreferrer">Western Cliffhanger</a></span><span class="pill spotlight-note">Showroom</span></li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/wolfsbane" target="_blank" rel="noreferrer">Western Wolfsbane</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/verlierer2" target="_blank" rel="noopener noreferrer">Bravado Verlierer</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cognoscenti" target="_blank" rel="noopener noreferrer">Enus Cognoscenti</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/ruston" target="_blank" rel="noopener noreferrer">Hijak Ruston</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/cliffhanger" target="_blank" rel="noopener noreferrer">Western Cliffhanger</a></span><span class="pill spotlight-note">Showroom</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/wolfsbane" target="_blank" rel="noopener noreferrer">Western Wolfsbane</a></span><span class="pill spotlight-note">Showroom</span></li>
           </ul>
           <ul class="spotlight-group" aria-label="Premium Test Ride spotlight vehicles">
             <li class="spotlight-title pill">Premium Test Ride</li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/fmj2" target="_blank" rel="noreferrer">Vapid FMJ MK V</a></span><span class="pill spotlight-note">PS5 / Xbox Series / PC Enhanced</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/fmj2" target="_blank" rel="noopener noreferrer">Vapid FMJ MK V</a></span><span class="pill spotlight-note">PS5 / Xbox Series / PC Enhanced</span></li>
           </ul>
           <ul class="spotlight-group" aria-label="Podium spotlight vehicles">
             <li class="spotlight-title pill">Podium</li>
-            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/komoda" target="_blank" rel="noreferrer">Lampadati Komoda</a></span><span class="pill spotlight-note">Lucky Wheel</span></li>
+            <li class="spotlight-row"><span class="spotlight-name"><a class="vehicle-link" href="https://gtacars.net/gta5/komoda" target="_blank" rel="noopener noreferrer">Lampadati Komoda</a></span><span class="pill spotlight-note">Lucky Wheel</span></li>
           </ul>
           <div class="compact-empty" hidden>
             No spotlight vehicles confirmed.
           </div>
+          <!-- END: weekly_vehicle_spotlight -->
         </aside>
       </section>
       <section id="weekly" class="grid split">

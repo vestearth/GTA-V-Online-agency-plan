@@ -190,13 +190,31 @@ If you also want local automation on your machine:
 
 Open `dashboard.html` in a browser for a quick visual overview of owned assets, weekly priorities, ROI/passive notes, and decision notes. It is intentionally static HTML + CSS: no npm, no build step, no backend.
 
-The dashboard is a visual planning surface, not a separate app. Its values are maintained as a manual snapshot from `data/player_profile.json`, the latest `data/weekly_planning_*.json`, and the standard weekly reports in `reports/`. See `docs/dashboard-data-map.md` for field-by-field sourcing.
+The dashboard is a visual planning surface, not a separate app. It now supports an optional Phase 1 generator for deterministic blocks, while the curated recommendation blocks remain hand-maintained. See `docs/dashboard-data-map.md` for field-by-field sourcing.
 
 Local usage:
 
 ```bash
 open dashboard.html
 ```
+
+Phase 1 generator usage:
+
+```bash
+python scripts/generate_dashboard.py --check-markers
+python scripts/generate_dashboard.py --dry-run
+python scripts/generate_dashboard.py
+```
+
+Optional week override:
+
+```bash
+python scripts/generate_dashboard.py --weekly data/weekly_planning_2026_w22.json
+```
+
+Current generator scope:
+- Phase 1 generated blocks: header metadata, summary cards, weekly deals snapshot, weekly vehicle spotlight, and the data status note
+- Phase 2 still manual: current focus, next claim / buy, weekly action plan, what to buy / ignore, ROI notes, decision log, and asset overview
 
 GitHub Pages is enabled from `main` / root:
 - Site: https://vestearth.github.io/GTA-V-Online-agency-plan/
@@ -205,5 +223,5 @@ GitHub Pages is enabled from `main` / root:
 Because the dashboard is plain static HTML/CSS, it can be hosted directly from the repository root on GitHub Pages without a build pipeline.
 
 Future roadmap:
-- A tiny optional generator such as `scripts/generate_dashboard.py` may later compile the dashboard from `data/player_profile.json`, the latest weekly payload, and the standard report files.
-- Keep the static HTML/CSS dashboard as the default until there is a concrete need for filtering, sorting, live data loading, or repeated weekly generation.
+- Extend `scripts/generate_dashboard.py` to cover the curated recommendation sections only after the parsing and fallback rules for report-derived content are stable enough.
+- Keep the static HTML/CSS dashboard as the default surface even if generation expands; avoid a heavier app stack unless there is a concrete need for filtering, sorting, or live data loading.
