@@ -250,6 +250,19 @@ h3 {
   text-align: right;
 }
 
+.weekly-deals .section-head,
+.weekly-spotlight .section-head {
+  display: grid;
+  gap: 6px;
+  justify-content: start;
+}
+
+.weekly-deals .section-head p,
+.weekly-spotlight .section-head p {
+  max-width: none;
+  text-align: left;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -322,6 +335,153 @@ tr:last-child td {
 
 .priority.low {
   color: var(--warning-soft);
+}
+
+.deal-groups,
+.deal-list,
+.spotlight-group {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deal-group {
+  padding: 12px;
+  border: 1px solid rgba(0, 188, 255, 0.16);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.tier-label,
+.spotlight-title {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tier-label {
+  margin-bottom: 10px;
+}
+
+.spotlight-title {
+  margin-bottom: 0;
+}
+
+.tier-label.pill {
+  border-color: rgba(187, 243, 81, 0.26);
+  background: rgba(187, 243, 81, 0.08);
+  color: var(--primary);
+}
+
+.spotlight-title.pill {
+  border-color: rgba(0, 188, 255, 0.22);
+  background: rgba(0, 188, 255, 0.08);
+  color: var(--secondary);
+}
+
+.deal-row,
+.spotlight-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 0;
+}
+
+.deal-row + .deal-row,
+.spotlight-row + .spotlight-row {
+  border-top: 1px solid rgba(0, 188, 255, 0.12);
+}
+
+.deal-name,
+.spotlight-name {
+  min-width: 0;
+  color: var(--ink);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.vehicle-link {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.16em;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.vehicle-link:hover,
+.vehicle-link:focus-visible {
+  color: var(--secondary);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 188, 255, 0.52);
+  outline: 2px solid transparent;
+}
+
+.spotlight-name {
+  font-weight: 650;
+}
+
+.value-state,
+.spotlight-note {
+  font-size: 0.76rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.value-state {
+  border: 1px solid transparent;
+}
+
+.value-free {
+  border-color: rgba(187, 243, 81, 0.32);
+  background: rgba(187, 243, 81, 0.12);
+  color: var(--primary);
+}
+
+.value-price {
+  border-color: rgba(0, 188, 255, 0.28);
+  background: rgba(0, 188, 255, 0.12);
+  color: var(--secondary);
+}
+
+.value-check {
+  border-color: rgba(250, 204, 21, 0.22);
+  background: rgba(250, 204, 21, 0.12);
+  color: var(--warning-soft);
+}
+
+.value-unknown {
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--muted);
+}
+
+.spotlight-note {
+  border: 1px solid rgba(0, 188, 255, 0.18);
+  background: rgba(17, 24, 39, 0.78);
+  color: var(--muted);
+}
+
+.pill.value-state,
+.pill.spotlight-note {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.compact-empty {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(0, 188, 255, 0.24);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.56);
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .mini-grid {
@@ -523,6 +683,17 @@ footer {
 
   .checklist .pill {
     grid-column: 2;
+    width: fit-content;
+  }
+
+  .deal-row,
+  .spotlight-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pill.value-state,
+  .pill.spotlight-note {
+    justify-self: start;
     width: fit-content;
   }
 }
