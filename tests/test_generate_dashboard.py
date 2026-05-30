@@ -7,6 +7,7 @@ from pathlib import Path
 from scripts.generate_dashboard import (
     DashboardMarkerError,
     build_phase1_context,
+    counts_toward_all_cars_needed,
     extract_markdown_section,
     find_latest_weekly_payload,
     format_currency_compact,
@@ -70,9 +71,30 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertEqual(context["owned_major_assets"], 21)
         self.assertEqual(context["missing_major_assets"], 0)
         self.assertEqual(context["discounted_items_total"], 10304070)
-        self.assertEqual(context["all_cars_needed_total"], 26418100)
+        self.assertEqual(context["all_cars_needed_total"], 23278100)
         self.assertEqual(context["unresolved_discount_items"], [])
         self.assertEqual(context["unresolved_vehicle_prices"], [])
+
+    def test_reward_vehicle_surfaces_do_not_count_toward_all_cars_needed(self):
+        weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
+        )
+        opportunities = weekly_payload["weekly_content"]["vehicle_opportunities"]
+
+        reward_flags = {
+            item["vehicle_name"]: counts_toward_all_cars_needed(item)
+            for item in opportunities
+            if item["vehicle_name"] in {"Lampadati Komoda", "Truffade Nero", "Annis Hardy"}
+        }
+
+        self.assertEqual(
+            reward_flags,
+            {
+                "Lampadati Komoda": False,
+                "Truffade Nero": False,
+                "Annis Hardy": True,
+            },
+        )
 
     def test_render_summary_cards_uses_phase1_labels(self):
         html = render_summary_cards(
@@ -80,7 +102,7 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
                 "owned_major_assets": 21,
                 "missing_major_assets": 0,
                 "discounted_items_total": 10304070,
-                "all_cars_needed_total": 26418100,
+                "all_cars_needed_total": 23278100,
                 "unresolved_vehicle_prices": [],
                 "unresolved_discount_items": [],
             }
@@ -91,9 +113,10 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Discounted Items Total", html)
         self.assertIn("All Cars Needed", html)
         self.assertIn(format_currency_compact(10304070), html)
-        self.assertIn(format_currency_compact(26418100), html)
+        self.assertIn(format_currency_compact(23278100), html)
         self.assertIn("<!-- START: current_focus -->", html)
         self.assertIn("<!-- START: next_claim_buy -->", html)
+        self.assertIn("Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.", html)
 
 
 class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):

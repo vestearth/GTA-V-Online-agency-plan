@@ -174,6 +174,12 @@ def dedupe_preserve_order(values: list[str]) -> list[str]:
     return out
 
 
+def counts_toward_all_cars_needed(item: dict[str, object]) -> bool:
+    opportunity_type = str(item.get("opportunity_type", "")).casefold()
+    source = str(item.get("source", "")).casefold()
+    return opportunity_type not in {"prize_ride", "podium"} and source != "casino_lucky_wheel"
+
+
 def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_prices: dict[str, dict[str, object]]) -> dict[str, object]:
     weekly_content = weekly_payload["weekly_content"]
     discounts = copy.deepcopy(weekly_content.get("discounts", []))
@@ -212,6 +218,8 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_pri
 
     spotlight_vehicle_names: list[str] = []
     for item in vehicle_opportunities:
+        if not isinstance(item, dict) or not counts_toward_all_cars_needed(item):
+            continue
         name = item.get("vehicle_name")
         if isinstance(name, str):
             spotlight_vehicle_names.append(name)
@@ -380,7 +388,7 @@ def render_summary_cards(context: dict[str, object]) -> str:
             '    <p class="label">All Cars Needed</p>',
             f'    <p class="value text">{html.escape(format_currency_compact(int(context["all_cars_needed_total"])))}</p>',
             "  </div>",
-            '  <p class="card-note">Unique weekly vehicles only; unresolved reference prices are reported above when present.</p>',
+            '  <p class="card-note">Unique weekly vehicles with a buy path only; Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.</p>',
             "</article>",
         ]
     )
