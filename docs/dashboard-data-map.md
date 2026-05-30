@@ -12,14 +12,12 @@ Update generated regions with the script first, then review the remaining curate
 | Week label | latest `data/weekly_planning_*.json` | Generated in Phase 1 from the most recent weekly payload. |
 | Discounted Items Total | latest `data/weekly_planning_*.json` -> confirmed discount values | Generated in Phase 1 from explicit discounted values only. Do not invent missing prices. |
 | All Cars Needed | latest `data/weekly_planning_*.json` + `data/references/vehicle_prices.yaml` | Generated in Phase 1 from unique weekly vehicle appearances with known base prices; skip but report unresolved prices. |
-| Owned Major Assets | `data/player_profile.json` -> `owned_assets.properties` | Generated in Phase 1 from the current array length. |
-| Missing Major Assets | `data/player_profile.json` -> `owned_assets.missing_properties` | Generated in Phase 1 from the current list length; if notes conflict, prefer the arrays. |
-| Asset Overview table | `data/player_profile.json`, latest `data/weekly_planning_*.json`, and weekly reports in `reports/` | Generated in Phase 2 when profile + report confidence is high enough. Otherwise preserve the existing dashboard block unchanged. |
+| Asset Overview table | `data/player_profile.json`, latest `data/weekly_planning_*.json`, and weekly reports in `reports/` | Generated in Phase 2 when profile + report confidence is high enough. This is the current surface for owned/missing asset state, readiness notes, and weekly status context. Otherwise preserve the existing dashboard block unchanged. |
 | Upgrade Checklist | `data/player_profile.json` -> `owned_assets.upgrades` | No longer shown as the primary sidebar block. Keep it as profile readiness reference data and surface it in documentation or decision notes when relevant. |
 | Weekly Deals Snapshot | latest `data/weekly_planning_*.json` plus weekly reports in `reports/` | Generated in Phase 1 as a grouped summary by weekly offer tier. Show every confirmed group and item present in the current payload, allow additional future tiers, and use explicit value states such as `Free`, `GTA$xxx`, `Check source`, or `Unknown`. |
 | Weekly Vehicle Spotlight | latest `data/weekly_planning_*.json` | Generated in Phase 1 as a summary of every confirmed showroom, meet, prize, podium, or other weekly vehicle surface present in the current payload. Do not imply discounts unless the payload explicitly confirms them. |
-| Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Deferred. The current dashboard markup does not expose a dedicated generated block for this label yet. |
-| Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Deferred. The current dashboard markup does not expose a dedicated generated block for this label yet. |
+| Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `current_focus` marker inside `summary_cards`. |
+| Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `next_claim_buy` marker inside `summary_cards`. |
 | Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 when the `## Action Queue` section parses confidently. Otherwise preserve the existing dashboard block unchanged. |
 | ROI / Passive Income | `reports/weekly_master_plan_<week_id>_income_scenarios.md` and `reports/weekly_master_plan_<week_id>.md` | Curated manually until a later generator phase touches it. |
 | What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Generated in Phase 2 when buy/ignore sections parse confidently. Otherwise preserve the existing dashboard block unchanged. |
@@ -32,11 +30,12 @@ Update generated regions with the script first, then review the remaining curate
 
 - `Weekly Deals Snapshot` is the current weekly highlights surface for time-sensitive weekly opportunities.
 - `Weekly Vehicle Spotlight` is the current weekly highlights surface for showroom, meet, prize, podium, platform-gated, or similar vehicle appearances.
+- `Current Focus` and `Next Claim / Buy` now occupy the first two summary-card slots instead of a separate row.
 - If no weekly deal groups are confirmed, show a compact empty state rather than a blank section shell.
 - If no spotlight surfaces are confirmed, hide the spotlight block or show a compact note such as `No spotlight vehicles confirmed`.
 - `Upgrade Checklist` remains part of the dashboard ecosystem as readiness/profile reference data even though it is no longer the primary sidebar card.
 - Phase 1 requires only the Phase 1 markers: `header_meta`, `summary_cards`, `weekly_deals`, `weekly_vehicle_spotlight`, and `data_status_note`.
-- Phase 2 currently owns these existing-section markers: `weekly_action_plan`, `what_to_buy_ignore`, and `asset_overview`.
+- Phase 2 currently owns these markers: `current_focus`, `next_claim_buy`, `weekly_action_plan`, `what_to_buy_ignore`, and `asset_overview`.
 
 ## Current Weekly Source Convention
 

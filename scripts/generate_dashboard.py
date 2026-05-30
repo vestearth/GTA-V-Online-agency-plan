@@ -39,6 +39,8 @@ PHASE1_MARKERS = [
 ]
 
 PHASE2_MARKERS = [
+    "current_focus",
+    "next_claim_buy",
     "weekly_action_plan",
     "what_to_buy_ignore",
     "asset_overview",
@@ -346,26 +348,42 @@ def render_data_status_note(context: dict[str, object]) -> str:
 
 
 def render_summary_cards(context: dict[str, object]) -> str:
-    cards = [
-        ("Owned Major Assets", str(context["owned_major_assets"]), "Properties from `owned_assets.properties`.", False),
-        ("Missing Major Assets", str(context["missing_major_assets"]), "Uses `missing_properties`; profile note looks stale.", False),
-        ("Discounted Items Total", format_currency_compact(int(context["discounted_items_total"])), "Known discounted values only; unresolved item prices are reported above when present.", True),
-        ("All Cars Needed", format_currency_compact(int(context["all_cars_needed_total"])), "Unique weekly vehicles only; unresolved reference prices are reported above when present.", True),
-    ]
-    out: list[str] = []
-    for label, value, note, is_text in cards:
-        out.extend(
-            [
-                '<article class="card">',
-                "  <div>",
-                f'    <p class="label">{html.escape(label)}</p>',
-                f'    <p class="value{" text" if is_text else ""}">{html.escape(value)}</p>',
-                "  </div>",
-                f'  <p class="card-note">{html.escape(note)}</p>',
-                "</article>",
-            ]
-        )
-    return "\n".join(out)
+    return "\n".join(
+        [
+            '<article class="card">',
+            "  <div>",
+            '    <p class="label">Current Focus</p>',
+            "    <!-- START: current_focus -->",
+            '    <p class="value text">Money Fronts 4x loop</p>',
+            '    <p class="card-note">Run legal missions first, then rotate into laundering for the strongest active ROI this week.</p>',
+            "    <!-- END: current_focus -->",
+            "  </div>",
+            "</article>",
+            '<article class="card">',
+            "  <div>",
+            '    <p class="label">Next Claim / Buy</p>',
+            "    <!-- START: next_claim_buy -->",
+            '    <p class="value text">Claim Higgins Helitours</p>',
+            '    <p class="card-note">Free this week and directly relevant to the Money Fronts network before considering optional purchases.</p>',
+            "    <!-- END: next_claim_buy -->",
+            "  </div>",
+            "</article>",
+            '<article class="card">',
+            "  <div>",
+            '    <p class="label">Discounted Items Total</p>',
+            f'    <p class="value text">{html.escape(format_currency_compact(int(context["discounted_items_total"])))}</p>',
+            "  </div>",
+            '  <p class="card-note">Known discounted values only; unresolved item prices are reported above when present.</p>',
+            "</article>",
+            '<article class="card">',
+            "  <div>",
+            '    <p class="label">All Cars Needed</p>',
+            f'    <p class="value text">{html.escape(format_currency_compact(int(context["all_cars_needed_total"])))}</p>',
+            "  </div>",
+            '  <p class="card-note">Unique weekly vehicles only; unresolved reference prices are reported above when present.</p>',
+            "</article>",
+        ]
+    )
 
 
 def _render_deal_value(item: str, group: dict[str, object], price_context: dict[str, object]) -> str:
@@ -565,6 +583,28 @@ def _strip_markdown(text: str) -> str:
     return text.replace("**", "").replace("`", "").strip()
 
 
+def render_current_focus(weekly_payload: dict[str, object], weekly_report_text: str | None) -> str | None:
+    weekly_content = weekly_payload.get("weekly_content", {})
+    headline = weekly_content.get("headline")
+    summary = weekly_content.get("summary")
+    if not isinstance(headline, str) or not headline:
+        return None
+
+    if "money fronts" in headline.casefold():
+        main = "Money Fronts 4x loop"
+        copy_text = "Run legal missions first, then rotate into laundering for the strongest active ROI this week."
+    else:
+        main = headline
+        copy_text = summary if isinstance(summary, str) and summary else "Weekly focus generated from the current planning payload."
+
+    return "\n".join(
+        [
+            f'<p class="value text">{html.escape(main)}</p>',
+            f'<p class="card-note">{html.escape(copy_text)}</p>',
+        ]
+    )
+
+
 def _action_step_note(step_text: str) -> str:
     lowered = step_text.casefold()
     if "higgins helitours" in lowered:
@@ -647,6 +687,29 @@ def _ignore_ruling(label: str, reason: str) -> tuple[str, str]:
     if "already owned" in lowered or "มีอยู่แล้ว" in lowered:
         return ("Skip", "low")
     return ("Ignore", "low")
+
+
+def render_next_claim_buy(weekly_report_text: str, event_report_text: str | None = None) -> str | None:
+    buy_section = extract_markdown_section(weekly_report_text, "## What to Buy")
+    if not buy_section:
+        return None
+    buy_entries = _parse_report_entries(buy_section, ordered=True)
+    if not buy_entries:
+        return None
+    label, reason = buy_entries[0]
+    clean_label = _clean_entry_label(label)
+    if "free" in reason.casefold() or "ฟรี" in reason:
+        main = f"Claim {clean_label}"
+    elif "check" in reason.casefold() or "ถ้ายังไม่มี" in reason:
+        main = f"Check {clean_label}"
+    else:
+        main = f"Buy {clean_label}"
+    return "\n".join(
+        [
+            f'<p class="value text">{html.escape(main)}</p>',
+            f'<p class="card-note">{html.escape(reason)}</p>',
+        ]
+    )
 
 
 def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | None = None) -> str | None:
@@ -782,6 +845,8 @@ def build_phase2_replacements(
     preserved_markers: list[str] = []
 
     marker_to_renderer = {
+        "current_focus": lambda: render_current_focus(weekly_payload, weekly_report_text),
+        "next_claim_buy": lambda: render_next_claim_buy(weekly_report_text or "", event_report_text),
         "weekly_action_plan": lambda: render_weekly_action_plan(weekly_report_text or ""),
         "what_to_buy_ignore": lambda: render_what_to_buy_ignore(weekly_report_text or "", event_report_text),
         "asset_overview": lambda: render_asset_overview(player_profile, weekly_payload, weekly_report_text or ""),

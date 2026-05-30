@@ -12,6 +12,8 @@ from scripts.generate_dashboard import (
     format_currency_compact,
     load_vehicle_price_reference,
     plan_phase1_updates,
+    render_current_focus,
+    render_next_claim_buy,
     render_asset_overview,
     render_summary_cards,
     render_weekly_action_plan,
@@ -84,12 +86,14 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
             }
         )
 
-        self.assertIn("Owned Major Assets", html)
-        self.assertIn("Missing Major Assets", html)
+        self.assertIn("Current Focus", html)
+        self.assertIn("Next Claim / Buy", html)
         self.assertIn("Discounted Items Total", html)
         self.assertIn("All Cars Needed", html)
         self.assertIn(format_currency_compact(10304070), html)
         self.assertIn(format_currency_compact(26418100), html)
+        self.assertIn("<!-- START: current_focus -->", html)
+        self.assertIn("<!-- START: next_claim_buy -->", html)
 
 
 class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
@@ -152,6 +156,30 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
 
     def test_render_weekly_action_plan_returns_none_when_parse_confidence_is_low(self):
         self.assertIsNone(render_weekly_action_plan("## Something Else\n- no action queue here"))
+
+    def test_render_current_focus_uses_weekly_payload(self):
+        html = render_current_focus(self.weekly_payload, self.weekly_report_text)
+
+        self.assertIsNotNone(html)
+        self.assertIn("Money Fronts 4x loop", html)
+
+    def test_render_next_claim_buy_uses_first_buy_entry(self):
+        html = render_next_claim_buy(self.weekly_report_text, self.event_report_text)
+
+        self.assertIsNotNone(html)
+        self.assertIn("Claim Higgins Helitours", html)
+
+
+class DashboardFocusRowMarkupTests(unittest.TestCase):
+    def test_dashboard_contains_summary_card_markers_for_focus_content(self):
+        html = Path("dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('class="grid summary-grid"', html)
+        self.assertNotIn('class="grid focus-row"', html)
+        self.assertIn("<!-- START: current_focus -->", html)
+        self.assertIn("<!-- END: current_focus -->", html)
+        self.assertIn("<!-- START: next_claim_buy -->", html)
+        self.assertIn("<!-- END: next_claim_buy -->", html)
 
 
 class DashboardGeneratorDryRunTests(unittest.TestCase):
