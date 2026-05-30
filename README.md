@@ -190,6 +190,20 @@ If you also want local automation on your machine:
 
 Open `dashboard.html` in a browser for a quick visual overview of owned assets, weekly priorities, ROI/passive notes, and decision notes. It is intentionally static HTML + CSS: no npm, no build step, no backend.
 
+The dashboard is a visual planning surface, not a separate app. Its values are maintained as a manual snapshot from `data/player_profile.json`, the latest `data/weekly_planning_*.json`, and the standard weekly reports in `reports/`. See `docs/dashboard-data-map.md` for field-by-field sourcing.
+
+Local usage:
+
+```bash
+open dashboard.html
+```
+
 GitHub Pages is enabled from `main` / root:
 - Site: https://vestearth.github.io/GTA-V-Online-agency-plan/
 - Dashboard: https://vestearth.github.io/GTA-V-Online-agency-plan/dashboard.html
+
+Because the dashboard is plain static HTML/CSS, it can be hosted directly from the repository root on GitHub Pages without a build pipeline.
+
+Future roadmap:
+- A tiny optional generator such as `scripts/generate_dashboard.py` may later compile the dashboard from `data/player_profile.json`, the latest weekly payload, and the standard report files.
+- Keep the static HTML/CSS dashboard as the default until there is a concrete need for filtering, sorting, live data loading, or repeated weekly generation.
