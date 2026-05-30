@@ -410,6 +410,20 @@ def _render_deal_value(item: str, group: dict[str, object], price_context: dict[
     return '<span class="pill value-state value-check">Check source</span>'
 
 
+def _render_deal_row(item: str, group: dict[str, object], price_context: dict[str, object], vehicle_prices: dict[str, dict[str, object]]) -> str:
+    is_vehicle = item in vehicle_prices
+    return (
+        '      <li class="deal-row">'
+        + (
+            _vehicle_link(item, vehicle_prices, "deal-name")
+            if is_vehicle
+            else f'<span class="deal-name">{html.escape(item)}</span>'
+        )
+        + _render_deal_value(item, group, price_context)
+        + "</li>"
+    )
+
+
 def render_weekly_deals(context: dict[str, object], vehicle_prices: dict[str, dict[str, object]]) -> str:
     groups = context["discounts"]
     price_context = context["price_context"]
@@ -440,23 +454,40 @@ def render_weekly_deals(context: dict[str, object], vehicle_prices: dict[str, di
             [
                 '  <li class="deal-group">',
                 f'    <h3 class="tier-label pill">{html.escape(group_title)}</h3>',
-                '    <ul class="deal-list">',
             ]
         )
-        for item in items:
-            is_vehicle = item in vehicle_prices
-            lines.append(
-                "      <li class=\"deal-row\">"
-                + (_vehicle_link(item, vehicle_prices, "deal-name") if is_vehicle else f'<span class="deal-name">{html.escape(item)}</span>')
-                + _render_deal_value(item, group, price_context)
-                + "</li>"
+        is_gun_van_group = "gun van" in str(tier_label).casefold() and len(items) > 3
+        if is_gun_van_group:
+            preview_items = items[:3]
+            hidden_items = items[3:]
+            lines.append('    <ul class="deal-list deal-preview-list">')
+            for item in preview_items:
+                lines.append(_render_deal_row(item, group, price_context, vehicle_prices))
+            lines.extend(
+                [
+                    "    </ul>",
+                    '    <details class="deal-expandable">',
+                    '      <summary class="deal-toggle">',
+                    f'        <span class="deal-toggle-more">Show {len(hidden_items)} more</span>',
+                    '        <span class="deal-toggle-less">Show less</span>',
+                    "      </summary>",
+                    '      <ul class="deal-list deal-hidden-list">',
+                ]
             )
-        lines.extend(
-            [
-                "    </ul>",
-                "  </li>",
-            ]
-        )
+            for item in hidden_items:
+                lines.append(_render_deal_row(item, group, price_context, vehicle_prices))
+            lines.extend(
+                [
+                    "      </ul>",
+                    "    </details>",
+                    "  </li>",
+                ]
+            )
+            continue
+        lines.append('    <ul class="deal-list">')
+        for item in items:
+            lines.append(_render_deal_row(item, group, price_context, vehicle_prices))
+        lines.extend(["    </ul>", "  </li>"])
     lines.extend(
         [
             "</ul>",

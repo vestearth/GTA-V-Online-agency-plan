@@ -354,6 +354,55 @@ tr:last-child td {
   background: var(--panel);
 }
 
+.deal-expandable {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.deal-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--secondary);
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 800;
+  list-style: none;
+}
+
+.deal-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.deal-toggle::before {
+  content: "+";
+  display: inline-block;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.deal-expandable[open] .deal-toggle::before {
+  content: "-";
+}
+
+.deal-toggle-less {
+  display: none;
+}
+
+.deal-expandable[open] .deal-toggle-more {
+  display: none;
+}
+
+.deal-expandable[open] .deal-toggle-less {
+  display: inline;
+}
+
 .tier-label,
 .spotlight-title {
   font-size: 0.72rem;

@@ -17,6 +17,7 @@ from scripts.generate_dashboard import (
     render_next_claim_buy,
     render_asset_overview,
     render_summary_cards,
+    render_weekly_deals,
     render_weekly_action_plan,
     render_what_to_buy_ignore,
     validate_required_markers,
@@ -117,6 +118,26 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("<!-- START: current_focus -->", html)
         self.assertIn("<!-- START: next_claim_buy -->", html)
         self.assertIn("Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.", html)
+
+    def test_render_weekly_deals_collapses_long_gun_van_groups(self):
+        weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
+        )
+        player_profile = json.loads(Path("data/player_profile.json").read_text(encoding="utf-8"))
+        vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
+        context = build_phase1_context(
+            weekly_payload=weekly_payload,
+            player_profile=player_profile,
+            vehicle_prices=vehicle_prices,
+        )
+
+        html = render_weekly_deals(context, vehicle_prices)
+
+        self.assertIn('class="deal-expandable"', html)
+        self.assertIn("Show 10 more", html)
+        self.assertIn("Show less", html)
+        self.assertIn("Gun Van 10%", html)
+        self.assertNotIn("Gun Van 50%</h3>\n    <details", html)
 
 
 class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
