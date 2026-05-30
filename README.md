@@ -190,7 +190,7 @@ If you also want local automation on your machine:
 
 Open `dashboard.html` in a browser for a quick visual overview of owned assets, weekly priorities, ROI/passive notes, and decision notes. It is intentionally static HTML + CSS: no npm, no build step, no backend.
 
-The dashboard is a visual planning surface, not a separate app. It now supports an optional Phase 1 generator for deterministic blocks, while the curated recommendation blocks remain hand-maintained. See `docs/dashboard-data-map.md` for field-by-field sourcing.
+The dashboard is a visual planning surface, not a separate app. It now supports a marker-based generator for both deterministic and conservative report-derived blocks. See `docs/dashboard-data-map.md` for field-by-field sourcing.
 
 Local usage:
 
@@ -214,8 +214,13 @@ python scripts/generate_dashboard.py --weekly data/weekly_planning_2026_w22.json
 
 Current generator scope:
 - Phase 1 generated blocks: header metadata, summary cards, weekly deals snapshot, weekly vehicle spotlight, and the data status note
-- Phase 2 generated blocks: weekly action plan, what to buy / ignore, and asset overview when report parsing is confident enough
-- Still manual: ROI notes, decision log, and any future `Current Focus` / `Next Claim / Buy` UI that is not currently present in `dashboard.html`
+- Phase 2 generated blocks: current focus, next claim / buy, weekly action plan, what to buy / ignore, and asset overview when report parsing is confident enough
+- Still manual: ROI notes and the decision log
+
+Current dashboard notes:
+- `Current Focus` and `Next Claim / Buy` now occupy the first two summary-card slots.
+- `All Cars Needed` excludes Prize Ride and Lucky Wheel reward vehicles from the total, while keeping those vehicles visible and linked in the weekly spotlight.
+- Long Gun Van groups collapse by default and can be expanded inline from the weekly deals snapshot.
 
 GitHub Pages is enabled from `main` / root:
 - Site: https://vestearth.github.io/GTA-V-Online-agency-plan/
@@ -225,5 +230,4 @@ Because the dashboard is plain static HTML/CSS, it can be hosted directly from t
 
 Future roadmap:
 - Extend `scripts/generate_dashboard.py` further only for report-derived sections whose parsing and fallback rules stay reliable in practice.
-- Add dedicated `Current Focus` / `Next Claim / Buy` dashboard blocks only if the page regains explicit markup for them.
 - Keep the static HTML/CSS dashboard as the default surface even if generation expands; avoid a heavier app stack unless there is a concrete need for filtering, sorting, or live data loading.
