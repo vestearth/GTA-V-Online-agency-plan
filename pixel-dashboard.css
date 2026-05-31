@@ -1,0 +1,388 @@
+/* 
+  PIXEL DASHBOARD CSS
+  A Pixel-Art Virtual Office / Gamified Agency Dashboard
+  Visual Direction: Dark Cyberpunk, Neon Lime/Cyan, Management Sim style
+*/
+
+/* --- 1. Base Layout & Shell --- */
+
+body.pixel-page {
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(rgba(187, 243, 81, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(187, 243, 81, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  image-rendering: pixelated;
+}
+
+.pixel-shell {
+  max-width: 1400px;
+  width: min(100% - 40px, 1400px);
+  margin: 0 auto;
+}
+
+.pixel-header {
+  border-bottom: 4px solid var(--primary);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  image-rendering: pixelated;
+}
+
+.pixel-header h1 {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Code", monospace;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.pixel-meta {
+  font-family: ui-monospace, monospace;
+  border: 4px solid var(--secondary);
+  background: var(--panel-strong);
+  box-shadow: 4px 4px 0 var(--secondary);
+}
+
+/* --- 2. Command Center Layout --- */
+
+.pixel-command-center {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: start;
+}
+
+.pixel-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- 3. Panels & Metrics --- */
+
+.pixel-panel {
+  background: var(--panel-strong);
+  border: 4px solid var(--line);
+  padding: 16px;
+  position: relative;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.pixel-panel-alert {
+  border-color: var(--warning);
+  box-shadow: 6px 6px 0 rgba(217, 119, 6, 0.2);
+}
+
+.pixel-panel-alert::before {
+  content: "!";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--warning);
+  color: var(--bg);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.pixel-label {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.pixel-panel h2 {
+  font-family: ui-monospace, monospace;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: var(--surface);
+}
+
+.pixel-metrics {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.pixel-metrics span {
+  color: var(--muted);
+}
+
+.pixel-metrics strong {
+  color: var(--secondary);
+  text-align: right;
+}
+
+.pixel-mini-list {
+  padding-left: 20px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pixel-mini-list li {
+  margin-bottom: 6px;
+}
+
+/* --- 4. The Office Scene --- */
+
+.pixel-office-card {
+  background: var(--panel-strong);
+  border: 4px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), var(--glow-primary);
+}
+
+.pixel-office-topbar {
+  background: var(--primary);
+  color: var(--bg);
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  font-family: ui-monospace, monospace;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.pixel-office-scene {
+  flex: 1;
+  position: relative;
+  background: #080a0f;
+  /* Perspective Floor */
+  background-image: 
+    linear-gradient(to bottom, #080a0f 60%, #151f31 60.5%, #151f31 100%);
+  overflow: hidden;
+}
+
+/* Interior Elements */
+
+.pixel-window {
+  position: absolute;
+  top: 40px;
+  width: 80px;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--secondary), transparent);
+  opacity: 0.3;
+  border: 2px solid var(--secondary);
+}
+
+.pixel-window-left { left: 40px; }
+.pixel-window-right { right: 40px; }
+
+.pixel-sign {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: ui-monospace, monospace;
+  font-size: 0.6rem;
+  color: var(--primary);
+  text-align: center;
+  border: 2px solid var(--primary);
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.pixel-logo {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(187, 243, 81, 0.1);
+  font-family: ui-monospace, monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+}
+
+.pixel-shelf {
+  position: absolute;
+  top: 120px;
+  left: 140px;
+  width: 100px;
+  height: 8px;
+  background: #334155;
+  box-shadow: 0 10px 0 #1e293b, 40px 40px 0 #334155, 40px 50px 0 #1e293b;
+}
+
+.pixel-desk {
+  position: absolute;
+  bottom: 80px;
+  height: 40px;
+  background: #1e293b;
+  border-top: 4px solid #334155;
+}
+
+.desk-one { width: 120px; left: 30px; }
+.desk-two { width: 140px; left: 50%; transform: translateX(-50%); }
+.desk-three { width: 120px; right: 30px; }
+
+/* Agents (CSS-only Pixel Characters) */
+
+.pixel-agent {
+  position: absolute;
+  bottom: 120px;
+  width: 24px;
+  height: 40px;
+  background: #ffdbac; /* Skin tone */
+}
+
+/* Using pseudo-elements to "draw" hair and clothes */
+.pixel-agent::before {
+  content: "";
+  position: absolute;
+  top: -8px; left: 0; width: 24px; height: 12px;
+}
+
+.pixel-agent::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; width: 24px; height: 28px;
+}
+
+.agent-planner { 
+  left: 60px; 
+}
+.agent-planner::before { background: #4a3728; box-shadow: 4px 4px 0 #4a3728; } /* Hair */
+.agent-planner::after { background: var(--primary); } /* Shirt */
+
+.agent-roi { 
+  left: 45%; 
+}
+.agent-roi::before { background: #222; }
+.agent-roi::after { background: var(--secondary); }
+
+.agent-runner { 
+  right: 60px; 
+}
+.agent-runner::before { background: #d97706; }
+.agent-runner::after { background: #dc2626; }
+
+.agent-reviewer {
+  left: 55%;
+}
+.agent-reviewer::before { background: #6366f1; }
+.agent-reviewer::after { background: #ec4899; }
+
+/* Bots */
+
+.pixel-bot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #94a3b8;
+  border: 2px solid #475569;
+  animation: float 3s ease-in-out infinite;
+}
+
+.bot-one { top: 100px; left: 100px; animation-delay: 0s; }
+.bot-two { top: 150px; right: 120px; animation-delay: 1.5s; }
+
+.pixel-bot::after {
+  content: "";
+  position: absolute;
+  top: 4px; left: 4px; width: 4px; height: 4px;
+  background: var(--secondary);
+  box-shadow: 0 0 5px var(--secondary);
+}
+
+.pixel-floor-glow {
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 100px;
+  background: radial-gradient(ellipse at bottom, rgba(187, 243, 81, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+/* --- 5. Assets Grid --- */
+
+.pixel-grid-panels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pixel-tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pixel-tags li {
+  background: rgba(0, 188, 255, 0.1);
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  font-family: ui-monospace, monospace;
+}
+
+/* --- 6. Animations --- */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.pixel-window {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-bot, .pixel-window {
+    animation: none;
+  }
+}
+
+/* --- 7. Responsive --- */
+
+@media (max-width: 1100px) {
+  .pixel-command-center {
+    grid-template-columns: 1fr;
+  }
+  
+  .pixel-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .pixel-office-card {
+    order: -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .pixel-grid-panels {
+    grid-template-columns: 1fr;
+  }
+  
+  .pixel-office-card {
+    height: 350px;
+  }
+  
+  .desk-three, .agent-runner, .pixel-window-right {
+    display: none;
+  }
+  
+  .pixel-header h1 {
+    font-size: 1.5rem;
+  }
+}
