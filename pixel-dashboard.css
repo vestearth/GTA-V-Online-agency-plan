@@ -1,6 +1,6 @@
 /* 
-  PIXEL DASHBOARD CSS - REFINED
-  Visual Direction: Dark Cyberpunk, Neon Depth, Detailed Pixel Workers
+  PIXEL DASHBOARD CSS - LOS SANTOS OPS ROOM
+  Visual Direction: GTA Safehouse, Planning Room, Cyberpunk Neon, War Room vibe
 */
 
 /* --- 1. Base Layout & Shell --- */
@@ -21,6 +21,10 @@ body.pixel-page {
 }
 
 .pixel-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
   border-bottom: 3px solid var(--primary);
   padding-bottom: 2rem;
   margin-bottom: 2rem;
@@ -60,7 +64,7 @@ body.pixel-page {
 
 .pixel-panel {
   background: var(--panel-strong);
-  border: 2px solid var(--line); /* Premium thin pixel border */
+  border: 2px solid var(--line);
   padding: 20px;
   position: relative;
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
@@ -134,7 +138,7 @@ body.pixel-page {
   margin-bottom: 8px;
 }
 
-/* --- 4. The Office Scene --- */
+/* --- 4. The Ops Room Scene --- */
 
 .pixel-office-card {
   background: var(--bg);
@@ -144,7 +148,6 @@ body.pixel-page {
   height: 520px;
   overflow: hidden;
   box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.7), var(--glow-primary);
-  image-rendering: pixelated;
 }
 
 .pixel-office-topbar {
@@ -164,18 +167,19 @@ body.pixel-page {
   flex: 1;
   position: relative;
   background: #05070d;
-  /* Perspective Scene Depth */
+  /* War Room Scene Depth */
   background-image: 
     /* Horizon Line */
-    linear-gradient(to bottom, transparent 58%, var(--secondary) 58.5%, transparent 59%),
-    /* Floor Grid */
-    linear-gradient(rgba(0, 188, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 188, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, transparent 58%, var(--primary) 58.5%, transparent 59%),
+    /* Floor Grid - Gritty Green */
+    linear-gradient(rgba(187, 243, 81, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(187, 243, 81, 0.05) 1px, transparent 1px),
     /* Sky/Wall Gradient */
-    linear-gradient(to bottom, #05070d 0%, #0c1220 58%, #151f31 100%);
+    linear-gradient(to bottom, #05070d 0%, #0c1220 58%, #0f172a 100%);
   background-size: 100% 100%, 40px 40px, 40px 40px, 100% 100%;
   background-position: 0 0, center 58.5%, center 58.5%, 0 0;
   overflow: hidden;
+  image-rendering: pixelated;
 }
 
 /* Interior Elements */
@@ -185,9 +189,10 @@ body.pixel-page {
   top: 40px;
   width: 100px;
   height: 120px;
-  background: linear-gradient(180deg, rgba(0, 188, 255, 0.2), transparent);
-  border: 3px solid rgba(0, 188, 255, 0.3);
-  box-shadow: inset 0 0 20px rgba(0, 188, 255, 0.1);
+  background: linear-gradient(180deg, rgba(187, 243, 81, 0.1), transparent);
+  border: 3px solid rgba(187, 243, 81, 0.2);
+  box-shadow: inset 0 0 20px rgba(187, 243, 81, 0.05);
+  z-index: 3;
 }
 
 .pixel-window-left { left: 40px; transform: skewY(2deg); }
@@ -207,6 +212,7 @@ body.pixel-page {
   padding: 6px 12px;
   background: rgba(0, 0, 0, 0.9);
   box-shadow: 0 0 15px var(--primary), inset 0 0 5px var(--primary);
+  z-index: 5;
 }
 
 .pixel-logo {
@@ -214,22 +220,44 @@ body.pixel-page {
   top: 160px;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(187, 243, 81, 0.04);
+  color: rgba(187, 243, 81, 0.03);
   font-family: ui-monospace, monospace;
-  font-size: 4rem;
+  font-size: 6rem;
   font-weight: 900;
   text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  z-index: 2;
+  user-select: none;
 }
 
-.pixel-shelf {
+/* Mission Board / Blueprint Table */
+.pixel-mission-board {
   position: absolute;
-  top: 130px;
-  left: 160px;
-  width: 120px;
-  height: 6px;
-  background: #475569;
-  box-shadow: 0 6px 0 #1e293b, 80px 60px 0 #475569, 80px 66px 0 #1e293b;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 100px;
+  background: rgba(0, 188, 255, 0.05);
+  border: 2px solid rgba(0, 188, 255, 0.2);
+  /* Drawing a "Blueprint Map" with box-shadows */
+  box-shadow: 
+    inset 0 0 10px rgba(0, 188, 255, 0.1),
+    -120px 20px 0 rgba(187, 243, 81, 0.1), /* Extra monitor */
+    120px 20px 0 rgba(220, 38, 38, 0.1); /* Alert monitor */
+  z-index: 2;
+}
+
+.pixel-mission-board::after {
+  content: "STRATEGY MAP";
+  position: absolute;
+  top: 4px; left: 0; right: 0;
+  font-size: 0.5rem;
+  color: var(--secondary);
+  text-align: center;
+  opacity: 0.6;
 }
 
 .pixel-desk {
@@ -239,36 +267,53 @@ body.pixel-page {
   background: #1e293b;
   border-top: 4px solid #334155;
   box-shadow: 6px 0 0 #0f172a inset, -6px 0 0 #0f172a inset;
+  z-index: 3;
 }
 
-/* Desk Monitor + Keyboard Details */
-.pixel-desk::before {
+.pixel-planning-table {
+  width: 200px !important;
+  background: #334155 !important;
+  border-top-color: var(--secondary) !important;
+  box-shadow: 0 0 15px rgba(0, 188, 255, 0.2);
+}
+
+.pixel-planning-table::before {
   content: "";
   position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 22px;
-  background: #000;
-  border: 2px solid #64748b;
-  box-shadow: 0 0 12px var(--secondary);
+  top: -10px; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 10px;
+  background: rgba(0, 188, 255, 0.3);
+  box-shadow: 0 0 10px var(--secondary);
 }
 
-.pixel-desk::after {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 15%;
-  width: 24px;
-  height: 4px;
-  background: #94a3b8;
-  box-shadow: 40px 0 0 #94a3b8; /* Mouse/Clutter */
-}
-
-.desk-one { width: 140px; left: 40px; }
+.desk-one { width: 120px; left: 30px; }
 .desk-two { width: 160px; left: 50%; transform: translateX(-50%); }
-.desk-three { width: 140px; right: 40px; }
+.desk-three { width: 120px; right: 30px; }
+
+/* Cash Crates & Vehicle Markers */
+.pixel-cash-crate {
+  position: absolute;
+  bottom: 85px;
+  left: 160px;
+  width: 24px;
+  height: 20px;
+  background: #16a34a; /* Money green */
+  border: 2px solid #14532d;
+  box-shadow: 4px 0 0 #16a34a, 8px 0 0 #16a34a;
+  z-index: 4;
+}
+
+.pixel-vehicle-marker {
+  position: absolute;
+  bottom: 85px;
+  right: 160px;
+  width: 32px;
+  height: 12px;
+  background: var(--secondary);
+  border-radius: 2px 8px 0 0;
+  box-shadow: inset -4px 0 0 rgba(0,0,0,0.2), 0 4px 10px rgba(0,188,255,0.4);
+  z-index: 4;
+}
 
 /* Agents (Advanced Pixel Characters) */
 
@@ -277,10 +322,9 @@ body.pixel-page {
   bottom: 112px;
   width: 20px;
   height: 44px;
-  image-rendering: pixelated;
+  z-index: 4;
 }
 
-/* Head and Hair */
 .pixel-agent::before {
   content: "";
   position: absolute;
@@ -288,10 +332,9 @@ body.pixel-page {
   left: 2px;
   width: 16px;
   height: 16px;
-  background: #ffdbac; /* Skin */
+  background: #ffdbac;
 }
 
-/* Body and Clothes */
 .pixel-agent::after {
   content: "";
   position: absolute;
@@ -302,66 +345,45 @@ body.pixel-page {
   box-shadow: inset 0 8px 0 rgba(0,0,0,0.15);
 }
 
-/* Specialist Styles */
-.agent-planner { left: 80px; }
+.agent-planner { left: 70px; }
 .agent-planner::before { box-shadow: 0 -4px 0 #4a3728, -4px 0 0 #4a3728, 4px 0 0 #4a3728; }
 .agent-planner::after { background: var(--primary); }
 
-.agent-roi { left: 44%; }
+.agent-roi { left: 42%; }
 .agent-roi::before { box-shadow: 0 -4px 0 #222, -4px -2px 0 #222, 4px -2px 0 #222; }
-.agent-roi::after { background: var(--secondary); }
+.agent-roi::after { background: #64748b; }
 
-.agent-runner { right: 80px; }
-.agent-runner::before { box-shadow: 0 -4px 0 #d97706, -4px 0 0 #d97706, 4px 0 0 #d97706; }
+.agent-runner { right: 70px; }
+.agent-runner::before { box-shadow: 0 -4px 0 #111, -4px 0 0 #111, 4px 0 0 #111; }
 .agent-runner::after { background: #dc2626; }
 
 .agent-reviewer { left: 54%; }
-.agent-reviewer::before { box-shadow: 0 -4px 0 #6366f1, -4px -2px 0 #6366f1, 4px -2px 0 #6366f1; }
-.agent-reviewer::after { background: #ec4899; }
+.agent-reviewer::before { box-shadow: 0 -4px 0 #d97706, -4px -2px 0 #d97706, 4px -2px 0 #d97706; }
+.agent-reviewer::after { background: #475569; }
 
-/* Bots - Robotic & Neon */
+/* Bots */
 
 .pixel-bot {
   position: absolute;
-  width: 14px;
-  height: 10px;
-  background: #475569;
-  border: 2px solid var(--secondary);
-  box-shadow: 0 0 12px var(--secondary);
+  width: 12px;
+  height: 8px;
+  background: #1e293b;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 10px var(--primary);
   animation: float 4s ease-in-out infinite;
-  image-rendering: pixelated;
+  z-index: 5;
 }
 
-.pixel-bot::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 4px;
-  width: 6px;
-  height: 2px;
-  background: var(--secondary);
-}
-
-.pixel-bot::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 3px;
-  width: 8px;
-  height: 2px;
-  background: var(--secondary);
-  opacity: 0.6;
-}
-
-.bot-one { top: 120px; left: 120px; animation-delay: 0s; }
-.bot-two { top: 180px; right: 140px; animation-delay: 2s; }
+.bot-one { top: 110px; left: 100px; animation-delay: 0s; }
+.bot-two { top: 170px; right: 100px; animation-delay: 2s; }
 
 .pixel-floor-glow {
   position: absolute;
   bottom: 0; left: 0; right: 0; height: 120px;
-  background: radial-gradient(ellipse at bottom, rgba(0, 188, 255, 0.15), transparent 75%);
+  background: radial-gradient(ellipse at bottom, rgba(187, 243, 81, 0.1), transparent 75%);
   pointer-events: none;
   mix-blend-mode: screen;
+  z-index: 1;
 }
 
 /* --- 5. Assets Grid --- */
@@ -390,25 +412,20 @@ body.pixel-page {
   box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
 }
 
-.pixel-tags li:hover {
-  color: var(--secondary);
-  border-color: var(--secondary);
-}
-
 /* --- 6. Animations --- */
 
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.02); }
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.01); }
 }
 
 .pixel-window {
-  animation: pulse 6s ease-in-out infinite;
+  animation: pulse 8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -419,14 +436,12 @@ body.pixel-page {
 
 /* --- 7. Responsive --- */
 
-@media (max-width: 1200px) {
-  .pixel-command-center {
-    grid-template-columns: 280px 1fr 280px;
-    gap: 20px;
-  }
-}
-
 @media (max-width: 1100px) {
+  .pixel-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .pixel-command-center {
     grid-template-columns: 1fr;
   }
@@ -448,16 +463,14 @@ body.pixel-page {
   
   .pixel-office-card {
     height: 400px;
-    /* Scale scene slightly on mobile instead of hiding everything */
-    transform: scale(1); 
   }
 
   .pixel-office-scene {
     background-size: 100% 100%, 30px 30px, 30px 30px, 100% 100%;
   }
   
-  .desk-three, .agent-runner, .pixel-window-right {
-    opacity: 0.3; /* Fade instead of hide */
+  .desk-three, .agent-runner, .pixel-window-right, .pixel-vehicle-marker {
+    opacity: 0.3;
     filter: grayscale(0.5);
   }
   
@@ -471,6 +484,6 @@ body.pixel-page {
   }
 
   .pixel-logo {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 }

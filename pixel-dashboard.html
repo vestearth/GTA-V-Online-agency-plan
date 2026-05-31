@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GTA Online Pixel Office Dashboard</title>
+    <title>GTA Online: Los Santos Planning Room</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="pixel-dashboard.css">
   </head>
@@ -11,25 +11,24 @@
     <main class="pixel-shell">
       <header class="pixel-header">
         <div>
-          <p class="eyebrow">GTA Online planner prototype</p>
-          <h1>Pixel Office Dashboard</h1>
-          <p class="subtitle">Gamified virtual office view สำหรับอ่าน weekly focus, ROI, assets และ next action แบบหน้าเดียว ก่อนย้าย pattern ไปใช้กับ AI Agency.</p>
-          <nav class="nav" aria-label="Pixel dashboard sections">
-            <a href="dashboard.html#weekly">Classic Dashboard</a>
-            <a href="#office">Office</a>
-            <a href="#ops">Ops Panels</a>
+          <p class="eyebrow">GTA Online ops room prototype</p>
+          <h1>Los Santos Planning Room</h1>
+          <p class="subtitle">Command center สำหรับคุมงานสัปดาห์: สรุป weekly focus, ROI คำนวณความคุ้มค่า, เช็คลิสต์ของลดราคา และแผนการหมุนเงินสำหรับ Agency owner.</p>
+          <nav class="nav" aria-label="Planning room sections">
+            <a href="dashboard.html#weekly">Classic View</a>
+            <a href="#ops">Ops Center</a>
             <a href="#assets">Assets</a>
           </nav>
         </div>
-        <aside class="meta pixel-meta" aria-label="Pixel dashboard status">
+        <aside class="meta pixel-meta" aria-label="Current mission status">
           <p><strong>-CarlosZ-</strong> / PC</p>
           <p>Week 2026-W22</p>
-          <p>Mode: <strong>Prototype</strong></p>
+          <p>Status: <strong>READY TO RUN</strong></p>
         </aside>
       </header>
 
-      <section id="office" class="pixel-command-center" aria-label="Gamified office dashboard">
-        <aside class="pixel-stack" id="ops">
+      <section id="ops" class="pixel-command-center" aria-label="War room command center">
+        <aside class="pixel-stack">
           <article class="pixel-panel">
             <p class="pixel-label">Current Focus</p>
             <h2>Money Fronts 4x loop</h2>
@@ -50,41 +49,51 @@
           </article>
         </aside>
 
-        <article class="pixel-office-card" aria-label="Pixel office scene">
+        <article class="pixel-office-card" aria-label="Safehouse planning scene">
           <div class="pixel-office-topbar">
-            <span>PIXEL AGENCY ROOM</span>
+            <span>LOS SANTOS OPS ROOM</span>
             <span>DAY 150</span>
           </div>
           <div class="pixel-office-scene">
             <div class="pixel-window pixel-window-left"></div>
             <div class="pixel-window pixel-window-right"></div>
-            <div class="pixel-sign">EAT<br>SLEEP<br>CODE<br>REPEAT</div>
-            <div class="pixel-logo">AGENCY<br>PLAN</div>
-            <div class="pixel-shelf"></div>
+            <div class="pixel-sign">CLAIM<br>RUN<br>SELL<br>REPEAT</div>
+            <div class="pixel-logo">LS OPS</div>
+            
+            <!-- Planning Table / Map -->
+            <div class="pixel-shelf pixel-mission-board"></div>
+            
             <div class="pixel-desk desk-one"></div>
-            <div class="pixel-desk desk-two"></div>
+            <div class="pixel-desk desk-two pixel-planning-table"></div>
             <div class="pixel-desk desk-three"></div>
-            <div class="pixel-agent agent-planner" title="Planner"></div>
-            <div class="pixel-agent agent-roi" title="ROI Bot"></div>
-            <div class="pixel-agent agent-runner" title="Runner"></div>
-            <div class="pixel-agent agent-reviewer" title="Reviewer"></div>
-            <div class="pixel-bot bot-one"></div>
-            <div class="pixel-bot bot-two"></div>
+            
+            <!-- Decorative Mission Assets -->
+            <div class="pixel-cash-crate"></div>
+            <div class="pixel-vehicle-marker"></div>
+
+            <div class="pixel-agent agent-planner" title="The Planner"></div>
+            <div class="pixel-agent agent-roi" title="The Numbers Guy"></div>
+            <div class="pixel-agent agent-runner" title="The Runner"></div>
+            <div class="pixel-agent agent-reviewer" title="The Analyst"></div>
+            
+            <div class="pixel-bot bot-one" title="Security Bot"></div>
+            <div class="pixel-bot bot-two" title="Intel Bot"></div>
+            
             <div class="pixel-floor-glow"></div>
           </div>
         </article>
 
         <aside class="pixel-stack">
           <article class="pixel-panel">
-            <p class="pixel-label">Company Status</p>
+            <p class="pixel-label">Weekly Cash Board</p>
             <div class="pixel-metrics">
-              <span>Discounted Items</span><strong>GTA$10.3M</strong>
-              <span>All Cars Needed</span><strong>GTA$23.3M</strong>
+              <span>Discounted Total</span><strong>GTA$10.3M</strong>
+              <span>Target Assets</span><strong>GTA$23.3M</strong>
               <span>Data Status</span><strong>Clean</strong>
             </div>
           </article>
           <article class="pixel-panel">
-            <p class="pixel-label">Weekly Action</p>
+            <p class="pixel-label">This Week's Run</p>
             <ol class="pixel-mini-list">
               <li>Claim Higgins Helitours</li>
               <li>Spin Lucky Wheel</li>
@@ -93,7 +102,7 @@
             </ol>
           </article>
           <article class="pixel-panel">
-            <p class="pixel-label">Decision Rule</p>
+            <p class="pixel-label">Buy Discipline</p>
             <p>ซื้อเฉพาะของที่ผ่าน ownership + ROI/unlock value; ไม่ซื้อเพราะเห็นป้ายลดราคาอย่างเดียว.</p>
           </article>
         </aside>
@@ -101,7 +110,7 @@
 
       <section id="assets" class="pixel-grid-panels">
         <article class="pixel-panel">
-          <p class="pixel-label">Owned Core</p>
+          <p class="pixel-label">Owned Operations</p>
           <ul class="pixel-tags">
             <li>Hands On Car Wash</li>
             <li>Smoke on the Water</li>
@@ -112,13 +121,13 @@
           </ul>
         </article>
         <article class="pixel-panel">
-          <p class="pixel-label">Conditional</p>
+          <p class="pixel-label">Check Before Buying</p>
           <h2>Benefactor Terrorbyte</h2>
           <p>Check ownership first. Buy only if utility matters this week.</p>
         </article>
         <article class="pixel-panel">
-          <p class="pixel-label">Prototype Notes</p>
-          <p>Static HTML/CSS only. ใช้เป็น visual experiment ก่อนแยกเป็น component จริงใน AI Agency dashboard.</p>
+          <p class="pixel-label">Dashboard Notes</p>
+          <p>Visual planning dashboard สำหรับใช้ดูสรุปรายสัปดาห์แบบ High-level ก่อนลงมือลุยใน Los Santos.</p>
         </article>
       </section>
     </main>
