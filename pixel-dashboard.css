@@ -1,18 +1,17 @@
 /* 
-  PIXEL DASHBOARD CSS
-  A Pixel-Art Virtual Office / Gamified Agency Dashboard
-  Visual Direction: Dark Cyberpunk, Neon Lime/Cyan, Management Sim style
+  PIXEL DASHBOARD CSS - REFINED
+  Visual Direction: Dark Cyberpunk, Neon Depth, Detailed Pixel Workers
 */
 
 /* --- 1. Base Layout & Shell --- */
 
 body.pixel-page {
   background-color: var(--bg);
+  /* Subgrid background for the whole page */
   background-image: 
-    linear-gradient(rgba(187, 243, 81, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(187, 243, 81, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-  image-rendering: pixelated;
+    linear-gradient(rgba(187, 243, 81, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(187, 243, 81, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 .pixel-shell {
@@ -22,92 +21,95 @@ body.pixel-page {
 }
 
 .pixel-header {
-  border-bottom: 4px solid var(--primary);
+  border-bottom: 3px solid var(--primary);
   padding-bottom: 2rem;
   margin-bottom: 2rem;
-  image-rendering: pixelated;
 }
 
 .pixel-header h1 {
   font-family: ui-monospace, SFMono-Regular, "Cascadia Code", monospace;
   text-transform: uppercase;
   letter-spacing: -1px;
+  text-shadow: 4px 4px 0 rgba(187, 243, 81, 0.2);
 }
 
 .pixel-meta {
   font-family: ui-monospace, monospace;
-  border: 4px solid var(--secondary);
+  border: 3px solid var(--secondary);
   background: var(--panel-strong);
-  box-shadow: 4px 4px 0 var(--secondary);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 188, 255, 0.2);
 }
 
 /* --- 2. Command Center Layout --- */
 
 .pixel-command-center {
   display: grid;
-  grid-template-columns: 300px 1fr 300px;
-  gap: 24px;
-  margin-bottom: 24px;
+  grid-template-columns: 320px 1fr 320px;
+  gap: 28px;
+  margin-bottom: 28px;
   align-items: start;
 }
 
 .pixel-stack {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 /* --- 3. Panels & Metrics --- */
 
 .pixel-panel {
   background: var(--panel-strong);
-  border: 4px solid var(--line);
-  padding: 16px;
+  border: 2px solid var(--line); /* Premium thin pixel border */
+  padding: 20px;
   position: relative;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
 }
 
 .pixel-panel-alert {
   border-color: var(--warning);
-  box-shadow: 6px 6px 0 rgba(217, 119, 6, 0.2);
+  background: linear-gradient(135deg, var(--panel-strong) 80%, rgba(217, 119, 6, 0.05));
 }
 
 .pixel-panel-alert::before {
   content: "!";
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -8px;
+  right: -8px;
   background: var(--warning);
   color: var(--bg);
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 900;
   font-family: monospace;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
 }
 
 .pixel-label {
   font-family: ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--primary);
   text-transform: uppercase;
-  margin-bottom: 8px;
-  font-weight: bold;
+  margin-bottom: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
 }
 
 .pixel-panel h2 {
   font-family: ui-monospace, monospace;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
   color: var(--surface);
+  line-height: 1.2;
 }
 
 .pixel-metrics {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 8px 12px;
+  gap: 10px 14px;
   font-size: 0.9rem;
 }
 
@@ -118,49 +120,61 @@ body.pixel-page {
 .pixel-metrics strong {
   color: var(--secondary);
   text-align: right;
+  text-shadow: 0 0 8px rgba(0, 188, 255, 0.3);
 }
 
 .pixel-mini-list {
-  padding-left: 20px;
+  padding-left: 18px;
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 .pixel-mini-list li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* --- 4. The Office Scene --- */
 
 .pixel-office-card {
-  background: var(--panel-strong);
-  border: 4px solid var(--primary);
+  background: var(--bg);
+  border: 3px solid var(--primary);
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 520px;
   overflow: hidden;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5), var(--glow-primary);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.7), var(--glow-primary);
+  image-rendering: pixelated;
 }
 
 .pixel-office-topbar {
   background: var(--primary);
   color: var(--bg);
-  padding: 4px 12px;
+  padding: 6px 16px;
   display: flex;
   justify-content: space-between;
   font-family: ui-monospace, monospace;
-  font-weight: bold;
-  font-size: 0.8rem;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  z-index: 10;
 }
 
 .pixel-office-scene {
   flex: 1;
   position: relative;
-  background: #080a0f;
-  /* Perspective Floor */
+  background: #05070d;
+  /* Perspective Scene Depth */
   background-image: 
-    linear-gradient(to bottom, #080a0f 60%, #151f31 60.5%, #151f31 100%);
+    /* Horizon Line */
+    linear-gradient(to bottom, transparent 58%, var(--secondary) 58.5%, transparent 59%),
+    /* Floor Grid */
+    linear-gradient(rgba(0, 188, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 188, 255, 0.08) 1px, transparent 1px),
+    /* Sky/Wall Gradient */
+    linear-gradient(to bottom, #05070d 0%, #0c1220 58%, #151f31 100%);
+  background-size: 100% 100%, 40px 40px, 40px 40px, 100% 100%;
+  background-position: 0 0, center 58.5%, center 58.5%, 0 0;
   overflow: hidden;
 }
 
@@ -169,140 +183,185 @@ body.pixel-page {
 .pixel-window {
   position: absolute;
   top: 40px;
-  width: 80px;
-  height: 100px;
-  background: linear-gradient(to bottom, var(--secondary), transparent);
-  opacity: 0.3;
-  border: 2px solid var(--secondary);
+  width: 100px;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(0, 188, 255, 0.2), transparent);
+  border: 3px solid rgba(0, 188, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 188, 255, 0.1);
 }
 
-.pixel-window-left { left: 40px; }
-.pixel-window-right { right: 40px; }
+.pixel-window-left { left: 40px; transform: skewY(2deg); }
+.pixel-window-right { right: 40px; transform: skewY(-2deg); }
 
 .pixel-sign {
   position: absolute;
-  top: 50px;
+  top: 60px;
   left: 50%;
   transform: translateX(-50%);
   font-family: ui-monospace, monospace;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
+  line-height: 1.2;
   color: var(--primary);
   text-align: center;
-  border: 2px solid var(--primary);
-  padding: 4px;
-  background: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 0 10px var(--primary);
+  border: 3px solid var(--primary);
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 15px var(--primary), inset 0 0 5px var(--primary);
 }
 
 .pixel-logo {
   position: absolute;
-  top: 150px;
+  top: 160px;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(187, 243, 81, 0.1);
+  color: rgba(187, 243, 81, 0.04);
   font-family: ui-monospace, monospace;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 4rem;
+  font-weight: 900;
   text-align: center;
-  user-select: none;
+  white-space: nowrap;
 }
 
 .pixel-shelf {
   position: absolute;
-  top: 120px;
-  left: 140px;
-  width: 100px;
-  height: 8px;
-  background: #334155;
-  box-shadow: 0 10px 0 #1e293b, 40px 40px 0 #334155, 40px 50px 0 #1e293b;
+  top: 130px;
+  left: 160px;
+  width: 120px;
+  height: 6px;
+  background: #475569;
+  box-shadow: 0 6px 0 #1e293b, 80px 60px 0 #475569, 80px 66px 0 #1e293b;
 }
 
 .pixel-desk {
   position: absolute;
   bottom: 80px;
-  height: 40px;
+  height: 36px;
   background: #1e293b;
   border-top: 4px solid #334155;
+  box-shadow: 6px 0 0 #0f172a inset, -6px 0 0 #0f172a inset;
 }
 
-.desk-one { width: 120px; left: 30px; }
-.desk-two { width: 140px; left: 50%; transform: translateX(-50%); }
-.desk-three { width: 120px; right: 30px; }
+/* Desk Monitor + Keyboard Details */
+.pixel-desk::before {
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 22px;
+  background: #000;
+  border: 2px solid #64748b;
+  box-shadow: 0 0 12px var(--secondary);
+}
 
-/* Agents (CSS-only Pixel Characters) */
+.pixel-desk::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 15%;
+  width: 24px;
+  height: 4px;
+  background: #94a3b8;
+  box-shadow: 40px 0 0 #94a3b8; /* Mouse/Clutter */
+}
+
+.desk-one { width: 140px; left: 40px; }
+.desk-two { width: 160px; left: 50%; transform: translateX(-50%); }
+.desk-three { width: 140px; right: 40px; }
+
+/* Agents (Advanced Pixel Characters) */
 
 .pixel-agent {
   position: absolute;
-  bottom: 120px;
-  width: 24px;
-  height: 40px;
-  background: #ffdbac; /* Skin tone */
+  bottom: 112px;
+  width: 20px;
+  height: 44px;
+  image-rendering: pixelated;
 }
 
-/* Using pseudo-elements to "draw" hair and clothes */
+/* Head and Hair */
 .pixel-agent::before {
   content: "";
   position: absolute;
-  top: -8px; left: 0; width: 24px; height: 12px;
+  top: -14px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #ffdbac; /* Skin */
 }
 
+/* Body and Clothes */
 .pixel-agent::after {
   content: "";
   position: absolute;
-  bottom: 0; left: 0; width: 24px; height: 28px;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 32px;
+  box-shadow: inset 0 8px 0 rgba(0,0,0,0.15);
 }
 
-.agent-planner { 
-  left: 60px; 
-}
-.agent-planner::before { background: #4a3728; box-shadow: 4px 4px 0 #4a3728; } /* Hair */
-.agent-planner::after { background: var(--primary); } /* Shirt */
+/* Specialist Styles */
+.agent-planner { left: 80px; }
+.agent-planner::before { box-shadow: 0 -4px 0 #4a3728, -4px 0 0 #4a3728, 4px 0 0 #4a3728; }
+.agent-planner::after { background: var(--primary); }
 
-.agent-roi { 
-  left: 45%; 
-}
-.agent-roi::before { background: #222; }
+.agent-roi { left: 44%; }
+.agent-roi::before { box-shadow: 0 -4px 0 #222, -4px -2px 0 #222, 4px -2px 0 #222; }
 .agent-roi::after { background: var(--secondary); }
 
-.agent-runner { 
-  right: 60px; 
-}
-.agent-runner::before { background: #d97706; }
+.agent-runner { right: 80px; }
+.agent-runner::before { box-shadow: 0 -4px 0 #d97706, -4px 0 0 #d97706, 4px 0 0 #d97706; }
 .agent-runner::after { background: #dc2626; }
 
-.agent-reviewer {
-  left: 55%;
-}
-.agent-reviewer::before { background: #6366f1; }
+.agent-reviewer { left: 54%; }
+.agent-reviewer::before { box-shadow: 0 -4px 0 #6366f1, -4px -2px 0 #6366f1, 4px -2px 0 #6366f1; }
 .agent-reviewer::after { background: #ec4899; }
 
-/* Bots */
+/* Bots - Robotic & Neon */
 
 .pixel-bot {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  background: #94a3b8;
-  border: 2px solid #475569;
-  animation: float 3s ease-in-out infinite;
+  width: 14px;
+  height: 10px;
+  background: #475569;
+  border: 2px solid var(--secondary);
+  box-shadow: 0 0 12px var(--secondary);
+  animation: float 4s ease-in-out infinite;
+  image-rendering: pixelated;
 }
 
-.bot-one { top: 100px; left: 100px; animation-delay: 0s; }
-.bot-two { top: 150px; right: 120px; animation-delay: 1.5s; }
+.pixel-bot::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 4px;
+  width: 6px;
+  height: 2px;
+  background: var(--secondary);
+}
 
 .pixel-bot::after {
   content: "";
   position: absolute;
-  top: 4px; left: 4px; width: 4px; height: 4px;
+  bottom: -4px;
+  left: 3px;
+  width: 8px;
+  height: 2px;
   background: var(--secondary);
-  box-shadow: 0 0 5px var(--secondary);
+  opacity: 0.6;
 }
+
+.bot-one { top: 120px; left: 120px; animation-delay: 0s; }
+.bot-two { top: 180px; right: 140px; animation-delay: 2s; }
 
 .pixel-floor-glow {
   position: absolute;
-  bottom: 0; left: 0; right: 0; height: 100px;
-  background: radial-gradient(ellipse at bottom, rgba(187, 243, 81, 0.1), transparent 70%);
+  bottom: 0; left: 0; right: 0; height: 120px;
+  background: radial-gradient(ellipse at bottom, rgba(0, 188, 255, 0.15), transparent 75%);
   pointer-events: none;
+  mix-blend-mode: screen;
 }
 
 /* --- 5. Assets Grid --- */
@@ -310,7 +369,7 @@ body.pixel-page {
 .pixel-grid-panels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 28px;
 }
 
 .pixel-tags {
@@ -318,32 +377,38 @@ body.pixel-page {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }
 
 .pixel-tags li {
-  background: rgba(0, 188, 255, 0.1);
-  border: 1px solid var(--secondary);
-  color: var(--secondary);
+  background: rgba(0, 188, 255, 0.05);
+  border: 1px solid var(--line);
+  color: var(--muted);
   font-size: 0.75rem;
-  padding: 2px 8px;
+  padding: 4px 10px;
   font-family: ui-monospace, monospace;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+.pixel-tags li:hover {
+  color: var(--secondary);
+  border-color: var(--secondary);
 }
 
 /* --- 6. Animations --- */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-12px) rotate(2deg); }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.02); }
 }
 
 .pixel-window {
-  animation: pulse 4s ease-in-out infinite;
+  animation: pulse 6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -354,6 +419,13 @@ body.pixel-page {
 
 /* --- 7. Responsive --- */
 
+@media (max-width: 1200px) {
+  .pixel-command-center {
+    grid-template-columns: 280px 1fr 280px;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 1100px) {
   .pixel-command-center {
     grid-template-columns: 1fr;
@@ -361,7 +433,7 @@ body.pixel-page {
   
   .pixel-stack {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
   
   .pixel-office-card {
@@ -375,14 +447,30 @@ body.pixel-page {
   }
   
   .pixel-office-card {
-    height: 350px;
+    height: 400px;
+    /* Scale scene slightly on mobile instead of hiding everything */
+    transform: scale(1); 
+  }
+
+  .pixel-office-scene {
+    background-size: 100% 100%, 30px 30px, 30px 30px, 100% 100%;
   }
   
   .desk-three, .agent-runner, .pixel-window-right {
-    display: none;
+    opacity: 0.3; /* Fade instead of hide */
+    filter: grayscale(0.5);
   }
   
   .pixel-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  .pixel-sign {
+    font-size: 0.55rem;
+    padding: 4px 8px;
+  }
+
+  .pixel-logo {
+    font-size: 2.5rem;
   }
 }
