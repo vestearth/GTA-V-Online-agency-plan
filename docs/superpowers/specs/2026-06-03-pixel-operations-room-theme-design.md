@@ -39,6 +39,27 @@ These choices may evolve over time:
 
 Creative choices are allowed only when they preserve the mandatory core rules.
 
+### Theme Variant Rule
+
+Theme variants may change:
+
+- color palette
+- room hints
+- decorative accents
+- atmospheric texture
+- panel treatment
+
+Theme variants may not change:
+
+- information architecture
+- Functional Surface Ownership
+- visual hierarchy
+- Motion Rules
+- Static-First Rule
+- section order
+
+A theme variant must never become a different dashboard layout in disguise.
+
 ## Room Definition
 
 `Pixel Operations Room` is a weekly strategy room for GTA Online planning.
@@ -324,6 +345,28 @@ Not allowed:
 - large scene artwork that pushes content below the fold
 - character sprites that compete with weekly information
 - decoration required to understand section meaning
+
+## Visual Companion Boundary
+
+Visual companions are small props that reinforce the room metaphor, such as:
+
+- clipboard
+- sticky note
+- radio
+- crate
+- folder
+
+Visual companions may reinforce meaning. Visual companions may not carry meaning.
+
+Removing visual companions must not change comprehension, section identity, or action priority.
+
+Examples:
+
+- a clipboard may reinforce that the queue is executable, but the ordered list must still communicate sequencing without it
+- a radio may reinforce field context, but it must not be the only signal that a section is `FIELD INTEL`
+- a folder may reinforce ledger behavior, but decisions must still come from labels, chips, and copy
+
+Visual companions must not look clickable unless they are real controls.
 
 ## Bilingual Compatibility
 
