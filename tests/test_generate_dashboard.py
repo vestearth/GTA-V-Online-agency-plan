@@ -22,6 +22,16 @@ from scripts.generate_dashboard import (
     render_what_to_buy_ignore,
     validate_required_markers,
 )
+from scripts.generate_pixel_dashboard import (
+    PIXEL_MARKERS,
+    build_pixel_replacements,
+    render_pixel_action_queue,
+    render_pixel_buy_ledger,
+    render_pixel_command_brief,
+    render_pixel_field_intel,
+    render_pixel_header_meta,
+    render_pixel_operations_wall,
+)
 
 
 class DashboardGeneratorSelectionTests(unittest.TestCase):
@@ -224,6 +234,170 @@ class DashboardFocusRowMarkupTests(unittest.TestCase):
         self.assertIn("<!-- END: current_focus -->", html)
         self.assertIn("<!-- START: next_claim_buy -->", html)
         self.assertIn("<!-- END: next_claim_buy -->", html)
+
+
+class DashboardCrossLinkMarkupTests(unittest.TestCase):
+    def test_dashboard_links_to_pixel_view_and_shows_automation_note(self):
+        html = Path("dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('href="pixel-dashboard.html#ops"', html)
+        self.assertIn("Operations Center", html)
+        self.assertIn("Auto update", html)
+        self.assertIn("Thursday", html)
+        self.assertIn("08:00", html)
+        self.assertIn("Bangkok", html)
+
+
+class PixelDashboardOperationsMarkupTests(unittest.TestCase):
+    def test_pixel_dashboard_contains_generator_markers(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        for marker in PIXEL_MARKERS:
+            self.assertIn(f"<!-- START: {marker} -->", html)
+            self.assertIn(f"<!-- END: {marker} -->", html)
+
+    def test_pixel_dashboard_contains_operations_center_sections(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn("WEEKLY COMMAND BRIEF", html)
+        self.assertIn("ACTION QUEUE", html)
+        self.assertIn("OPERATIONS WALL", html)
+        self.assertIn("FIELD INTEL", html)
+        self.assertIn("BUY / IGNORE LEDGER", html)
+        self.assertIn("IGNORE THIS WEEK", html)
+
+    def test_pixel_dashboard_uses_command_brief_and_timed_queue_rows(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn("HAPPENED", html)
+        self.assertIn("TO DO", html)
+        self.assertIn("BUY", html)
+        self.assertIn("WHY", html)
+        self.assertIn("[4x]", html)
+        self.assertIn("[30% OFF]", html)
+        self.assertIn("[20m]", html)
+        self.assertIn("Run Money Laundering Missions", html)
+
+    def test_pixel_dashboard_uses_wall_intel_and_ledger_shapes(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn("Money Fronts Money Laundering Missions", html)
+        self.assertIn("[ACTIVE]", html)
+        self.assertIn("Salvage Yard robberies", html)
+        self.assertIn("[BONUS]", html)
+        self.assertIn("Lamar Contact Missions", html)
+        self.assertIn("[BUY]", html)
+        self.assertIn("Benefactor Terrorbyte", html)
+
+    def test_pixel_dashboard_presents_operations_center_not_prototype(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn("GTA Weekly Operations Center", html)
+        self.assertIn("Strategy Snapshot", html)
+        self.assertNotIn("ops room prototype", html)
+        self.assertNotIn("-CarlosZ-", html)
+
+    def test_pixel_dashboard_uses_clear_ledger_decisions(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn("[BUY]", html)
+        self.assertIn("[HOLD]", html)
+        self.assertIn("[IGNORE]", html)
+        self.assertNotIn("[CHECK]", html)
+
+
+class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
+        )
+        cls.player_profile = json.loads(
+            Path("data/player_profile.json").read_text(encoding="utf-8")
+        )
+        cls.weekly_report_text = Path("reports/weekly_master_plan_2026_w22.md").read_text(
+            encoding="utf-8"
+        )
+        cls.vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
+        cls.context = build_phase1_context(
+            weekly_payload=cls.weekly_payload,
+            player_profile=cls.player_profile,
+            vehicle_prices=cls.vehicle_prices,
+        )
+
+    def test_render_pixel_header_meta_uses_current_week(self):
+        html = render_pixel_header_meta(self.context)
+
+        self.assertIn("Strategy Snapshot", html)
+        self.assertIn("2026-W22", html)
+        self.assertIn("READY TO RUN", html)
+        self.assertIn("Thursday 08:00 Bangkok", html)
+
+    def test_render_pixel_command_brief_uses_current_week_focus(self):
+        html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)
+
+        self.assertIn("Money Fronts Special", html)
+        self.assertIn("Run Money Laundering Missions", html)
+        self.assertIn("Benefactor Terrorbyte", html)
+        self.assertIn("[4x]", html)
+        self.assertIn("[30% OFF]", html)
+        self.assertNotIn("Nightclub Sales Lead The Week", html)
+
+    def test_render_pixel_action_queue_uses_report_steps_and_time_chips(self):
+        html = render_pixel_action_queue(self.weekly_payload, self.weekly_report_text)
+
+        self.assertIn("Claim Higgins Helitours", html)
+        self.assertIn("Spin Lucky Wheel", html)
+        self.assertIn("Run Money Laundering Missions", html)
+        self.assertIn("[2m]", html)
+        self.assertIn("[5m]", html)
+        self.assertIn("[20m]", html)
+        self.assertIn("[45m]", html)
+
+    def test_render_pixel_operations_wall_groups_active_optional_and_ignore(self):
+        html = render_pixel_operations_wall(self.weekly_report_text)
+
+        self.assertIn("ACTIVE", html)
+        self.assertIn("OPTIONAL", html)
+        self.assertIn("IGNORE", html)
+        self.assertIn("Money Fronts Money Laundering Missions", html)
+        self.assertIn("Salvage Yard robberies", html)
+        self.assertIn("[ACTIVE]", html)
+        self.assertIn("[IGNORE]", html)
+
+    def test_render_pixel_field_intel_uses_bonus_discount_and_prize_context(self):
+        html = render_pixel_field_intel(self.weekly_payload)
+
+        self.assertIn("[BONUS]", html)
+        self.assertIn("[DISCOUNT]", html)
+        self.assertIn("[PRIZE]", html)
+        self.assertIn("Lamar Contact Missions", html)
+        self.assertIn("Higgins Helitours", html)
+        self.assertIn("Lampadati Komoda", html)
+
+    def test_render_pixel_buy_ledger_uses_decision_chips(self):
+        html = render_pixel_buy_ledger(self.weekly_report_text)
+
+        self.assertIn("Higgins Helitours", html)
+        self.assertIn("Benefactor Terrorbyte", html)
+        self.assertIn("[BUY]", html)
+        self.assertIn("[HOLD]", html)
+        self.assertIn("[IGNORE]", html)
+        self.assertNotIn("โปรไฟล์นี้มีอยู่แล้ว", html)
+        self.assertNotIn("ซื้อเฉพาะถ้ายังไม่มี", html)
+        self.assertNotIn("current ownership", html)
+        self.assertNotIn("current setup", html)
+
+    def test_build_pixel_replacements_returns_every_marker(self):
+        replacements = build_pixel_replacements(
+            weekly_payload=self.weekly_payload,
+            player_profile=self.player_profile,
+            weekly_report_text=self.weekly_report_text,
+        )
+
+        self.assertEqual(set(replacements), set(PIXEL_MARKERS))
+        self.assertIn("Money Fronts Special", replacements["pixel_command_brief"])
+        self.assertIn("Claim Higgins Helitours", replacements["pixel_action_queue"])
 
 
 class DashboardGeneratorDryRunTests(unittest.TestCase):

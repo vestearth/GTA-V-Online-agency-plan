@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GTA Online: Los Santos Planning Room</title>
+    <title>GTA Weekly Operations Center</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="pixel-dashboard.css">
   </head>
@@ -11,124 +11,211 @@
     <main class="pixel-shell">
       <header class="pixel-header">
         <div>
-          <p class="eyebrow">GTA Online ops room prototype</p>
-          <h1>Los Santos Planning Room</h1>
-          <p class="subtitle">Command center สำหรับคุมงานสัปดาห์: สรุป weekly focus, ROI คำนวณความคุ้มค่า, เช็คลิสต์ของลดราคา และแผนการหมุนเงินสำหรับ Agency owner.</p>
+          <p class="eyebrow">GTA Weekly Operations Center</p>
+          <h1>Weekly Operations Center</h1>
+          <p class="subtitle">Weekly strategy surface for reading the week fast: command brief, action queue, active operations, field intel, and decision support.</p>
           <nav class="nav" aria-label="Planning room sections">
             <a href="dashboard.html#weekly">Classic View</a>
             <a href="#ops">Ops Center</a>
-            <a href="#assets">Assets</a>
+            <a href="#intel">Field Intel</a>
           </nav>
         </div>
-        <aside class="meta pixel-meta" aria-label="Current mission status">
-          <p><strong>-CarlosZ-</strong> / PC</p>
+        <aside class="meta pixel-meta" aria-label="Weekly strategy snapshot">
+          <!-- START: pixel_header_meta -->
+          <p><strong>Strategy Snapshot</strong></p>
           <p>Week 2026-W22</p>
           <p>Status: <strong>READY TO RUN</strong></p>
+          <p>Auto update: Thursday 08:00 Bangkok</p>
+          <!-- END: pixel_header_meta -->
         </aside>
       </header>
 
-      <section id="ops" class="pixel-command-center" aria-label="War room command center">
-        <aside class="pixel-stack">
-          <article class="pixel-panel">
-            <p class="pixel-label">Current Focus</p>
-            <h2>Money Fronts 4x loop</h2>
-            <p>Run legal missions first, then rotate into laundering for the strongest active ROI this week.</p>
-          </article>
-          <article class="pixel-panel pixel-panel-alert">
-            <p class="pixel-label">Next Claim / Buy</p>
-            <h2>Claim Higgins Helitours</h2>
-            <p>รับก่อนหมดสัปดาห์ เพราะเป็น free business และช่วยเติม Money Fronts network.</p>
-          </article>
-          <article class="pixel-panel">
-            <p class="pixel-label">ROI / Passive</p>
-            <div class="pixel-metrics">
-              <span>Best Active ROI</span><strong>Money Fronts</strong>
-              <span>Quick Bonus</span><strong>GTA$100k</strong>
-              <span>Passive Layer</span><strong>Nightclub + Bunker</strong>
-            </div>
-          </article>
-        </aside>
+      <section id="ops" class="ops-brief" aria-labelledby="ops-brief-title">
+        <div class="ops-brief-head">
+          <p class="ops-kicker">GTA Weekly Operations Center</p>
+          <h2 id="ops-brief-title">WEEKLY COMMAND BRIEF</h2>
+          <p class="ops-subtitle">What happened, what to run, what to buy, and why this week matters.</p>
+        </div>
 
-        <article class="pixel-office-card" aria-label="Safehouse planning scene">
-          <div class="pixel-office-topbar">
-            <span>LOS SANTOS OPS ROOM</span>
-            <span>DAY 150</span>
-          </div>
-          <div class="pixel-office-scene">
-            <div class="pixel-window pixel-window-left"></div>
-            <div class="pixel-window pixel-window-right"></div>
-            <div class="pixel-sign">CLAIM<br>RUN<br>SELL<br>REPEAT</div>
-            <div class="pixel-logo">LS OPS</div>
-            
-            <!-- Planning Table / Map -->
-            <div class="pixel-shelf pixel-mission-board"></div>
-            
-            <div class="pixel-desk desk-one"></div>
-            <div class="pixel-desk desk-two pixel-planning-table"></div>
-            <div class="pixel-desk desk-three"></div>
-            
-            <!-- Decorative Mission Assets -->
-            <div class="pixel-cash-crate"></div>
-            <div class="pixel-vehicle-marker"></div>
+        <div class="command-board" aria-label="Weekly command brief">
+          <!-- START: pixel_command_brief -->
+          <article class="command-cell">
+            <p class="command-label">HAPPENED</p>
+            <h3>Money Fronts Special</h3>
+            <p class="command-chip">[4x]</p>
+          </article>
+          <article class="command-cell">
+            <p class="command-label">TO DO</p>
+            <h3>Run Money Laundering Missions</h3>
+            <p class="command-chip">[4x]</p>
+          </article>
+          <article class="command-cell">
+            <p class="command-label">BUY</p>
+            <h3>Benefactor Terrorbyte</h3>
+            <p class="command-chip">[30% OFF]</p>
+          </article>
+          <article class="command-cell">
+            <p class="command-label">WHY</p>
+            <h3>Money Fronts Sets The Weekly Cashflow</h3>
+            <p class="command-chip">[BEST VALUE]</p>
+          </article>
+          <!-- END: pixel_command_brief -->
+        </div>
 
-            <div class="pixel-agent agent-planner" title="The Planner"></div>
-            <div class="pixel-agent agent-roi" title="The Numbers Guy"></div>
-            <div class="pixel-agent agent-runner" title="The Runner"></div>
-            <div class="pixel-agent agent-reviewer" title="The Analyst"></div>
-            
-            <div class="pixel-bot bot-one" title="Security Bot"></div>
-            <div class="pixel-bot bot-two" title="Intel Bot"></div>
-            
-            <div class="pixel-floor-glow"></div>
-          </div>
-        </article>
-
-        <aside class="pixel-stack">
-          <article class="pixel-panel">
-            <p class="pixel-label">Weekly Cash Board</p>
-            <div class="pixel-metrics">
-              <span>Discounted Total</span><strong>GTA$10.3M</strong>
-              <span>Target Assets</span><strong>GTA$23.3M</strong>
-              <span>Data Status</span><strong>Clean</strong>
-            </div>
-          </article>
-          <article class="pixel-panel">
-            <p class="pixel-label">This Week's Run</p>
-            <ol class="pixel-mini-list">
-              <li>Claim Higgins Helitours</li>
-              <li>Spin Lucky Wheel</li>
-              <li>Run 3 Legal Missions</li>
-              <li>Loop Money Laundering 4x</li>
-            </ol>
-          </article>
-          <article class="pixel-panel">
-            <p class="pixel-label">Buy Discipline</p>
-            <p>ซื้อเฉพาะของที่ผ่าน ownership + ROI/unlock value; ไม่ซื้อเพราะเห็นป้ายลดราคาอย่างเดียว.</p>
-          </article>
+        <aside class="ignore-callout" aria-label="Ignore this week">
+          <!-- START: pixel_ignore_callout -->
+          <p class="command-label">IGNORE THIS WEEK</p>
+          <ul>
+            <li>Hands On Car Wash / Smoke on the Water 40% off</li>
+            <li>Sea Sparrow</li>
+            <li>Howard NX-25 / Vestra / Velum 5-Seater</li>
+          </ul>
+          <!-- END: pixel_ignore_callout -->
         </aside>
       </section>
 
-      <section id="assets" class="pixel-grid-panels">
-        <article class="pixel-panel">
-          <p class="pixel-label">Owned Operations</p>
-          <ul class="pixel-tags">
-            <li>Hands On Car Wash</li>
-            <li>Smoke on the Water</li>
-            <li>Nightclub</li>
-            <li>Agency</li>
-            <li>Bunker</li>
-            <li>Kosatka + Sparrow</li>
-          </ul>
-        </article>
-        <article class="pixel-panel">
-          <p class="pixel-label">Check Before Buying</p>
-          <h2>Benefactor Terrorbyte</h2>
-          <p>Check ownership first. Buy only if utility matters this week.</p>
-        </article>
-        <article class="pixel-panel">
-          <p class="pixel-label">Dashboard Notes</p>
-          <p>Visual planning dashboard สำหรับใช้ดูสรุปรายสัปดาห์แบบ High-level ก่อนลงมือลุยใน Los Santos.</p>
-        </article>
+      <section class="ops-section action-queue" aria-labelledby="action-queue-title">
+        <div class="ops-section-head">
+          <p class="ops-kicker">Execution Order</p>
+          <h2 id="action-queue-title">ACTION QUEUE</h2>
+        </div>
+        <!-- START: pixel_action_queue -->
+        <ol class="queue-list">
+          <li><span class="queue-task">Claim Higgins Helitours</span><span class="queue-chip">[2m]</span></li>
+          <li><span class="queue-task">Spin Lucky Wheel</span><span class="queue-chip">[5m]</span></li>
+          <li><span class="queue-task">Complete 3 Legal Missions</span><span class="queue-chip">[30m]</span></li>
+          <li><span class="queue-task">Run Money Laundering Missions</span><span class="queue-chip">[20m]</span></li>
+          <li><span class="queue-task">Run Lamar Contact Missions</span><span class="queue-chip">[20m]</span></li>
+          <li><span class="queue-task">Run Fine Art File</span><span class="queue-chip">[45m]</span></li>
+        </ol>
+        <!-- END: pixel_action_queue -->
+      </section>
+
+      <section id="assets" class="ops-section operations-wall" aria-labelledby="operations-wall-title">
+        <div class="ops-section-head">
+          <p class="ops-kicker">Operational State</p>
+          <h2 id="operations-wall-title">OPERATIONS WALL</h2>
+        </div>
+        <!-- START: pixel_operations_wall -->
+        <div class="wall-groups">
+          <article class="wall-group">
+            <h3>ACTIVE</h3>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Money Fronts Money Laundering Missions 4x GTA$ &amp; RP</span>
+                <span class="status-chip">[ACTIVE]</span>
+              </div>
+              <p>Top active payout loop this week.</p>
+            </div>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Weekly Challenge: Complete three Hands On Car Wash Legal Missions</span>
+                <span class="status-chip">[READY]</span>
+              </div>
+              <p>Fast bonus payout tied directly to the Money Fronts loop.</p>
+            </div>
+          </article>
+          <article class="wall-group">
+            <h3>OPTIONAL</h3>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Lamar Contact Missions 5x GTA$ &amp; RP</span>
+                <span class="status-chip">[OPTIONAL]</span>
+              </div>
+              <p>Strong side rotation for shorter mission bursts.</p>
+            </div>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>FIB Priority File: The Fine Art File 2x GTA$</span>
+                <span class="status-chip">[OPTIONAL]</span>
+              </div>
+              <p>Solid solo payout option for longer sessions.</p>
+            </div>
+          </article>
+          <article class="wall-group">
+            <h3>IGNORE</h3>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Salvage Yard robberies</span>
+                <span class="status-chip">[IGNORE]</span>
+              </div>
+              <p>No keep eligibility confirmed this week.</p>
+            </div>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Hands On Car Wash / Smoke on the Water 40% off</span>
+                <span class="status-chip">[IGNORE]</span>
+              </div>
+              <p>Discount exists, but it adds little to this week&#x27;s cashflow plan.</p>
+            </div>
+            <div class="wall-item">
+              <div class="wall-item-head">
+                <span>Sea Sparrow</span>
+                <span class="status-chip">[IGNORE]</span>
+              </div>
+              <p>Utility overlaps with faster core travel options.</p>
+            </div>
+          </article>
+        </div>
+        <!-- END: pixel_operations_wall -->
+      </section>
+
+      <section id="intel" class="ops-section field-intel" aria-labelledby="field-intel-title">
+        <div class="ops-section-head">
+          <p class="ops-kicker">Weekly Context</p>
+          <h2 id="field-intel-title">FIELD INTEL</h2>
+        </div>
+        <!-- START: pixel_field_intel -->
+        <div class="intel-list">
+          <article class="intel-item">
+            <p class="intel-label">[BONUS]</p>
+            <h3>Lamar Contact Missions</h3>
+            <p>5x GTA$ &amp; RP this week</p>
+          </article>
+          <article class="intel-item">
+            <p class="intel-label">[LIMITED]</p>
+            <h3>Higgins Helitours</h3>
+            <p>Free claim ends this week</p>
+          </article>
+          <article class="intel-item">
+            <p class="intel-label">[DISCOUNT]</p>
+            <h3>Hands On Car Wash</h3>
+            <p>40% off this week</p>
+          </article>
+          <article class="intel-item">
+            <p class="intel-label">[PRIZE]</p>
+            <h3>Lampadati Komoda</h3>
+            <p>Limited-time reward surface this week</p>
+          </article>
+        </div>
+        <!-- END: pixel_field_intel -->
+      </section>
+
+      <section class="ops-section buy-ledger" aria-labelledby="buy-ledger-title">
+        <div class="ops-section-head">
+          <p class="ops-kicker">Decision Support</p>
+          <h2 id="buy-ledger-title">BUY / IGNORE LEDGER</h2>
+        </div>
+        <!-- START: pixel_buy_ledger -->
+        <div class="ledger-list">
+          <article class="ledger-item">
+            <div class="ledger-head"><h3>Higgins Helitours</h3><span class="decision-chip">[BUY]</span></div>
+            <p>Free weekly claim with direct event relevance.</p>
+          </article>
+          <article class="ledger-item">
+            <div class="ledger-head"><h3>Benefactor Terrorbyte</h3><span class="decision-chip">[HOLD]</span></div>
+            <p>Best only when client-job utility matters this week.</p>
+          </article>
+          <article class="ledger-item">
+            <div class="ledger-head"><h3>Heavy Rifle</h3><span class="decision-chip">[BUY]</span></div>
+            <p>Useful only when the combat loadout still has a gap.</p>
+          </article>
+          <article class="ledger-item">
+            <div class="ledger-head"><h3>Hands On Car Wash / Smoke on the Water 40% off</h3><span class="decision-chip">[IGNORE]</span></div>
+            <p>Discount exists, but it adds little to this week&#x27;s cashflow plan.</p>
+          </article>
+        </div>
+        <!-- END: pixel_buy_ledger -->
       </section>
     </main>
   </body>
