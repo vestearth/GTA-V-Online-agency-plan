@@ -2,9 +2,20 @@
   PIXEL DASHBOARD CSS
   Visual Direction: GTA Weekly Operations Center
   Theme Role: Support hierarchy, never carry it
+  Theme Layer Order: Information > Functional > Atmospheric > Decorative
 */
 
 body.pixel-page {
+  --surface-rank-command: 1;
+  --surface-rank-queue: 2;
+  --surface-rank-wall: 3;
+  --surface-rank-intel: 4;
+  --surface-rank-ledger: 5;
+  --command-brief-strength: 1;
+  --action-queue-strength: 0.84;
+  --operations-wall-strength: 0.72;
+  --field-intel-strength: 0.52;
+  --buy-ledger-strength: 0.62;
   background-color: var(--bg);
   background-image:
     linear-gradient(rgba(187, 243, 81, 0.025) 1px, transparent 1px),
@@ -57,6 +68,10 @@ body.pixel-page::before {
   max-width: 760px;
 }
 
+.pixel-header .language-toggle {
+  align-self: flex-start;
+}
+
 .pixel-meta {
   min-width: 252px;
   padding: 14px 16px;
@@ -74,11 +89,33 @@ body.pixel-page::before {
   margin-bottom: 28px;
 }
 
+.ops-brief {
+  --surface-strength: var(--command-brief-strength);
+}
+
+.action-queue {
+  --surface-strength: var(--action-queue-strength);
+}
+
+.operations-wall {
+  --surface-strength: var(--operations-wall-strength);
+}
+
+.field-intel {
+  --surface-strength: var(--field-intel-strength);
+}
+
+.buy-ledger {
+  --surface-strength: var(--buy-ledger-strength);
+}
+
 .ops-brief-head,
 .ops-section-head {
   display: grid;
   gap: 8px;
   margin-bottom: 16px;
+  position: relative;
+  padding-right: 42px;
 }
 
 .ops-kicker {
@@ -101,6 +138,69 @@ body.pixel-page::before {
 .ops-subtitle {
   max-width: 760px;
   color: var(--muted);
+}
+
+.visual-companion {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 28px;
+  height: 28px;
+  color: var(--secondary);
+  opacity: 0.36;
+  pointer-events: none;
+}
+
+.visual-companion::before,
+.visual-companion::after {
+  content: "";
+  position: absolute;
+  border: 1px solid currentColor;
+}
+
+.visual-companion-clipboard::before,
+.visual-companion-folder::before {
+  inset: 4px 5px 3px;
+}
+
+.visual-companion-clipboard::after {
+  top: 1px;
+  left: 9px;
+  width: 10px;
+  height: 5px;
+  background: rgba(0, 188, 255, 0.08);
+}
+
+.visual-companion-crate::before {
+  inset: 5px;
+}
+
+.visual-companion-crate::after {
+  inset: 9px;
+  border-left: 0;
+  border-right: 0;
+}
+
+.visual-companion-radio::before {
+  inset: 7px 4px 5px;
+}
+
+.visual-companion-radio::after {
+  top: 0;
+  right: 6px;
+  width: 1px;
+  height: 11px;
+  border-width: 0 1px 0 0;
+  transform: rotate(28deg);
+  transform-origin: bottom;
+}
+
+.visual-companion-folder::after {
+  top: 3px;
+  left: 5px;
+  width: 10px;
+  height: 5px;
+  border-bottom: 0;
 }
 
 .command-board {

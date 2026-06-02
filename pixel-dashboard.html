@@ -19,6 +19,10 @@
             <a href="#ops">Ops Center</a>
             <a href="#intel">Field Intel</a>
           </nav>
+          <div class="language-toggle" role="group" aria-label="Language">
+            <button type="button" data-set-language="en" aria-pressed="true">EN</button>
+            <button type="button" data-set-language="th" aria-pressed="false">TH</button>
+          </div>
         </div>
         <aside class="meta pixel-meta" aria-label="Weekly strategy snapshot">
           <!-- START: pixel_header_meta -->
@@ -30,8 +34,9 @@
         </aside>
       </header>
 
-      <section id="ops" class="ops-brief" aria-labelledby="ops-brief-title">
+      <section id="ops" class="ops-brief" data-theme-layer="functional" data-surface-owner="recommendations" aria-labelledby="ops-brief-title">
         <div class="ops-brief-head">
+          <span class="visual-companion visual-companion-clipboard" data-theme-layer="decorative" aria-hidden="true"></span>
           <p class="ops-kicker">GTA Weekly Operations Center</p>
           <h2 id="ops-brief-title">WEEKLY COMMAND BRIEF</h2>
           <p class="ops-subtitle">What happened, what to run, what to buy, and why this week matters.</p>
@@ -74,8 +79,9 @@
         </aside>
       </section>
 
-      <section class="ops-section action-queue" aria-labelledby="action-queue-title">
+      <section class="ops-section action-queue" data-theme-layer="functional" data-surface-owner="sequencing" aria-labelledby="action-queue-title">
         <div class="ops-section-head">
+          <span class="visual-companion visual-companion-clipboard" data-theme-layer="decorative" aria-hidden="true"></span>
           <p class="ops-kicker">Execution Order</p>
           <h2 id="action-queue-title">ACTION QUEUE</h2>
         </div>
@@ -91,8 +97,9 @@
         <!-- END: pixel_action_queue -->
       </section>
 
-      <section id="assets" class="ops-section operations-wall" aria-labelledby="operations-wall-title">
+      <section id="assets" class="ops-section operations-wall" data-theme-layer="functional" data-surface-owner="operational-state" aria-labelledby="operations-wall-title">
         <div class="ops-section-head">
+          <span class="visual-companion visual-companion-crate" data-theme-layer="decorative" aria-hidden="true"></span>
           <p class="ops-kicker">Operational State</p>
           <h2 id="operations-wall-title">OPERATIONS WALL</h2>
         </div>
@@ -160,8 +167,9 @@
         <!-- END: pixel_operations_wall -->
       </section>
 
-      <section id="intel" class="ops-section field-intel" aria-labelledby="field-intel-title">
+      <section id="intel" class="ops-section field-intel" data-theme-layer="functional" data-surface-owner="context" aria-labelledby="field-intel-title">
         <div class="ops-section-head">
+          <span class="visual-companion visual-companion-radio" data-theme-layer="decorative" aria-hidden="true"></span>
           <p class="ops-kicker">Weekly Context</p>
           <h2 id="field-intel-title">FIELD INTEL</h2>
         </div>
@@ -191,8 +199,9 @@
         <!-- END: pixel_field_intel -->
       </section>
 
-      <section class="ops-section buy-ledger" aria-labelledby="buy-ledger-title">
+      <section class="ops-section buy-ledger" data-theme-layer="functional" data-surface-owner="decisions" aria-labelledby="buy-ledger-title">
         <div class="ops-section-head">
+          <span class="visual-companion visual-companion-folder" data-theme-layer="decorative" aria-hidden="true"></span>
           <p class="ops-kicker">Decision Support</p>
           <h2 id="buy-ledger-title">BUY / IGNORE LEDGER</h2>
         </div>
@@ -218,5 +227,6 @@
         <!-- END: pixel_buy_ledger -->
       </section>
     </main>
+    <script src="dashboard-language.js"></script>
   </body>
 </html>

@@ -14,6 +14,7 @@ from scripts.generate_dashboard import (
     load_vehicle_price_reference,
     plan_phase1_updates,
     render_current_focus,
+    render_header_meta,
     render_next_claim_buy,
     render_asset_overview,
     render_summary_cards,
@@ -248,6 +249,15 @@ class DashboardCrossLinkMarkupTests(unittest.TestCase):
         self.assertIn("Bangkok", html)
 
 
+class DashboardLanguageToggleMarkupTests(unittest.TestCase):
+    def test_dashboard_contains_shared_language_toggle(self):
+        html = Path("dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('class="language-toggle"', html)
+        self.assertIn('data-set-language="en"', html)
+        self.assertIn('data-set-language="th"', html)
+
+
 class PixelDashboardOperationsMarkupTests(unittest.TestCase):
     def test_pixel_dashboard_contains_generator_markers(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
@@ -304,6 +314,114 @@ class PixelDashboardOperationsMarkupTests(unittest.TestCase):
         self.assertIn("[HOLD]", html)
         self.assertIn("[IGNORE]", html)
         self.assertNotIn("[CHECK]", html)
+
+
+class PixelDashboardThemeLayerTests(unittest.TestCase):
+    def test_pixel_dashboard_declares_functional_surface_ownership(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        expected = {
+            'data-surface-owner="recommendations"': "Command brief owns recommendations",
+            'data-surface-owner="sequencing"': "Action queue owns sequencing",
+            'data-surface-owner="operational-state"': "Operations wall owns operational state",
+            'data-surface-owner="context"': "Field intel owns context",
+            'data-surface-owner="decisions"': "Ledger owns decisions",
+        }
+
+        for marker, message in expected.items():
+            with self.subTest(marker=marker):
+                self.assertIn(marker, html, message)
+
+    def test_pixel_css_declares_strict_theme_layer_order(self):
+        css = Path("pixel-dashboard.css").read_text(encoding="utf-8")
+
+        self.assertIn("Theme Layer Order: Information > Functional > Atmospheric > Decorative", css)
+        self.assertIn("--surface-rank-command: 1", css)
+        self.assertIn("--surface-rank-intel: 4", css)
+        self.assertIn("--command-brief-strength", css)
+        self.assertIn("--field-intel-strength", css)
+
+    def test_command_brief_has_stronger_treatment_than_field_intel(self):
+        css = Path("pixel-dashboard.css").read_text(encoding="utf-8")
+
+        self.assertIn("border: 2px solid var(--primary)", css)
+        self.assertIn("box-shadow: var(--shadow), var(--glow-primary)", css)
+        self.assertIn(".field-intel {\n  --surface-strength: var(--field-intel-strength);", css)
+        self.assertNotIn(".field-intel {\n  --surface-strength: var(--command-brief-strength);", css)
+
+    def test_pixel_css_forbids_motion_on_critical_information(self):
+        css = Path("pixel-dashboard.css").read_text(encoding="utf-8")
+
+        forbidden_patterns = [
+            ".command-cell h3 { animation:",
+            ".command-chip { animation:",
+            ".queue-task { animation:",
+            ".queue-chip { animation:",
+            ".decision-chip { animation:",
+            "marquee",
+        ]
+
+        for pattern in forbidden_patterns:
+            with self.subTest(pattern=pattern):
+                self.assertNotIn(pattern, css)
+
+        self.assertIn("@media (prefers-reduced-motion: reduce)", css)
+        self.assertIn("transition: none", css)
+
+    def test_visual_companions_are_decorative_and_nonsemantic(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+        css = Path("pixel-dashboard.css").read_text(encoding="utf-8")
+
+        self.assertIn('data-theme-layer="decorative"', html)
+        self.assertIn('aria-hidden="true"', html)
+        self.assertIn("visual-companion", html)
+        self.assertIn(".visual-companion", css)
+        self.assertIn("pointer-events: none", css)
+
+
+class PixelDashboardLanguageToggleMarkupTests(unittest.TestCase):
+    def test_pixel_dashboard_contains_shared_language_toggle(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('class="language-toggle"', html)
+        self.assertIn('data-set-language="en"', html)
+        self.assertIn('data-set-language="th"', html)
+
+
+class DashboardLanguageScriptMarkupTests(unittest.TestCase):
+    def test_language_script_contains_shared_storage_key_and_root_attribute(self):
+        script = Path("dashboard-language.js").read_text(encoding="utf-8")
+
+        self.assertIn("gta-dashboard-language", script)
+        self.assertIn("function normalizeLanguage", script)
+        self.assertIn('value === "th" ? "th" : "en"', script)
+        self.assertIn("document.documentElement", script)
+        self.assertIn("root.lang = language", script)
+        self.assertIn('root.setAttribute("data-ui-language", language)', script)
+        self.assertIn("data-ui-language", script)
+        self.assertIn("aria-pressed", script)
+        self.assertIn("localStorage", script)
+        self.assertIn("window.localStorage.getItem(STORAGE_KEY)", script)
+        self.assertIn("window.localStorage.setItem(STORAGE_KEY, language)", script)
+        self.assertIn('button.setAttribute("aria-pressed"', script)
+        self.assertIn("data-set-language", script)
+
+
+class DashboardBilingualRenderingTests(unittest.TestCase):
+    def test_render_header_meta_outputs_en_and_th_variants(self):
+        weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
+        )
+        player_profile = json.loads(Path("data/player_profile.json").read_text(encoding="utf-8"))
+        vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
+        context = build_phase1_context(weekly_payload, player_profile, vehicle_prices)
+
+        html = render_header_meta(context)
+
+        self.assertIn('data-lang="en"', html)
+        self.assertIn('data-lang="th"', html)
+        self.assertIn("Week 2026-W22", html)
+        self.assertIn("สัปดาห์ 2026-W22", html)
 
 
 class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
@@ -398,6 +516,40 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertEqual(set(replacements), set(PIXEL_MARKERS))
         self.assertIn("Money Fronts Special", replacements["pixel_command_brief"])
         self.assertIn("Claim Higgins Helitours", replacements["pixel_action_queue"])
+
+
+class PixelDashboardBilingualRenderingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
+        )
+        cls.player_profile = json.loads(
+            Path("data/player_profile.json").read_text(encoding="utf-8")
+        )
+        cls.weekly_report_text = Path("reports/weekly_master_plan_2026_w22.md").read_text(
+            encoding="utf-8"
+        )
+
+    def test_render_pixel_command_brief_outputs_bilingual_copy_and_universal_chips(self):
+        html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)
+
+        self.assertIn('data-lang="en"', html)
+        self.assertIn('data-lang="th"', html)
+        self.assertIn("[4x]", html)
+        self.assertNotIn("[ซื้อ]", html)
+        self.assertNotIn("[ลำดับความสำคัญ]", html)
+
+    def test_render_pixel_buy_ledger_outputs_bilingual_copy_and_universal_chips(self):
+        html = render_pixel_buy_ledger(self.weekly_report_text)
+
+        self.assertIn('data-lang="en"', html)
+        self.assertIn('data-lang="th"', html)
+        self.assertIn("[BUY]", html)
+        self.assertIn("[HOLD]", html)
+        self.assertIn("[IGNORE]", html)
+        self.assertNotIn("[ซื้อ]", html)
+        self.assertNotIn("[ข้าม]", html)
 
 
 class DashboardGeneratorDryRunTests(unittest.TestCase):

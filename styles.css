@@ -29,6 +29,14 @@ html {
   scroll-behavior: smooth;
 }
 
+:root[data-ui-language="en"] [data-lang="th"] {
+  display: none;
+}
+
+:root[data-ui-language="th"] [data-lang="en"] {
+  display: none;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -146,6 +154,40 @@ h3 {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 18px;
+}
+
+.language-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-top: 14px;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(12, 18, 32, 0.72);
+}
+
+.language-toggle button {
+  min-width: 42px;
+  min-height: 32px;
+  padding: 0 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.language-toggle button[aria-pressed="true"] {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--surface);
+}
+
+.language-toggle button:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
 }
 
 .nav a {
