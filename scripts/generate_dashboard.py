@@ -273,26 +273,39 @@ def _vehicle_link(name: str, vehicle_prices: dict[str, dict[str, object]], css_c
     return f'<span class="{css_class}">{escaped_name}</span>'
 
 
+def _bilingual_span(english: str, thai: str) -> str:
+    return (
+        f'<span data-lang="en">{html.escape(english)}</span>'
+        f'<span data-lang="th">{html.escape(thai)}</span>'
+    )
+
+
 def render_header_meta(context: dict[str, object]) -> str:
+    player = html.escape(str(context["player_name"]))
+    platform = html.escape(str(context["platform"]))
+    week_id = str(context["week_id"])
+    week_label = str(context["week_label"])
+    discounted_total = format_currency_compact(int(context["discounted_items_total"]))
+    all_cars_total = format_currency_compact(int(context["all_cars_needed_total"]))
     return "\n".join(
         [
             "<p>",
             "  <strong>",
-            f"    {html.escape(str(context['player_name']))}",
+            f"    {player}",
             "  </strong>",
-            f"  / {html.escape(str(context['platform']))}",
+            f"  / {platform}",
             "</p>",
-            f"<p>Week {html.escape(str(context['week_id']))}: {html.escape(str(context['week_label']))}</p>",
+            f"<p>{_bilingual_span(f'Week {week_id}: {week_label}', f'สัปดาห์ {week_id}: {week_label}')}</p>",
             "<p>",
-            "  Discounted Items Total:",
+            f"  {_bilingual_span('Discounted Items Total:', 'ยอดรวมรายการลดราคา:')}",
             "  <strong>",
-            f"    {html.escape(format_currency_compact(int(context['discounted_items_total'])))}",
+            f"    {html.escape(discounted_total)}",
             "  </strong>",
             "</p>",
             "<p>",
-            "  All Cars Needed:",
+            f"  {_bilingual_span('All Cars Needed:', 'งบรวมรถที่ยังต้องซื้อ:')}",
             "  <strong>",
-            f"    {html.escape(format_currency_compact(int(context['all_cars_needed_total'])))}",
+            f"    {html.escape(all_cars_total)}",
             "  </strong>",
             "</p>",
         ]

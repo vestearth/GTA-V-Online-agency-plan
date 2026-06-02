@@ -115,6 +115,40 @@ def _clean_item_label(label: str) -> str:
     return label
 
 
+def _bilingual_span(english: str, thai: str) -> str:
+    return (
+        f'<span data-lang="en">{html.escape(english)}</span>'
+        f'<span data-lang="th">{html.escape(thai)}</span>'
+    )
+
+
+def _thai_command_label(label: str) -> str:
+    mapping = {
+        "HAPPENED": "เกิดอะไรขึ้น",
+        "TO DO": "ต้องทำ",
+        "BUY": "ซื้อ",
+        "WHY": "เหตุผล",
+    }
+    return mapping.get(label, label)
+
+
+def _thai_pixel_copy(text: str) -> str:
+    mapping = {
+        "Money Fronts Special": "สัปดาห์ Money Fronts",
+        "Run Money Laundering Missions": "เล่น Money Laundering Missions",
+        "Benefactor Terrorbyte": "Benefactor Terrorbyte",
+        "Money Fronts Sets The Weekly Cashflow": "Money Fronts คือแกน cashflow ของสัปดาห์นี้",
+        "Higgins Helitours": "Higgins Helitours",
+        "Heavy Rifle": "Heavy Rifle",
+        "Hands On Car Wash / Smoke on the Water 40% off": "Hands On Car Wash / Smoke on the Water ลด 40%",
+        "Free weekly claim with direct event relevance.": "รับฟรีประจำสัปดาห์ และเกี่ยวข้องกับ event โดยตรง",
+        "Best only when client-job utility matters this week.": "คุ้มที่สุดเฉพาะเมื่อสัปดาห์นี้ต้องใช้ประโยชน์จาก client jobs",
+        "Useful only when the combat loadout still has a gap.": "มีประโยชน์เฉพาะเมื่อชุดอาวุธต่อสู้ยังขาดช่องนี้",
+        "Discount exists, but it adds little to this week's cashflow plan.": "มีส่วนลดจริง แต่เพิ่มคุณค่าต่อแผน cashflow สัปดาห์นี้น้อย",
+    }
+    return mapping.get(text, text)
+
+
 def _normalize_public_reason(text: str) -> str:
     normalized = text.strip()
     replacements = [
@@ -277,8 +311,8 @@ def render_pixel_command_brief(weekly_payload: dict[str, object], weekly_report_
         lines.extend(
             [
                 '<article class="command-cell">',
-                f'  <p class="command-label">{html.escape(label)}</p>',
-                f"  <h3>{html.escape(title)}</h3>",
+                f'  <p class="command-label">{_bilingual_span(label, _thai_command_label(label))}</p>',
+                f"  <h3>{_bilingual_span(title, _thai_pixel_copy(title))}</h3>",
                 f'  <p class="command-chip">{html.escape(chip)}</p>',
                 "</article>",
             ]
@@ -460,8 +494,8 @@ def render_pixel_buy_ledger(weekly_report_text: str) -> str:
         lines.extend(
             [
                 '  <article class="ledger-item">',
-                f'    <div class="ledger-head"><h3>{html.escape(item)}</h3><span class="decision-chip">{html.escape(chip)}</span></div>',
-                f"    <p>{html.escape(_public_reason_for_item(item, reason))}</p>",
+                f'    <div class="ledger-head"><h3>{_bilingual_span(item, _thai_pixel_copy(item))}</h3><span class="decision-chip">{html.escape(chip)}</span></div>',
+                f"    <p>{_bilingual_span(_public_reason_for_item(item, reason), _thai_pixel_copy(_public_reason_for_item(item, reason)))}</p>",
                 "  </article>",
             ]
         )
