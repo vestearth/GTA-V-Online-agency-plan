@@ -68,8 +68,45 @@ body.pixel-page::before {
   max-width: 760px;
 }
 
-.pixel-header .language-toggle {
-  align-self: flex-start;
+.pixel-header-utility {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.pixel-lang-selector {
+  display: flex;
+  gap: 12px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition: color 160ms ease, text-shadow 160ms ease;
+}
+
+.lang-btn:hover:not([aria-pressed="true"]) {
+  color: var(--secondary);
+}
+
+.lang-btn[aria-pressed="true"] {
+  color: var(--primary);
+  text-shadow: 0 0 8px rgba(187, 243, 81, 0.4);
+}
+
+.lang-btn[aria-pressed="false"] .bracket {
+  display: none;
 }
 
 .pixel-meta {
@@ -521,6 +558,13 @@ body.pixel-page::before {
   .pixel-header {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+
+  .pixel-header-utility {
+    align-items: flex-start;
+    margin-top: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
   }
 
   .pixel-meta {
