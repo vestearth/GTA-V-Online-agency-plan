@@ -250,12 +250,16 @@ class DashboardCrossLinkMarkupTests(unittest.TestCase):
 
 
 class DashboardLanguageToggleMarkupTests(unittest.TestCase):
-    def test_dashboard_contains_shared_language_toggle(self):
+    def test_dashboard_contains_terminal_language_selector(self):
         html = Path("dashboard.html").read_text(encoding="utf-8")
 
-        self.assertIn('class="language-toggle"', html)
+        self.assertIn('class="header-utility"', html)
+        self.assertIn('class="pixel-lang-selector"', html)
+        self.assertIn('class="lang-btn"', html)
+        self.assertIn('class="bracket"', html)
         self.assertIn('data-set-language="en"', html)
         self.assertIn('data-set-language="th"', html)
+        self.assertIn('aria-label="Language selection"', html)
 
 
 class PixelDashboardOperationsMarkupTests(unittest.TestCase):
@@ -380,12 +384,16 @@ class PixelDashboardThemeLayerTests(unittest.TestCase):
 
 
 class PixelDashboardLanguageToggleMarkupTests(unittest.TestCase):
-    def test_pixel_dashboard_contains_shared_language_toggle(self):
+    def test_pixel_dashboard_contains_terminal_language_selector(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
 
-        self.assertIn('class="language-toggle"', html)
+        self.assertIn('class="pixel-header-utility"', html)
+        self.assertIn('class="pixel-lang-selector"', html)
+        self.assertIn('class="lang-btn"', html)
+        self.assertIn('class="bracket"', html)
         self.assertIn('data-set-language="en"', html)
         self.assertIn('data-set-language="th"', html)
+        self.assertIn('aria-label="Language selection"', html)
 
 
 class DashboardLanguageScriptMarkupTests(unittest.TestCase):
