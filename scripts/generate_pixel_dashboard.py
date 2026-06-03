@@ -141,6 +141,40 @@ def _thai_pixel_copy(text: str) -> str:
         "Higgins Helitours": "Higgins Helitours",
         "Heavy Rifle": "Heavy Rifle",
         "Hands On Car Wash / Smoke on the Water 40% off": "Hands On Car Wash / Smoke on the Water ลด 40%",
+        "Sea Sparrow": "Sea Sparrow",
+        "Strategy Snapshot": "ภาพรวมแผน",
+        "Week": "สัปดาห์",
+        "Status:": "สถานะ:",
+        "Auto update:": "อัปเดตอัตโนมัติ:",
+        "READY TO RUN": "พร้อมเล่น",
+        "REVIEW DATA": "ตรวจข้อมูล",
+        "IGNORE THIS WEEK": "ข้ามสัปดาห์นี้",
+        "Claim Higgins Helitours": "รับ Higgins Helitours",
+        "Spin Lucky Wheel": "หมุน Lucky Wheel",
+        "Complete 3 Legal Missions": "จบ Legal Missions 3 งาน",
+        "Run Fine Art File": "เล่น Fine Art File",
+        "Run Lamar Contact Missions": "เล่น Lamar Contact Missions",
+        "ACTIVE": "กำลังเด่น",
+        "OPTIONAL": "ทางเลือก",
+        "IGNORE": "ข้าม",
+        "Money Fronts Money Laundering Missions 4x GTA$ & RP": "Money Fronts Money Laundering Missions 4x GTA$ & RP",
+        "Weekly Challenge: Complete three Hands On Car Wash Legal Missions": "Weekly Challenge: จบ Hands On Car Wash Legal Missions 3 งาน",
+        "Lamar Contact Missions 5x GTA$ & RP": "Lamar Contact Missions 5x GTA$ & RP",
+        "FIB Priority File: The Fine Art File 2x GTA$": "FIB Priority File: The Fine Art File 2x GTA$",
+        "Salvage Yard robberies": "Salvage Yard robberies",
+        "Top active payout loop this week.": "ลูปทำเงินหลักที่เด่นที่สุดของสัปดาห์นี้",
+        "Fast bonus payout tied directly to the Money Fronts loop.": "โบนัสเร็วที่ผูกกับลูป Money Fronts โดยตรง",
+        "Strong side rotation for shorter mission bursts.": "ทางเลือกเสริมที่ดีสำหรับรอบภารกิจสั้น",
+        "Solid solo payout option for longer sessions.": "ตัวเลือกทำเงิน solo ที่ดีสำหรับ session ยาว",
+        "No keep eligibility confirmed this week.": "สัปดาห์นี้ยังไม่มีการยืนยันว่าเก็บรถได้",
+        "Utility overlaps with faster core travel options.": "ประโยชน์ซ้ำกับตัวเลือกเดินทางหลักที่เร็วกว่า",
+        "Higgins Helitours": "Higgins Helitours",
+        "Hands On Car Wash": "Hands On Car Wash",
+        "Lampadati Komoda": "Lampadati Komoda",
+        "Free claim ends this week": "รับฟรีได้ถึงสัปดาห์นี้",
+        "40% off this week": "ลด 40% สัปดาห์นี้",
+        "Limited-time reward surface this week": "รางวัลจำกัดเวลาของสัปดาห์นี้",
+        "Best context bonus to route around this week.": "โบนัสบริบทหลักที่ควรใช้วางรอบเล่นสัปดาห์นี้",
         "Free weekly claim with direct event relevance.": "รับฟรีประจำสัปดาห์ และเกี่ยวข้องกับ event โดยตรง",
         "Best only when client-job utility matters this week.": "คุ้มที่สุดเฉพาะเมื่อสัปดาห์นี้ต้องใช้ประโยชน์จาก client jobs",
         "Useful only when the combat loadout still has a gap.": "มีประโยชน์เฉพาะเมื่อชุดอาวุธต่อสู้ยังขาดช่องนี้",
@@ -254,12 +288,18 @@ def render_pixel_header_meta(context: dict[str, object]) -> str:
     status = "READY TO RUN"
     if context["unresolved_discount_items"] or context["unresolved_vehicle_prices"]:
         status = "REVIEW DATA"
+    week_id = str(context["week_id"])
+    week_label = _bilingual_span(f"Week {week_id}", f"{_thai_pixel_copy('Week')} {week_id}")
+    auto_update = _bilingual_span(
+        f"Auto update: {AUTOMATION_NOTE}",
+        f"{_thai_pixel_copy('Auto update:')} {AUTOMATION_NOTE}",
+    )
     return "\n".join(
         [
-            "<p><strong>Strategy Snapshot</strong></p>",
-            f"<p>Week {html.escape(str(context['week_id']))}</p>",
-            f"<p>Status: <strong>{html.escape(status)}</strong></p>",
-            f"<p>Auto update: {html.escape(AUTOMATION_NOTE)}</p>",
+            f"<p><strong>{_bilingual_span('Strategy Snapshot', _thai_pixel_copy('Strategy Snapshot'))}</strong></p>",
+            f"<p>{week_label}</p>",
+            f"<p>{_bilingual_span('Status:', _thai_pixel_copy('Status:'))} <strong>{_bilingual_span(status, _thai_pixel_copy(status))}</strong></p>",
+            f"<p>{auto_update}</p>",
         ]
     )
 
@@ -328,9 +368,9 @@ def render_pixel_ignore_callout(weekly_report_text: str) -> str:
     labels = [_clean_item_label(label) for label, _reason in ignore_entries[:2]]
     if not labels:
         labels = ["No low-value items flagged"]
-    lines = ['<p class="command-label">IGNORE THIS WEEK</p>', "<ul>"]
+    lines = [f'<p class="command-label">{_bilingual_span("IGNORE THIS WEEK", _thai_pixel_copy("IGNORE THIS WEEK"))}</p>', "<ul>"]
     for label in labels:
-        lines.append(f"  <li>{html.escape(label)}</li>")
+        lines.append(f"  <li>{_bilingual_span(label, _thai_pixel_copy(label))}</li>")
     lines.append("</ul>")
     return "\n".join(lines)
 
@@ -345,7 +385,7 @@ def render_pixel_action_queue(weekly_payload: dict[str, object], weekly_report_t
         minutes = _estimate_queue_minutes(task, weekly_payload)
         lines.append(
             "  <li>"
-            f'<span class="queue-task">{html.escape(command)}</span>'
+            f'<span class="queue-task">{_bilingual_span(command, _thai_pixel_copy(command))}</span>'
             f'<span class="queue-chip">[{minutes}m]</span>'
             "</li>"
         )
@@ -379,16 +419,18 @@ def render_pixel_operations_wall(weekly_report_text: str) -> str:
         items = merged_groups.get(group_name, [])
         if not items:
             continue
-        lines.extend([f'  <article class="wall-group">', f"    <h3>{html.escape(group_name)}</h3>"])
+        lines.extend([f'  <article class="wall-group">', f"    <h3>{_bilingual_span(group_name, _thai_pixel_copy(group_name))}</h3>"])
         for chip, (label, reason) in items:
+            item_label = _clean_item_label(label)
+            item_reason = _public_reason_for_item(item_label, reason)
             lines.extend(
                 [
                     '    <div class="wall-item">',
                     '      <div class="wall-item-head">',
-                    f"        <span>{html.escape(_clean_item_label(label))}</span>",
+                    f"        <span>{_bilingual_span(item_label, _thai_pixel_copy(item_label))}</span>",
                     f'        <span class="status-chip">{html.escape(chip)}</span>',
                     "      </div>",
-                    f"      <p>{html.escape(_public_reason_for_item(_clean_item_label(label), reason))}</p>",
+                    f"      <p>{_bilingual_span(item_reason, _thai_pixel_copy(item_reason))}</p>",
                     "    </div>",
                 ]
             )
@@ -475,8 +517,8 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
             [
                 '  <article class="intel-item">',
                 f'    <p class="intel-label">{html.escape(label)}</p>',
-                f"    <h3>{html.escape(item)}</h3>",
-                f"    <p>{html.escape(implication)}</p>",
+                f"    <h3>{_bilingual_span(item, _thai_pixel_copy(item))}</h3>",
+                f"    <p>{_bilingual_span(implication, _thai_pixel_copy(implication))}</p>",
                 "  </article>",
             ]
         )

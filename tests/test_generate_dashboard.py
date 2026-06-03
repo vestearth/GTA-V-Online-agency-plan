@@ -579,6 +579,46 @@ class PixelDashboardBilingualRenderingTests(unittest.TestCase):
         self.assertNotIn("[ซื้อ]", html)
         self.assertNotIn("[ข้าม]", html)
 
+    def test_remaining_pixel_generated_blocks_output_bilingual_copy(self):
+        html_blocks = [
+            render_pixel_header_meta(build_phase1_context(
+                self.weekly_payload,
+                self.player_profile,
+                load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml")),
+            )),
+            render_pixel_ignore_callout(self.weekly_report_text),
+            render_pixel_action_queue(self.weekly_payload, self.weekly_report_text),
+            render_pixel_operations_wall(self.weekly_report_text),
+            render_pixel_field_intel(self.weekly_payload),
+        ]
+
+        for html in html_blocks:
+            with self.subTest(html=html[:80]):
+                self.assertIn('data-lang="en"', html)
+                self.assertIn('data-lang="th"', html)
+
+    def test_pixel_dashboard_shell_chrome_is_bilingual(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+        body_html = html.split("<body", 1)[1]
+
+        expected_shell_markers = [
+            "Weekly Operations Center",
+            "Classic View",
+            "WEEKLY COMMAND BRIEF",
+            "ACTION QUEUE",
+            "OPERATIONS WALL",
+            "FIELD INTEL",
+            "BUY / IGNORE LEDGER",
+        ]
+
+        for marker in expected_shell_markers:
+            with self.subTest(marker=marker):
+                position = body_html.find(marker)
+                self.assertNotEqual(position, -1)
+                nearby = body_html[max(0, position - 160): position + 220]
+                self.assertIn('data-lang="en"', nearby)
+                self.assertIn('data-lang="th"', nearby)
+
 
 class PixelOperationsRoomSpecTests(unittest.TestCase):
     def test_theme_spec_declares_ledger_decision_chip_vocabulary(self):
