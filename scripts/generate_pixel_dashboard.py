@@ -325,7 +325,7 @@ def render_pixel_ignore_callout(weekly_report_text: str) -> str:
         extract_markdown_section(weekly_report_text, "## What to Ignore"),
         ordered=False,
     )
-    labels = [_clean_item_label(label) for label, _reason in ignore_entries[:3]]
+    labels = [_clean_item_label(label) for label, _reason in ignore_entries[:2]]
     if not labels:
         labels = ["No low-value items flagged"]
     lines = ['<p class="command-label">IGNORE THIS WEEK</p>', "<ul>"]
@@ -406,11 +406,16 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
     intel_rows: list[tuple[str, str, str]] = []
     if bonuses:
         top_bonus = bonuses[0]
+        bonus_name = str(top_bonus.get("name", "Weekly Bonus"))
+        if "lamar contact missions" in bonus_name.casefold():
+            bonus_implication = "Strong side rotation for shorter mission bursts."
+        else:
+            bonus_implication = "Best context bonus to route around this week."
         intel_rows.append(
             (
                 "[BONUS]",
-                str(top_bonus.get("name", "Weekly Bonus")),
-                f"{top_bonus.get('multiplier', 'Boost')} {top_bonus.get('reward_type', '').strip()} this week".strip(),
+                bonus_name,
+                bonus_implication,
             )
         )
     free_claim_event = next(

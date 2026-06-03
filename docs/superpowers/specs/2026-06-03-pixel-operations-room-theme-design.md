@@ -251,6 +251,7 @@ The ledger owns decisions.
 Rules:
 
 - must support committed buy, hold, ignore, or similar decision states
+- ledger decision chips use `[BUY]`, `[HOLD]`, and `[IGNORE]`
 - must appear after the user has seen the command brief, queue, and operations wall
 - must feel deliberate and evaluative
 - must not discover the week for the first time

@@ -31,6 +31,7 @@ from scripts.generate_pixel_dashboard import (
     render_pixel_command_brief,
     render_pixel_field_intel,
     render_pixel_header_meta,
+    render_pixel_ignore_callout,
     render_pixel_operations_wall,
 )
 
@@ -250,6 +251,11 @@ class DashboardCrossLinkMarkupTests(unittest.TestCase):
 
 
 class DashboardLanguageToggleMarkupTests(unittest.TestCase):
+    def test_dashboard_defaults_to_english_without_javascript(self):
+        html = Path("dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('<html lang="en" data-ui-language="en">', html)
+
     def test_dashboard_contains_terminal_language_selector(self):
         html = Path("dashboard.html").read_text(encoding="utf-8")
 
@@ -384,6 +390,11 @@ class PixelDashboardThemeLayerTests(unittest.TestCase):
 
 
 class PixelDashboardLanguageToggleMarkupTests(unittest.TestCase):
+    def test_pixel_dashboard_defaults_to_english_without_javascript(self):
+        html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
+
+        self.assertIn('<html lang="en" data-ui-language="en">', html)
+
     def test_pixel_dashboard_contains_terminal_language_selector(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
 
@@ -500,6 +511,15 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Lamar Contact Missions", html)
         self.assertIn("Higgins Helitours", html)
         self.assertIn("Lampadati Komoda", html)
+        self.assertIn("Strong side rotation for shorter mission bursts.", html)
+        self.assertNotIn("5x GTA$ &amp; RP this week", html)
+
+    def test_render_pixel_ignore_callout_stays_headline_only(self):
+        html = render_pixel_ignore_callout(self.weekly_report_text)
+
+        self.assertLessEqual(html.count("<li>"), 2)
+        self.assertIn("Hands On Car Wash / Smoke on the Water 40% off", html)
+        self.assertNotIn("Discount exists, but it adds little", html)
 
     def test_render_pixel_buy_ledger_uses_decision_chips(self):
         html = render_pixel_buy_ledger(self.weekly_report_text)
@@ -558,6 +578,17 @@ class PixelDashboardBilingualRenderingTests(unittest.TestCase):
         self.assertIn("[IGNORE]", html)
         self.assertNotIn("[ซื้อ]", html)
         self.assertNotIn("[ข้าม]", html)
+
+
+class PixelOperationsRoomSpecTests(unittest.TestCase):
+    def test_theme_spec_declares_ledger_decision_chip_vocabulary(self):
+        spec = Path("docs/superpowers/specs/2026-06-03-pixel-operations-room-theme-design.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("[BUY]", spec)
+        self.assertIn("[HOLD]", spec)
+        self.assertIn("[IGNORE]", spec)
 
 
 class DashboardGeneratorDryRunTests(unittest.TestCase):
