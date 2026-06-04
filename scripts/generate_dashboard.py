@@ -213,6 +213,11 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_pri
                         discounted_items_total += value
                         discount_vehicle_names.append(item)
                         continue
+            base_price = vehicle_prices.get(item, {}).get("base_price")
+            if isinstance(base_price, int) and isinstance(tier_percent, int) and 0 <= tier_percent <= 100:
+                discounted_items_total += int(base_price * (100 - tier_percent) / 100)
+                discount_vehicle_names.append(item)
+                continue
             if "gun van" not in tier_label and item in vehicle_prices:
                 unresolved_discount_items.append(item)
 

@@ -105,7 +105,9 @@ def _parse_ordered_items(section_text: str | None) -> list[str]:
     for line in section_text.splitlines():
         match = re.match(r"^\d+\.\s+(.*\S)\s*$", line.strip())
         if match:
-            items.append(_strip_markdown(match.group(1)))
+            item = _strip_markdown(match.group(1))
+            item = re.sub(r"^\[\s*[xX ]\]\s*", "", item)
+            items.append(item)
     return items
 
 

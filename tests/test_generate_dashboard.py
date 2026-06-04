@@ -88,6 +88,23 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertEqual(context["unresolved_discount_items"], [])
         self.assertEqual(context["unresolved_vehicle_prices"], [])
 
+    def test_phase1_context_falls_back_to_vehicle_base_prices_for_w23_discounts(self):
+        weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w23.json").read_text(encoding="utf-8")
+        )
+        player_profile = json.loads(Path("data/player_profile.json").read_text(encoding="utf-8"))
+        vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
+
+        context = build_phase1_context(
+            weekly_payload=weekly_payload,
+            player_profile=player_profile,
+            vehicle_prices=vehicle_prices,
+        )
+
+        self.assertEqual(context["discounted_items_total"], 6575800)
+        self.assertEqual(context["unresolved_discount_items"], [])
+        self.assertEqual(context["unresolved_vehicle_prices"], [])
+
     def test_reward_vehicle_surfaces_do_not_count_toward_all_cars_needed(self):
         weekly_payload = json.loads(
             Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
@@ -486,6 +503,7 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Claim Higgins Helitours", html)
         self.assertIn("Spin Lucky Wheel", html)
         self.assertIn("Run Money Laundering Missions", html)
+        self.assertNotIn("[ ]", html)
         self.assertIn("[2m]", html)
         self.assertIn("[5m]", html)
         self.assertIn("[20m]", html)
