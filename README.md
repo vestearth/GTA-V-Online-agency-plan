@@ -168,8 +168,20 @@ Optional:
 - GitHub Actions workflow: `.github/workflows/auto-update-vehicle-prices.yml`
 - It runs automatically when:
   - a `data/weekly_planning_*.json` file is pushed
-  - every Thursday at 03:00 UTC
+  - every Thursday at 01:00 UTC / 08:00 Bangkok
   - manually via `workflow_dispatch`
+- Scope: vehicle reference refresh only. It syncs `data/references/vehicle_prices.yaml` and `data/references/vehicle_gtacars_slugs.json` from an existing weekly payload.
+
+### Weekly Content Refresh
+
+- GitHub Actions workflow: `.github/workflows/weekly-content-refresh.yml`
+- It runs every Thursday at 01:00 UTC / 08:00 Bangkok and can also be started manually with `workflow_dispatch`.
+- Source URL behavior:
+  - Preferred: pass `newswire_url` when running the workflow manually.
+  - Scheduled fallback: set repository variable `WEEKLY_UPDATE_URL` to the current Rockstar Newswire article URL before the scheduled run.
+  - Auto-discovery attempts to read Rockstar Newswire listing markup, but the live site is a JavaScript-rendered shell, so the workflow validates scraped content and fails before commit if no weekly content is detected.
+- Pipeline scope: scrape weekly payload, generate `reports/weekly_report_<week_id>.md`, sync vehicle references, refresh `dashboard.html`, and refresh `pixel-dashboard.html` only when a matching `reports/weekly_master_plan_<week_id>.md` already exists.
+- This workflow does not generate the canonical three Lester/master-plan reports by itself. Those still require the assistant-driven workflow in `.github/skills/gta-weekly-planning/SKILL.md`.
 
 ### Local cron (optional)
 
@@ -178,7 +190,7 @@ If you also want local automation on your machine:
 1. Open crontab:
    `crontab -e`
 2. Add (adjust the path if needed):
-   `0 10 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
+   `0 8 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
 
 ---
 **Last Updated**: May 12, 2026 (docs freshness rule enforced)  

@@ -1,0 +1,75 @@
+name: Weekly Content Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      newswire_url:
+        description: "Optional Rockstar Newswire article URL. Leave blank to auto-discover from Newswire."
+        required: false
+        type: string
+      skip_pixel_dashboard:
+        description: "Skip pixel-dashboard.html refresh even when a matching master plan exists."
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    # Every Thursday at 01:00 UTC / 08:00 Bangkok
+    - cron: "0 1 * * 4"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-content-refresh-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh-weekly-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run weekly content refresh
+        env:
+          WEEKLY_UPDATE_URL: ${{ github.event.inputs.newswire_url || vars.WEEKLY_UPDATE_URL }}
+        run: |
+          args=()
+          if [ "${{ github.event.inputs.skip_pixel_dashboard || 'false' }}" = "true" ]; then
+            args+=(--skip-pixel-dashboard)
+          fi
+          python3 scripts/run_weekly_content_refresh.py "${args[@]}"
+
+      - name: Commit and push weekly artifacts
+        run: |
+          if git diff --quiet -- \
+            data/weekly_planning_*.json \
+            data/references/vehicle_prices.yaml \
+            data/references/vehicle_gtacars_slugs.json \
+            reports/weekly_report_*.md \
+            dashboard.html \
+            pixel-dashboard.html; then
+            echo "No weekly content changes to commit."
+            exit 0
+          fi
+
+          git add \
+            data/weekly_planning_*.json \
+            data/references/vehicle_prices.yaml \
+            data/references/vehicle_gtacars_slugs.json \
+            reports/weekly_report_*.md \
+            dashboard.html \
+            pixel-dashboard.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(data): refresh weekly GTA Online content"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -9,8 +9,8 @@ on:
       - "scripts/update_vehicle_prices.py"
       - "scripts/fetch_gtacar_prices.py"
   schedule:
-    # Every Thursday at 03:00 UTC (weekly cadence)
-    - cron: "0 3 * * 4"
+    # Every Thursday at 01:00 UTC / 08:00 Bangkok
+    - cron: "0 1 * * 4"
 
 permissions:
   contents: write
