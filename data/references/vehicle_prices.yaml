@@ -1781,9 +1781,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 940000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/gb200"
     alias_hints: ["GB200"]
 
   - vehicle_name: "Declasse Mamba"
@@ -1791,9 +1791,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 995000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/mamba"
     alias_hints: ["Mamba"]
 
   - vehicle_name: "Vapid Firebolt ASP"
@@ -1801,9 +1801,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1894500
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/firebolt"
     alias_hints: ["Firebolt ASP"]
 
   - vehicle_name: "Grotti Carbonizzare"
@@ -1811,9 +1811,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W23"]
-    base_price: null
+    base_price: 195000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/carbonizzare"
     alias_hints: ["Carbonizzare"]
 
   - vehicle_name: "Dinka Enduro"
@@ -1821,9 +1821,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W23"]
-    base_price: null
+    base_price: 48000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/enduro"
     alias_hints: ["Enduro"]
 
   - vehicle_name: "Declasse Tampa GT"
@@ -1831,9 +1831,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1311000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/tampa4"
     alias_hints: ["Tampa GT"]
 
   - vehicle_name: "Emperor Habanero"
@@ -1841,9 +1841,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W23"]
-    base_price: null
+    base_price: 42000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/habanero"
     alias_hints: ["Habanero"]
 
   - vehicle_name: "Albany Alpha"
@@ -1851,9 +1851,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W23"]
-    base_price: null
+    base_price: 150000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/alpha"
     alias_hints: ["Alpha"]
 
   - vehicle_name: "BF Bifta"
@@ -1861,9 +1861,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 75000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/bifta"
     alias_hints: ["Bifta"]
 
   - vehicle_name: "Invetero Coquette BlackFin"
@@ -1871,9 +1871,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: true
     removed_vehicle_weeks: ["2026-W23"]
-    base_price: null
+    base_price: 695000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/coquette3"
     alias_hints: ["Coquette BlackFin"]
 
   - vehicle_name: "Declasse Draugur"
@@ -1881,9 +1881,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1870000
+    trade_price: 1402500
+    source_url: "https://gtacars.net/gta5/draugur"
     alias_hints: ["Draugur"]
 
   - vehicle_name: "Fathom FR36"
@@ -1891,9 +1891,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1610000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/fr36"
     alias_hints: ["FR36"]
 
   - vehicle_name: "Western Company Rogue"
@@ -1901,9 +1901,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 1596000
+    trade_price: 1200000
+    source_url: "https://gtacars.net/gta5/rogue"
     alias_hints: ["Company Rogue"]
 
   - vehicle_name: "MTL Dune"
@@ -1911,9 +1911,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 1300000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/rallytruck"
     alias_hints: ["Dune"]
 
   - vehicle_name: "BF Weevil"
@@ -1921,9 +1921,9 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
-    trade_price: null
-    source_url: "https://gtacars.net"
+    base_price: 870000
+    trade_price: 652500
+    source_url: "https://gtacars.net/gta5/weevil"
     alias_hints: ["Weevil"]
 
   - vehicle_name: "BF Raptor"
@@ -1931,7 +1931,7 @@ vehicles:
     race_tiers: {}
     removed_vehicle: false
     removed_vehicle_weeks: []
-    base_price: null
+    base_price: 648000
     trade_price: null
-    source_url: "https://gtacars.net"
+    source_url: "https://gtacars.net/gta5/raptor"
     alias_hints: ["Raptor"]
