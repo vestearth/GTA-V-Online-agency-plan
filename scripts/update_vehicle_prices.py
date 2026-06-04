@@ -82,6 +82,7 @@ NON_VEHICLE_SUBSTRINGS = (
     "garage",
     "launcher",
     "body armor",
+    "meth lab",
 )
 
 NON_VEHICLE_EXACT_NAMES = {
@@ -92,6 +93,7 @@ NON_VEHICLE_EXACT_NAMES = {
     "nightclub properties",
     "nightclub upgrades and modifications",
     "heavy rifle (gun van)",
+    "service carbine",
     "ls car meet membership",
     "pool cue",
     "horn customization",

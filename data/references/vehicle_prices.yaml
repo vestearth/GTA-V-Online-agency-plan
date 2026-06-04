@@ -670,7 +670,7 @@ vehicles:
     vehicle_tier: "collector"
     race_tiers: {muscle: "B"}
     removed_vehicle: true
-    removed_vehicle_weeks: ["2026-W16"]
+    removed_vehicle_weeks: ["2026-W16", "2026-W23"]
     base_price: 625000
     trade_price: null
     source_url: "https://gtacars.net/gta5/hustler"
@@ -1776,3 +1776,162 @@ vehicles:
     source_url: "https://gtacars.net/gta5/seasparrow"
     alias_hints: ["Sparrow"]
 
+  - vehicle_name: "Vapid GB200"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["GB200"]
+
+  - vehicle_name: "Declasse Mamba"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Mamba"]
+
+  - vehicle_name: "Vapid Firebolt ASP"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Firebolt ASP"]
+
+  - vehicle_name: "Grotti Carbonizzare"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W23"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Carbonizzare"]
+
+  - vehicle_name: "Dinka Enduro"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W23"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Enduro"]
+
+  - vehicle_name: "Declasse Tampa GT"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Tampa GT"]
+
+  - vehicle_name: "Emperor Habanero"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W23"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Habanero"]
+
+  - vehicle_name: "Albany Alpha"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W23"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Alpha"]
+
+  - vehicle_name: "BF Bifta"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Bifta"]
+
+  - vehicle_name: "Invetero Coquette BlackFin"
+    vehicle_tier: "collector"
+    race_tiers: {}
+    removed_vehicle: true
+    removed_vehicle_weeks: ["2026-W23"]
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Coquette BlackFin"]
+
+  - vehicle_name: "Declasse Draugur"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Draugur"]
+
+  - vehicle_name: "Fathom FR36"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["FR36"]
+
+  - vehicle_name: "Western Company Rogue"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Company Rogue"]
+
+  - vehicle_name: "MTL Dune"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Dune"]
+
+  - vehicle_name: "BF Weevil"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Weevil"]
+
+  - vehicle_name: "BF Raptor"
+    vehicle_tier: "unrated"
+    race_tiers: {}
+    removed_vehicle: false
+    removed_vehicle_weeks: []
+    base_price: null
+    trade_price: null
+    source_url: "https://gtacars.net"
+    alias_hints: ["Raptor"]

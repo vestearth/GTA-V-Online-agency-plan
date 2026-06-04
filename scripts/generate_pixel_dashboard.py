@@ -138,6 +138,9 @@ def _thai_pixel_copy(text: str) -> str:
         "Run Money Laundering Missions": "เล่น Money Laundering Missions",
         "Benefactor Terrorbyte": "Benefactor Terrorbyte",
         "Money Fronts Sets The Weekly Cashflow": "Money Fronts คือแกน cashflow ของสัปดาห์นี้",
+        "Community Missions Set The Weekly Bonus": "Community Missions คือโบนัสหลักของสัปดาห์นี้",
+        "Meth Sales Anchor The Weekly Cashflow": "Meth Sales คือแกน cashflow ของสัปดาห์นี้",
+        "Weekly Bonuses Set The Cashflow": "โบนัสสัปดาห์นี้คือแกน cashflow",
         "Higgins Helitours": "Higgins Helitours",
         "Heavy Rifle": "Heavy Rifle",
         "Hands On Car Wash / Smoke on the Water 40% off": "Hands On Car Wash / Smoke on the Water ลด 40%",
@@ -338,12 +341,13 @@ def render_pixel_command_brief(weekly_payload: dict[str, object], weekly_report_
     buy_label = _clean_item_label(top_buy_label)
     buy_chip = _extract_metric_chip(top_buy_label, top_buy_reason) or "[BUY]"
     focus_task = _command_task(top_play_label)
+    why_text = _weekly_why_text(weekly_content)
 
     cells = [
         ("HAPPENED", headline, focus_chip),
         ("TO DO", focus_task, focus_chip),
         ("BUY", buy_label, buy_chip),
-        ("WHY", "Money Fronts Sets The Weekly Cashflow", "[BEST VALUE]"),
+        ("WHY", why_text, "[BEST VALUE]"),
     ]
 
     lines: list[str] = []
@@ -358,6 +362,20 @@ def render_pixel_command_brief(weekly_payload: dict[str, object], weekly_report_
             ]
         )
     return "\n".join(lines)
+
+
+def _weekly_why_text(weekly_content: dict[str, object]) -> str:
+    context = " ".join(
+        str(weekly_content.get(field, ""))
+        for field in ("headline", "summary", "platform_notes")
+    ).casefold()
+    if "community mission" in context:
+        return "Community Missions Set The Weekly Bonus"
+    if "meth" in context or "street dealer" in context:
+        return "Meth Sales Anchor The Weekly Cashflow"
+    if "money fronts" in context or "money laundering" in context:
+        return "Money Fronts Sets The Weekly Cashflow"
+    return "Weekly Bonuses Set The Cashflow"
 
 
 def render_pixel_ignore_callout(weekly_report_text: str) -> str:

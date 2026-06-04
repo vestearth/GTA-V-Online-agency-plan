@@ -355,6 +355,12 @@ def render_data_status_note(context: dict[str, object]) -> str:
         "    </strong>",
         f"    {html.escape(status)}",
         "  </p>",
+        "  <p>",
+        "    <strong>",
+        "      Auto update:",
+        "    </strong>",
+        "    Thursday 08:00 Bangkok",
+        "  </p>",
         "</div>",
     ]
     for warning in warnings:

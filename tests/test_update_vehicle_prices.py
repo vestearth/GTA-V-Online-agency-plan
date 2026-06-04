@@ -64,6 +64,20 @@ class VehicleExtractionTests(unittest.TestCase):
         self.assertNotIn("Heavy Armor", names)
         self.assertNotIn("Super Heavy Armor", names)
 
+    def test_weekly_w23_excludes_meth_properties_and_gun_van_weapons(self):
+        payload = json.loads(Path("data/weekly_planning_2026_w23.json").read_text(encoding="utf-8"))
+
+        names = extract_vehicle_names_from_weekly_payload(payload)
+
+        self.assertIn("Vapid GB200", names)
+        self.assertIn("Declasse Mamba", names)
+        self.assertIn("Western Company Rogue", names)
+
+        self.assertNotIn("Meth Labs", names)
+        self.assertNotIn("Meth Lab Upgrades", names)
+        self.assertNotIn("Tactical SMG", names)
+        self.assertNotIn("Service Carbine", names)
+
     def test_slug_maps_with_bom_are_read_by_update_and_fetch_scripts(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             slug_map_path = Path(tmpdir) / "vehicle_gtacars_slugs.json"

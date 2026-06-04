@@ -3,6 +3,7 @@ from pathlib import Path
 
 from scripts.resolve_weekly_update_source import discover_latest_gta_online_article
 from scripts.run_weekly_content_refresh import validate_weekly_payload_has_content
+from scripts.generate_pixel_dashboard import render_pixel_command_brief
 
 
 class WeeklyUpdateSourceResolverTests(unittest.TestCase):
@@ -93,6 +94,35 @@ class WeeklyContentRefreshValidationTests(unittest.TestCase):
         }
 
         validate_weekly_payload_has_content(payload)
+
+
+class WeeklyPixelDashboardCopyTests(unittest.TestCase):
+    def test_command_brief_uses_current_week_context_for_why_cell(self):
+        weekly_payload = {
+            "weekly_content": {
+                "headline": "Community Mission Series and Meth Sales Week",
+                "summary": "New Community Mission Series content with 4x GTA$ and RP, 2x Meth Sell Missions, and 2x Street Dealers.",
+                "bonuses": [
+                    {"name": "Community Mission Series", "multiplier": "4x"},
+                    {"name": "Meth Sell Missions", "multiplier": "2x"},
+                ],
+            }
+        }
+        weekly_report_text = """
+## What to Play
+
+1. **Community Mission Series 4x GTA$ & RP** - Conditional active objective for PC Enhanced
+2. **Meth Sell Missions 2x GTA$ & RP** - Core business loop
+
+## What to Buy
+
+1. **Meth Lab Upgrades** - Check if missing before buying vehicles
+"""
+
+        html = render_pixel_command_brief(weekly_payload, weekly_report_text)
+
+        self.assertIn("Community Missions Set The Weekly Bonus", html)
+        self.assertNotIn("Money Fronts Sets The Weekly Cashflow", html)
 
 
 if __name__ == "__main__":
