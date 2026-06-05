@@ -581,13 +581,32 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
+def _vehicle_price_label(
+    vehicle: str,
+    vehicle_prices: dict[str, dict[str, object]] | None,
+) -> str | None:
+    """Compact buy-path price for a vehicle, or None when it is unknown."""
+    if not vehicle_prices:
+        return None
+    record = vehicle_prices.get(vehicle.strip())
+    if not isinstance(record, dict):
+        return None
+    base = record.get("base_price")
+    if not isinstance(base, (int, float)) or base <= 0:
+        return None
+    return format_currency_compact(int(base))
+
+
 def render_pixel_vehicle_spotlight(
     weekly_payload: dict[str, object],
     images: dict[str, str] | None = None,
+    vehicle_prices: dict[str, dict[str, object]] | None = None,
 ) -> str:
     """Polaroid wall of the week's reward vehicles that have a cached photo."""
     if images is None:
         images = load_vehicle_images()
+    if vehicle_prices is None:
+        vehicle_prices = load_vehicle_price_reference(DEFAULT_VEHICLE_PRICES)
 
     events = [
         item
@@ -607,12 +626,19 @@ def render_pixel_vehicle_spotlight(
             continue
         seen.add(vehicle)
         safe_name = html.escape(vehicle)
-        cards.extend(
+        price_label = _vehicle_price_label(vehicle, vehicle_prices)
+        card = [
+            '  <figure class="polaroid">',
+            '    <span class="polaroid-pin" aria-hidden="true"></span>',
+            f'    <img class="polaroid-photo" src="{html.escape(image_url)}" '
+            f'alt="{safe_name}" loading="lazy" referrerpolicy="no-referrer">',
+        ]
+        if price_label:
+            card.append(
+                f'    <span class="polaroid-price">{html.escape(price_label)}</span>'
+            )
+        card.extend(
             [
-                '  <figure class="polaroid">',
-                '    <span class="polaroid-pin" aria-hidden="true"></span>',
-                f'    <img class="polaroid-photo" src="{html.escape(image_url)}" '
-                f'alt="{safe_name}" loading="lazy" referrerpolicy="no-referrer">',
                 "    <figcaption>",
                 f'      <span class="polaroid-tag">[{html.escape(role)}]</span>',
                 f'      <span class="polaroid-name">{_bilingual_span(vehicle, vehicle)}</span>',
@@ -620,6 +646,7 @@ def render_pixel_vehicle_spotlight(
                 "  </figure>",
             ]
         )
+        cards.extend(card)
 
     if not cards:
         return (
@@ -669,7 +696,9 @@ def build_pixel_replacements(
         "pixel_action_queue": render_pixel_action_queue(weekly_payload, weekly_report_text),
         "pixel_operations_wall": render_pixel_operations_wall(weekly_report_text),
         "pixel_field_intel": render_pixel_field_intel(weekly_payload),
-        "pixel_vehicle_spotlight": render_pixel_vehicle_spotlight(weekly_payload),
+        "pixel_vehicle_spotlight": render_pixel_vehicle_spotlight(
+            weekly_payload, vehicle_prices=vehicle_prices
+        ),
         "pixel_buy_ledger": render_pixel_buy_ledger(weekly_report_text),
     }
 

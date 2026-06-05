@@ -813,6 +813,23 @@ body.pixel-page .nav a:focus-visible {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
+/* Dealer price tag stuck on the photo corner */
+.polaroid-price {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 3px 9px;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  background: var(--warning-soft);
+  color: #3a2a08;
+  font-family: var(--font-type);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transform: rotate(-4deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
 .polaroid figcaption {
   display: flex;
   align-items: baseline;
@@ -906,7 +923,8 @@ body.pixel-page .nav a:focus-visible {
   .wall-group:nth-child(3),
   .polaroid,
   .polaroid:nth-child(2),
-  .polaroid:nth-child(3) {
+  .polaroid:nth-child(3),
+  .polaroid-price {
     transform: none;
   }
 

@@ -588,7 +588,8 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
             "Vapid GB200": "https://gtacars.net/images/podium",
             "Declasse Mamba": "https://gtacars.net/images/prize",
         }
-        html = render_pixel_vehicle_spotlight(self.weekly_payload, images)
+        prices = {"Vapid GB200": {"base_price": 940000}}
+        html = render_pixel_vehicle_spotlight(self.weekly_payload, images, prices)
 
         self.assertIn('class="polaroid"', html)
         self.assertIn('src="https://gtacars.net/images/podium"', html)
@@ -598,9 +599,12 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn('loading="lazy"', html)
         self.assertIn('referrerpolicy="no-referrer"', html)
         self.assertNotIn("polaroid-wall-empty", html)
+        # Price tag is rendered only when a base price is known.
+        self.assertIn('class="polaroid-price"', html)
+        self.assertIn(format_currency_compact(940000), html)
 
     def test_render_pixel_vehicle_spotlight_is_empty_without_image_map(self):
-        html = render_pixel_vehicle_spotlight(self.weekly_payload, {})
+        html = render_pixel_vehicle_spotlight(self.weekly_payload, {}, {})
 
         self.assertIn("polaroid-wall-empty", html)
         self.assertNotIn("<img", html)
