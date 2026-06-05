@@ -1,8 +1,12 @@
 /*
   PIXEL DASHBOARD CSS
-  Visual Direction: GTA Weekly Operations Center
+  Visual Direction: GTA Heist Planning Board
   Theme Role: Support hierarchy, never carry it
   Theme Layer Order: Information > Functional > Atmospheric > Decorative
+
+  Recolour note: the heist-board palette is scoped to body.pixel-page only.
+  It overrides the shared design tokens (--primary, --surface, --shadow, ...)
+  so the classic dashboard.html keeps the original styles.css palette.
 */
 
 body.pixel-page {
@@ -16,26 +20,54 @@ body.pixel-page {
   --operations-wall-strength: 0.72;
   --field-intel-strength: 0.52;
   --buy-ledger-strength: 0.62;
-  background-color: var(--bg);
+
+  /* Heist board palette (scoped override) */
+  --font-type: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-stencil: "Oswald", "Arial Narrow", "Helvetica Neue", Impact, sans-serif;
+  --board: #15100b;
+  --cork: #3a2c1a;
+  --paper: #ece0c6;
+  --paper-card: #f4ecd9;
+  --paper-edge: #cdbb95;
+  --ink: #2a2014;
+  --ink-faded: #6d5f47;
+  --board-ink: #e7d9bb;
+  --tape: rgba(226, 214, 178, 0.5);
+  --string: #bb3b28;
+  --pin-blue: #2f6f8f;
+  --stamp-green: #3f7d36;
+  --stamp-red: #b3331f;
+
+  /* Token remap so existing rules + tests resolve to heist colours */
+  --primary: var(--string);
+  --secondary: var(--pin-blue);
+  --warning: #b07a2e;
+  --warning-soft: #e9c477;
+  --muted: var(--ink-faded);
+  --line: rgba(0, 0, 0, 0.4);
+  --shadow: 0 16px 30px rgba(0, 0, 0, 0.55);
+  --glow-primary: 0 3px 0 rgba(0, 0, 0, 0.18);
+  --glow-secondary: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+  color: var(--board-ink);
+  background-color: var(--board);
   background-image:
-    linear-gradient(rgba(187, 243, 81, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(187, 243, 81, 0.025) 1px, transparent 1px),
-    radial-gradient(circle at top, rgba(0, 188, 255, 0.12), transparent 34%);
-  background-size: 32px 32px, 32px 32px, 100% 100%;
+    radial-gradient(circle at 18% 12%, rgba(96, 73, 44, 0.35), transparent 38%),
+    radial-gradient(circle at 82% 0%, rgba(70, 54, 32, 0.4), transparent 42%),
+    radial-gradient(rgba(58, 44, 26, 0.5) 1px, transparent 1px),
+    radial-gradient(rgba(34, 25, 14, 0.55) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 7px 7px, 11px 11px;
+  background-position: 0 0, 0 0, 0 0, 4px 5px;
 }
 
+/* Atmospheric layer: soft room vignette, never interactive */
 body.pixel-page::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  background: repeating-linear-gradient(
-    rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0) 2px,
-    rgba(0, 0, 0, 0.045) 3px,
-    rgba(0, 0, 0, 0.045) 4px
-  );
+  background: radial-gradient(circle at 50% 38%, transparent 56%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 .pixel-shell {
@@ -52,20 +84,28 @@ body.pixel-page::before {
   align-items: end;
   padding-bottom: 28px;
   margin-bottom: 28px;
-  border-bottom: 2px solid var(--line);
+  border-bottom: 2px dashed rgba(187, 59, 40, 0.55);
 }
 
 .pixel-header h1 {
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.4vw, 3.2rem);
   line-height: 0.95;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: var(--primary);
-  text-shadow: 0 0 18px rgba(187, 243, 81, 0.22);
+  color: var(--string);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.pixel-header .eyebrow,
+.pixel-header .subtitle {
+  color: var(--board-ink);
 }
 
 .pixel-header .subtitle {
   max-width: 760px;
+  opacity: 0.82;
 }
 
 .pixel-header-utility {
@@ -78,11 +118,11 @@ body.pixel-page::before {
 .pixel-lang-selector {
   display: flex;
   gap: 12px;
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: var(--font-type);
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.05em;
-  color: var(--muted);
+  color: var(--board-ink);
   text-transform: uppercase;
 }
 
@@ -101,24 +141,45 @@ body.pixel-page::before {
 }
 
 .lang-btn[aria-pressed="true"] {
-  color: var(--primary);
-  text-shadow: 0 0 8px rgba(187, 243, 81, 0.4);
+  color: var(--string);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .lang-btn[aria-pressed="false"] .bracket {
   display: none;
 }
 
+/* Pinned index card for the weekly snapshot */
 .pixel-meta {
+  position: relative;
   min-width: 252px;
-  padding: 14px 16px;
-  border: 1px solid rgba(0, 188, 255, 0.22);
-  border-radius: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 188, 255, 0.1), transparent 55%),
-    rgba(12, 18, 32, 0.94);
+  padding: 16px 18px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 2px;
+  background: var(--paper-card);
+  color: var(--ink);
   box-shadow: var(--shadow);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  transform: rotate(0.7deg);
+  font-family: var(--font-type);
+}
+
+.pixel-meta strong {
+  color: var(--ink);
+}
+
+/* Masking-tape strip across the snapshot card */
+.pixel-meta::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 92px;
+  height: 22px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: var(--tape);
+  border-left: 1px dashed rgba(0, 0, 0, 0.12);
+  border-right: 1px dashed rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .ops-brief,
@@ -156,98 +217,78 @@ body.pixel-page::before {
 }
 
 .ops-kicker {
-  color: var(--secondary);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  color: var(--string);
+  font-family: var(--font-type);
   font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .ops-brief-head h2,
 .ops-section-head h2 {
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--surface);
+  color: var(--board-ink);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.32);
 }
 
 .ops-subtitle {
   max-width: 760px;
-  color: var(--muted);
+  color: var(--board-ink);
+  opacity: 0.74;
 }
 
+/* Decorative layer: red pushpins instead of terminal glyphs */
 .visual-companion {
   position: absolute;
-  right: 0;
-  top: 2px;
-  width: 28px;
-  height: 28px;
-  color: var(--secondary);
-  opacity: 0.36;
+  right: 4px;
+  top: 0;
+  width: 18px;
+  height: 18px;
   pointer-events: none;
 }
 
-.visual-companion::before,
+.visual-companion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, #ff7a5f 0 22%, var(--string) 30%, #7c2113 78%);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
 .visual-companion::after {
   content: "";
   position: absolute;
-  border: 1px solid currentColor;
-}
-
-.visual-companion-clipboard::before,
-.visual-companion-folder::before {
-  inset: 4px 5px 3px;
-}
-
-.visual-companion-clipboard::after {
-  top: 1px;
-  left: 9px;
-  width: 10px;
+  top: 4px;
+  left: 5px;
+  width: 5px;
   height: 5px;
-  background: rgba(0, 188, 255, 0.08);
-}
-
-.visual-companion-crate::before {
-  inset: 5px;
-}
-
-.visual-companion-crate::after {
-  inset: 9px;
-  border-left: 0;
-  border-right: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .visual-companion-radio::before {
-  inset: 7px 4px 5px;
+  background: radial-gradient(circle at 34% 32%, #7fc9e6 0 22%, var(--pin-blue) 30%, #1c4d63 78%);
 }
 
-.visual-companion-radio::after {
-  top: 0;
-  right: 6px;
-  width: 1px;
-  height: 11px;
-  border-width: 0 1px 0 0;
-  transform: rotate(28deg);
-  transform-origin: bottom;
+.visual-companion-crate::before {
+  background: radial-gradient(circle at 34% 32%, #b9e6a0 0 22%, var(--stamp-green) 30%, #234d1d 78%);
 }
 
-.visual-companion-folder::after {
-  top: 3px;
-  left: 5px;
-  width: 10px;
-  height: 5px;
-  border-bottom: 0;
-}
-
+/* COMMAND BRIEF — the key dossier pinned to the board (highest rank) */
 .command-board {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
   border: 2px solid var(--primary);
   background:
-    linear-gradient(180deg, rgba(187, 243, 81, 0.08), transparent 24%),
-    rgba(7, 12, 18, 0.92);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), transparent 20%),
+    var(--paper-card);
   box-shadow: var(--shadow), var(--glow-primary);
   position: relative;
 }
@@ -255,16 +296,16 @@ body.pixel-page::before {
 .command-board::before {
   content: "";
   position: absolute;
-  inset: 10px;
-  border: 1px solid rgba(187, 243, 81, 0.12);
+  inset: 9px;
+  border: 1px dashed rgba(42, 32, 20, 0.28);
   pointer-events: none;
 }
 
 .command-cell {
   min-height: 170px;
-  padding: 22px 22px 18px;
-  border-right: 1px solid rgba(187, 243, 81, 0.22);
-  border-bottom: 1px solid rgba(187, 243, 81, 0.22);
+  padding: 24px 22px 20px;
+  border-right: 1px dashed rgba(42, 32, 20, 0.3);
+  border-bottom: 1px dashed rgba(42, 32, 20, 0.3);
   display: grid;
   align-content: space-between;
   gap: 14px;
@@ -279,21 +320,25 @@ body.pixel-page::before {
 }
 
 .command-label {
-  color: var(--primary);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  color: var(--string);
+  font-family: var(--font-type);
   font-size: 0.74rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .command-cell h3 {
   max-width: 18ch;
-  font-size: clamp(1.2rem, 2vw, 1.65rem);
-  line-height: 1.05;
-  color: var(--surface);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 1.06;
+  letter-spacing: 0.01em;
+  color: var(--ink);
 }
 
+/* Chip base — typewriter labels, restyled per role below */
 .command-chip,
 .queue-chip,
 .status-chip,
@@ -302,26 +347,41 @@ body.pixel-page::before {
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  min-height: 28px;
-  padding: 4px 10px;
-  border: 1px solid var(--secondary);
-  background: rgba(0, 188, 255, 0.08);
-  color: var(--secondary);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  min-height: 26px;
+  padding: 3px 10px;
+  border: 1px solid var(--ink-faded);
+  background: rgba(42, 32, 20, 0.06);
+  color: var(--ink);
+  font-family: var(--font-type);
   font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
+/* Red grease-pencil tag on the dossier */
+.command-chip {
+  border: 2px solid var(--string);
+  background: rgba(187, 59, 40, 0.1);
+  color: var(--stamp-red);
+  transform: rotate(-1.5deg);
+}
+
+/* IGNORE strip — red rejected note pinned under the dossier */
 .ignore-callout {
   display: grid;
   gap: 8px;
   margin-top: 14px;
-  padding: 14px 16px;
-  border-left: 3px solid var(--warning);
-  background: rgba(17, 24, 39, 0.7);
-  color: var(--muted);
+  padding: 14px 16px 14px 18px;
+  border: 1px solid var(--paper-edge);
+  border-left: 4px solid var(--string);
+  background: var(--paper);
+  color: var(--ink-faded);
+  box-shadow: var(--shadow);
+}
+
+.ignore-callout .command-label {
+  color: var(--stamp-red);
 }
 
 .ignore-callout ul {
@@ -330,14 +390,16 @@ body.pixel-page::before {
   gap: 8px 18px;
   margin: 0;
   padding-left: 18px;
+  color: var(--ink);
 }
 
+/* ACTION QUEUE — checklist torn from a legal pad */
 .action-queue {
   padding: 18px;
-  border: 1px solid rgba(0, 188, 255, 0.18);
+  border: 1px solid var(--paper-edge);
   background:
-    linear-gradient(180deg, rgba(0, 188, 255, 0.06), transparent 30%),
-    rgba(12, 18, 28, 0.88);
+    repeating-linear-gradient(transparent 0 31px, rgba(47, 111, 143, 0.16) 31px 32px),
+    var(--paper);
   box-shadow: var(--shadow);
 }
 
@@ -356,55 +418,95 @@ body.pixel-page::before {
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
-  padding: 14px 16px;
-  border: 1px solid rgba(187, 243, 81, 0.18);
-  background: rgba(8, 12, 19, 0.84);
+  padding: 12px 14px;
+  border: 1px solid rgba(42, 32, 20, 0.18);
+  background: var(--paper-card);
+  color: var(--ink);
 }
 
 .queue-list li::before {
   content: counter(queue-step, decimal-leading-zero);
-  color: var(--primary);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.82rem;
-  font-weight: 900;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--string);
+  border-radius: 50%;
+  color: var(--string);
+  font-family: var(--font-type);
+  font-size: 0.74rem;
+  font-weight: 700;
 }
 
 .queue-task {
   font-weight: 700;
-  color: var(--surface);
+  color: var(--ink);
 }
 
+/* Handwritten time in the margin */
+.queue-chip {
+  border: 0;
+  background: transparent;
+  color: var(--pin-blue);
+  transform: rotate(-2deg);
+}
+
+/* OPERATIONS WALL / FIELD INTEL / BUY LEDGER share a board-panel base */
 .ops-section.operations-wall,
 .ops-section.field-intel,
 .ops-section.buy-ledger {
   padding: 18px;
-  border: 1px solid rgba(187, 243, 81, 0.16);
-  background: rgba(12, 18, 28, 0.82);
-  box-shadow: var(--shadow);
+  border: 1px solid rgba(58, 44, 26, 0.6);
+  background: rgba(33, 25, 15, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 .wall-groups {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
+/* Pinned sticky cards, hand-tacked at a slight angle */
 .wall-group {
+  position: relative;
   display: grid;
   align-content: start;
   gap: 12px;
-  padding: 14px;
-  border: 1px solid rgba(187, 243, 81, 0.18);
-  background:
-    linear-gradient(180deg, rgba(187, 243, 81, 0.05), transparent 28%),
-    rgba(7, 12, 18, 0.88);
+  padding: 16px 14px 14px;
+  border: 1px solid var(--paper-edge);
+  background: var(--paper-card);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.wall-group:nth-child(2) {
+  transform: rotate(-0.7deg);
+}
+
+.wall-group:nth-child(3) {
+  transform: rotate(0.6deg);
+}
+
+/* Pushpin at the top of each wall card */
+.wall-group::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, #ff7a5f 0 24%, var(--string) 32%, #7c2113 80%);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 .wall-group h3 {
-  color: var(--primary);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+  color: var(--stamp-red);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: 0.96rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -412,7 +514,7 @@ body.pixel-page::before {
   display: grid;
   gap: 8px;
   padding-top: 10px;
-  border-top: 1px solid rgba(0, 188, 255, 0.12);
+  border-top: 1px dashed rgba(42, 32, 20, 0.25);
 }
 
 .wall-item:first-of-type {
@@ -429,21 +531,25 @@ body.pixel-page::before {
 }
 
 .wall-item-head span:first-child {
-  font-weight: 750;
-  color: var(--surface);
+  font-weight: 700;
+  color: var(--ink);
 }
 
 .wall-item p,
 .intel-item p:last-child,
 .ledger-item p {
-  color: var(--muted);
+  color: var(--ink-faded);
   font-size: 0.92rem;
 }
 
-.field-intel {
-  border-color: rgba(0, 188, 255, 0.18);
+/* Colour-coded pushpin tags */
+.status-chip {
+  border: 1px solid var(--pin-blue);
+  background: rgba(47, 111, 143, 0.12);
+  color: #1d4d63;
 }
 
+/* FIELD INTEL — manila file tabs */
 .intel-list,
 .ledger-list {
   display: grid;
@@ -454,72 +560,100 @@ body.pixel-page::before {
 .intel-item {
   display: grid;
   gap: 10px;
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(0, 188, 255, 0.18);
-  background:
-    linear-gradient(90deg, rgba(0, 188, 255, 0.08), transparent 36%),
-    rgba(10, 15, 24, 0.8);
+  padding: 16px 16px 14px;
+  border: 1px solid var(--paper-edge);
+  border-top: 3px solid var(--warning);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.intel-label {
+  border: 1px solid var(--warning);
+  background: rgba(176, 122, 46, 0.14);
+  color: #7a5320;
 }
 
 .intel-item h3,
 .ledger-item h3 {
-  color: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
-.buy-ledger {
-  border-color: rgba(217, 119, 6, 0.24);
-}
-
+/* BUY / IGNORE LEDGER — case files with rubber-stamp verdicts */
 .ledger-item {
   display: grid;
   gap: 10px;
-  padding: 14px 16px;
-  border: 1px solid rgba(217, 119, 6, 0.2);
+  padding: 16px;
+  border: 1px solid var(--paper-edge);
   background:
-    linear-gradient(180deg, rgba(217, 119, 6, 0.06), transparent 24%),
-    rgba(10, 15, 24, 0.84);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent 22%),
+    var(--paper-card);
+  color: var(--ink);
+  box-shadow: var(--shadow);
 }
 
+/* Verdict stamp pressed at an angle */
 .decision-chip {
-  border-color: rgba(217, 119, 6, 0.38);
-  background: rgba(217, 119, 6, 0.12);
-  color: var(--warning-soft);
+  border: 2px solid var(--stamp-red);
+  background: rgba(179, 51, 31, 0.08);
+  color: var(--stamp-red);
+  letter-spacing: 0.08em;
+  transform: rotate(-3deg);
+  box-shadow: inset 0 0 0 1px rgba(179, 51, 31, 0.25);
 }
 
 .queue-list li,
 .wall-group,
 .intel-item,
 .ledger-item {
-  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .queue-list li:hover,
 .queue-list li:focus-within {
-  border-color: rgba(0, 188, 255, 0.36);
+  border-color: rgba(47, 111, 143, 0.5);
   box-shadow: var(--glow-secondary);
 }
 
 .wall-group:hover,
 .wall-group:focus-within {
-  border-color: rgba(187, 243, 81, 0.34);
+  transform: rotate(0deg) translateY(-2px);
+  border-color: var(--string);
 }
 
 .intel-item:hover,
 .intel-item:focus-within {
-  border-bottom-color: rgba(0, 188, 255, 0.42);
+  border-top-color: var(--string);
 }
 
 .ledger-item:hover,
 .ledger-item:focus-within {
-  border-color: rgba(217, 119, 6, 0.36);
+  border-color: var(--stamp-red);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .pixel-meta,
+  .command-chip,
+  .queue-chip,
+  .decision-chip,
+  .wall-group:nth-child(2),
+  .wall-group:nth-child(3) {
+    transform: none;
+  }
+
   .queue-list li,
   .wall-group,
   .intel-item,
   .ledger-item {
     transition: none;
+  }
+
+  .wall-group:hover,
+  .wall-group:focus-within {
+    transform: none;
   }
 }
 
@@ -537,7 +671,12 @@ body.pixel-page::before {
   }
 
   .command-cell:not(:last-child) {
-    border-bottom: 1px solid rgba(187, 243, 81, 0.22);
+    border-bottom: 1px dashed rgba(42, 32, 20, 0.3);
+  }
+
+  .wall-group:nth-child(2),
+  .wall-group:nth-child(3) {
+    transform: none;
   }
 
   .queue-list li,
@@ -564,11 +703,12 @@ body.pixel-page::before {
     align-items: flex-start;
     margin-top: 10px;
     padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px dashed rgba(187, 59, 40, 0.5);
   }
 
   .pixel-meta {
     min-width: 0;
+    transform: none;
   }
 
   .ops-brief,
