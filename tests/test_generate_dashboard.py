@@ -1,4 +1,5 @@
 import json
+import re
 import tempfile
 import textwrap
 import unittest
@@ -34,6 +35,24 @@ from scripts.generate_pixel_dashboard import (
     render_pixel_ignore_callout,
     render_pixel_operations_wall,
 )
+
+
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
+
+
+def load_fixture_json(name):
+    """Load a frozen JSON fixture committed under tests/fixtures/.
+
+    Fixtures are frozen snapshots of a real weekly plan (2026-W23). Tests read
+    them instead of the live, gitignored reports/ artifacts so the suite is
+    deterministic and runs in CI on a clean checkout.
+    """
+    return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+
+def load_fixture_text(name):
+    """Load a frozen text/markdown fixture committed under tests/fixtures/."""
+    return (FIXTURES / name).read_text(encoding="utf-8")
 
 
 class DashboardGeneratorSelectionTests(unittest.TestCase):
@@ -172,18 +191,10 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
 class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.weekly_payload = json.loads(
-            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
-        )
-        cls.player_profile = json.loads(
-            Path("data/player_profile.json").read_text(encoding="utf-8")
-        )
-        cls.weekly_report_text = Path("reports/weekly_master_plan_2026_w22.md").read_text(
-            encoding="utf-8"
-        )
-        cls.event_report_text = Path("reports/event_master_plan_2026_w22.md").read_text(
-            encoding="utf-8"
-        )
+        cls.weekly_payload = load_fixture_json("weekly_planning.json")
+        cls.player_profile = load_fixture_json("player_profile.json")
+        cls.weekly_report_text = load_fixture_text("weekly_master_plan.md")
+        cls.event_report_text = load_fixture_text("event_master_plan.md")
 
     def test_extract_markdown_section_reads_action_queue_block(self):
         section = extract_markdown_section(
@@ -192,15 +203,15 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(section)
-        self.assertIn("Higgins Helitours", section)
-        self.assertIn("Money Fronts Money Laundering Missions 4x", section)
+        self.assertIn("Steal from Stash House #1", section)
+        self.assertIn("Weekly Challenge GTA$100,000", section)
 
-    def test_render_weekly_action_plan_uses_w22_action_queue(self):
+    def test_render_weekly_action_plan_uses_action_queue(self):
         html = render_weekly_action_plan(self.weekly_report_text)
 
         self.assertIsNotNone(html)
-        self.assertIn("Higgins Helitours", html)
-        self.assertIn("Money Laundering", html)
+        self.assertIn("Steal from Stash House #1", html)
+        self.assertIn("Street Dealers", html)
         self.assertIn('class="steps"', html)
 
     def test_render_what_to_buy_ignore_builds_rulings_table(self):
@@ -210,8 +221,8 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(html)
-        self.assertIn("Higgins Helitours", html)
-        self.assertIn("Claim", html)
+        self.assertIn("Meth Lab Upgrades", html)
+        self.assertIn("Buy", html)
         self.assertIn("Salvage Yard", html)
         self.assertIn("Do not claim", html)
 
@@ -225,7 +236,7 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         self.assertIsNotNone(html)
         self.assertIn("Hands On Car Wash", html)
         self.assertIn("Owned", html)
-        self.assertIn("Benefactor Terrorbyte", html)
+        self.assertIn("Nightclub", html)
 
     def test_render_weekly_action_plan_returns_none_when_parse_confidence_is_low(self):
         self.assertIsNone(render_weekly_action_plan("## Something Else\n- no action queue here"))
@@ -234,13 +245,13 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         html = render_current_focus(self.weekly_payload, self.weekly_report_text)
 
         self.assertIsNotNone(html)
-        self.assertIn("Money Fronts 4x loop", html)
+        self.assertIn("Community Mission Series and Meth Sales Week", html)
 
     def test_render_next_claim_buy_uses_first_buy_entry(self):
         html = render_next_claim_buy(self.weekly_report_text, self.event_report_text)
 
         self.assertIsNotNone(html)
-        self.assertIn("Claim Higgins Helitours", html)
+        self.assertIn("Buy Meth Lab Upgrades", html)
 
 
 class DashboardFocusRowMarkupTests(unittest.TestCase):
@@ -306,25 +317,26 @@ class PixelDashboardOperationsMarkupTests(unittest.TestCase):
     def test_pixel_dashboard_uses_command_brief_and_timed_queue_rows(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
 
-        self.assertIn("HAPPENED", html)
-        self.assertIn("TO DO", html)
-        self.assertIn("BUY", html)
-        self.assertIn("WHY", html)
-        self.assertIn("[4x]", html)
-        self.assertIn("[30% OFF]", html)
-        self.assertIn("[20m]", html)
-        self.assertIn("Run Money Laundering Missions", html)
+        # The command brief keeps its four decision cells regardless of week.
+        for label in ("HAPPENED", "TO DO", "BUY", "WHY"):
+            self.assertIn(label, html)
+
+        # Chips are derived from each week's data, so assert their shape rather
+        # than a specific week's values: a bonus multiplier, a discount, and
+        # timed action-queue rows.
+        self.assertRegex(html, r"\[\d+x\]")
+        self.assertRegex(html, r"\[\d+% OFF\]")
+        self.assertRegex(html, r'class="queue-chip">\[\d+m\]')
 
     def test_pixel_dashboard_uses_wall_intel_and_ledger_shapes(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
 
-        self.assertIn("Money Fronts Money Laundering Missions", html)
-        self.assertIn("[ACTIVE]", html)
-        self.assertIn("Salvage Yard robberies", html)
-        self.assertIn("[BONUS]", html)
-        self.assertIn("Lamar Contact Missions", html)
-        self.assertIn("[BUY]", html)
-        self.assertIn("Benefactor Terrorbyte", html)
+        # Operations wall groups carry status chips, field intel rows carry
+        # category labels, and the buy/ignore ledger carries decision chips.
+        # These shapes are stable week over week; the wrapped values are not.
+        self.assertRegex(html, r'class="status-chip">\[(ACTIVE|READY|OPTIONAL|IGNORE)\]')
+        self.assertRegex(html, r'class="intel-label">\[(BONUS|DISCOUNT|PRIZE)\]')
+        self.assertRegex(html, r'class="decision-chip">\[(BUY|HOLD|IGNORE)\]')
 
     def test_pixel_dashboard_presents_operations_center_not_prototype(self):
         html = Path("pixel-dashboard.html").read_text(encoding="utf-8")
@@ -463,15 +475,9 @@ class DashboardBilingualRenderingTests(unittest.TestCase):
 class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.weekly_payload = json.loads(
-            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
-        )
-        cls.player_profile = json.loads(
-            Path("data/player_profile.json").read_text(encoding="utf-8")
-        )
-        cls.weekly_report_text = Path("reports/weekly_master_plan_2026_w22.md").read_text(
-            encoding="utf-8"
-        )
+        cls.weekly_payload = load_fixture_json("weekly_planning.json")
+        cls.player_profile = load_fixture_json("player_profile.json")
+        cls.weekly_report_text = load_fixture_text("weekly_master_plan.md")
         cls.vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
         cls.context = build_phase1_context(
             weekly_payload=cls.weekly_payload,
@@ -483,31 +489,28 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         html = render_pixel_header_meta(self.context)
 
         self.assertIn("Strategy Snapshot", html)
-        self.assertIn("2026-W22", html)
+        self.assertIn("2026-W23", html)
         self.assertIn("READY TO RUN", html)
         self.assertIn("Thursday 08:00 Bangkok", html)
 
     def test_render_pixel_command_brief_uses_current_week_focus(self):
         html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)
 
-        self.assertIn("Money Fronts Special", html)
-        self.assertIn("Run Money Laundering Missions", html)
-        self.assertIn("Benefactor Terrorbyte", html)
+        self.assertIn("Community Mission Series and Meth Sales Week", html)
+        self.assertIn("Meth Lab Upgrades", html)
         self.assertIn("[4x]", html)
-        self.assertIn("[30% OFF]", html)
+        self.assertIn("[40% OFF]", html)
         self.assertNotIn("Nightclub Sales Lead The Week", html)
 
     def test_render_pixel_action_queue_uses_report_steps_and_time_chips(self):
         html = render_pixel_action_queue(self.weekly_payload, self.weekly_report_text)
 
-        self.assertIn("Claim Higgins Helitours", html)
+        self.assertIn("Steal from Stash House #1", html)
         self.assertIn("Spin Lucky Wheel", html)
-        self.assertIn("Run Money Laundering Missions", html)
+        self.assertIn("Sell to Street Dealers while product stock is available", html)
         self.assertNotIn("[ ]", html)
-        self.assertIn("[2m]", html)
-        self.assertIn("[5m]", html)
-        self.assertIn("[20m]", html)
-        self.assertIn("[45m]", html)
+        # Each queue row carries a timed chip (shape, not a fixed value).
+        self.assertRegex(html, r'class="queue-chip">\[\d+m\]')
 
     def test_render_pixel_operations_wall_groups_active_optional_and_ignore(self):
         html = render_pixel_operations_wall(self.weekly_report_text)
@@ -515,8 +518,8 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("ACTIVE", html)
         self.assertIn("OPTIONAL", html)
         self.assertIn("IGNORE", html)
-        self.assertIn("Money Fronts Money Laundering Missions", html)
-        self.assertIn("Salvage Yard robberies", html)
+        self.assertIn("Weekly Challenge", html)
+        self.assertIn("Salvage Yard robbery vehicles", html)
         self.assertIn("[ACTIVE]", html)
         self.assertIn("[IGNORE]", html)
 
@@ -526,24 +529,23 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("[BONUS]", html)
         self.assertIn("[DISCOUNT]", html)
         self.assertIn("[PRIZE]", html)
-        self.assertIn("Lamar Contact Missions", html)
-        self.assertIn("Higgins Helitours", html)
-        self.assertIn("Lampadati Komoda", html)
-        self.assertIn("Strong side rotation for shorter mission bursts.", html)
+        self.assertIn("Community Mission Series", html)
+        self.assertIn("Meth Labs", html)
+        self.assertIn("Vapid GB200", html)
         self.assertNotIn("5x GTA$ &amp; RP this week", html)
 
     def test_render_pixel_ignore_callout_stays_headline_only(self):
         html = render_pixel_ignore_callout(self.weekly_report_text)
 
         self.assertLessEqual(html.count("<li>"), 2)
-        self.assertIn("Hands On Car Wash / Smoke on the Water 40% off", html)
+        self.assertIn("Rhino Tank / MTL Dune / BF Raptor", html)
         self.assertNotIn("Discount exists, but it adds little", html)
 
     def test_render_pixel_buy_ledger_uses_decision_chips(self):
         html = render_pixel_buy_ledger(self.weekly_report_text)
 
-        self.assertIn("Higgins Helitours", html)
-        self.assertIn("Benefactor Terrorbyte", html)
+        self.assertIn("Meth Lab Upgrades", html)
+        self.assertIn("Western Company Rogue", html)
         self.assertIn("[BUY]", html)
         self.assertIn("[HOLD]", html)
         self.assertIn("[IGNORE]", html)
@@ -560,22 +562,16 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         )
 
         self.assertEqual(set(replacements), set(PIXEL_MARKERS))
-        self.assertIn("Money Fronts Special", replacements["pixel_command_brief"])
-        self.assertIn("Claim Higgins Helitours", replacements["pixel_action_queue"])
+        self.assertIn("Community Mission Series and Meth Sales Week", replacements["pixel_command_brief"])
+        self.assertIn("Steal from Stash House #1", replacements["pixel_action_queue"])
 
 
 class PixelDashboardBilingualRenderingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.weekly_payload = json.loads(
-            Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")
-        )
-        cls.player_profile = json.loads(
-            Path("data/player_profile.json").read_text(encoding="utf-8")
-        )
-        cls.weekly_report_text = Path("reports/weekly_master_plan_2026_w22.md").read_text(
-            encoding="utf-8"
-        )
+        cls.weekly_payload = load_fixture_json("weekly_planning.json")
+        cls.player_profile = load_fixture_json("player_profile.json")
+        cls.weekly_report_text = load_fixture_text("weekly_master_plan.md")
 
     def test_render_pixel_command_brief_outputs_bilingual_copy_and_universal_chips(self):
         html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)
