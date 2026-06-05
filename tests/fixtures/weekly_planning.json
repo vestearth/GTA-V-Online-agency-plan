@@ -1,0 +1,440 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W23",
+    "label": "June 4 - June 10 2026",
+    "start_date": "2026-06-04",
+    "end_date": "2026-06-10",
+    "source": "manual_web_research",
+    "last_updated_at": "2026-06-04T12:35:00+07:00",
+    "source_urls": [
+      "https://www.reddit.com/r/gtaonline/comments/1tvznu4/weekly_bonuses_and_discounts_june_4th_to_june/",
+      "https://rockstarintel.com/gta-online-event-week-new-missions-week-june-4th-10th/"
+    ]
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true,
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water Money Front",
+        "Hands On Car Wash Money Front",
+        "The Vinewood Residence",
+        "Galaxy Super Yacht",
+        "Mammoth Avenger",
+        "Hangar"
+      ],
+      "vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ]
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": 2,
+      "max_continuous_minutes": 120
+    }
+  },
+  "weekly_content": {
+    "headline": "Community Mission Series and Meth Sales Week",
+    "summary": "New Community Mission Series content with 4x GTA$ and RP through June 17, a GTA$500,000 completion bonus for all seven missions, 2x Meth Sell Missions, 2x Street Dealers, and Meth Lab discounts.",
+    "platform_notes": "Community Mission Series bonus is listed for PS5, Xbox Series X|S, and PC Enhanced. Premium Test Ride and HSW Time Trial are also current-gen / PC Enhanced surfaces. Treat these as platform-gated rather than universally available.",
+    "bonuses": [
+      {
+        "name": "Community Mission Series",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP",
+        "platforms": "PS5,XboxSeries,PC_Enhanced",
+        "duration_note": "4x runs through June 17."
+      },
+      {
+        "name": "Complete all seven Community Missions",
+        "multiplier": "bonus",
+        "reward_type": "GTA$",
+        "payout_note": "GTA$500,000 within 72 hours after completing the full set.",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Meth Sell Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP",
+        "note": "Includes Nightclub Pharmaceutical Research Goods."
+      },
+      {
+        "name": "Featured Series - Top Fun, Turf Wars, Sumo, Come Out to Play",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Street Dealers",
+        "multiplier": "2x",
+        "reward_type": "GTA$"
+      }
+    ],
+    "events": [
+      {
+        "name": "Weekly Challenge - Steal from two Stash Houses",
+        "type": "challenge",
+        "requirement": "Steal from two Stash Houses",
+        "reward": "GTA$100,000"
+      },
+      {
+        "name": "Community Mission Series Completion Bonus",
+        "type": "bonus",
+        "requirement": "Complete all seven Community Missions",
+        "reward": "GTA$500,000 within 72 hours",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Podium Vehicle",
+        "vehicle": "Vapid GB200",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "name": "Prize Ride Challenge",
+        "vehicle": "Declasse Mamba",
+        "requirement": "Place Top 3 in the LS Car Meet Series for 3 days in a row",
+        "source": "ls_car_meet"
+      },
+      {
+        "name": "Premium Test Ride",
+        "vehicle": "Vapid Firebolt ASP",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Time Trial",
+        "location": "Grove Street"
+      },
+      {
+        "name": "Premium Race",
+        "location": "Wiwang Park",
+        "restriction": "Sports"
+      },
+      {
+        "name": "HSW Time Trial",
+        "location": "Textile City to Stab City",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "FIB Priority File",
+        "file": "The Project Breakaway File"
+      }
+    ],
+    "featured_activities": [
+      {
+        "activity_id": "community_mission_series_4x",
+        "name": "Community Mission Series",
+        "category": "community_mission",
+        "multiplier": "4x",
+        "timebox_minutes": 30,
+        "platforms": "PS5,XboxSeries,PC_Enhanced",
+        "requirements": {}
+      },
+      {
+        "activity_id": "complete_all_seven_community_missions",
+        "name": "Complete all seven Community Missions",
+        "category": "challenge",
+        "reward": "GTA$500,000 within 72 hours",
+        "timebox_minutes": 120,
+        "platforms": "PS5,XboxSeries,PC_Enhanced",
+        "requirements": {}
+      },
+      {
+        "activity_id": "weekly_challenge_two_stash_houses",
+        "name": "Weekly Challenge - Steal from two Stash Houses",
+        "category": "challenge",
+        "reward": "GTA$100,000",
+        "timebox_minutes": 20,
+        "requirements": {}
+      },
+      {
+        "activity_id": "meth_sell_missions",
+        "name": "Meth Sell Missions",
+        "category": "mc_business",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "Methamphetamine Lab",
+            "MC Clubhouse"
+          ]
+        }
+      },
+      {
+        "activity_id": "street_dealers",
+        "name": "Street Dealers",
+        "category": "dealer_sales",
+        "multiplier": "2x GTA$",
+        "timebox_minutes": 10,
+        "requirements": {
+          "notes": "Requires sellable product stock; best used as quick cash, not a full grind."
+        }
+      },
+      {
+        "activity_id": "featured_series_top_fun_turf_wars_sumo_come_out_to_play",
+        "name": "Featured Series - Top Fun, Turf Wars, Sumo, Come Out to Play",
+        "category": "featured_series",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "ls_car_meet_prize_ride_declasse_mamba",
+        "name": "Prize Ride - Declasse Mamba",
+        "category": "challenge",
+        "requirement": "Place Top 3 in the LS Car Meet Series for 3 days in a row",
+        "timebox_minutes": 90,
+        "requirements": {}
+      },
+      {
+        "activity_id": "casino_lucky_wheel",
+        "name": "Casino Lucky Wheel - Vapid GB200",
+        "category": "casino",
+        "timebox_minutes": 5,
+        "requirements": {}
+      }
+    ],
+    "community_mission_series": [
+      "Los Santos 2062 by ShelbyGR-1",
+      "Juggernightmare by GTA Series Videos",
+      "Paleto Bay Slasher by Shadow-Break",
+      "The Scrumble Heist by SergeantDexter",
+      "Running the Gauntlet by Sarah-Croft",
+      "Detective Story by BooCooSocial",
+      "Old School Hits by GTA Series Videos"
+    ],
+    "salvage_yard_robberies": [
+      {
+        "job": "The Cargo Ship Robbery",
+        "vehicle": "Benefactor SM722",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The McTony Robbery",
+        "vehicle": "Annis ZR350",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Duggan Robbery",
+        "vehicle": "Dinka Sugoi",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      }
+    ],
+    "fib_priority_files": [
+      "The Project Breakaway File"
+    ],
+    "discounts": [
+      {
+        "tier_percent": 40,
+        "items": [
+          "Meth Labs",
+          "Meth Lab Upgrades"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "BF Raptor",
+          "BF Weevil",
+          "Declasse Draugur",
+          "Fathom FR36",
+          "MTL Dune",
+          "Rhino Tank",
+          "Western Company Rogue"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "tier_label": "Gun Van",
+        "items": [
+          "Tactical SMG"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "tier_label": "Gun Van GTA+",
+        "items": [
+          "Service Carbine"
+        ],
+        "gta_plus_only": true
+      }
+    ],
+    "gun_van": {
+      "discounts": [
+        {
+          "item": "Tactical SMG",
+          "discount_percent": 30
+        },
+        {
+          "item": "Service Carbine",
+          "discount_percent": 40,
+          "gta_plus_only": true
+        }
+      ],
+      "stock_note": "Full stock list was marked TBA in the primary Reddit source at capture time; do not infer unavailable stock."
+    },
+    "vehicle_opportunities": [
+      {
+        "id": "podium_vapid_gb200",
+        "vehicle_name": "Vapid GB200",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "id": "prize_ride_declasse_mamba",
+        "vehicle_name": "Declasse Mamba",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "acquisition": {
+          "challenge": "Place Top 3 in the LS Car Meet Series for 3 days in a row"
+        }
+      },
+      {
+        "id": "premium_test_ride_vapid_firebolt_asp",
+        "vehicle_name": "Vapid Firebolt ASP",
+        "opportunity_type": "premium_test_ride",
+        "source": "test_ride",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "id": "test_track_vapid_clique",
+        "vehicle_name": "Vapid Clique",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_track_grotti_carbonizzare",
+        "vehicle_name": "Grotti Carbonizzare",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet",
+        "removed_vehicle": true
+      },
+      {
+        "id": "test_track_dinka_enduro",
+        "vehicle_name": "Dinka Enduro",
+        "opportunity_type": "test_track",
+        "source": "ls_car_meet",
+        "removed_vehicle": true
+      },
+      {
+        "id": "luxury_autos_declasse_tampa_gt",
+        "vehicle_name": "Declasse Tampa GT",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "luxury_autos_grotti_gt750",
+        "vehicle_name": "Grotti GT750",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "pdm_emperor_habanero",
+        "vehicle_name": "Emperor Habanero",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_albany_alpha",
+        "vehicle_name": "Albany Alpha",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_bf_bifta",
+        "vehicle_name": "BF Bifta",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_vapid_hustler",
+        "vehicle_name": "Vapid Hustler",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_invetero_coquette_blackfin",
+        "vehicle_name": "Invetero Coquette BlackFin",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "discount_declasse_draugur",
+        "vehicle_name": "Declasse Draugur",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_fathom_fr36",
+        "vehicle_name": "Fathom FR36",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_western_company_rogue",
+        "vehicle_name": "Western Company Rogue",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_rhino_tank",
+        "vehicle_name": "Rhino Tank",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_mtl_dune",
+        "vehicle_name": "MTL Dune",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_bf_weevil",
+        "vehicle_name": "BF Weevil",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      },
+      {
+        "id": "discount_bf_raptor",
+        "vehicle_name": "BF Raptor",
+        "opportunity_type": "discount",
+        "discount_percent": 30
+      }
+    ]
+  },
+  "scraper_metadata": {
+    "ownership_checks": [],
+    "price_context": {},
+    "manual_capture_notes": [
+      "Primary detailed source was r/gtaonline weekly thread captured on June 4, 2026.",
+      "RockstarINTEL cross-check matched key bonuses, discounts, showroom vehicles, and time trials.",
+      "Rockstar Newswire article body was not reliably available through static HTML at capture time."
+    ]
+  }
+}
