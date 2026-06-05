@@ -1,24 +1,31 @@
 :root {
   color-scheme: dark;
-  --primary: #bbf351;
+  /* GTA Los Santos neon: Vinewood magenta + electric cyan + neon violet on a
+     violet-black night, with a GTA HUD money-green accent. */
+  --primary: #ff2d8e;
   --secondary: #00bcff;
+  --accent: #b56bff;
+  --money: #5ee68a;
+  --sunset-orange: #ff8a1e;
+  /* GTA V box-art sunset: warm orange -> hot pink -> neon violet. */
+  --gta-sunset: linear-gradient(115deg, #ffb13d 0%, #ff7a1e 16%, #ff2d8e 52%, #b56bff 100%);
   --success: #16a34a;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --warning-soft: #facc15;
-  --danger-soft: #fca5a5;
+  --warning: #ff9f1c;
+  --danger: #ff2e54;
+  --warning-soft: #ffc24b;
+  --danger-soft: #ff9aa6;
   --surface: #ffffff;
-  --text: #111827;
-  --bg: #05070d;
-  --panel: #0c1220;
-  --panel-strong: #111827;
-  --ink: #f8fafc;
-  --muted: #b7c2d4;
-  --soft: #151f31;
-  --line: rgba(187, 243, 81, 0.28);
-  --glow-primary: 0 0 22px rgba(187, 243, 81, 0.28);
+  --text: #160a18;
+  --bg: #070611;
+  --panel: #120a22;
+  --panel-strong: #1a1033;
+  --ink: #f7f0ff;
+  --muted: #bcb0d4;
+  --soft: #18102b;
+  --line: rgba(255, 45, 142, 0.30);
+  --glow-primary: 0 0 28px rgba(255, 45, 142, 0.46);
   --glow-secondary: 0 0 24px rgba(0, 188, 255, 0.26);
-  --shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+  --shadow: 0 18px 42px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -45,6 +52,18 @@ body {
   line-height: 1.5;
 }
 
+/* Los Santos synthwave night glow — classic dashboard only (pixel.page keeps
+   its own heist cork background). */
+body:not(.pixel-page) {
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(255, 45, 142, 0.20), transparent 60%),
+    radial-gradient(1000px 520px at 92% -4%, rgba(0, 188, 255, 0.13), transparent 62%),
+    radial-gradient(1500px 480px at 50% 110%, rgba(255, 122, 30, 0.16), transparent 58%),
+    radial-gradient(1200px 820px at 50% 124%, rgba(181, 107, 255, 0.16), transparent 64%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
 a {
   color: inherit;
 }
@@ -68,6 +87,13 @@ header {
   border-bottom: 1px solid var(--line);
 }
 
+/* GTA V sunset underline — classic dashboard only (pixel.page draws its own
+   heist dashed border on .pixel-header). */
+body:not(.pixel-page) header {
+  border-bottom: 2px solid transparent;
+  border-image: var(--gta-sunset) 1;
+}
+
 h1,
 h2,
 h3,
@@ -81,7 +107,19 @@ h1 {
   font-family: "STIX Two Text", Georgia, "Times New Roman", serif;
   line-height: 1;
   letter-spacing: 0;
-  text-shadow: 0 0 28px rgba(187, 243, 81, 0.22);
+}
+
+/* GTA V logo-style sunset gradient text — classic dashboard only. The bare h1
+   keeps a normal fill so pixel.page's .pixel-header h1 (heist red) is unaffected. */
+body:not(.pixel-page) h1 {
+  background: var(--gta-sunset);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 18px rgba(255, 45, 142, 0.45))
+    drop-shadow(0 0 34px rgba(255, 138, 30, 0.28));
 }
 
 h2 {
@@ -96,12 +134,22 @@ h3 {
 
 .eyebrow,
 .label {
-  color: var(--primary);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  text-shadow: 0 0 16px rgba(187, 243, 81, 0.42);
+}
+
+.label {
+  color: var(--primary);
+  text-shadow: 0 0 16px rgba(255, 45, 142, 0.42);
+}
+
+/* Warm sunset eyebrow — classic dashboard only (pixel.page sets its own
+   board-ink eyebrow and must not get the neon-orange glow). */
+body:not(.pixel-page) .eyebrow {
+  color: var(--sunset-orange);
+  text-shadow: 0 0 16px rgba(255, 138, 30, 0.45);
 }
 
 .subtitle {
@@ -183,7 +231,7 @@ h3 {
 
 .lang-btn[aria-pressed="true"] {
   color: var(--primary);
-  text-shadow: 0 0 8px rgba(187, 243, 81, 0.4);
+  text-shadow: 0 0 8px rgba(255, 45, 142, 0.4);
 }
 
 .lang-btn[aria-pressed="false"] .bracket {
@@ -267,7 +315,7 @@ h3 {
   font-size: 1.5rem;
   line-height: 1.15;
   color: var(--primary);
-  text-shadow: 0 0 18px rgba(187, 243, 81, 0.36);
+  text-shadow: 0 0 18px rgba(255, 45, 142, 0.36);
 }
 
 .card-note,
@@ -351,7 +399,7 @@ tr:last-child td {
 }
 
 .owned {
-  background: rgba(187, 243, 81, 0.15);
+  background: rgba(255, 45, 142, 0.15);
   color: var(--primary);
 }
 
@@ -368,6 +416,23 @@ tr:last-child td {
 .warn {
   background: rgba(220, 38, 38, 0.18);
   color: var(--danger-soft);
+}
+
+/* Asset Overview role pills: green = core money loop, cyan = passive,
+   amber = situational. Semantic names, decoupled from ownership wording. */
+.role-core {
+  background: rgba(94, 230, 138, 0.16);
+  color: var(--money);
+}
+
+.role-passive {
+  background: rgba(0, 188, 255, 0.15);
+  color: var(--secondary);
+}
+
+.role-situational {
+  background: rgba(255, 159, 28, 0.18);
+  color: var(--warning-soft);
 }
 
 .priority {
@@ -469,8 +534,8 @@ tr:last-child td {
 }
 
 .tier-label.pill {
-  border-color: rgba(187, 243, 81, 0.26);
-  background: rgba(187, 243, 81, 0.08);
+  border-color: rgba(255, 45, 142, 0.26);
+  background: rgba(255, 45, 142, 0.08);
   color: var(--primary);
 }
 
@@ -533,8 +598,8 @@ tr:last-child td {
 }
 
 .value-free {
-  border-color: rgba(187, 243, 81, 0.32);
-  background: rgba(187, 243, 81, 0.12);
+  border-color: rgba(255, 45, 142, 0.32);
+  background: rgba(255, 45, 142, 0.12);
   color: var(--primary);
 }
 
@@ -672,7 +737,7 @@ tr:last-child td {
   width: 24px;
   height: 24px;
   border-radius: 999px;
-  background: rgba(187, 243, 81, 0.16);
+  background: rgba(255, 45, 142, 0.16);
   color: var(--primary);
   font-weight: 900;
   box-shadow: var(--glow-primary);

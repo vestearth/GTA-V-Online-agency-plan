@@ -18,6 +18,7 @@ from scripts.generate_dashboard import (
     render_header_meta,
     render_next_claim_buy,
     render_asset_overview,
+    render_roi_passive,
     render_summary_cards,
     render_weekly_deals,
     render_weekly_action_plan,
@@ -252,6 +253,26 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         without_profile = render_asset_overview(None, self.weekly_payload, self.weekly_report_text)
 
         self.assertEqual(with_profile, without_profile)
+
+    def test_render_roi_passive_reflects_current_week_not_stale_text(self):
+        html = render_roi_passive(self.weekly_report_text)
+
+        self.assertIsNotNone(html)
+        # Generated from this week's What to Play / What to Buy.
+        self.assertIn("Best Active ROI", html)
+        self.assertIn("Secondary Loop", html)
+        self.assertIn("Passive Layer", html)
+        self.assertIn("Top Buy This Week", html)
+        self.assertIn("Weekly Challenge", html)
+        self.assertIn("Street Dealers", html)
+        self.assertIn("Meth Lab Upgrades", html)
+        # The old hard-coded sidebar text must not survive regeneration.
+        self.assertNotIn("Money Fronts Money Laundering 4x", html)
+        self.assertNotIn("3 Legal Missions", html)
+        self.assertNotIn("Terrorbyte", html)
+
+    def test_render_roi_passive_returns_none_when_what_to_play_missing(self):
+        self.assertIsNone(render_roi_passive("## What to Buy\n1. **X - 40% off** - reason"))
 
     def test_render_weekly_action_plan_returns_none_when_parse_confidence_is_low(self):
         self.assertIsNone(render_weekly_action_plan("## Something Else\n- no action queue here"))
