@@ -51,14 +51,8 @@
               <span class="bracket">[</span>TH<span class="bracket">]</span>
             </button>
           </div>
-          <aside class="meta" aria-label="Player and week metadata">
+          <aside class="meta" aria-label="Weekly metadata">
             <!-- START: header_meta -->
-            <p>
-              <strong>
-                -CarlosZ-
-              </strong>
-              / PC
-            </p>
             <p><span data-lang="en">Week 2026-W23: June 4 - June 10 2026</span><span data-lang="th">สัปดาห์ 2026-W23: June 4 - June 10 2026</span></p>
             <p>
               <span data-lang="en">Discounted Items Total:</span><span data-lang="th">ยอดรวมรายการลดราคา:</span>
@@ -67,7 +61,7 @@
               </strong>
             </p>
             <p>
-              <span data-lang="en">All Cars Needed:</span><span data-lang="th">งบรวมรถที่ยังต้องซื้อ:</span>
+              <span data-lang="en">Weekly Vehicles Value:</span><span data-lang="th">มูลค่ารวมรถประจำสัปดาห์:</span>
               <strong>
                 GTA$16.6M
               </strong>
@@ -82,11 +76,7 @@
           <strong>
             Data source:
           </strong>
-          generated snapshot from
-          <code>
-            data/player_profile.json
-          </code>
-          + latest
+          generated snapshot from the latest
           <code>
             weekly_planning_*.json
           </code>
@@ -94,13 +84,17 @@
           <code>
             vehicle_prices.yaml
           </code>
+          + weekly reports in
+          <code>
+            reports/
+          </code>
         </p>
         <div class="provenance-grid">
           <p>
             <strong>
               Last reviewed:
             </strong>
-            2026-06-04
+            2026-06-06
           </p>
           <p>
             <strong>
@@ -146,10 +140,10 @@
         </article>
         <article class="card">
           <div>
-            <p class="label">All Cars Needed</p>
+            <p class="label">Weekly Vehicles Value</p>
             <p class="value text">GTA$16.6M</p>
           </div>
-          <p class="card-note">Unique weekly vehicles with a buy path only; Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.</p>
+          <p class="card-note">Combined buy-path price of this week's unique vehicles; Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.</p>
         </article>
         <!-- END: summary_cards -->
       </section>
@@ -329,7 +323,7 @@
                 Best Active ROI
               </h3>
               <p>
-                Money Fronts Money Laundering 4x เพราะพร้อมเล่นจาก owned assets และ payout ชัดสุด.
+                Money Fronts Money Laundering 4x เป็นลูป active ROI ที่เด่นสุดของสัปดาห์นี้ payout ชัดและรอบเล่นไว.
               </p>
             </div>
             <div class="mini">
@@ -392,9 +386,9 @@
               <tr>
                 <td data-label="Item">Meth Lab</td>
                 <td data-label="Ruling">
-                  <span class="pill watch">Buy</span>
+                  <span class="pill watch">Check</span>
                 </td>
-                <td data-label="Reason">สำหรับ profile นี้มี Methamphetamine Lab แล้ว จึงเป็น skip/verify เท่านั้น ไม่ต้องซื้อซ้ำ</td>
+                <td data-label="Reason">ซื้อเฉพาะถ้ายังไม่มี Meth Lab; ถ้ามีอยู่แล้วข้ามได้ ไม่ต้องซื้อซ้ำ</td>
               </tr>
               <tr>
                 <td data-label="Item">Western Company Rogue</td>
@@ -471,21 +465,21 @@
             </li>
             <li>
               <strong>
-                Profile consistency:
+                Universal view:
               </strong>
-              `missing_properties` ว่าง และ Yacht/Avenger อยู่ใน owned arrays แล้ว แต่ profile note ยังเขียนว่า missing.
+              หน้านี้เป็น public dashboard ที่ใครก็เปิดดูได้ ไม่ผูกกับบัญชีหรือ asset ที่ใครคนใดคนหนึ่งครอบครอง.
             </li>
             <li>
               <strong>
                 Discount discipline:
               </strong>
-              ซื้อเฉพาะของที่ผ่าน ownership + ROI/unlock value; ไม่ซื้อเพราะเห็นป้ายลดราคาอย่างเดียว.
+              ซื้อเฉพาะของที่ผ่าน ROI/unlock value และตรงกับเป้าหมายของคุณ; ไม่ซื้อเพราะเห็นป้ายลดราคาอย่างเดียว.
             </li>
             <li>
               <strong>
-                Readiness reference:
+                Ownership check:
               </strong>
-              `Upgrade Checklist` ไม่ได้อยู่ใน sidebar แล้ว แต่ยังคงอ้างอิงใน `docs/dashboard-data-map.md` เป็น profile readiness data.
+              ก่อนซื้อ business/upgrade ให้เช็กในเกมเองว่ามีอยู่แล้วหรือยัง ตารางด้านล่างเป็น reference ทั่วไป ไม่ใช่ตัวบอกว่าคุณมีอะไร.
             </li>
             <li>
               <strong>
@@ -510,7 +504,7 @@
               Asset Overview
             </h2>
             <p>
-              สถานะนี้ยึดจาก profile ปัจจุบัน ไม่เดาจาก showroom/test ride หรือ report text.
+              อ้างอิง core income asset ของ GTA Online ที่เกี่ยวกับ loop สัปดาห์นี้ — เป็น reference สำหรับผู้เล่นทุกคน ไม่ใช่รายการที่ใครครอบครอง.
             </p>
           </div>
           <table>
@@ -520,7 +514,7 @@
                   Asset
                 </th>
                 <th>
-                  Status
+                  Role
                 </th>
                 <th>
                   Priority
@@ -533,94 +527,94 @@
             <!-- START: asset_overview -->
             <tbody>
               <tr>
-                <td data-label="Asset">Hands On Car Wash</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Asset">Money Fronts (Car Wash + Smoke on the Water)</td>
+                <td data-label="Role">
+                  <span class="pill owned">Core loop</span>
                 </td>
                 <td data-label="Priority">
                   <span class="priority high">High</span>
                 </td>
-                <td data-label="Note">Core weekly loop for legal missions, money laundering, and the free Higgins claim.</td>
+                <td data-label="Note">Boosted this week — Legal missions plus money laundering are a top active loop, especially on weeks they are boosted.</td>
               </tr>
               <tr>
-                <td data-label="Asset">Smoke on the Water</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Asset">Acid Lab</td>
+                <td data-label="Role">
+                  <span class="pill owned">Core loop</span>
                 </td>
                 <td data-label="Priority">
-                  <span class="priority medium">Medium</span>
+                  <span class="priority high">High</span>
                 </td>
-                <td data-label="Note">Already in the Money Fronts network, so the 40% discount is not a buy signal.</td>
+                <td data-label="Note">Cheap to start and strong for solo players; a reliable resupply-and-sell cycle.</td>
               </tr>
               <tr>
-                <td data-label="Asset">Nightclub</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Asset">Kosatka (Cayo Perico)</td>
+                <td data-label="Role">
+                  <span class="pill owned">Core loop</span>
                 </td>
                 <td data-label="Priority">
-                  <span class="priority medium">Medium</span>
+                  <span class="priority high">High</span>
                 </td>
-                <td data-label="Note">Passive filler between active weekly jobs.</td>
+                <td data-label="Note">Premier high-payout solo heist infrastructure.</td>
               </tr>
               <tr>
                 <td data-label="Asset">Agency</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Role">
+                  <span class="pill owned">Core loop</span>
                 </td>
                 <td data-label="Priority">
                   <span class="priority medium">Medium</span>
                 </td>
-                <td data-label="Note">Reliable fallback loop when you want to rotate away from Money Fronts.</td>
+                <td data-label="Note">Security contracts and Dr. Dre payouts; a dependable fallback loop.</td>
               </tr>
               <tr>
                 <td data-label="Asset">Bunker</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Role">
+                  <span class="pill watch">Passive + sell</span>
                 </td>
                 <td data-label="Priority">
                   <span class="priority medium">Medium</span>
                 </td>
-                <td data-label="Note">Passive stock remains useful while the event loop does the heavy lifting.</td>
+                <td data-label="Note">Passive gunrunning stock that pays off on sell-bonus weeks.</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Nightclub</td>
+                <td data-label="Role">
+                  <span class="pill watch">Passive</span>
+                </td>
+                <td data-label="Priority">
+                  <span class="priority medium">Medium</span>
+                </td>
+                <td data-label="Note">Boosted this week — Accrues income passively while you run other jobs.</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Meth Lab (MC business)</td>
+                <td data-label="Role">
+                  <span class="pill watch">Sell loop</span>
+                </td>
+                <td data-label="Priority">
+                  <span class="priority medium">Medium</span>
+                </td>
+                <td data-label="Note">Boosted this week — Strong MC sell loop when meth missions or product are boosted.</td>
+              </tr>
+              <tr>
+                <td data-label="Asset">Salvage Yard</td>
+                <td data-label="Role">
+                  <span class="pill low">Situational</span>
+                </td>
+                <td data-label="Priority">
+                  <span class="priority medium">Medium</span>
+                </td>
+                <td data-label="Note">Boosted this week — Robberies depend on weekly keep-eligibility — verify each week before counting on it.</td>
               </tr>
               <tr>
                 <td data-label="Asset">The Garment Factory</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
-                </td>
-                <td data-label="Priority">
-                  <span class="priority medium">Medium</span>
-                </td>
-                <td data-label="Note">Unlocks The Fine Art File 2x as a longer-session solo option.</td>
-              </tr>
-              <tr>
-                <td data-label="Asset">Kosatka + Sparrow</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
-                </td>
-                <td data-label="Priority">
-                  <span class="priority medium">Medium</span>
-                </td>
-                <td data-label="Note">Core solo infrastructure; the Sea Sparrow discount overlaps an existing use case.</td>
-              </tr>
-              <tr>
-                <td data-label="Asset">Mammoth Avenger</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
+                <td data-label="Role">
+                  <span class="pill low">Situational</span>
                 </td>
                 <td data-label="Priority">
                   <span class="priority low">Low</span>
                 </td>
-                <td data-label="Note">Workshop upgrade marked done; convenience utility matters more than urgent ROI.</td>
-              </tr>
-              <tr>
-                <td data-label="Asset">Galaxy Super Yacht</td>
-                <td data-label="Status">
-                  <span class="pill owned">Owned</span>
-                </td>
-                <td data-label="Priority">
-                  <span class="priority low">Low</span>
-                </td>
-                <td data-label="Note">Luxury/status asset with no urgent weekly action attached.</td>
+                <td data-label="Note">Unlocks The Fine Art File for longer solo sessions.</td>
               </tr>
             </tbody>
             <!-- END: asset_overview -->
@@ -628,15 +622,11 @@
         </article>
       </section>
       <footer>
-        Static dashboard v1.1. No npm, no build step, no backend. Update manually from
-        <code>
-          data/player_profile.json
-        </code>
-        , the latest
+        Static dashboard v1.1. No npm, no build step, no backend. Universal public view regenerated from the latest
         <code>
           data/weekly_planning_*.json
         </code>
-        , and the three standard report files in
+        and the three standard report files in
         <code>
           reports/
         </code>

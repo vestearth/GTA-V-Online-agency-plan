@@ -180,7 +180,10 @@ def counts_toward_all_cars_needed(item: dict[str, object]) -> bool:
     return opportunity_type not in {"prize_ride", "podium"} and source != "casino_lucky_wheel"
 
 
-def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_prices: dict[str, dict[str, object]]) -> dict[str, object]:
+def build_phase1_context(weekly_payload: dict, player_profile: dict | None, vehicle_prices: dict[str, dict[str, object]]) -> dict[str, object]:
+    # ``player_profile`` is accepted for call-site compatibility with the
+    # planning pipeline, but the dashboards are a universal public surface:
+    # no per-player identity or ownership state is read from it here.
     weekly_content = weekly_payload["weekly_content"]
     discounts = copy.deepcopy(weekly_content.get("discounts", []))
     scraper_metadata = copy.deepcopy(weekly_payload.get("scraper_metadata", {}))
@@ -188,9 +191,6 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_pri
         scraper_metadata.get("price_context", weekly_content.get("price_context", {}))
     )
     vehicle_opportunities = copy.deepcopy(weekly_content.get("vehicle_opportunities", []))
-
-    owned_major_assets = len(player_profile["owned_assets"]["properties"])
-    missing_major_assets = len(player_profile["owned_assets"]["missing_properties"])
 
     discounted_items_total = 0
     unresolved_discount_items: list[str] = []
@@ -241,13 +241,9 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict, vehicle_pri
             unresolved_vehicle_prices.append(name)
 
     return {
-        "player_name": player_profile["player_name"],
-        "platform": player_profile["platform"],
         "week_id": weekly_payload["week"]["id"],
         "week_label": weekly_payload["week"]["label"],
         "last_reviewed": dt.date.today().isoformat(),
-        "owned_major_assets": owned_major_assets,
-        "missing_major_assets": missing_major_assets,
         "discounted_items_total": discounted_items_total,
         "all_cars_needed_total": all_cars_needed_total,
         "unresolved_discount_items": dedupe_preserve_order(unresolved_discount_items),
@@ -286,20 +282,12 @@ def _bilingual_span(english: str, thai: str) -> str:
 
 
 def render_header_meta(context: dict[str, object]) -> str:
-    player = html.escape(str(context["player_name"]))
-    platform = html.escape(str(context["platform"]))
     week_id = str(context["week_id"])
     week_label = str(context["week_label"])
     discounted_total = format_currency_compact(int(context["discounted_items_total"]))
     all_cars_total = format_currency_compact(int(context["all_cars_needed_total"]))
     return "\n".join(
         [
-            "<p>",
-            "  <strong>",
-            f"    {player}",
-            "  </strong>",
-            f"  / {platform}",
-            "</p>",
             f"<p>{_bilingual_span(f'Week {week_id}: {week_label}', f'สัปดาห์ {week_id}: {week_label}')}</p>",
             "<p>",
             f"  {_bilingual_span('Discounted Items Total:', 'ยอดรวมรายการลดราคา:')}",
@@ -308,7 +296,7 @@ def render_header_meta(context: dict[str, object]) -> str:
             "  </strong>",
             "</p>",
             "<p>",
-            f"  {_bilingual_span('All Cars Needed:', 'งบรวมรถที่ยังต้องซื้อ:')}",
+            f"  {_bilingual_span('Weekly Vehicles Value:', 'มูลค่ารวมรถประจำสัปดาห์:')}",
             "  <strong>",
             f"    {html.escape(all_cars_total)}",
             "  </strong>",
@@ -334,17 +322,17 @@ def render_data_status_note(context: dict[str, object]) -> str:
         "  <strong>",
         "    Data source:",
         "  </strong>",
-        "  generated snapshot from",
-        "  <code>",
-        "    data/player_profile.json",
-        "  </code>",
-        "  + latest",
+        "  generated snapshot from the latest",
         "  <code>",
         "    weekly_planning_*.json",
         "  </code>",
         "  +",
         "  <code>",
         "    vehicle_prices.yaml",
+        "  </code>",
+        "  + weekly reports in",
+        "  <code>",
+        "    reports/",
         "  </code>",
         "</p>",
         '<div class="provenance-grid">',
@@ -409,10 +397,10 @@ def render_summary_cards(context: dict[str, object]) -> str:
             "</article>",
             '<article class="card">',
             "  <div>",
-            '    <p class="label">All Cars Needed</p>',
+            '    <p class="label">Weekly Vehicles Value</p>',
             f'    <p class="value text">{html.escape(format_currency_compact(int(context["all_cars_needed_total"])))}</p>',
             "  </div>",
-            '  <p class="card-note">Unique weekly vehicles with a buy path only; Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.</p>',
+            '  <p class="card-note">Combined buy-path price of this week\'s unique vehicles; Prize Ride and Lucky Wheel rewards stay linked in the spotlight but are excluded.</p>',
             "</article>",
         ]
     )
@@ -734,11 +722,41 @@ def _clean_entry_label(label: str) -> str:
     return label.strip()
 
 
+def _universalize_reason(text: str) -> str:
+    """Rewrite per-player profile wording into a public, ownership-neutral note.
+
+    The weekly reports are generated against a specific ``player_profile.json``,
+    so some buy/ignore reasons assume a known inventory ("profile นี้มี ... แล้ว").
+    The dashboards are a universal surface, so those assumptions are normalised
+    into conditional advice that applies to any reader.
+    """
+    normalized = text.strip()
+    explicit = [
+        (
+            "สำหรับ profile นี้มี Methamphetamine Lab แล้ว จึงเป็น skip/verify เท่านั้น ไม่ต้องซื้อซ้ำ",
+            "ซื้อเฉพาะถ้ายังไม่มี Meth Lab; ถ้ามีอยู่แล้วข้ามได้ ไม่ต้องซื้อซ้ำ",
+        ),
+    ]
+    for old, new in explicit:
+        normalized = normalized.replace(old, new)
+    # Generic safety net for any remaining profile-scoped phrasing.
+    normalized = re.sub(r"สำหรับ\s*profile\s*นี้", "ถ้าคุณมี business นี้แล้ว", normalized)
+    normalized = normalized.replace("profile นี้", "กรณีที่มีอยู่แล้ว")
+    normalized = normalized.replace("โปรไฟล์นี้", "กรณีที่มีอยู่แล้ว")
+    return normalized
+
+
 def _buy_ruling(label: str, reason: str) -> tuple[str, str]:
     lowered = f"{label} {reason}".casefold()
     if "free" in lowered or "ฟรี" in lowered or "claim" in lowered:
         return ("Claim", "owned")
-    if "ถ้ายังไม่มี" in reason or "buy only if" in lowered or "check" in lowered:
+    if (
+        "ถ้ายังไม่มี" in reason
+        or "buy only if" in lowered
+        or "check" in lowered
+        or "skip/verify" in lowered
+        or "ไม่ต้องซื้อซ้ำ" in reason
+    ):
         return ("Check", "watch")
     return ("Buy", "watch")
 
@@ -770,7 +788,7 @@ def render_next_claim_buy(weekly_report_text: str, event_report_text: str | None
     return "\n".join(
         [
             f'<p class="value text">{html.escape(main)}</p>',
-            f'<p class="card-note">{html.escape(reason)}</p>',
+            f'<p class="card-note">{html.escape(_universalize_reason(reason))}</p>',
         ]
     )
 
@@ -787,10 +805,10 @@ def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | 
     rows: list[tuple[str, str, str, str]] = []
     for label, reason in buy_entries:
         ruling, css_class = _buy_ruling(label, reason)
-        rows.append((_clean_entry_label(label), ruling, css_class, reason))
+        rows.append((_clean_entry_label(label), ruling, css_class, _universalize_reason(reason)))
     for label, reason in ignore_entries:
         ruling, css_class = _ignore_ruling(label, reason)
-        rows.append((_clean_entry_label(label), ruling, css_class, reason))
+        rows.append((_clean_entry_label(label), ruling, css_class, _universalize_reason(reason)))
 
     lines: list[str] = ["<tbody>"]
     for item, ruling, css_class, reason in rows:
@@ -809,51 +827,87 @@ def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | 
     return "\n".join(lines)
 
 
-def _owned_properties_set(player_profile: dict[str, object]) -> set[str]:
-    owned_assets = player_profile.get("owned_assets", {})
-    properties = owned_assets.get("properties", []) if isinstance(owned_assets, dict) else []
-    return {prop for prop in properties if isinstance(prop, str)}
+# Universal reference of the core GTA Online income assets that drive the
+# weekly loops. This is ownership-neutral advice for any reader, not a record
+# of what a specific player owns. Each entry: (asset, role, role_class,
+# priority, priority_class, note, match_terms).
+UNIVERSAL_INCOME_ASSETS: list[tuple[str, str, str, str, str, str, tuple[str, ...]]] = [
+    (
+        "Money Fronts (Car Wash + Smoke on the Water)",
+        "Core loop", "owned", "High", "high",
+        "Legal missions plus money laundering are a top active loop, especially on weeks they are boosted.",
+        ("money front", "money laundering", "car wash", "legal mission"),
+    ),
+    (
+        "Acid Lab",
+        "Core loop", "owned", "High", "high",
+        "Cheap to start and strong for solo players; a reliable resupply-and-sell cycle.",
+        ("acid lab", "acid"),
+    ),
+    (
+        "Kosatka (Cayo Perico)",
+        "Core loop", "owned", "High", "high",
+        "Premier high-payout solo heist infrastructure.",
+        ("kosatka", "cayo"),
+    ),
+    (
+        "Agency",
+        "Core loop", "owned", "Medium", "medium",
+        "Security contracts and Dr. Dre payouts; a dependable fallback loop.",
+        ("agency", "security contract"),
+    ),
+    (
+        "Bunker",
+        "Passive + sell", "watch", "Medium", "medium",
+        "Passive gunrunning stock that pays off on sell-bonus weeks.",
+        ("bunker", "gunrunning"),
+    ),
+    (
+        "Nightclub",
+        "Passive", "watch", "Medium", "medium",
+        "Accrues income passively while you run other jobs.",
+        ("nightclub",),
+    ),
+    (
+        "Meth Lab (MC business)",
+        "Sell loop", "watch", "Medium", "medium",
+        "Strong MC sell loop when meth missions or product are boosted.",
+        ("meth",),
+    ),
+    (
+        "Salvage Yard",
+        "Situational", "low", "Medium", "medium",
+        "Robberies depend on weekly keep-eligibility — verify each week before counting on it.",
+        ("salvage yard",),
+    ),
+    (
+        "The Garment Factory",
+        "Situational", "low", "Low", "low",
+        "Unlocks The Fine Art File for longer solo sessions.",
+        ("garment", "fine art"),
+    ),
+]
 
 
-def _owned_vehicles_set(player_profile: dict[str, object]) -> set[str]:
-    owned_assets = player_profile.get("owned_assets", {})
-    vehicles = owned_assets.get("vehicles", []) if isinstance(owned_assets, dict) else []
-    return {vehicle for vehicle in vehicles if isinstance(vehicle, str)}
+def render_asset_overview(player_profile: dict[str, object] | None, weekly_payload: dict[str, object], weekly_report_text: str) -> str | None:
+    # ``player_profile`` is ignored: this is a universal reference surface, not
+    # a per-player ownership table.
+    weekly_content = weekly_payload.get("weekly_content", {}) if isinstance(weekly_payload, dict) else {}
+    haystack_parts = [weekly_report_text or ""]
+    for field in ("bonuses", "discounts", "events"):
+        for entry in weekly_content.get(field, []):
+            if isinstance(entry, dict):
+                haystack_parts.append(str(entry.get("name", "")))
+                for item in entry.get("items", []) if isinstance(entry.get("items"), list) else []:
+                    if isinstance(item, str):
+                        haystack_parts.append(item)
+    haystack = " ".join(haystack_parts).casefold()
 
-
-def render_asset_overview(player_profile: dict[str, object], weekly_payload: dict[str, object], weekly_report_text: str) -> str | None:
-    owned_properties = _owned_properties_set(player_profile)
-    owned_vehicles = _owned_vehicles_set(player_profile)
-    upgrades = player_profile.get("owned_assets", {}).get("upgrades", {})
     rows: list[tuple[str, str, str, str, str, str]] = []
-
-    def add_row(asset: str, status_label: str, status_class: str, priority_label: str, priority_class: str, note: str) -> None:
-        rows.append((asset, status_label, status_class, priority_label, priority_class, note))
-
-    if "Hands On Car Wash Money Front" in owned_properties:
-        add_row("Hands On Car Wash", "Owned", "owned", "High", "high", "Core weekly loop for legal missions, money laundering, and the free Higgins claim.")
-    if "Smoke on the Water Money Front" in owned_properties:
-        add_row("Smoke on the Water", "Owned", "owned", "Medium", "medium", "Already in the Money Fronts network, so the 40% discount is not a buy signal.")
-    if "Nightclub" in owned_properties:
-        add_row("Nightclub", "Owned", "owned", "Medium", "medium", "Passive filler between active weekly jobs.")
-    if "Agency" in owned_properties:
-        add_row("Agency", "Owned", "owned", "Medium", "medium", "Reliable fallback loop when you want to rotate away from Money Fronts.")
-    if "Bunker" in owned_properties:
-        add_row("Bunker", "Owned", "owned", "Medium", "medium", "Passive stock remains useful while the event loop does the heavy lifting.")
-    if "The Garment Factory" in owned_properties:
-        add_row("The Garment Factory", "Owned", "owned", "Medium", "medium", "Unlocks The Fine Art File 2x as a longer-session solo option.")
-    if "Kosatka" in owned_properties or "Sparrow" in owned_vehicles:
-        add_row("Kosatka + Sparrow", "Owned", "owned", "Medium", "medium", "Core solo infrastructure; the Sea Sparrow discount overlaps an existing use case.")
-    if "Mammoth Avenger" in owned_properties:
-        avenger_note = "Workshop upgrade marked done; convenience utility matters more than urgent ROI."
-        if isinstance(upgrades, dict) and not upgrades.get("avenger_workshop", False):
-            avenger_note = "Owned, but check workshop readiness before treating it as a utility anchor."
-        add_row("Mammoth Avenger", "Owned", "owned", "Low", "low", avenger_note)
-    if "Galaxy Super Yacht" in owned_properties:
-        add_row("Galaxy Super Yacht", "Owned", "owned", "Low", "low", "Luxury/status asset with no urgent weekly action attached.")
-
-    if "benefactor terrorbyte" not in {vehicle.casefold() for vehicle in owned_vehicles} and "Terrorbyte" in weekly_report_text:
-        add_row("Benefactor Terrorbyte", "Check", "watch", "Conditional", "medium", "Discounted this week; buy only if it is still missing and the utility matters.")
+    for asset, role, role_class, priority, priority_class, note, match_terms in UNIVERSAL_INCOME_ASSETS:
+        boosted = any(term in haystack for term in match_terms)
+        row_note = f"Boosted this week — {note}" if boosted else note
+        rows.append((asset, role, role_class, priority, priority_class, row_note))
 
     if len(rows) < 5:
         return None
@@ -864,7 +918,7 @@ def render_asset_overview(player_profile: dict[str, object], weekly_payload: dic
             [
                 "  <tr>",
                 f'    <td data-label="Asset">{html.escape(asset)}</td>',
-                '    <td data-label="Status">',
+                '    <td data-label="Role">',
                 f'      <span class="pill {status_class}">{html.escape(status_label)}</span>',
                 "    </td>",
                 '    <td data-label="Priority">',
@@ -953,7 +1007,9 @@ def main(argv: list[str] | None = None) -> int:
 
     weekly_path = args.weekly or find_latest_weekly_payload(DEFAULT_DATA_DIR)
     weekly_payload = load_json(weekly_path)
-    player_profile = load_json(DEFAULT_PROFILE)
+    # The dashboard is a universal public surface; the profile is no longer a
+    # data source for it, so it is optional here.
+    player_profile = load_json(DEFAULT_PROFILE) if DEFAULT_PROFILE.exists() else None
     vehicle_prices = load_vehicle_price_reference(DEFAULT_VEHICLE_PRICES)
     context = build_phase1_context(weekly_payload, player_profile, vehicle_prices)
     replacements = build_phase1_replacements(context, vehicle_prices)
