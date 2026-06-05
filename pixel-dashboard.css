@@ -33,6 +33,9 @@ body.pixel-page {
   --ink-faded: #6d5f47;
   --board-ink: #e7d9bb;
   --tape: rgba(226, 214, 178, 0.5);
+  --paper-grain:
+    repeating-linear-gradient(93deg, rgba(72, 54, 31, 0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(3deg, rgba(72, 54, 31, 0.035) 0 1px, transparent 1px 4px);
   --string: #bb3b28;
   --pin-blue: #2f6f8f;
   --stamp-green: #3f7d36;
@@ -52,12 +55,16 @@ body.pixel-page {
   color: var(--board-ink);
   background-color: var(--board);
   background-image:
-    radial-gradient(circle at 18% 12%, rgba(96, 73, 44, 0.35), transparent 38%),
-    radial-gradient(circle at 82% 0%, rgba(70, 54, 32, 0.4), transparent 42%),
-    radial-gradient(rgba(58, 44, 26, 0.5) 1px, transparent 1px),
-    radial-gradient(rgba(34, 25, 14, 0.55) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 7px 7px, 11px 11px;
-  background-position: 0 0, 0 0, 0 0, 4px 5px;
+    radial-gradient(circle at 18% 12%, rgba(116, 88, 52, 0.4), transparent 40%),
+    radial-gradient(circle at 82% 0%, rgba(78, 60, 36, 0.45), transparent 44%),
+    repeating-linear-gradient(58deg, rgba(74, 56, 33, 0.06) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(122deg, rgba(28, 20, 11, 0.06) 0 2px, transparent 2px 6px),
+    radial-gradient(rgba(120, 92, 54, 0.5) 1px, transparent 1.6px),
+    radial-gradient(rgba(30, 22, 12, 0.6) 1px, transparent 1.6px),
+    radial-gradient(rgba(150, 116, 70, 0.26) 1px, transparent 1.4px);
+  background-size:
+    100% 100%, 100% 100%, 100% 100%, 100% 100%, 9px 9px, 13px 13px, 6px 6px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 5px 6px, 2px 3px;
 }
 
 /* Atmospheric layer: soft room vignette, never interactive */
@@ -71,10 +78,36 @@ body.pixel-page::before {
 }
 
 .pixel-shell {
+  position: relative;
   max-width: 1280px;
   width: min(100% - 32px, 1280px);
   margin: 0 auto;
   padding-bottom: 48px;
+}
+
+/* Atmospheric layer: red investigation strings strung across the board,
+   sitting behind the pinned cards so they only show through the gutters. */
+.pixel-shell::before,
+.pixel-shell::after {
+  content: "";
+  position: absolute;
+  left: -3%;
+  right: -3%;
+  height: 2px;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(187, 59, 40, 0.5);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.pixel-shell::before {
+  top: 34%;
+  transform: rotate(-3deg);
+}
+
+.pixel-shell::after {
+  top: 71%;
+  transform: rotate(2.2deg);
 }
 
 .pixel-header {
@@ -190,7 +223,7 @@ body.pixel-page .nav a:focus-visible {
   padding: 16px 18px;
   border: 1px solid var(--paper-edge);
   border-radius: 2px;
-  background: var(--paper-card);
+  background: var(--paper-grain), var(--paper-card);
   color: var(--ink);
   box-shadow: var(--shadow);
   transform: rotate(0.7deg);
@@ -321,6 +354,7 @@ body.pixel-page .nav a:focus-visible {
   gap: 0;
   border: 2px solid var(--primary);
   background:
+    var(--paper-grain),
     linear-gradient(180deg, rgba(0, 0, 0, 0.05), transparent 20%),
     var(--paper-card);
   box-shadow: var(--shadow), var(--glow-primary);
@@ -409,7 +443,7 @@ body.pixel-page .nav a:focus-visible {
   padding: 14px 16px 14px 18px;
   border: 1px solid var(--paper-edge);
   border-left: 4px solid var(--string);
-  background: var(--paper);
+  background: var(--paper-grain), var(--paper);
   color: var(--ink-faded);
   box-shadow: var(--shadow);
 }
@@ -432,6 +466,7 @@ body.pixel-page .nav a:focus-visible {
   padding: 18px;
   border: 1px solid var(--paper-edge);
   background:
+    var(--paper-grain),
     repeating-linear-gradient(transparent 0 31px, rgba(47, 111, 143, 0.16) 31px 32px),
     var(--paper);
   box-shadow: var(--shadow);
@@ -454,7 +489,7 @@ body.pixel-page .nav a:focus-visible {
   align-items: center;
   padding: 12px 14px;
   border: 1px solid rgba(42, 32, 20, 0.18);
-  background: var(--paper-card);
+  background: var(--paper-grain), var(--paper-card);
   color: var(--ink);
 }
 
@@ -496,9 +531,25 @@ body.pixel-page .nav a:focus-visible {
 }
 
 .wall-groups {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+/* Red string threaded through the three pushpins (behind the cards) */
+.wall-groups::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 2px;
+  background: var(--string);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+  transform: rotate(-1deg);
+  transform-origin: left center;
+  pointer-events: none;
 }
 
 /* Pinned sticky cards, hand-tacked at a slight angle */
@@ -509,7 +560,7 @@ body.pixel-page .nav a:focus-visible {
   gap: 12px;
   padding: 16px 14px 14px;
   border: 1px solid var(--paper-edge);
-  background: var(--paper-card);
+  background: var(--paper-grain), var(--paper-card);
   color: var(--ink);
   box-shadow: var(--shadow);
 }
@@ -597,7 +648,7 @@ body.pixel-page .nav a:focus-visible {
   padding: 16px 16px 14px;
   border: 1px solid var(--paper-edge);
   border-top: 3px solid var(--warning);
-  background: var(--paper);
+  background: var(--paper-grain), var(--paper);
   color: var(--ink);
   box-shadow: var(--shadow);
 }
@@ -623,6 +674,7 @@ body.pixel-page .nav a:focus-visible {
   padding: 16px;
   border: 1px solid var(--paper-edge);
   background:
+    var(--paper-grain),
     linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent 22%),
     var(--paper-card);
   color: var(--ink);
