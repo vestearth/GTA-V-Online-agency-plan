@@ -33,6 +33,7 @@ from scripts.generate_dashboard import (
 
 DEFAULT_PIXEL_DASHBOARD = ROOT / "pixel-dashboard.html"
 DEFAULT_VEHICLE_PRICES = ROOT / "data" / "references" / "vehicle_prices.yaml"
+DEFAULT_VEHICLE_IMAGES = ROOT / "data" / "references" / "vehicle_images.json"
 AUTOMATION_NOTE = "Thursday 08:00 Bangkok"
 PIXEL_MARKERS = [
     "pixel_header_meta",
@@ -41,8 +42,29 @@ PIXEL_MARKERS = [
     "pixel_action_queue",
     "pixel_operations_wall",
     "pixel_field_intel",
+    "pixel_vehicle_spotlight",
     "pixel_buy_ledger",
 ]
+
+# Spotlight event name (casefold) -> short polaroid tag.
+SPOTLIGHT_ROLE_TAGS = {
+    "podium vehicle": "PODIUM",
+    "prize ride challenge": "PRIZE RIDE",
+    "premium test ride": "TEST RIDE",
+    "free business claim": "FREE CLAIM",
+}
+
+
+def load_vehicle_images(path: Path = DEFAULT_VEHICLE_IMAGES) -> dict[str, str]:
+    """Return vehicle_name -> image URL, or {} when the cache is absent/unreadable."""
+    if not path.exists():
+        return {}
+    try:
+        payload = load_json(path)
+    except (OSError, ValueError):
+        return {}
+    images = payload.get("image_by_vehicle_name", {})
+    return {str(name): str(url) for name, url in images.items() if isinstance(url, str)}
 
 
 def _strip_markdown(text: str) -> str:
@@ -72,7 +94,13 @@ def _decision_chip(reason: str, *, positive: bool) -> str:
     if positive:
         if "free" in lowered or "claim" in lowered or "ฟรี" in lowered:
             return "[BUY]"
-        if "only if" in lowered or "เฉพาะถ้า" in lowered or "check" in lowered:
+        if (
+            "only if" in lowered
+            or "เฉพาะถ้า" in lowered
+            or "check" in lowered
+            or "skip/verify" in lowered
+            or "ไม่ต้องซื้อซ้ำ" in lowered
+        ):
             return "[HOLD]"
         return "[BUY]"
     if "already owned" in lowered or "มีอยู่แล้ว" in lowered:
@@ -184,6 +212,7 @@ def _thai_pixel_copy(text: str) -> str:
         "Best only when client-job utility matters this week.": "คุ้มที่สุดเฉพาะเมื่อสัปดาห์นี้ต้องใช้ประโยชน์จาก client jobs",
         "Useful only when the combat loadout still has a gap.": "มีประโยชน์เฉพาะเมื่อชุดอาวุธต่อสู้ยังขาดช่องนี้",
         "Discount exists, but it adds little to this week's cashflow plan.": "มีส่วนลดจริง แต่เพิ่มคุณค่าต่อแผน cashflow สัปดาห์นี้น้อย",
+        "Only worth buying if you don't already run a Meth Lab — verify before rebuying.": "คุ้มเฉพาะถ้ายังไม่มี Meth Lab — เช็กก่อนซื้อซ้ำ",
     }
     return mapping.get(text, text)
 
@@ -191,6 +220,10 @@ def _thai_pixel_copy(text: str) -> str:
 def _normalize_public_reason(text: str) -> str:
     normalized = text.strip()
     replacements = [
+        (
+            "สำหรับ profile นี้มี Methamphetamine Lab แล้ว จึงเป็น skip/verify เท่านั้น ไม่ต้องซื้อซ้ำ",
+            "Only worth buying if you don't already run a Meth Lab — verify before rebuying.",
+        ),
         ("โปรไฟล์นี้มีอยู่แล้ว", "Low incremental value this week."),
         ("มี Sparrow อยู่แล้ว จึงไม่ใช่ priority", "Utility overlaps with faster core travel options."),
         (
@@ -218,6 +251,8 @@ def _public_reason_for_item(label: str, reason: str) -> str:
         return "Strong side rotation for shorter mission bursts."
     if "fine art file" in lowered_label:
         return "Solid solo payout option for longer sessions."
+    if "meth lab" in lowered_label and "upgrade" not in lowered_label:
+        return "Only worth buying if you don't already run a Meth Lab — verify before rebuying."
     if "salvage yard" in lowered_label:
         return "No keep eligibility confirmed this week."
     if "hands on car wash / smoke on the water" in lowered_label:
@@ -546,6 +581,83 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
+def _vehicle_price_label(
+    vehicle: str,
+    vehicle_prices: dict[str, dict[str, object]] | None,
+) -> str | None:
+    """Compact buy-path price for a vehicle, or None when it is unknown."""
+    if not vehicle_prices:
+        return None
+    record = vehicle_prices.get(vehicle.strip())
+    if not isinstance(record, dict):
+        return None
+    base = record.get("base_price")
+    if not isinstance(base, (int, float)) or base <= 0:
+        return None
+    return format_currency_compact(int(base))
+
+
+def render_pixel_vehicle_spotlight(
+    weekly_payload: dict[str, object],
+    images: dict[str, str] | None = None,
+    vehicle_prices: dict[str, dict[str, object]] | None = None,
+) -> str:
+    """Polaroid wall of the week's reward vehicles that have a cached photo."""
+    if images is None:
+        images = load_vehicle_images()
+    if vehicle_prices is None:
+        vehicle_prices = load_vehicle_price_reference(DEFAULT_VEHICLE_PRICES)
+
+    events = [
+        item
+        for item in weekly_payload.get("weekly_content", {}).get("events", [])
+        if isinstance(item, dict)
+    ]
+
+    cards: list[str] = []
+    seen: set[str] = set()
+    for event in events:
+        role = SPOTLIGHT_ROLE_TAGS.get(str(event.get("name", "")).casefold())
+        vehicle = event.get("vehicle")
+        if not role or not isinstance(vehicle, str):
+            continue
+        image_url = images.get(vehicle.strip())
+        if not image_url or vehicle in seen:
+            continue
+        seen.add(vehicle)
+        safe_name = html.escape(vehicle)
+        price_label = _vehicle_price_label(vehicle, vehicle_prices)
+        card = [
+            '  <figure class="polaroid">',
+            '    <span class="polaroid-pin" aria-hidden="true"></span>',
+            f'    <img class="polaroid-photo" src="{html.escape(image_url)}" '
+            f'alt="{safe_name}" loading="lazy" referrerpolicy="no-referrer">',
+        ]
+        if price_label:
+            card.append(
+                f'    <span class="polaroid-price">{html.escape(price_label)}</span>'
+            )
+        card.extend(
+            [
+                "    <figcaption>",
+                f'      <span class="polaroid-tag">[{html.escape(role)}]</span>',
+                f'      <span class="polaroid-name">{_bilingual_span(vehicle, vehicle)}</span>',
+                "    </figcaption>",
+                "  </figure>",
+            ]
+        )
+        cards.extend(card)
+
+    if not cards:
+        return (
+            '<div class="polaroid-wall polaroid-wall-empty">\n'
+            f"  <p>{_bilingual_span('No spotlight vehicle photos this week.', 'สัปดาห์นี้ยังไม่มีรูปรถเด่น')}</p>\n"
+            "</div>"
+        )
+
+    return "\n".join(['<div class="polaroid-wall">', *cards, "</div>"])
+
+
 def render_pixel_buy_ledger(weekly_report_text: str) -> str:
     buy_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Buy"), ordered=True)
     ignore_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Ignore"), ordered=False)
@@ -584,6 +696,9 @@ def build_pixel_replacements(
         "pixel_action_queue": render_pixel_action_queue(weekly_payload, weekly_report_text),
         "pixel_operations_wall": render_pixel_operations_wall(weekly_report_text),
         "pixel_field_intel": render_pixel_field_intel(weekly_payload),
+        "pixel_vehicle_spotlight": render_pixel_vehicle_spotlight(
+            weekly_payload, vehicle_prices=vehicle_prices
+        ),
         "pixel_buy_ledger": render_pixel_buy_ledger(weekly_report_text),
     }
 
@@ -609,7 +724,9 @@ def main(argv: list[str] | None = None) -> int:
 
     weekly_path = args.weekly or find_latest_weekly_payload(DEFAULT_DATA_DIR)
     weekly_payload = load_json(weekly_path)
-    player_profile = load_json(DEFAULT_PROFILE)
+    # Universal public surface: the profile is not a data source for the pixel
+    # dashboard, so it is optional here.
+    player_profile = load_json(DEFAULT_PROFILE) if DEFAULT_PROFILE.exists() else None
     report_paths = find_matching_reports(str(weekly_payload["week"]["id"]))
     weekly_report_text = load_text_if_exists(report_paths["weekly_master_plan"])
     if not weekly_report_text:
