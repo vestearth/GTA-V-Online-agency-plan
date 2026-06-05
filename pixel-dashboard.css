@@ -149,6 +149,40 @@ body.pixel-page::before {
   display: none;
 }
 
+/* Section nav — small filed manila tabs instead of glossy pills */
+body.pixel-page .nav {
+  gap: 10px;
+  margin-top: 18px;
+}
+
+body.pixel-page .nav a {
+  min-height: 32px;
+  padding: 6px 14px;
+  border: 1px solid var(--paper-edge);
+  border-top: 3px solid var(--string);
+  border-radius: 0;
+  background: var(--paper-card);
+  color: var(--ink);
+  font-family: var(--font-type);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 5px 11px rgba(0, 0, 0, 0.42);
+  transition: transform 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+body.pixel-page .nav a:hover,
+body.pixel-page .nav a:focus-visible {
+  color: var(--string);
+  border-color: var(--paper-edge);
+  border-top-color: var(--string);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.52);
+  outline: 2px solid transparent;
+}
+
 /* Pinned index card for the weekly snapshot */
 .pixel-meta {
   position: relative;
@@ -653,6 +687,11 @@ body.pixel-page::before {
 
   .wall-group:hover,
   .wall-group:focus-within {
+    transform: none;
+  }
+
+  body.pixel-page .nav a:hover,
+  body.pixel-page .nav a:focus-visible {
     transform: none;
   }
 }
