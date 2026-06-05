@@ -369,6 +369,27 @@ body.pixel-page .nav a:focus-visible {
   pointer-events: none;
 }
 
+/* Rubber stamp pressed across the top of the dossier */
+.command-board::after {
+  content: "TOP PRIORITY";
+  position: absolute;
+  top: -15px;
+  right: 26px;
+  padding: 5px 12px;
+  border: 3px double var(--string);
+  border-radius: 3px;
+  background: rgba(236, 224, 198, 0.55);
+  color: var(--stamp-red);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.62;
+  transform: rotate(7deg);
+  pointer-events: none;
+}
+
 .command-cell {
   min-height: 170px;
   padding: 24px 22px 20px;
@@ -437,6 +458,7 @@ body.pixel-page .nav a:focus-visible {
 
 /* IGNORE strip — red rejected note pinned under the dossier */
 .ignore-callout {
+  position: relative;
   display: grid;
   gap: 8px;
   margin-top: 14px;
@@ -446,6 +468,26 @@ body.pixel-page .nav a:focus-visible {
   background: var(--paper-grain), var(--paper);
   color: var(--ink-faded);
   box-shadow: var(--shadow);
+}
+
+/* "NO GO" stamp slapped on the skip list */
+.ignore-callout::after {
+  content: "NO GO";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  padding: 3px 10px;
+  border: 2px solid var(--stamp-red);
+  border-radius: 3px;
+  color: var(--stamp-red);
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  transform: rotate(-6deg);
+  pointer-events: none;
 }
 
 .ignore-callout .command-label {
@@ -634,6 +676,34 @@ body.pixel-page .nav a:focus-visible {
   color: #1d4d63;
 }
 
+/* Colour-coded pushpins + status chips by operations group:
+   green = active/go, amber = optional, red = ignore/stop. */
+.wall-group:nth-child(1)::before {
+  background: radial-gradient(circle at 34% 32%, #b9e6a0 0 24%, var(--stamp-green) 32%, #234d1d 80%);
+}
+
+.wall-group:nth-child(1) .status-chip {
+  border-color: var(--stamp-green);
+  background: rgba(63, 125, 54, 0.14);
+  color: #2c6126;
+}
+
+.wall-group:nth-child(2)::before {
+  background: radial-gradient(circle at 34% 32%, #f2cf8a 0 24%, var(--warning) 32%, #6e4818 80%);
+}
+
+.wall-group:nth-child(2) .status-chip {
+  border-color: var(--warning);
+  background: rgba(176, 122, 46, 0.16);
+  color: #7a5320;
+}
+
+.wall-group:nth-child(3) .status-chip {
+  border-color: var(--string);
+  background: rgba(187, 59, 40, 0.12);
+  color: var(--stamp-red);
+}
+
 /* FIELD INTEL — manila file tabs */
 .intel-list,
 .ledger-list {
@@ -657,6 +727,27 @@ body.pixel-page .nav a:focus-visible {
   border: 1px solid var(--warning);
   background: rgba(176, 122, 46, 0.14);
   color: #7a5320;
+}
+
+/* File-tab colour per intel type: bonus = green, discount = amber, prize = blue */
+.intel-item:nth-child(1) {
+  border-top-color: var(--stamp-green);
+}
+
+.intel-item:nth-child(1) .intel-label {
+  border-color: var(--stamp-green);
+  background: rgba(63, 125, 54, 0.14);
+  color: #2c6126;
+}
+
+.intel-item:nth-child(3) {
+  border-top-color: var(--pin-blue);
+}
+
+.intel-item:nth-child(3) .intel-label {
+  border-color: var(--pin-blue);
+  background: rgba(47, 111, 143, 0.14);
+  color: #1d4d63;
 }
 
 .intel-item h3,
