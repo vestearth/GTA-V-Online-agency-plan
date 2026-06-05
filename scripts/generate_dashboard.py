@@ -43,6 +43,7 @@ PHASE2_MARKERS = [
     "next_claim_buy",
     "weekly_action_plan",
     "what_to_buy_ignore",
+    "roi_passive",
     "asset_overview",
 ]
 
@@ -829,6 +830,57 @@ def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | 
     return "\n".join(lines)
 
 
+def render_roi_passive(weekly_report_text: str) -> str | None:
+    """Render the ROI / Passive Income minis from the weekly report.
+
+    Derived deterministically from the report's ``## What to Play`` (top active
+    loops) and ``## What to Buy`` (top spend) ordered lists. The Passive Layer
+    is evergreen because passive businesses accrue regardless of the week.
+    Returns ``None`` so the existing block is preserved when confidence is low.
+    """
+    play_section = extract_markdown_section(weekly_report_text, "## What to Play")
+    if not play_section:
+        return None
+    play_entries = _parse_report_entries(play_section, ordered=True)
+    if len(play_entries) < 2:
+        return None
+
+    buy_section = extract_markdown_section(weekly_report_text, "## What to Buy")
+    buy_entries = _parse_report_entries(buy_section, ordered=True) if buy_section else []
+
+    top_label, top_reason = play_entries[0]
+    second_label, second_reason = play_entries[1]
+    minis: list[tuple[str, str]] = [
+        ("Best Active ROI", f"{top_label} — {_universalize_reason(top_reason)}"),
+        ("Secondary Loop", f"{second_label} — {_universalize_reason(second_reason)}"),
+        (
+            "Passive Layer",
+            "Nightclub, Bunker, Acid Lab และ Car Wash income เติม cashflow แบบ passive ระหว่างทำ active loop.",
+        ),
+    ]
+    if buy_entries:
+        buy_label, buy_reason = buy_entries[0]
+        minis.append(
+            ("Top Buy This Week", f"{_clean_entry_label(buy_label)} — {_universalize_reason(buy_reason)}")
+        )
+
+    lines: list[str] = []
+    for title, body in minis:
+        lines.extend(
+            [
+                '<div class="mini">',
+                "  <h3>",
+                f"    {html.escape(title)}",
+                "  </h3>",
+                "  <p>",
+                f"    {html.escape(body)}",
+                "  </p>",
+                "</div>",
+            ]
+        )
+    return "\n".join(lines)
+
+
 # Universal reference of the core GTA Online income assets that drive the
 # weekly loops. This is ownership-neutral advice for any reader, not a record
 # of what a specific player owns. Each entry: (asset, role, role_class,
@@ -836,55 +888,55 @@ def render_what_to_buy_ignore(weekly_report_text: str, event_report_text: str | 
 UNIVERSAL_INCOME_ASSETS: list[tuple[str, str, str, str, str, str, tuple[str, ...]]] = [
     (
         "Money Fronts (Car Wash + Smoke on the Water)",
-        "Core loop", "owned", "High", "high",
+        "Core loop", "role-core", "High", "high",
         "Legal missions plus money laundering are a top active loop, especially on weeks they are boosted.",
         ("money front", "money laundering", "car wash", "legal mission"),
     ),
     (
         "Acid Lab",
-        "Core loop", "owned", "High", "high",
+        "Core loop", "role-core", "High", "high",
         "Cheap to start and strong for solo players; a reliable resupply-and-sell cycle.",
         ("acid lab", "acid"),
     ),
     (
         "Kosatka (Cayo Perico)",
-        "Core loop", "owned", "High", "high",
+        "Core loop", "role-core", "High", "high",
         "Premier high-payout solo heist infrastructure.",
         ("kosatka", "cayo"),
     ),
     (
         "Agency",
-        "Core loop", "owned", "Medium", "medium",
+        "Core loop", "role-core", "Medium", "medium",
         "Security contracts and Dr. Dre payouts; a dependable fallback loop.",
         ("agency", "security contract"),
     ),
     (
         "Bunker",
-        "Passive + sell", "watch", "Medium", "medium",
+        "Passive + sell", "role-passive", "Medium", "medium",
         "Passive gunrunning stock that pays off on sell-bonus weeks.",
         ("bunker", "gunrunning"),
     ),
     (
         "Nightclub",
-        "Passive", "watch", "Medium", "medium",
+        "Passive", "role-passive", "Medium", "medium",
         "Accrues income passively while you run other jobs.",
         ("nightclub",),
     ),
     (
         "Meth Lab (MC business)",
-        "Sell loop", "watch", "Medium", "medium",
+        "Sell loop", "role-passive", "Medium", "medium",
         "Strong MC sell loop when meth missions or product are boosted.",
         ("meth",),
     ),
     (
         "Salvage Yard",
-        "Situational", "low", "Medium", "medium",
+        "Situational", "role-situational", "Medium", "medium",
         "Robberies depend on weekly keep-eligibility — verify each week before counting on it.",
         ("salvage yard",),
     ),
     (
         "The Garment Factory",
-        "Situational", "low", "Low", "low",
+        "Situational", "role-situational", "Low", "low",
         "Unlocks The Fine Art File for longer solo sessions.",
         ("garment", "fine art"),
     ),
@@ -895,14 +947,19 @@ def render_asset_overview(player_profile: dict[str, object] | None, weekly_paylo
     # ``player_profile`` is ignored: this is a universal reference surface, not
     # a per-player ownership table.
     weekly_content = weekly_payload.get("weekly_content", {}) if isinstance(weekly_payload, dict) else {}
-    haystack_parts = [weekly_report_text or ""]
+    # Flag "Boosted this week" only from the curated weekly signal: the headline
+    # plus the names/items of confirmed bonuses, discounts, and events. The full
+    # report text is intentionally excluded — it also lists ignored items and
+    # incidental mentions, which would mis-flag assets (e.g. a Salvage Yard that
+    # is actually in this week's IGNORE list).
+    haystack_parts = [str(weekly_content.get("headline", ""))]
     for field in ("bonuses", "discounts", "events"):
         for entry in weekly_content.get(field, []):
             if isinstance(entry, dict):
                 haystack_parts.append(str(entry.get("name", "")))
-                for item in entry.get("items", []) if isinstance(entry.get("items"), list) else []:
-                    if isinstance(item, str):
-                        haystack_parts.append(item)
+                items = entry.get("items")
+                if isinstance(items, list):
+                    haystack_parts.extend(str(item) for item in items if isinstance(item, str))
     haystack = " ".join(haystack_parts).casefold()
 
     rows: list[tuple[str, str, str, str, str, str]] = []
@@ -968,6 +1025,7 @@ def build_phase2_replacements(
         "next_claim_buy": lambda: render_next_claim_buy(weekly_report_text or "", event_report_text),
         "weekly_action_plan": lambda: render_weekly_action_plan(weekly_report_text or ""),
         "what_to_buy_ignore": lambda: render_what_to_buy_ignore(weekly_report_text or "", event_report_text),
+        "roi_passive": lambda: render_roi_passive(weekly_report_text or ""),
         "asset_overview": lambda: render_asset_overview(player_profile, weekly_payload, weekly_report_text or ""),
     }
 

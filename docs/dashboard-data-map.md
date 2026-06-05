@@ -24,7 +24,7 @@ Update generated regions with the script first, then review the remaining curate
 | Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `current_focus` marker inside `summary_cards`. |
 | Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `next_claim_buy` marker inside `summary_cards`. |
 | Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 when the `## Action Queue` section parses confidently. Otherwise preserve the existing dashboard block unchanged. |
-| ROI / Passive Income | `reports/weekly_master_plan_<week_id>_income_scenarios.md` and `reports/weekly_master_plan_<week_id>.md` | Curated manually until a later generator phase touches it. |
+| ROI / Passive Income | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 from the report's `## What to Play` (top two active loops) and `## What to Buy` (top spend). The Passive Layer mini is evergreen because passive businesses accrue regardless of the week. Preserve the existing block when `## What to Play` has fewer than two entries. |
 | What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Generated in Phase 2 when buy/ignore sections parse confidently. Otherwise preserve the existing dashboard block unchanged. |
 | Decision Log | weekly reports in `reports/` plus user-confirmed history | Advisory only. Do not imply historical decisions were executed unless reports or the user confirm it. |
 | Data source note | latest `data/weekly_planning_*.json`, `data/references/vehicle_prices.yaml`, `reports/` | Generated in Phase 1. Lists only the universal weekly data sources (no `player_profile.json`). Keep the note visible in `dashboard.html` and let the generator report unresolved totals when present. |
@@ -40,7 +40,7 @@ Update generated regions with the script first, then review the remaining curate
 - If no spotlight surfaces are confirmed, hide the spotlight block or show a compact note such as `No spotlight vehicles confirmed`.
 - The Asset Overview is a universal income-asset reference, not a per-player owned/missing list; readers verify their own ownership in-game.
 - Phase 1 requires only the Phase 1 markers: `header_meta`, `summary_cards`, `weekly_deals`, `weekly_vehicle_spotlight`, and `data_status_note`.
-- Phase 2 currently owns these markers: `current_focus`, `next_claim_buy`, `weekly_action_plan`, `what_to_buy_ignore`, and `asset_overview`.
+- Phase 2 currently owns these markers: `current_focus`, `next_claim_buy`, `weekly_action_plan`, `what_to_buy_ignore`, `roi_passive`, and `asset_overview`.
 
 ## Current Weekly Source Convention
 
