@@ -110,19 +110,60 @@ def _decision_chip(reason: str, *, positive: bool) -> str:
     return "[IGNORE]"
 
 
-def _parse_report_entries(section_text: str | None, *, ordered: bool) -> list[tuple[str, str]]:
+_CONTINUATION_PATTERN = re.compile(r"^(en|th):\s*(.+)$", re.IGNORECASE)
+
+
+def _parse_report_entries(section_text: str | None, *, ordered: bool) -> list[tuple[str, str, str]]:
+    """Parse ``**Label** - reason`` entries into (label, reason_en, reason_th).
+
+    The reason on the entry line is the primary text. An optional indented
+    continuation line supplies the other language so the pixel dashboard can be
+    truly bilingual without machine translation:
+
+        1. **Meth Lab Upgrades - 40% off** - ตรวจอุปกรณ์ในเกมก่อนซื้อ
+           en: Check your in-game equipment before buying.
+
+    Plain line-based parsers (the classic dashboard) ignore the ``en:``/``th:``
+    continuation, so this convention is additive and never changes their output.
+    When no continuation is present the Thai side falls back to the small
+    built-in phrase map, preserving the previous behaviour.
+    """
     if not section_text:
         return []
     if ordered:
         pattern = re.compile(r"^\d+\.\s+\*\*(.*?)\*\*\s*-\s*(.+)$")
     else:
         pattern = re.compile(r"^-\s+\*\*(.*?)\*\*\s*-\s*(.+)$")
-    entries: list[tuple[str, str]] = []
-    for line in section_text.splitlines():
-        match = pattern.match(line.strip())
+    lines = section_text.splitlines()
+    entries: list[tuple[str, str, str]] = []
+    index = 0
+    while index < len(lines):
+        match = pattern.match(lines[index].strip())
         if not match:
+            index += 1
             continue
-        entries.append((_strip_markdown(match.group(1)), _strip_markdown(match.group(2))))
+        label = _strip_markdown(match.group(1))
+        reason = _strip_markdown(match.group(2))
+        en_alt: str | None = None
+        th_alt: str | None = None
+        look = index + 1
+        while look < len(lines):
+            cont = _CONTINUATION_PATTERN.match(lines[look].strip())
+            if not cont:
+                break
+            if cont.group(1).lower() == "en":
+                en_alt = _strip_markdown(cont.group(2))
+            else:
+                th_alt = _strip_markdown(cont.group(2))
+            look += 1
+        if en_alt is not None:
+            reason_en, reason_th = en_alt, reason
+        elif th_alt is not None:
+            reason_en, reason_th = reason, th_alt
+        else:
+            reason_en, reason_th = reason, _thai_pixel_copy(reason)
+        entries.append((label, reason_en, reason_th))
+        index = look
     return entries
 
 
@@ -365,18 +406,18 @@ def render_pixel_command_brief(weekly_payload: dict[str, object], weekly_report_
     play_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Play"), ordered=True)
     buy_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Buy"), ordered=True)
 
-    top_play_label, _top_play_reason = play_entries[0] if play_entries else (headline, "")
-    top_buy_label, top_buy_reason = next(
+    top_play_label = play_entries[0][0] if play_entries else headline
+    top_buy_label, top_buy_reason_en, top_buy_reason_th = next(
         (
-            (label, reason)
-            for label, reason in buy_entries
-            if "free" not in reason.casefold() and "ฟรี" not in reason
+            entry
+            for entry in buy_entries
+            if "free" not in entry[1].casefold() and "ฟรี" not in entry[2]
         ),
-        buy_entries[0] if buy_entries else ("Weekly Discount", ""),
+        buy_entries[0] if buy_entries else ("Weekly Discount", "", ""),
     )
 
     buy_label = _clean_item_label(top_buy_label)
-    buy_chip = _extract_metric_chip(top_buy_label, top_buy_reason) or "[BUY]"
+    buy_chip = _extract_metric_chip(top_buy_label, top_buy_reason_en, top_buy_reason_th) or "[BUY]"
     focus_task = _command_task(top_play_label)
     why_text = _weekly_why_text(weekly_content)
 
@@ -420,7 +461,7 @@ def render_pixel_ignore_callout(weekly_report_text: str) -> str:
         extract_markdown_section(weekly_report_text, "## What to Ignore"),
         ordered=False,
     )
-    labels = [_clean_item_label(label) for label, _reason in ignore_entries[:2]]
+    labels = [_clean_item_label(label) for label, _en, _th in ignore_entries[:2]]
     if not labels:
         labels = ["No low-value items flagged"]
     lines = [f'<p class="command-label">{_bilingual_span("IGNORE THIS WEEK", _thai_pixel_copy("IGNORE THIS WEEK"))}</p>', "<ul>"]
@@ -475,9 +516,10 @@ def render_pixel_operations_wall(weekly_report_text: str) -> str:
         if not items:
             continue
         lines.extend([f'  <article class="wall-group">', f"    <h3>{_bilingual_span(group_name, _thai_pixel_copy(group_name))}</h3>"])
-        for chip, (label, reason) in items:
+        for chip, (label, reason_en, reason_th) in items:
             item_label = _clean_item_label(label)
-            item_reason = _public_reason_for_item(item_label, reason)
+            item_reason_en = _public_reason_for_item(item_label, reason_en)
+            item_reason_th = _public_reason_for_item(item_label, reason_th)
             lines.extend(
                 [
                     '    <div class="wall-item">',
@@ -485,7 +527,7 @@ def render_pixel_operations_wall(weekly_report_text: str) -> str:
                     f"        <span>{_bilingual_span(item_label, _thai_pixel_copy(item_label))}</span>",
                     f'        <span class="status-chip">{html.escape(chip)}</span>',
                     "      </div>",
-                    f"      <p>{_bilingual_span(item_reason, _thai_pixel_copy(item_reason))}</p>",
+                    f"      <p>{_bilingual_span(item_reason_en, item_reason_th)}</p>",
                     "    </div>",
                 ]
             )
@@ -662,19 +704,21 @@ def render_pixel_buy_ledger(weekly_report_text: str) -> str:
     buy_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Buy"), ordered=True)
     ignore_entries = _parse_report_entries(extract_markdown_section(weekly_report_text, "## What to Ignore"), ordered=False)
 
-    rows: list[tuple[str, str, str]] = []
-    for label, reason in buy_entries[:3]:
-        rows.append((_clean_item_label(label), _decision_chip(reason, positive=True), reason))
-    for label, reason in ignore_entries[:2]:
-        rows.append((_clean_item_label(label), _decision_chip(reason, positive=False), reason))
+    rows: list[tuple[str, str, str, str]] = []
+    # Decide the verdict from the Thai primary reason so it stays stable
+    # regardless of the English wording added via en: continuations.
+    for label, reason_en, reason_th in buy_entries[:3]:
+        rows.append((_clean_item_label(label), _decision_chip(reason_th, positive=True), reason_en, reason_th))
+    for label, reason_en, reason_th in ignore_entries[:2]:
+        rows.append((_clean_item_label(label), _decision_chip(reason_th, positive=False), reason_en, reason_th))
 
     lines = ['<div class="ledger-list">']
-    for item, chip, reason in rows[:4]:
+    for item, chip, reason_en, reason_th in rows[:4]:
         lines.extend(
             [
                 '  <article class="ledger-item">',
                 f'    <div class="ledger-head"><h3>{_bilingual_span(item, _thai_pixel_copy(item))}</h3><span class="decision-chip">{html.escape(chip)}</span></div>',
-                f"    <p>{_bilingual_span(_public_reason_for_item(item, reason), _thai_pixel_copy(_public_reason_for_item(item, reason)))}</p>",
+                f"    <p>{_bilingual_span(_public_reason_for_item(item, reason_en), _public_reason_for_item(item, reason_th))}</p>",
                 "  </article>",
             ]
         )

@@ -26,6 +26,7 @@ Use this skill for GTA Online weekly analysis tasks in this repository.
 - Treat Salvage Yard robbery vehicles conservatively: do not call them claimable unless the source data explicitly says they can be kept.
 - Respect readiness blockers, platform restrictions, ownership/budget constraints, and the distinction between discounted / on-display / test-ride / claimable content.
 - Prefer concise Thai output unless the user asks for another language.
+- Bilingual dashboard convention: in `## What to Play`, `## What to Buy`, and `## What to Ignore`, write each entry's reason on the bullet line (Thai is fine), then add an indented `en:` continuation line with a short English version — e.g. `   en: A fast win that pays GTA$100,000.`. Use `th:` instead when the bullet line is English. The pixel dashboard reads both languages for its EN/TH toggle; line-based parsers (the classic dashboard) ignore the continuation, so it is always safe to add. Leave proper nouns (vehicle and place names) untranslated.
 
 ## Procedure
 
