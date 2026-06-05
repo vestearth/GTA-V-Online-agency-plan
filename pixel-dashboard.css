@@ -565,6 +565,7 @@ body.pixel-page .nav a:focus-visible {
 /* OPERATIONS WALL / FIELD INTEL / BUY LEDGER share a board-panel base */
 .ops-section.operations-wall,
 .ops-section.field-intel,
+.ops-section.vehicle-spotlight,
 .ops-section.buy-ledger {
   padding: 18px;
   border: 1px solid rgba(58, 44, 26, 0.6);
@@ -758,6 +759,91 @@ body.pixel-page .nav a:focus-visible {
   letter-spacing: 0.01em;
 }
 
+/* VEHICLE SPOTLIGHT — pinned polaroid photos of the week's reward cars */
+.polaroid-wall {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.polaroid-wall-empty {
+  display: block;
+  color: var(--board-ink);
+  opacity: 0.72;
+}
+
+.polaroid {
+  position: relative;
+  margin-top: 8px;
+  padding: 12px 12px 14px;
+  background: var(--paper-grain), var(--paper-card);
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  transform: rotate(-1.2deg);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.polaroid:nth-child(2) {
+  transform: rotate(0.9deg);
+}
+
+.polaroid:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.polaroid-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 34% 32%, #ff7a5f 0 24%, var(--string) 32%, #7c2113 80%);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+.polaroid-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #0d0a07;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.polaroid figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.polaroid-tag {
+  font-family: var(--font-type);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--stamp-red);
+}
+
+.polaroid-name {
+  font-family: var(--font-stencil);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-align: right;
+  color: var(--ink);
+}
+
+.polaroid:hover,
+.polaroid:focus-within {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.55);
+}
+
 /* BUY / IGNORE LEDGER — case files with rubber-stamp verdicts */
 .ledger-item {
   display: grid;
@@ -817,19 +903,25 @@ body.pixel-page .nav a:focus-visible {
   .queue-chip,
   .decision-chip,
   .wall-group:nth-child(2),
-  .wall-group:nth-child(3) {
+  .wall-group:nth-child(3),
+  .polaroid,
+  .polaroid:nth-child(2),
+  .polaroid:nth-child(3) {
     transform: none;
   }
 
   .queue-list li,
   .wall-group,
   .intel-item,
-  .ledger-item {
+  .ledger-item,
+  .polaroid {
     transition: none;
   }
 
   .wall-group:hover,
-  .wall-group:focus-within {
+  .wall-group:focus-within,
+  .polaroid:hover,
+  .polaroid:focus-within {
     transform: none;
   }
 
@@ -843,8 +935,15 @@ body.pixel-page .nav a:focus-visible {
   .command-board,
   .wall-groups,
   .intel-list,
+  .polaroid-wall,
   .ledger-list {
     grid-template-columns: 1fr;
+  }
+
+  .polaroid,
+  .polaroid:nth-child(2),
+  .polaroid:nth-child(3) {
+    transform: none;
   }
 
   .command-cell,

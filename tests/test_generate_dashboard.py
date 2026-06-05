@@ -34,6 +34,7 @@ from scripts.generate_pixel_dashboard import (
     render_pixel_header_meta,
     render_pixel_ignore_callout,
     render_pixel_operations_wall,
+    render_pixel_vehicle_spotlight,
 )
 
 
@@ -100,8 +101,10 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
             vehicle_prices=vehicle_prices,
         )
 
-        self.assertEqual(context["owned_major_assets"], 21)
-        self.assertEqual(context["missing_major_assets"], 0)
+        # The dashboard is a universal surface: it no longer derives any
+        # per-player owned/missing asset counts from the profile.
+        self.assertNotIn("owned_major_assets", context)
+        self.assertNotIn("missing_major_assets", context)
         self.assertEqual(context["discounted_items_total"], 10304070)
         self.assertEqual(context["all_cars_needed_total"], 23278100)
         self.assertEqual(context["unresolved_discount_items"], [])
@@ -160,7 +163,8 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Current Focus", html)
         self.assertIn("Next Claim / Buy", html)
         self.assertIn("Discounted Items Total", html)
-        self.assertIn("All Cars Needed", html)
+        self.assertIn("Weekly Vehicles Value", html)
+        self.assertNotIn("All Cars Needed", html)
         self.assertIn(format_currency_compact(10304070), html)
         self.assertIn(format_currency_compact(23278100), html)
         self.assertIn("<!-- START: current_focus -->", html)
@@ -226,7 +230,7 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         self.assertIn("Salvage Yard", html)
         self.assertIn("Do not claim", html)
 
-    def test_render_asset_overview_uses_profile_and_week_notes(self):
+    def test_render_asset_overview_is_universal_reference_not_ownership(self):
         html = render_asset_overview(
             self.player_profile,
             self.weekly_payload,
@@ -234,9 +238,20 @@ class DashboardGeneratorPhase2RenderingTests(unittest.TestCase):
         )
 
         self.assertIsNotNone(html)
-        self.assertIn("Hands On Car Wash", html)
-        self.assertIn("Owned", html)
+        # Universal income-asset reference: roles, not ownership state.
         self.assertIn("Nightclub", html)
+        self.assertIn("Core loop", html)
+        self.assertIn('data-label="Role"', html)
+        self.assertNotIn("Owned", html)
+        # Assets named in this week's data are flagged as boosted.
+        self.assertIn("Boosted this week", html)
+
+    def test_render_asset_overview_ignores_profile_argument(self):
+        # Passing no profile at all must still produce the same universal table.
+        with_profile = render_asset_overview(self.player_profile, self.weekly_payload, self.weekly_report_text)
+        without_profile = render_asset_overview(None, self.weekly_payload, self.weekly_report_text)
+
+        self.assertEqual(with_profile, without_profile)
 
     def test_render_weekly_action_plan_returns_none_when_parse_confidence_is_low(self):
         self.assertIsNone(render_weekly_action_plan("## Something Else\n- no action queue here"))
@@ -553,6 +568,9 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertNotIn("ซื้อเฉพาะถ้ายังไม่มี", html)
         self.assertNotIn("current ownership", html)
         self.assertNotIn("current setup", html)
+        # No per-player profile wording leaks into the public ledger.
+        self.assertNotIn("profile นี้", html)
+        self.assertNotIn("Methamphetamine Lab แล้ว", html)
 
     def test_build_pixel_replacements_returns_every_marker(self):
         replacements = build_pixel_replacements(
@@ -564,6 +582,28 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertEqual(set(replacements), set(PIXEL_MARKERS))
         self.assertIn("Community Mission Series and Meth Sales Week", replacements["pixel_command_brief"])
         self.assertIn("Steal from Stash House #1", replacements["pixel_action_queue"])
+
+    def test_render_pixel_vehicle_spotlight_builds_polaroids_from_image_map(self):
+        images = {
+            "Vapid GB200": "https://gtacars.net/images/podium",
+            "Declasse Mamba": "https://gtacars.net/images/prize",
+        }
+        html = render_pixel_vehicle_spotlight(self.weekly_payload, images)
+
+        self.assertIn('class="polaroid"', html)
+        self.assertIn('src="https://gtacars.net/images/podium"', html)
+        self.assertIn("[PODIUM]", html)
+        self.assertIn("[PRIZE RIDE]", html)
+        self.assertIn("Vapid GB200", html)
+        self.assertIn('loading="lazy"', html)
+        self.assertIn('referrerpolicy="no-referrer"', html)
+        self.assertNotIn("polaroid-wall-empty", html)
+
+    def test_render_pixel_vehicle_spotlight_is_empty_without_image_map(self):
+        html = render_pixel_vehicle_spotlight(self.weekly_payload, {})
+
+        self.assertIn("polaroid-wall-empty", html)
+        self.assertNotIn("<img", html)
 
 
 class PixelDashboardBilingualRenderingTests(unittest.TestCase):
