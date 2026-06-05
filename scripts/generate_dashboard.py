@@ -256,9 +256,11 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict | None, vehi
 
 def format_currency_compact(value: int) -> str:
     if value >= 1_000_000:
-        return f"GTA${value / 1_000_000:.1f}M"
+        number = f"{value / 1_000_000:.1f}".rstrip("0").rstrip(".")
+        return f"GTA${number}M"
     if value >= 1_000:
-        return f"GTA${value / 1_000:.1f}K"
+        number = f"{value / 1_000:.1f}".rstrip("0").rstrip(".")
+        return f"GTA${number}K"
     return f"GTA${value}"
 
 
