@@ -18,6 +18,14 @@ from scripts.fetch_gtacar_prices import (
     main as fetch_prices_main,
     resolve_slug,
 )
+from scripts.sync_gtacars_catalog import (
+    GtacarsVehicleRecord,
+    apply_price_records,
+    build_slug_updates,
+    extract_vehicle_record_from_html,
+    extract_vehicle_urls_from_sitemap,
+    merge_slug_map_text,
+)
 
 
 class VehicleExtractionTests(unittest.TestCase):
@@ -185,6 +193,168 @@ class VehicleExtractionTests(unittest.TestCase):
         spec.loader.exec_module(module)
 
         self.assertTrue(hasattr(module, "classify_new_vehicle_slugs"))
+
+
+class GtacarsCatalogSyncTests(unittest.TestCase):
+    def test_extract_vehicle_urls_from_sitemap_keeps_only_gta5_vehicle_pages(self):
+        sitemap = """
+        <urlset>
+          <url><loc>https://gtacars.net/</loc></url>
+          <url><loc>https://gtacars.net/gta5</loc></url>
+          <url><loc>https://gtacars.net/gta5/adder</loc></url>
+          <url><loc>https://gtacars.net/gta5/compare</loc></url>
+          <url><loc>https://gtacars.net/gta5/draugur</loc></url>
+          <url><loc>https://gtacars.net/about</loc></url>
+        </urlset>
+        """
+
+        urls = extract_vehicle_urls_from_sitemap(sitemap)
+
+        self.assertEqual(
+            urls,
+            [
+                "https://gtacars.net/gta5/adder",
+                "https://gtacars.net/gta5/draugur",
+            ],
+        )
+
+    def test_extract_vehicle_record_from_html_reads_full_name_and_prices(self):
+        html = """
+        <html>
+          <title>Draugur — GTA 5&#x2F;Online Vehicle Info — GTACars.net</title>
+          <body>
+            <h1><div><span class="">Draugur</span></div></h1>
+            <tr><td>Manufacturer</td><td><a href="/gta5?filter_manufacturer=declasse">Declasse</a></td></tr>
+            <p><span>Price:</span> <data value="1870000">$ 1,870,000</data></p>
+            <p><span>Trade price:</span> <span>$ 1,402,500</span></p>
+          </body>
+        </html>
+        """
+
+        record = extract_vehicle_record_from_html(html, "https://gtacars.net/gta5/draugur")
+
+        self.assertEqual(
+            record,
+            GtacarsVehicleRecord(
+                vehicle_name="Declasse Draugur",
+                slug="draugur",
+                base_price=1870000,
+                trade_price=1402500,
+                source_url="https://gtacars.net/gta5/draugur",
+            ),
+        )
+
+    def test_extract_vehicle_record_from_html_keeps_slug_when_price_is_absent(self):
+        html = """
+        <html>
+          <body>
+            <h1><div><span class="">Airtug</span></div></h1>
+          </body>
+        </html>
+        """
+
+        record = extract_vehicle_record_from_html(html, "https://gtacars.net/gta5/airtug")
+
+        self.assertEqual(
+            record,
+            GtacarsVehicleRecord(
+                vehicle_name="Airtug",
+                slug="airtug",
+                base_price=None,
+                trade_price=None,
+                source_url="https://gtacars.net/gta5/airtug",
+            ),
+        )
+
+    def test_build_slug_updates_uses_full_names_and_preserves_existing(self):
+        records = [
+            GtacarsVehicleRecord("Declasse Draugur", "draugur", 1870000, 1402500, "https://gtacars.net/gta5/draugur"),
+            GtacarsVehicleRecord("Adder", "adder", 1000000, None, "https://gtacars.net/gta5/adder"),
+            GtacarsVehicleRecord("Western Police Bike", "policeb", 100000, 75000, "https://gtacars.net/gta5/policeb"),
+        ]
+
+        updates = build_slug_updates(records, {"Adder": "adder", "Western Police Bike": "policeb2"})
+
+        self.assertEqual(updates, {"Declasse Draugur": "draugur"})
+
+    def test_merge_slug_map_text_accepts_utf8_bom(self):
+        existing = "\ufeff" + json.dumps(
+            {
+                "schema_version": "1.0",
+                "slug_by_vehicle_name": {"Adder": "adder"},
+            }
+        )
+
+        merged = merge_slug_map_text(existing, {"Declasse Draugur": "draugur"})
+        payload = json.loads(merged)
+
+        self.assertEqual(
+            payload["slug_by_vehicle_name"],
+            {"Adder": "adder", "Declasse Draugur": "draugur"},
+        )
+
+    def test_apply_price_records_adds_missing_and_updates_existing(self):
+        source = "\n".join(
+            [
+                'last_verified_at: "2026-06-01"',
+                "vehicles:",
+                '  - vehicle_name: "Adder"',
+                '    vehicle_tier: "unrated"',
+                "    race_tiers: {}",
+                "    removed_vehicle: false",
+                "    removed_vehicle_weeks: []",
+                "    base_price: null",
+                "    trade_price: null",
+                '    source_url: "https://gtacars.net/gta5/adder"',
+                '    alias_hints: ["Adder"]',
+                "",
+            ]
+        )
+        records = [
+            GtacarsVehicleRecord("Adder", "adder", 1000000, None, "https://gtacars.net/gta5/adder"),
+            GtacarsVehicleRecord("Declasse Draugur", "draugur", 1870000, 1402500, "https://gtacars.net/gta5/draugur"),
+            GtacarsVehicleRecord("Airtug", "airtug", None, None, "https://gtacars.net/gta5/airtug"),
+        ]
+
+        updated, changed = apply_price_records(source, records, today="2026-06-06")
+
+        self.assertEqual(changed, ["Adder", "Declasse Draugur", "Airtug"])
+        self.assertIn('last_verified_at: "2026-06-06"', updated)
+        self.assertIn('  - vehicle_name: "Adder"', updated)
+        self.assertIn("    base_price: 1000000", updated)
+        self.assertIn('  - vehicle_name: "Declasse Draugur"', updated)
+        self.assertIn("    trade_price: 1402500", updated)
+        self.assertIn('    source_url: "https://gtacars.net/gta5/draugur"', updated)
+        self.assertIn('  - vehicle_name: "Airtug"', updated)
+        self.assertIn("    base_price: null", updated)
+
+    def test_apply_price_records_preserves_curated_existing_base_and_source(self):
+        source = "\n".join(
+            [
+                'last_verified_at: "2026-06-01"',
+                "vehicles:",
+                '  - vehicle_name: "Western Police Bike"',
+                '    vehicle_tier: "utility"',
+                "    race_tiers: {}",
+                "    removed_vehicle: false",
+                "    removed_vehicle_weeks: []",
+                "    base_price: 4960000",
+                "    trade_price: null",
+                '    source_url: "https://gtacars.net/gta5/policeb2"',
+                '    alias_hints: ["Police Bike"]',
+                "",
+            ]
+        )
+        records = [
+            GtacarsVehicleRecord("Western Police Bike", "policeb", 100000, 75000, "https://gtacars.net/gta5/policeb"),
+        ]
+
+        updated, changed = apply_price_records(source, records, today="2026-06-06")
+
+        self.assertEqual(changed, ["Western Police Bike"])
+        self.assertIn("    base_price: 4960000", updated)
+        self.assertIn("    trade_price: 75000", updated)
+        self.assertIn('    source_url: "https://gtacars.net/gta5/policeb2"', updated)
 
 
 if __name__ == "__main__":
