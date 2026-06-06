@@ -128,6 +128,25 @@ class DashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertEqual(context["unresolved_discount_items"], [])
         self.assertEqual(context["unresolved_vehicle_prices"], [])
 
+    def test_render_weekly_deals_uses_reference_fallback_prices_for_w23_vehicle_rows(self):
+        weekly_payload = json.loads(
+            Path("data/weekly_planning_2026_w23.json").read_text(encoding="utf-8")
+        )
+        player_profile = json.loads(Path("data/player_profile.json").read_text(encoding="utf-8"))
+        vehicle_prices = load_vehicle_price_reference(Path("data/references/vehicle_prices.yaml"))
+        context = build_phase1_context(
+            weekly_payload=weekly_payload,
+            player_profile=player_profile,
+            vehicle_prices=vehicle_prices,
+        )
+
+        html = render_weekly_deals(context, vehicle_prices)
+
+        self.assertIn("Declasse Draugur", html)
+        self.assertIn("GTA$1,309,000", html)
+        self.assertIn("Western Company Rogue", html)
+        self.assertIn("GTA$1,117,200", html)
+
     def test_reward_vehicle_surfaces_do_not_count_toward_all_cars_needed(self):
         weekly_payload = json.loads(
             Path("data/weekly_planning_2026_w22.json").read_text(encoding="utf-8")

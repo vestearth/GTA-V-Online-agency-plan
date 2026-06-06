@@ -216,8 +216,13 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict | None, vehi
                         continue
             base_price = vehicle_prices.get(item, {}).get("base_price")
             if isinstance(base_price, int) and isinstance(tier_percent, int) and 0 <= tier_percent <= 100:
-                discounted_items_total += int(base_price * (100 - tier_percent) / 100)
+                discounted_price = int(base_price * (100 - tier_percent) / 100)
+                discounted_items_total += discounted_price
                 discount_vehicle_names.append(item)
+                fallback_context = price_context.setdefault(item, {})
+                if isinstance(fallback_context, dict):
+                    fallback_context.setdefault("base_price", base_price)
+                    fallback_context.setdefault(f"discounted_price_{tier_percent}", discounted_price)
                 continue
             if "gun van" not in tier_label and item in vehicle_prices:
                 unresolved_discount_items.append(item)
