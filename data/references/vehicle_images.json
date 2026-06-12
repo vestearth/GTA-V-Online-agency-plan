@@ -3,6 +3,9 @@
   "schema_version": "1.0",
   "image_by_vehicle_name": {
     "Declasse Mamba": "https://gtacars.net/images/3f20a676700da328ea7632082f2beb8f",
+    "Declasse Vigero ZX Convertible": "https://gtacars.net/images/37310085c4ff1d970a9b464782caf98f",
+    "Grotti Cheetah Classic": "https://gtacars.net/images/ba4ba835632f6768a67a7726a620974b",
+    "Pfister Astrale": "https://gtacars.net/images/f2b7cd3f976e9dcfb71c90b6152f18f4",
     "Vapid Firebolt ASP": "https://gtacars.net/images/a372427778ad1bd847d5ad7c29b882df",
     "Vapid GB200": "https://gtacars.net/images/aa94af09150a58daf5d486fb7bc6030c"
   }

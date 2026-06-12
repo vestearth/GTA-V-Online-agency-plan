@@ -813,6 +813,18 @@ body.pixel-page .nav a:focus-visible {
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
+.polaroid-photo-missing {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  color: var(--paper-card);
+  font-family: var(--font-type);
+  font-size: 0.78rem;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 /* Dealer price tag stuck on the photo corner */
 .polaroid-price {
   position: absolute;

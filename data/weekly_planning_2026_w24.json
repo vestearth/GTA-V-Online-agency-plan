@@ -1,0 +1,518 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W24",
+    "label": "June 11 - June 17 2026",
+    "start_date": "2026-06-11",
+    "end_date": "2026-06-17",
+    "source": "manual_web_research",
+    "last_updated_at": "2026-06-12T13:20:00+07:00",
+    "source_urls": [
+      "https://www.rockstargames.com/newswire/article/252kk2a21k7451/explore-fun-and-immersive-new-community-missions-in-gta-online",
+      "https://rockstarintel.com/gta-online-event-week-world-cup-reward-june-11th-17th/",
+      "https://www.gtabase.com/gta-online/weekly-update-bonuses-discounts"
+    ]
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true,
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water Money Front",
+        "Hands On Car Wash Money Front",
+        "The Vinewood Residence",
+        "Galaxy Super Yacht",
+        "Mammoth Avenger",
+        "Hangar"
+      ],
+      "vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ]
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": 2,
+      "max_continuous_minutes": 120
+    }
+  },
+  "weekly_content": {
+    "headline": "Community Mission Series Continues and Special Cargo Challenge",
+    "summary": "Community Mission Series stays at 4x GTA$ and RP with another GTA$500,000 completion bonus, while the strongest profile-fit objective is the weekly Special Cargo challenge: sell GTA$500,000 of Special Cargo to receive GTA$500,000 plus the Rockstar Razor Aged T-Shirt.",
+    "platform_notes": "Premium Test Ride and HSW Time Trial are limited to PS5, Xbox Series X|S, and PC Enhanced. Community Mission Series availability should be verified on the player's PC build before treating the seven-mission bonus as universal.",
+    "bonuses": [
+      {
+        "name": "Community Mission Series",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP",
+        "duration_note": "Runs through June 17."
+      },
+      {
+        "name": "Complete all seven Community Missions",
+        "multiplier": "bonus",
+        "reward_type": "GTA$",
+        "payout_note": "GTA$500,000 within 72 hours after completing the full set."
+      },
+      {
+        "name": "Cayo Perico Treasure Chests",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Cayo Perico Hidden Caches",
+        "multiplier": "3x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Overtime Rumble",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "The Black Box File",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP",
+        "source": "fib_priority_file"
+      }
+    ],
+    "events": [
+      {
+        "name": "Weekly Challenge - Sell GTA$500,000 of Special Cargo",
+        "type": "challenge",
+        "requirement": "Sell GTA$500,000 of Special Cargo",
+        "reward": "GTA$500,000 plus Rockstar Razor Aged T-Shirt"
+      },
+      {
+        "name": "Login Reward - Los Santos Soccer Jersey",
+        "type": "login_reward",
+        "reward": "Los Santos Soccer Jersey"
+      },
+      {
+        "name": "Rockstar Discord Reward",
+        "type": "limited_reward",
+        "reward": "Burgundy Rockstar Varsity Crewneck",
+        "requirement": "Rockstar Discord server member; watch #discord-rewards for claim details"
+      },
+      {
+        "name": "Community Mission Series Completion Bonus",
+        "type": "bonus",
+        "requirement": "Complete all seven Community Missions",
+        "reward": "GTA$500,000 within 72 hours"
+      },
+      {
+        "name": "Podium Vehicle",
+        "vehicle": "Declasse Vigero ZX Convertible",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "name": "Prize Ride Challenge",
+        "vehicle": "Grotti Cheetah Classic",
+        "requirement": "Place 1st in the LS Car Meet Series one time",
+        "source": "ls_car_meet"
+      },
+      {
+        "name": "Premium Test Ride",
+        "vehicle": "Pfister Astrale",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Time Trial",
+        "location": "LSIA II"
+      },
+      {
+        "name": "Premium Race",
+        "location": "At the Races",
+        "restriction": "Off-Road"
+      },
+      {
+        "name": "HSW Time Trial",
+        "location": "Ron Alternates to Elysian Island",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "FIB Priority File",
+        "file": "The Black Box File"
+      }
+    ],
+    "featured_activities": [
+      {
+        "activity_id": "weekly_challenge_special_cargo_500k",
+        "name": "Weekly Challenge - Sell GTA$500,000 of Special Cargo",
+        "category": "ceo_cargo",
+        "reward": "GTA$500,000 plus Rockstar Razor Aged T-Shirt",
+        "timebox_minutes": 60,
+        "requirements": {
+          "properties": [
+            "Executive Office",
+            "Special Cargo Warehouses"
+          ]
+        }
+      },
+      {
+        "activity_id": "community_mission_series_4x",
+        "name": "Community Mission Series",
+        "category": "community_mission",
+        "multiplier": "4x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "complete_all_seven_community_missions",
+        "name": "Complete all seven Community Missions",
+        "category": "challenge",
+        "reward": "GTA$500,000 within 72 hours",
+        "timebox_minutes": 120,
+        "requirements": {}
+      },
+      {
+        "activity_id": "cayo_treasure_chests_4x",
+        "name": "Cayo Perico Treasure Chests",
+        "category": "collectible",
+        "multiplier": "4x",
+        "timebox_minutes": 20,
+        "requirements": {
+          "properties": [
+            "Kosatka"
+          ]
+        }
+      },
+      {
+        "activity_id": "cayo_hidden_caches_3x",
+        "name": "Cayo Perico Hidden Caches",
+        "category": "collectible",
+        "multiplier": "3x",
+        "timebox_minutes": 20,
+        "requirements": {
+          "properties": [
+            "Kosatka"
+          ]
+        }
+      },
+      {
+        "activity_id": "overtime_rumble_2x",
+        "name": "Overtime Rumble",
+        "category": "adversary_mode",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "black_box_file_2x",
+        "name": "FIB Priority File - The Black Box File",
+        "category": "fib_file",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "The Garment Factory"
+          ]
+        }
+      },
+      {
+        "activity_id": "ls_car_meet_prize_ride_cheetah_classic",
+        "name": "Prize Ride - Grotti Cheetah Classic",
+        "category": "challenge",
+        "requirement": "Place 1st in the LS Car Meet Series one time",
+        "timebox_minutes": 45,
+        "requirements": {}
+      },
+      {
+        "activity_id": "casino_lucky_wheel_vigero_zx_convertible",
+        "name": "Casino Lucky Wheel - Declasse Vigero ZX Convertible",
+        "category": "casino",
+        "timebox_minutes": 5,
+        "requirements": {}
+      }
+    ],
+    "community_mission_series": [
+      "Los Santos 2062 by ShelbyGR-1",
+      "Juggernightmare by GTA Series Videos",
+      "Old School Hits by GTA Series Videos",
+      "Paleto Bay Slasher by Shadow-Break",
+      "The Scrumble Heist by SergeantDexter",
+      "Running the Gauntlet by Sarah-Croft",
+      "Detective Story by BooCooSocial"
+    ],
+    "salvage_yard_robberies": [
+      {
+        "job": "The Gangbanger Robbery",
+        "vehicle": "Grotti Turismo Classic",
+        "tier": "Top Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Podium Robbery",
+        "vehicle": "Benefactor Schlagen GT",
+        "tier": "Standard Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The McTony Robbery",
+        "vehicle": "Vapid Ellie",
+        "tier": "Low Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      }
+    ],
+    "fib_priority_files": [
+      "The Black Box File"
+    ],
+    "discounts": [
+      {
+        "tier_percent": 40,
+        "items": [
+          "Executive Offices",
+          "Executive Office Upgrades"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Vapid Dominator ASP",
+          "Albany V-STR",
+          "Nagasaki Outlaw",
+          "Pegassi Infernus Classic",
+          "Vulcar Nebula Turbo",
+          "Principe Lectro",
+          "Shitzu Longfin",
+          "Nagasaki Weaponized Dinghy",
+          "Dinka Marquis",
+          "Pegassi Speeder",
+          "Shitzu Jetmax"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "tier_label": "Gun Van",
+        "items": [
+          "Service Carbine"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "tier_label": "Gun Van GTA+",
+        "items": [
+          "Military Rifle"
+        ]
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_declasse_vigero_zx_convertible",
+        "vehicle_name": "Declasse Vigero ZX Convertible",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "id": "prize_ride_grotti_cheetah_classic",
+        "vehicle_name": "Grotti Cheetah Classic",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "requirement": "Place 1st in the LS Car Meet Series one time"
+      },
+      {
+        "id": "premium_test_ride_pfister_astrale",
+        "vehicle_name": "Pfister Astrale",
+        "opportunity_type": "premium_test_ride",
+        "source": "hsw",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "id": "test_ride_grotti_gt500",
+        "vehicle_name": "Grotti GT500",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "removed_vehicle": true
+      },
+      {
+        "id": "test_ride_invetero_coquette",
+        "vehicle_name": "Invetero Coquette",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_ride_vapid_riata",
+        "vehicle_name": "Vapid Riata",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet",
+        "removed_vehicle": true
+      },
+      {
+        "id": "luxury_karin_woodlander",
+        "vehicle_name": "Karin Woodlander",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "luxury_ubermacht_sentinel_xs4",
+        "vehicle_name": "Ubermacht Sentinel XS4",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "pdm_lcc_avarus",
+        "vehicle_name": "LCC Avarus",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_ubermacht_oracle_xs",
+        "vehicle_name": "Ubermacht Oracle XS",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_dewbauchee_rapid_gt_classic",
+        "vehicle_name": "Dewbauchee Rapid GT Classic",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_vapid_retinue",
+        "vehicle_name": "Vapid Retinue",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      },
+      {
+        "id": "pdm_benefactor_streiter",
+        "vehicle_name": "Benefactor Streiter",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport",
+        "removed_vehicle": true
+      }
+    ],
+    "gun_van": {
+      "primary_discounts": [
+        {
+          "item": "Service Carbine",
+          "discount_percent": 30
+        },
+        {
+          "item": "Military Rifle",
+          "discount_percent": 40,
+          "gta_plus_only": true
+        }
+      ],
+      "weapons": [
+        "Service Carbine",
+        "Military Rifle",
+        "Precision Rifle",
+        "Musket",
+        "Assault Rifle",
+        "Pool Cue"
+      ],
+      "throwables": [
+        "Pipe Bomb",
+        "Molotov",
+        "Grenade"
+      ],
+      "armor": [
+        "Super Light Armor",
+        "Light Armor",
+        "Standard Armor",
+        "Heavy Armor",
+        "Super Heavy Armor"
+      ]
+    }
+  },
+  "scraper_metadata": {
+    "ownership_checks": [
+      {
+        "item": "Executive Offices",
+        "status": "owned",
+        "tier_percent": 40
+      },
+      {
+        "item": "Executive Office Upgrades",
+        "status": "upgrade_available",
+        "tier_percent": 40
+      }
+    ],
+    "price_context": {
+      "Vapid Dominator ASP": {
+        "base_price": 1775000,
+        "discounted_price_30": 1242500
+      },
+      "Albany V-STR": {
+        "base_price": 1285000,
+        "discounted_price_30": 899500
+      },
+      "Nagasaki Outlaw": {
+        "base_price": 1268000,
+        "discounted_price_30": 887600
+      },
+      "Pegassi Infernus Classic": {
+        "base_price": 915000,
+        "discounted_price_30": 640500
+      },
+      "Vulcar Nebula Turbo": {
+        "base_price": 797000,
+        "discounted_price_30": 557900
+      },
+      "Principe Lectro": {
+        "base_price": 997500,
+        "discounted_price_30": 698250
+      },
+      "Shitzu Longfin": {
+        "base_price": 2125000,
+        "discounted_price_30": 1487500
+      },
+      "Nagasaki Weaponized Dinghy": {
+        "base_price": 1850000,
+        "discounted_price_30": 1295000
+      },
+      "Dinka Marquis": {
+        "base_price": 413990,
+        "discounted_price_30": 289793
+      },
+      "Pegassi Speeder": {
+        "base_price": 325000,
+        "discounted_price_30": 227500
+      },
+      "Shitzu Jetmax": {
+        "base_price": 299000,
+        "discounted_price_30": 209300
+      },
+      "Declasse Vigero ZX Convertible": {
+        "base_price": 2295000
+      },
+      "Grotti Cheetah Classic": {
+        "base_price": 865000
+      },
+      "Pfister Astrale": {
+        "base_price": 1475500
+      }
+    },
+    "data_quality_notes": [
+      "Rockstar Newswire is the primary event source; RockstarINTEL and GTABase were used to capture structured vehicle, discount, and Gun Van details.",
+      "Salvage Yard vehicles are robbery targets only; no source confirmed keep eligibility.",
+      "Showroom and test-ride presence is not treated as proof of a discount.",
+      "Executive Office upgrade ownership is not fully represented in player_profile.json, so buy advice requires in-game verification."
+    ]
+  }
+}

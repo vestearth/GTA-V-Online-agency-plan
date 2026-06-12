@@ -643,11 +643,26 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn('class="polaroid-price"', html)
         self.assertIn(format_currency_compact(940000), html)
 
-    def test_render_pixel_vehicle_spotlight_is_empty_without_image_map(self):
-        html = render_pixel_vehicle_spotlight(self.weekly_payload, {}, {})
+    def test_render_pixel_vehicle_spotlight_is_empty_without_reward_vehicles(self):
+        weekly_payload = json.loads(json.dumps(self.weekly_payload))
+        weekly_payload["weekly_content"]["events"] = [
+            {"name": "Time Trial", "location": "Grove Street"}
+        ]
+        html = render_pixel_vehicle_spotlight(weekly_payload, {}, {})
 
         self.assertIn("polaroid-wall-empty", html)
         self.assertNotIn("<img", html)
+
+    def test_render_pixel_vehicle_spotlight_keeps_reward_cards_without_cached_photos(self):
+        html = render_pixel_vehicle_spotlight(self.weekly_payload, {}, {})
+
+        self.assertNotIn("No spotlight vehicle photos this week.", html)
+        self.assertNotIn("polaroid-wall-empty", html)
+        self.assertNotIn("<img", html)
+        self.assertIn("[PODIUM]", html)
+        self.assertIn("[PRIZE RIDE]", html)
+        self.assertIn("Vapid GB200", html)
+        self.assertIn("Declasse Mamba", html)
 
 
 class PixelDashboardBilingualRenderingTests(unittest.TestCase):

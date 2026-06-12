@@ -644,7 +644,7 @@ def render_pixel_vehicle_spotlight(
     images: dict[str, str] | None = None,
     vehicle_prices: dict[str, dict[str, object]] | None = None,
 ) -> str:
-    """Polaroid wall of the week's reward vehicles that have a cached photo."""
+    """Polaroid wall of the week's reward vehicles, with photo fallbacks."""
     if images is None:
         images = load_vehicle_images()
     if vehicle_prices is None:
@@ -664,7 +664,7 @@ def render_pixel_vehicle_spotlight(
         if not role or not isinstance(vehicle, str):
             continue
         image_url = images.get(vehicle.strip())
-        if not image_url or vehicle in seen:
+        if vehicle in seen:
             continue
         seen.add(vehicle)
         safe_name = html.escape(vehicle)
@@ -672,9 +672,17 @@ def render_pixel_vehicle_spotlight(
         card = [
             '  <figure class="polaroid">',
             '    <span class="polaroid-pin" aria-hidden="true"></span>',
-            f'    <img class="polaroid-photo" src="{html.escape(image_url)}" '
-            f'alt="{safe_name}" loading="lazy" referrerpolicy="no-referrer">',
         ]
+        if image_url:
+            card.append(
+                f'    <img class="polaroid-photo" src="{html.escape(image_url)}" '
+                f'alt="{safe_name}" loading="lazy" referrerpolicy="no-referrer">'
+            )
+        else:
+            card.append(
+                f'    <div class="polaroid-photo polaroid-photo-missing" '
+                f'aria-label="{safe_name} photo pending">{safe_name}</div>'
+            )
         if price_label:
             card.append(
                 f'    <span class="polaroid-price">{html.escape(price_label)}</span>'
