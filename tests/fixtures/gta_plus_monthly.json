@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "schema_mode": "gta_plus_monthly",
+  "membership_period": {
+    "id": "2026-M06",
+    "label": "June 11 - July 13 2026",
+    "start_date": "2026-06-11",
+    "end_date": "2026-07-13",
+    "rockstar_month_number": 51,
+    "source": "manual_web_research",
+    "last_updated_at": "2026-06-12T16:00:00+07:00",
+    "source_urls": [
+      "https://www.rockstargames.com/newswire/article/39a79k412884a2/claim-a-versatile-ocelot-stromberg-free-with-gta",
+      "https://rockstarintel.com/gta-month-51-all-rewards-for-june-2026/",
+      "https://worthplaying.com/article/2026/6/11/news/150194-grand-theft-auto-online-update-versatile-ocelot-stromberg-2x-rewards-independence-day-apparel-discounts-and-much-more/"
+    ]
+  },
+  "monthly_benefits": {
+    "headline": "Free Ocelot Stromberg, 5x G's Caches, and 60% off Hangars for GTA+ Members",
+    "gta_dollar_deposit": 500000,
+    "claimable_vehicles": [
+      {
+        "vehicle": "Ocelot Stromberg",
+        "location": "The Vinewood Car Club",
+        "normal_price": 2500000,
+        "note": "Weaponized retro sports car / tactical submersible"
+      }
+    ],
+    "member_bonuses": [
+      {
+        "name": "G's Caches",
+        "multiplier": "5x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Hangar Sell Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "KnoWay Out Missions & Home Sweet Home",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      }
+    ],
+    "member_discounts": [
+      {
+        "item": "Hangars",
+        "percent_off": 60
+      },
+      {
+        "item": "Hangar Upgrades and Modifications",
+        "percent_off": 60
+      },
+      {
+        "item": "McKenzie Field Hangar",
+        "percent_off": 60
+      }
+    ],
+    "freebies": [
+      {
+        "item": "Chameleon Teal/Purple Flip Body & Wheel Paints",
+        "type": "vehicle_paint"
+      },
+      {
+        "item": "Feud Anniversary Baseball Shirt",
+        "type": "clothing"
+      },
+      {
+        "item": "Independence Day Jacket and Pants",
+        "type": "clothing"
+      },
+      {
+        "item": "Green Emissive Lady Liberty Outfit",
+        "type": "clothing"
+      }
+    ],
+    "standing_perks": [
+      {
+        "name": "Vinewood Club Garage",
+        "note": "100 vehicle spaces with HSW, Benny's, and Drift Tuning customization"
+      },
+      {
+        "name": "Vinewood Car Club vehicles",
+        "note": "20% member discount on showroom vehicles"
+      },
+      {
+        "name": "Extra aircraft storage",
+        "note": "+5 aircraft slots without owning the McKenzie Field Hangar"
+      },
+      {
+        "name": "Lucky Wheel",
+        "note": "2 spins every 24 hours"
+      },
+      {
+        "name": "Taxi fast travel",
+        "note": "Free rides with a 5-minute cooldown"
+      },
+      {
+        "name": "Vehicle requests & MC/CEO/VIP abilities",
+        "note": "Free via the Interaction Menu"
+      },
+      {
+        "name": "Shark Card bonus",
+        "note": "+15% extra GTA$ on all Shark Card purchases"
+      },
+      {
+        "name": "Gun Van",
+        "note": "Always on the map, deeper member discounts, exclusive skins"
+      }
+    ]
+  }
+}

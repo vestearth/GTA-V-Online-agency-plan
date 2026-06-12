@@ -47,6 +47,11 @@ PHASE2_MARKERS = [
     "asset_overview",
 ]
 
+# Optional monthly marker: rendered only when both the marker and a
+# gta_plus_monthly_*.json payload exist, so dashboards without the section
+# (or repos without the data) keep generating cleanly.
+GTA_PLUS_MARKER = "gta_plus_benefits"
+
 SPOTLIGHT_GROUP_ORDER = [
     "LS Car Meet",
     "Luxury Autos",
@@ -75,6 +80,31 @@ def find_latest_weekly_payload(data_dir: Path) -> Path:
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def find_latest_gta_plus_payload(data_dir: Path) -> Path | None:
+    """Return the newest gta_plus_monthly_<year>_<month>.json, or None."""
+    pattern = re.compile(r"^gta_plus_monthly_(\d{4})_(\d{2})\.json$")
+    ranked: list[tuple[int, int, Path]] = []
+    for path in [Path(p) for p in glob.glob(str(data_dir / "gta_plus_monthly_*.json"))]:
+        match = pattern.match(path.name)
+        if match:
+            ranked.append((int(match.group(1)), int(match.group(2)), path))
+    if not ranked:
+        return None
+    ranked.sort()
+    return ranked[-1][2]
+
+
+def gta_plus_period_covers(payload: dict, on_date: dt.date) -> bool:
+    """True when ``on_date`` falls inside the payload's membership period."""
+    period = payload.get("membership_period", {})
+    try:
+        start = dt.date.fromisoformat(str(period.get("start_date")))
+        end = dt.date.fromisoformat(str(period.get("end_date")))
+    except (TypeError, ValueError):
+        return False
+    return start <= on_date <= end
 
 
 def week_id_to_report_suffix(week_id: str) -> str:
@@ -617,6 +647,160 @@ def render_weekly_vehicle_spotlight(context: dict[str, object], vehicle_prices: 
     return "\n".join(lines)
 
 
+def render_gta_plus_benefits(
+    gta_plus_payload: dict[str, object],
+    vehicle_prices: dict[str, dict[str, object]],
+    today: dt.date | None = None,
+) -> str:
+    period = gta_plus_payload.get("membership_period", {})
+    benefits = gta_plus_payload.get("monthly_benefits", {})
+    period_label = str(period.get("label", "current period"))
+    today = today or dt.date.today()
+    period_active = gta_plus_period_covers(gta_plus_payload, today)
+
+    claimable = [v for v in benefits.get("claimable_vehicles", []) if isinstance(v, dict)]
+    deposit = benefits.get("gta_dollar_deposit")
+    bonuses = [b for b in benefits.get("member_bonuses", []) if isinstance(b, dict)]
+    discounts = [d for d in benefits.get("member_discounts", []) if isinstance(d, dict)]
+    freebies = [f for f in benefits.get("freebies", []) if isinstance(f, dict)]
+    perks = [p for p in benefits.get("standing_perks", []) if isinstance(p, dict)]
+
+    member_value = 0
+    if isinstance(deposit, int):
+        member_value += deposit
+    for entry in claimable:
+        price = entry.get("normal_price")
+        if not isinstance(price, int):
+            reference = vehicle_prices.get(str(entry.get("vehicle", "")), {})
+            price = reference.get("base_price")
+        if isinstance(price, int):
+            member_value += price
+
+    lines = [
+        '<div class="section-head">',
+        "  <div>",
+        '    <h2 id="gta-plus-title">GTA+ Member Benefits</h2>',
+        f"    <p>Membership perks for the {html.escape(period_label)} rotation. Reference for GTA+ subscribers; non-members can ignore this section.</p>",
+        "  </div>",
+        "</div>",
+    ]
+    if not period_active:
+        lines.extend(
+            [
+                '<p class="muted">',
+                "  This GTA+ period has ended — refresh data/gta_plus_monthly_*.json for the new rotation.",
+                "</p>",
+            ]
+        )
+    if member_value:
+        lines.extend(
+            [
+                "<p>",
+                "  <strong>",
+                "    Member value this period:",
+                "  </strong>",
+                f"  {html.escape(format_currency_compact(member_value))} (monthly deposit + free vehicle claims)",
+                "</p>",
+            ]
+        )
+
+    lines.append('<ul class="deal-groups" aria-label="GTA+ benefit groups">')
+
+    if claimable or isinstance(deposit, int):
+        lines.extend(
+            [
+                '  <li class="deal-group">',
+                '    <h3 class="tier-label pill">Claim Free</h3>',
+                '    <ul class="deal-list">',
+            ]
+        )
+        for entry in claimable:
+            name = str(entry.get("vehicle", ""))
+            location = str(entry.get("location", "")).strip()
+            price = entry.get("normal_price")
+            if not isinstance(price, int):
+                price = vehicle_prices.get(name, {}).get("base_price")
+            value_label = (
+                f"Free · {format_currency_compact(price)} value" if isinstance(price, int) else "Free"
+            )
+            name_html = _vehicle_link(name, vehicle_prices, "deal-name")
+            row = f'      <li class="deal-row">{name_html}<span class="pill value-state value-free">{html.escape(value_label)}</span></li>'
+            lines.append(row)
+            if location:
+                lines.append(f'      <li class="deal-row muted">Claim at {html.escape(location)}</li>')
+        if isinstance(deposit, int):
+            lines.append(
+                '      <li class="deal-row"><span class="deal-name">Monthly Maze Bank deposit</span>'
+                f'<span class="pill value-state value-price">{html.escape(format_currency_full(deposit))}</span></li>'
+            )
+        lines.extend(["    </ul>", "  </li>"])
+
+    if bonuses:
+        lines.extend(
+            [
+                '  <li class="deal-group">',
+                '    <h3 class="tier-label pill">Member Bonuses</h3>',
+                '    <ul class="deal-list">',
+            ]
+        )
+        for bonus in bonuses:
+            name = html.escape(str(bonus.get("name", "")))
+            multiplier = str(bonus.get("multiplier", "")).strip()
+            reward_type = str(bonus.get("reward_type", "")).strip()
+            label = " ".join(part for part in (multiplier, reward_type) if part)
+            lines.append(
+                f'      <li class="deal-row"><span class="deal-name">{name}</span>'
+                f'<span class="pill value-state value-price">{html.escape(label)}</span></li>'
+            )
+        lines.extend(["    </ul>", "  </li>"])
+
+    if discounts:
+        lines.extend(
+            [
+                '  <li class="deal-group">',
+                '    <h3 class="tier-label pill">Member Discounts</h3>',
+                '    <ul class="deal-list">',
+            ]
+        )
+        for discount in discounts:
+            item = html.escape(str(discount.get("item", "")))
+            percent = discount.get("percent_off")
+            label = f"{percent}% off" if isinstance(percent, int) else "Check source"
+            lines.append(
+                f'      <li class="deal-row"><span class="deal-name">{item}</span>'
+                f'<span class="pill value-state value-price">{html.escape(label)}</span></li>'
+            )
+        lines.extend(["    </ul>", "  </li>"])
+
+    if freebies:
+        lines.extend(
+            [
+                '  <li class="deal-group">',
+                '    <h3 class="tier-label pill">Free Wardrobe &amp; Paints</h3>',
+                '    <ul class="deal-list">',
+            ]
+        )
+        for freebie in freebies:
+            item = html.escape(str(freebie.get("item", "")))
+            lines.append(
+                f'      <li class="deal-row"><span class="deal-name">{item}</span>'
+                '<span class="pill value-state value-free">Free</span></li>'
+            )
+        lines.extend(["    </ul>", "  </li>"])
+
+    lines.append("</ul>")
+
+    if perks:
+        lines.append('<ul class="gta-plus-perks muted" aria-label="Always-on GTA+ perks">')
+        for perk in perks:
+            name = html.escape(str(perk.get("name", "")))
+            note = html.escape(str(perk.get("note", "")))
+            lines.append(f"  <li><strong>{name}</strong> — {note}</li>")
+        lines.append("</ul>")
+
+    return "\n".join(lines)
+
+
 def extract_markdown_section(markdown_text: str, heading: str) -> str | None:
     pattern = re.compile(
         rf"^{re.escape(heading)}\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
@@ -1089,12 +1273,26 @@ def main(argv: list[str] | None = None) -> int:
         event_report_text,
     )
 
+    gta_plus_updated: list[str] = []
+    gta_plus_path = find_latest_gta_plus_payload(DEFAULT_DATA_DIR)
+    if extract_marker_block(html_text, GTA_PLUS_MARKER) is not None and gta_plus_path is not None:
+        gta_plus_payload = load_json(gta_plus_path)
+        phase2_replacements[GTA_PLUS_MARKER] = render_gta_plus_benefits(gta_plus_payload, vehicle_prices)
+        gta_plus_updated.append(GTA_PLUS_MARKER)
+        if not gta_plus_period_covers(gta_plus_payload, dt.date.today()):
+            print(
+                f"warning: GTA+ period in {gta_plus_path.name} has ended; refresh the monthly payload",
+                file=sys.stderr,
+            )
+
     if args.dry_run:
         print(f"week: {context['week_id']} ({weekly_path.name})")
         print("planned_updates:")
         for marker in marker_plan:
             print(f"  - {marker}")
         for marker in phase2_updated:
+            print(f"  - {marker}")
+        for marker in gta_plus_updated:
             print(f"  - {marker}")
         if phase2_preserved:
             print("preserved_blocks:")

@@ -20,6 +20,8 @@ from scripts.generate_dashboard import (
     available_markers,
     build_phase1_context,
     extract_markdown_section,
+    extract_marker_block,
+    find_latest_gta_plus_payload,
     find_latest_weekly_payload,
     find_matching_reports,
     format_currency_compact,
@@ -45,6 +47,10 @@ PIXEL_MARKERS = [
     "pixel_vehicle_spotlight",
     "pixel_buy_ledger",
 ]
+
+# Optional monthly marker, mirroring GTA_PLUS_MARKER on the classic dashboard:
+# rendered only when the marker and a gta_plus_monthly_*.json payload exist.
+PIXEL_GTA_PLUS_MARKER = "pixel_gta_plus"
 
 # Spotlight event name (casefold) -> short polaroid tag.
 SPOTLIGHT_ROLE_TAGS = {
@@ -623,6 +629,85 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
+def render_pixel_gta_plus(gta_plus_payload: dict[str, object]) -> str:
+    period = gta_plus_payload.get("membership_period", {})
+    benefits = gta_plus_payload.get("monthly_benefits", {})
+
+    rows: list[tuple[str, str, str, str, str]] = []
+    period_label = str(period.get("label", "")).strip()
+    if period_label:
+        rows.append(
+            (
+                "[PERIOD]",
+                period_label,
+                period_label,
+                "GTA+ rotation window",
+                "ช่วงสิทธิ์ GTA+ รอบนี้",
+            )
+        )
+    for entry in benefits.get("claimable_vehicles", []):
+        if not isinstance(entry, dict):
+            continue
+        vehicle = str(entry.get("vehicle", "")).strip()
+        location = str(entry.get("location", "")).strip()
+        if not vehicle:
+            continue
+        note_en = f"Free claim at {location}" if location else "Free claim for members"
+        note_th = f"รับฟรีที่ {location}" if location else "สมาชิกรับฟรี"
+        price = entry.get("normal_price")
+        if isinstance(price, int):
+            value = format_currency_compact(price)
+            note_en += f" · {value} value"
+            note_th += f" · มูลค่า {value}"
+        rows.append(("[CLAIM]", vehicle, vehicle, note_en, note_th))
+    deposit = benefits.get("gta_dollar_deposit")
+    if isinstance(deposit, int):
+        amount = format_currency_compact(deposit)
+        rows.append(
+            (
+                "[DEPOSIT]",
+                f"{amount} Maze Bank deposit",
+                f"เงินเข้า Maze Bank {amount}",
+                "Automatic monthly member deposit",
+                "เงินสมาชิกเข้าอัตโนมัติทุกเดือน",
+            )
+        )
+    for bonus in benefits.get("member_bonuses", []):
+        if not isinstance(bonus, dict):
+            continue
+        name = str(bonus.get("name", "")).strip()
+        multiplier = str(bonus.get("multiplier", "")).strip()
+        reward_type = str(bonus.get("reward_type", "")).strip()
+        if not name:
+            continue
+        label = " ".join(part for part in (multiplier, reward_type) if part)
+        rows.append(("[BONUS]", name, name, f"{label} for members", f"{label} สำหรับสมาชิก"))
+    for discount in benefits.get("member_discounts", []):
+        if not isinstance(discount, dict):
+            continue
+        item = str(discount.get("item", "")).strip()
+        percent = discount.get("percent_off")
+        if not item or not isinstance(percent, int):
+            continue
+        rows.append(
+            ("[DISCOUNT]", item, item, f"{percent}% off for members", f"ลด {percent}% สำหรับสมาชิก")
+        )
+
+    lines = ['<div class="intel-list">']
+    for label, item_en, item_th, note_en, note_th in rows:
+        lines.extend(
+            [
+                '  <article class="intel-item">',
+                f'    <p class="intel-label">{html.escape(label)}</p>',
+                f"    <h3>{_bilingual_span(item_en, item_th)}</h3>",
+                f"    <p>{_bilingual_span(note_en, note_th)}</p>",
+                "  </article>",
+            ]
+        )
+    lines.append("</div>")
+    return "\n".join(lines)
+
+
 def _vehicle_price_label(
     vehicle: str,
     vehicle_prices: dict[str, dict[str, object]] | None,
@@ -785,6 +870,11 @@ def main(argv: list[str] | None = None) -> int:
         raise FileNotFoundError(f"Missing weekly master plan report for {weekly_payload['week']['id']}")
 
     replacements = build_pixel_replacements(weekly_payload, player_profile, weekly_report_text)
+
+    gta_plus_path = find_latest_gta_plus_payload(DEFAULT_DATA_DIR)
+    if extract_marker_block(html_text, PIXEL_GTA_PLUS_MARKER) is not None and gta_plus_path is not None:
+        replacements[PIXEL_GTA_PLUS_MARKER] = render_pixel_gta_plus(load_json(gta_plus_path))
+        marker_plan = marker_plan + [PIXEL_GTA_PLUS_MARKER]
 
     if args.dry_run:
         print(f"week: {weekly_payload['week']['id']} ({weekly_path.name})")

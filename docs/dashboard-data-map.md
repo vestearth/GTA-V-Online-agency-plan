@@ -30,6 +30,7 @@ Update generated regions with the script first, then review the remaining curate
 | Data source note | latest `data/weekly_planning_*.json`, `data/references/vehicle_prices.yaml`, `reports/` | Generated in Phase 1. Lists only the universal weekly data sources (no `player_profile.json`). Keep the note visible in `dashboard.html` and let the generator report unresolved totals when present. |
 | Last reviewed | generator run date | Generated in Phase 1 using `YYYY-MM-DD`. |
 | Data status | generator judgment | Generated in Phase 1 as `Generated / Clean` or `Generated / Needs review` depending on unresolved items. |
+| GTA+ Member Benefits | latest `data/gta_plus_monthly_*.json` + `data/references/vehicle_prices.yaml` | Generated monthly block (optional marker `gta_plus_benefits` on the classic dashboard, `pixel_gta_plus` on the pixel dashboard). Rendered only when both the marker and a monthly payload exist; weekly regenerations re-render it automatically. Ownership-neutral: presented as a member-perks reference, never as a per-player claim list. The generator warns when the payload's membership period has ended. |
 
 ## Sidebar Modeling Notes
 
@@ -41,6 +42,19 @@ Update generated regions with the script first, then review the remaining curate
 - The Asset Overview is a universal income-asset reference, not a per-player owned/missing list; readers verify their own ownership in-game.
 - Phase 1 requires only the Phase 1 markers: `header_meta`, `summary_cards`, `weekly_deals`, `weekly_vehicle_spotlight`, and `data_status_note`.
 - Phase 2 currently owns these markers: `current_focus`, `next_claim_buy`, `weekly_action_plan`, `what_to_buy_ignore`, `roi_passive`, and `asset_overview`.
+- The monthly markers `gta_plus_benefits` / `pixel_gta_plus` are optional: generation is skipped (never fails) when the marker or the monthly payload is absent.
+
+## Monthly GTA+ Source Convention
+
+GTA+ benefits rotate on a mid-month cadence aligned to a Thursday weekly reset
+(for example June 11 - July 13 2026). Once per rotation, refresh the monthly
+payload via manual web research, mirroring the weekly flow:
+
+- `data/gta_plus_monthly_<year>_<month>.json` — named by the month the rotation starts (e.g. `gta_plus_monthly_2026_06.json`), `schema_mode: gta_plus_monthly`.
+- `membership_period` carries `start_date` / `end_date` / `source_urls` (Rockstar Newswire GTA+ article plus community cross-checks).
+- `monthly_benefits` groups: `gta_dollar_deposit`, `claimable_vehicles`, `member_bonuses`, `member_discounts`, `freebies`, and `standing_perks` (always-on membership perks).
+- Free vehicle values resolve through `data/references/vehicle_prices.yaml` when `normal_price` is omitted, and the dashboard shows a "Member value this period" total (deposit + free vehicle claims).
+- The generators pick the newest payload by filename, so stale months never need deleting; an end-of-period warning signals when a refresh is due.
 
 ## Current Weekly Source Convention
 
