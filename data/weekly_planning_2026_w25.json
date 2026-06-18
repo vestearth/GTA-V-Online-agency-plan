@@ -1,0 +1,504 @@
+{
+  "schema_version": "2.0",
+  "schema_mode": "weekly_planning",
+  "week": {
+    "id": "2026-W25",
+    "label": "June 18 - June 25 2026",
+    "start_date": "2026-06-18",
+    "end_date": "2026-06-25",
+    "source": "live_web_research",
+    "last_updated_at": "2026-06-18T00:00:00+07:00",
+    "source_urls": [
+      "https://www.rockstargames.com/newswire/article/4k157o2o8k7o7o/earn-special-rewards-in-gta-online-with-the-fine-art-collector-program",
+      "https://rockstarintel.com/gta-online-event-week-new-program-launched-june-18th-24th/",
+      "https://www.gtabase.com/articles/grand-theft-auto-v/news/gta-online-weekly-update-june-18-24-fine-art-collector-program-bonuses-discount",
+      "https://www.reddit.com/r/gtaonline/comments/1u8jyye/weekly_bonuses_and_discounts_june_18th_to_june/"
+    ]
+  },
+  "player_context": {
+    "player_name": "-CarlosZ-",
+    "platform": "PC",
+    "gta_plus": true,
+    "owned_assets": {
+      "properties": [
+        "Kosatka",
+        "Nightclub",
+        "Bunker",
+        "Auto Shop",
+        "Agency",
+        "Acid Lab",
+        "MC Clubhouse",
+        "Arcade",
+        "Facility",
+        "Executive Office",
+        "Vehicle Warehouse",
+        "Special Cargo Warehouses",
+        "Salvage Yard",
+        "Bottom Dollar Bail Enforcement Office",
+        "The Garment Factory",
+        "Smoke on the Water Money Front",
+        "Hands On Car Wash Money Front",
+        "The Vinewood Residence",
+        "Galaxy Super Yacht",
+        "Mammoth Avenger",
+        "Hangar"
+      ],
+      "vehicles": [
+        "Oppressor Mk II",
+        "Kuruma (Armored)",
+        "Sparrow",
+        "Buzzard Attack Chopper"
+      ]
+    },
+    "constraints": {
+      "hours_available": 15,
+      "preferred_session_size": 2,
+      "max_continuous_minutes": 120
+    }
+  },
+  "weekly_content": {
+    "headline": "Fine Art Collector Program and Casino Heist Week",
+    "summary": "Fine Art Collector Program starts with login and heist rewards, while the best active money route for this profile is The Diamond Casino Heist Finale at 2x with guaranteed Artwork and the Daily Vault weekly challenge.",
+    "platform_notes": "Premium Test Ride and HSW Time Trial are limited to PS5, Xbox Series X|S, and PC Enhanced. Sources phrase the event as June 18-24 because GTA Online refreshes before June 25; this payload uses June 18-25 as the planning window.",
+    "bonuses": [
+      {
+        "name": "Fine Art Collector Program - Login Reward",
+        "multiplier": "bonus",
+        "reward_type": "GTA$",
+        "payout_note": "GTA$500,000 within 72 hours plus free Benefactor Turreted Limo from Warstock Cache & Carry",
+        "duration_note": "Available through July 13."
+      },
+      {
+        "name": "Fine Art Collector Program - Complete any Heist",
+        "multiplier": "bonus",
+        "reward_type": "GTA$",
+        "payout_note": "GTA$1,000,000 within 72 hours plus NOOSE Outfit"
+      },
+      {
+        "name": "The Diamond Casino Heist Finale",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP",
+        "payout_note": "Guaranteed Artwork in the vault"
+      },
+      {
+        "name": "KnoWay Out Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "GTA+ KnoWay Out Missions",
+        "multiplier": "4x",
+        "reward_type": "GTA$ & RP",
+        "gta_plus_only": true
+      },
+      {
+        "name": "Casino Story Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Casino Work Missions",
+        "multiplier": "2x",
+        "reward_type": "GTA$, RP & Casino Chips"
+      },
+      {
+        "name": "Community Race Series",
+        "multiplier": "3x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "Drop Zone",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP"
+      },
+      {
+        "name": "The Brute Force File",
+        "multiplier": "2x",
+        "reward_type": "GTA$ & RP",
+        "source": "fib_priority_file"
+      }
+    ],
+    "events": [
+      {
+        "name": "Weekly Challenge - Rob the Daily Vault during The Diamond Casino Heist Finale",
+        "type": "challenge",
+        "requirement": "Rob the Daily Vault during The Diamond Casino Heist Finale",
+        "reward": "GTA$100,000"
+      },
+      {
+        "name": "Fine Art Collector Program Login Reward",
+        "type": "login_reward",
+        "reward": "GTA$500,000 within 72 hours plus free Benefactor Turreted Limo"
+      },
+      {
+        "name": "Fine Art Collector Program Heist Reward",
+        "type": "bonus",
+        "requirement": "Complete any Heist",
+        "reward": "GTA$1,000,000 within 72 hours plus NOOSE Outfit"
+      },
+      {
+        "name": "Mansion Owner Future Gifts",
+        "type": "limited_reward",
+        "requirement": "Own a Mansion and log in June 18-July 13",
+        "reward": "Curated collection of special gifts when The Kortz Center Heist releases"
+      },
+      {
+        "name": "Podium Vehicle",
+        "vehicle": "Shitzu Hakuchou Drag",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "name": "Prize Ride Challenge",
+        "vehicle": "Declasse Draugur",
+        "requirement": "Place top 2 in a LS Car Meet Race",
+        "source": "ls_car_meet"
+      },
+      {
+        "name": "Premium Test Ride",
+        "vehicle": "Pfister Astrale",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "Time Trial",
+        "location": "Pillbox Hill"
+      },
+      {
+        "name": "Premium Race",
+        "location": "Down the Drain"
+      },
+      {
+        "name": "HSW Time Trial",
+        "location": "Terminal",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "name": "FIB Priority File",
+        "file": "The Brute Force File"
+      }
+    ],
+    "featured_activities": [
+      {
+        "activity_id": "fine_art_collector_login_reward",
+        "name": "Fine Art Collector Program Login Reward",
+        "category": "login_reward",
+        "reward": "GTA$500,000 within 72 hours plus free Benefactor Turreted Limo",
+        "timebox_minutes": 5,
+        "requirements": {}
+      },
+      {
+        "activity_id": "fine_art_collector_complete_any_heist",
+        "name": "Fine Art Collector Program - Complete any Heist",
+        "category": "heist",
+        "reward": "GTA$1,000,000 within 72 hours plus NOOSE Outfit",
+        "timebox_minutes": 90,
+        "requirements": {
+          "properties": [
+            "Kosatka"
+          ]
+        }
+      },
+      {
+        "activity_id": "weekly_challenge_daily_vault_casino_heist",
+        "name": "Weekly Challenge - Rob the Daily Vault during The Diamond Casino Heist Finale",
+        "category": "casino_heist",
+        "reward": "GTA$100,000",
+        "timebox_minutes": 90,
+        "requirements": {
+          "properties": [
+            "Arcade"
+          ]
+        }
+      },
+      {
+        "activity_id": "diamond_casino_heist_finale_2x",
+        "name": "The Diamond Casino Heist Finale",
+        "category": "casino_heist",
+        "multiplier": "2x",
+        "timebox_minutes": 90,
+        "requirements": {
+          "properties": [
+            "Arcade"
+          ]
+        }
+      },
+      {
+        "activity_id": "brute_force_file_2x",
+        "name": "FIB Priority File - The Brute Force File",
+        "category": "fib_file",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "The Garment Factory"
+          ]
+        }
+      },
+      {
+        "activity_id": "casino_story_missions_2x",
+        "name": "Casino Story Missions",
+        "category": "casino",
+        "multiplier": "2x",
+        "timebox_minutes": 45,
+        "requirements": {
+          "properties": [
+            "The Diamond Casino Master Penthouse"
+          ]
+        }
+      },
+      {
+        "activity_id": "casino_work_missions_2x",
+        "name": "Casino Work Missions",
+        "category": "casino",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {
+          "properties": [
+            "The Diamond Casino Master Penthouse"
+          ]
+        }
+      },
+      {
+        "activity_id": "community_race_series_3x",
+        "name": "Community Race Series",
+        "category": "race",
+        "multiplier": "3x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "drop_zone_2x",
+        "name": "Drop Zone",
+        "category": "adversary_mode",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      },
+      {
+        "activity_id": "knoway_out_2x",
+        "name": "KnoWay Out Missions",
+        "category": "mission",
+        "multiplier": "2x",
+        "timebox_minutes": 30,
+        "requirements": {}
+      }
+    ],
+    "salvage_yard_robberies": [
+      {
+        "job": "The Gangbanger Robbery",
+        "vehicle": "Benefactor LM87",
+        "tier": "Top Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Duggan Robbery",
+        "vehicle": "Lampadati Viseris",
+        "tier": "Standard Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      },
+      {
+        "job": "The Cargo Ship Robbery",
+        "vehicle": "Weeny Issi Rally",
+        "tier": "Low Tier",
+        "claimable": false,
+        "claimable_note": "No keep eligibility confirmed in current sources."
+      }
+    ],
+    "fib_priority_files": [
+      "The Brute Force File"
+    ],
+    "discounts": [
+      {
+        "tier_percent": 100,
+        "tier_label": "Free",
+        "items": [
+          "Wonderama Arcade"
+        ]
+      },
+      {
+        "tier_percent": 40,
+        "items": [
+          "Other Arcades",
+          "Arcade Upgrades and Modifications",
+          "The Diamond Casino Master Penthouse",
+          "The Diamond Casino Master Penthouse Upgrades and Modifications",
+          "Master Penthouse Decorations in the Casino Store"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "items": [
+          "Buckingham Nimbus",
+          "Buckingham Shamal",
+          "Annis Savestra",
+          "Western Rampant Rocket",
+          "Vapid Caracara 4x4",
+          "Lampadati Tropos Rallye",
+          "Lampadati Casco",
+          "Bravado Sprunk Buffalo"
+        ]
+      },
+      {
+        "tier_percent": 50,
+        "tier_label": "Gun Van",
+        "items": [
+          "Compact EMP Launcher"
+        ]
+      },
+      {
+        "tier_percent": 30,
+        "tier_label": "Gun Van GTA+",
+        "items": [
+          "Military Rifle"
+        ]
+      },
+      {
+        "tier_percent": 0,
+        "tier_label": "GTA+ Mansion Discount",
+        "items": [
+          "GTA$2,000,000 off all 3 mansions"
+        ]
+      }
+    ],
+    "vehicle_opportunities": [
+      {
+        "id": "podium_shitzu_hakuchou_drag",
+        "vehicle_name": "Shitzu Hakuchou Drag",
+        "opportunity_type": "podium",
+        "source": "casino_lucky_wheel"
+      },
+      {
+        "id": "prize_ride_declasse_draugur",
+        "vehicle_name": "Declasse Draugur",
+        "opportunity_type": "prize_ride",
+        "source": "ls_car_meet",
+        "requirement": "Place top 2 in a LS Car Meet Race"
+      },
+      {
+        "id": "premium_test_ride_pfister_astrale",
+        "vehicle_name": "Pfister Astrale",
+        "opportunity_type": "premium_test_ride",
+        "source": "hsw",
+        "platforms": "PS5,XboxSeries,PC_Enhanced"
+      },
+      {
+        "id": "test_ride_dundreary_landstalker_xl",
+        "vehicle_name": "Dundreary Landstalker XL",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_ride_canis_seminole_frontier",
+        "vehicle_name": "Canis Seminole Frontier",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "test_ride_coil_voltic",
+        "vehicle_name": "Coil Voltic",
+        "opportunity_type": "test_ride",
+        "source": "ls_car_meet"
+      },
+      {
+        "id": "luxury_grotti_itali_classic",
+        "vehicle_name": "Grotti Itali Classic",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "luxury_dewbauchee_rapid_gt_x",
+        "vehicle_name": "Dewbauchee Rapid GT X",
+        "opportunity_type": "showroom",
+        "source": "luxury_autos"
+      },
+      {
+        "id": "pdm_invetero_coquette",
+        "vehicle_name": "Invetero Coquette",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_enus_super_diamond",
+        "vehicle_name": "Enus Super Diamond",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_canis_kalahari",
+        "vehicle_name": "Canis Kalahari",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_declasse_vamos",
+        "vehicle_name": "Declasse Vamos",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      },
+      {
+        "id": "pdm_dewbauchee_seven_70",
+        "vehicle_name": "Dewbauchee Seven-70",
+        "opportunity_type": "showroom",
+        "source": "premium_deluxe_motorsport"
+      }
+    ],
+    "gun_van": {
+      "primary_discounts": [
+        {
+          "item": "Compact EMP Launcher",
+          "discount_percent": 50
+        },
+        {
+          "item": "Military Rifle",
+          "discount_percent": 30,
+          "gta_plus_only": true
+        }
+      ],
+      "weapons": [
+        "Compact EMP Launcher",
+        "Military Rifle",
+        "Minigun",
+        "Stun Gun",
+        "Marksman Rifle",
+        "Knuckle Buster"
+      ],
+      "throwables": [
+        "Pipe Bomb",
+        "Molotov",
+        "Tear Gas"
+      ],
+      "armor": [
+        "Super Light Armor",
+        "Light Armor",
+        "Standard Armor",
+        "Heavy Armor",
+        "Super Heavy Armor"
+      ]
+    }
+  },
+  "scraper_metadata": {
+    "ownership_checks": [
+      {
+        "item": "Arcade",
+        "status": "owned"
+      },
+      {
+        "item": "Wonderama Arcade",
+        "status": "already_has_arcade_class",
+        "tier_percent": 100
+      },
+      {
+        "item": "The Diamond Casino Master Penthouse",
+        "status": "not_confirmed_owned",
+        "tier_percent": 40
+      }
+    ],
+    "data_quality_notes": [
+      "Rockstar Newswire confirms the Fine Art Collector Program rewards; RockstarINTEL and GTABase provide structured weekly event details.",
+      "Some sources label the event June 18-24 because the next reset occurs before June 25; this planning payload uses June 18-25.",
+      "Salvage Yard vehicles are robbery targets only; no source confirmed keep eligibility.",
+      "Showroom and test-ride presence is not treated as proof of a discount."
+    ]
+  }
+}

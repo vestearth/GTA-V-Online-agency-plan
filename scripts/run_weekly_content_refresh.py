@@ -64,7 +64,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--env-var", default="WEEKLY_UPDATE_URL", help="Environment variable fallback for the article URL.")
     parser.add_argument("--newswire-url", default="https://www.rockstargames.com/newswire", help="Newswire listing URL for auto-discovery.")
     parser.add_argument("--no-overwrite", action="store_true", help="Do not overwrite an existing weekly payload.")
-    parser.add_argument("--skip-pixel-dashboard", action="store_true", help="Do not refresh pixel-dashboard.html.")
     return parser.parse_args(argv)
 
 
@@ -100,18 +99,15 @@ def main(argv: list[str] | None = None) -> int:
         run_step(["python3", "scripts/generate_weekly_report.py", str(weekly_path.relative_to(ROOT))])
         run_step(["python3", "scripts/update_vehicle_prices.py", "--weekly", str(weekly_path.relative_to(ROOT))])
         run_step(["python3", "scripts/fetch_gtacar_prices.py", "--fail-on-skipped"])
-        run_step(["python3", "scripts/generate_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
-
-        if args.skip_pixel_dashboard:
-            print("skipped pixel dashboard refresh by request", flush=True)
-        elif master_plan_path(week_id).exists():
-            run_step(["python3", "scripts/generate_pixel_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
-        else:
-            print(
-                f"warning: skipped pixel dashboard refresh because {master_plan_path(week_id).relative_to(ROOT)} is missing",
-                file=sys.stderr,
-                flush=True,
+        master_path = master_plan_path(week_id)
+        if not master_path.exists():
+            raise FileNotFoundError(
+                "Expected weekly master plan before dashboard refresh: "
+                f"{master_path.relative_to(ROOT)}"
             )
+
+        run_step(["python3", "scripts/generate_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
+        run_step(["python3", "scripts/generate_pixel_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
     except (FileNotFoundError, subprocess.CalledProcessError, ValueError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1

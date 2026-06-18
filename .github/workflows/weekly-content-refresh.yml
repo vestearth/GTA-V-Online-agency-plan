@@ -7,11 +7,6 @@ on:
         description: "Optional Rockstar Newswire article URL. Leave blank to auto-discover from Newswire."
         required: false
         type: string
-      skip_pixel_dashboard:
-        description: "Skip pixel-dashboard.html refresh even when a matching master plan exists."
-        required: false
-        default: false
-        type: boolean
   schedule:
     # Every Thursday at 01:00 UTC / 08:00 Bangkok
     - cron: "0 1 * * 4"
@@ -41,12 +36,7 @@ jobs:
       - name: Run weekly content refresh
         env:
           WEEKLY_UPDATE_URL: ${{ github.event.inputs.newswire_url || vars.WEEKLY_UPDATE_URL }}
-        run: |
-          args=()
-          if [ "${{ github.event.inputs.skip_pixel_dashboard || 'false' }}" = "true" ]; then
-            args+=(--skip-pixel-dashboard)
-          fi
-          python3 scripts/run_weekly_content_refresh.py "${args[@]}"
+        run: python3 scripts/run_weekly_content_refresh.py
 
       - name: Commit and push weekly artifacts
         run: |
@@ -55,17 +45,21 @@ jobs:
             data/references/vehicle_prices.yaml \
             data/references/vehicle_gtacars_slugs.json \
             reports/weekly_report_*.md \
+            reports/weekly_master_plan_*.md \
+            reports/event_master_plan_*.md \
             dashboard.html \
             pixel-dashboard.html; then
             echo "No weekly content changes to commit."
             exit 0
           fi
 
-          git add \
+          git add -f \
             data/weekly_planning_*.json \
             data/references/vehicle_prices.yaml \
             data/references/vehicle_gtacars_slugs.json \
             reports/weekly_report_*.md \
+            reports/weekly_master_plan_*.md \
+            reports/event_master_plan_*.md \
             dashboard.html \
             pixel-dashboard.html
           git config user.name "github-actions[bot]"

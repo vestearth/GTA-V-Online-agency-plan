@@ -180,7 +180,7 @@ Optional:
   - Preferred: pass `newswire_url` when running the workflow manually.
   - Scheduled fallback: set repository variable `WEEKLY_UPDATE_URL` to the current Rockstar Newswire article URL before the scheduled run.
   - Auto-discovery attempts to read Rockstar Newswire listing markup, but the live site is a JavaScript-rendered shell, so the workflow validates scraped content and fails before commit if no weekly content is detected.
-- Pipeline scope: scrape weekly payload, generate `reports/weekly_report_<week_id>.md`, sync vehicle references, refresh `dashboard.html`, and refresh `pixel-dashboard.html` only when a matching `reports/weekly_master_plan_<week_id>.md` already exists.
+- Pipeline scope: scrape weekly payload, generate `reports/weekly_report_<week_id>.md`, require the matching `reports/weekly_master_plan_<week_id>.md`, sync vehicle references, and refresh both `dashboard.html` and `pixel-dashboard.html`; if the master plan is missing, the run fails instead of publishing a partial dashboard refresh.
 - This workflow does not generate the canonical three Lester/master-plan reports by itself. Those still require the assistant-driven workflow in `.github/skills/gta-weekly-planning/SKILL.md`.
 
 ### Local cron (optional)

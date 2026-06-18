@@ -102,6 +102,8 @@ def _decision_chip(reason: str, *, positive: bool) -> str:
             return "[BUY]"
         if (
             "only if" in lowered
+            or "audit" in lowered
+            or "verify" in lowered
             or "เฉพาะถ้า" in lowered
             or "check" in lowered
             or "skip/verify" in lowered
