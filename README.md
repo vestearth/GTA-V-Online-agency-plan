@@ -172,7 +172,7 @@ Optional:
 ### Weekly Content Refresh
 
 - GitHub Actions workflow: `.github/workflows/weekly-content-refresh.yml`
-- เวลา Thursday **13:00 UTC / 20:00 Bangkok** (`0 13 * * 4`) เลือกให้มีระยะรอหลังการหมุนเนื้อหาตามปกติ; ต้องผ่าน source-date gate เสมอ
+- เวลา Thursday **03:00 UTC / 10:00 Bangkok** (`0 3 * * 4`); ต้องผ่าน source-date gate เสมอ หากข้อมูลรอบใหม่ยังไม่พร้อม ระบบจะหยุดพร้อม diagnostic
 - ลำดับแหล่งข้อมูล: `newswire_url`/`--url` → `WEEKLY_UPDATE_URL` → `data/weekly_source_index.json` ที่รีวิวและตรงสัปดาห์
 - ไม่ scrape listing ที่เป็น JavaScript shell และไม่เรียก Rockstar API ที่ไม่มีเอกสาร; ไม่มี source ที่ตรวจสอบได้จะหยุดพร้อม `needs_review` diagnostic
 - รับ normalized article text จาก JSON-LD หรือ visible `<article>` พร้อม publication metadata; JS-only/ผิดสัปดาห์/GTA+ monthly จะหยุด
@@ -202,7 +202,7 @@ If you also want local automation on your machine:
 1. Open crontab:
    `crontab -e`
 2. Add (adjust the path if needed):
-   ตั้ง timezone ของ cron ให้ชัดเจน: `0 13 * * 4` สำหรับ UTC หรือ `0 20 * * 4` สำหรับ Asia/Bangkok แล้วเรียก `scripts/run_weekly_content_refresh.py` จากโฟลเดอร์ repository
+   ตั้ง timezone ของ cron ให้ชัดเจน: `0 3 * * 4` สำหรับ UTC หรือ `0 10 * * 4` สำหรับ Asia/Bangkok แล้วเรียก `scripts/run_weekly_content_refresh.py` จากโฟลเดอร์ repository
 
 ---
 **Last Updated**: October 14, 2026

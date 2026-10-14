@@ -16,8 +16,8 @@ except ModuleNotFoundError:
 def weekly_health(status, runs, now=None, workflow_state="active"):
     now = now or utc_now()
     start, _ = reset_window((now + dt.timedelta(hours=7)).date())
-    # 13:00 UTC collection + three-hour allowance for scheduling/execution delay.
-    due = dt.datetime.combine(start, dt.time(16), dt.timezone.utc)
+    # 03:00 UTC collection + three-hour allowance for scheduling/execution delay.
+    due = dt.datetime.combine(start, dt.time(6), dt.timezone.utc)
     allowed_week_ids = {week_id(start)}
     problems = []
     if workflow_state != "active":

@@ -329,7 +329,7 @@ class DashboardCrossLinkMarkupTests(unittest.TestCase):
         self.assertIn("Operations Center", html)
         self.assertIn("Auto update", html)
         self.assertIn("Thursday", html)
-        self.assertIn("20:00", html)
+        self.assertIn("10:00", html)
         self.assertIn("Bangkok", html)
 
 
@@ -546,7 +546,7 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Strategy Snapshot", html)
         self.assertIn("2026-W23", html)
         self.assertIn("READY TO RUN", html)
-        self.assertIn("Thursday 20:00 Bangkok", html)
+        self.assertIn("Thursday 10:00 Bangkok", html)
 
     def test_render_pixel_command_brief_uses_current_week_focus(self):
         html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)

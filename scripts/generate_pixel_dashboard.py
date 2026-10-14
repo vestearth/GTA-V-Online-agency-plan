@@ -39,7 +39,7 @@ from scripts.gta_plus_intake import monthly_status_html, select_monthly, guard_m
 DEFAULT_PIXEL_DASHBOARD = ROOT / "pixel-dashboard.html"
 DEFAULT_VEHICLE_PRICES = ROOT / "data" / "references" / "vehicle_prices.yaml"
 DEFAULT_VEHICLE_IMAGES = ROOT / "data" / "references" / "vehicle_images.json"
-AUTOMATION_NOTE = "Thursday 20:00 Bangkok · reviewed publication"
+AUTOMATION_NOTE = "Thursday 10:00 Bangkok · reviewed publication"
 PIXEL_MARKERS = [
     "pixel_header_meta",
     "pixel_command_brief",

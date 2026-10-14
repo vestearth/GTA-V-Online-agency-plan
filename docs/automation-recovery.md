@@ -20,7 +20,7 @@
 
 ### 1. รับ source ที่ตรง reset
 
-Weekly Content Refresh รัน Thursday **13:00 UTC / 20:00 Bangkok** วันอ้างอิงคำนวณใน Asia/Bangkok
+Weekly Content Refresh รัน Thursday **03:00 UTC / 10:00 Bangkok** วันอ้างอิงคำนวณใน Asia/Bangkok
 การเลือกเวลานี้เป็นระยะรอสำหรับเนื้อหาหลัง reset; ต้องตรวจ source date เสมอ ไม่ถือว่า cron สำเร็จเท่ากับ source ถูกสัปดาห์
 
 กำหนด `--url` หรือ Actions input `newswire_url` ได้ และมี `WEEKLY_UPDATE_URL` เป็น fallback
@@ -182,7 +182,7 @@ Orange Shade Camo: `observed_available` บน main/secondary ตาม user in-
 Auto Update Vehicle Prices เหลือ manual retry เท่านั้น
 
 Health Issue มีชื่อคงที่ เปิดใหม่หรือ reopen เมื่อ failed/missing/disabled/current data pending review และปิดเมื่อฟื้นตัว
-run absence ใช้ Thursday 16:00 UTC เป็น deadline (3 ชั่วโมงหลัง collection) และตรวจ event schedule
+run absence ใช้ Thursday 06:00 UTC เป็น deadline (3 ชั่วโมงหลัง collection) และตรวจ event schedule
 ทุก writer ใช้ concurrency เดียว ไม่มี rebase ที่ replay generated content ลง remote ใหม่กว่า
 GitHub notification ขึ้นอยู่กับการ subscribe/watch; monitor นี้พึ่ง GitHub scheduler หากทุก scheduled workflow ถูกปิดก็ตรวจตัวเองไม่ได้
 เบราว์เซอร์ยังตรวจวันหมดอายุของ weekly/GTA+ ให้โดยไม่ต้องรอ Actions และ daily status job ไม่เปลี่ยนคำแนะนำ

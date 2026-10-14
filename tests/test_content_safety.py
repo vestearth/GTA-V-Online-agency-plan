@@ -320,13 +320,17 @@ class HealthMonitoringTests(unittest.TestCase):
     def test_missing_schedule_disabled_failure_and_recovery(self):
         now = dt.datetime(2026, 10, 15, 17, tzinfo=dt.timezone.utc)
         self.assertTrue(weekly_health({}, [], now, 'disabled_inactivity'))
-        run = {'event': 'schedule', 'created_at': '2026-10-15T13:00:00Z', 'conclusion': 'failure', 'html_url': 'test'}
+        run = {'event': 'schedule', 'created_at': '2026-10-15T03:00:00Z', 'conclusion': 'failure', 'html_url': 'test'}
         self.assertTrue(weekly_health({}, [run], now))
         run['conclusion'] = 'success'
         status = {'week_id': '2026-W42', 'state': 'published'}
         self.assertFalse(weekly_health(status, [run], now))
         self.assertTrue(weekly_health({**status, 'state': 'needs_review'}, [run], now))
         self.assertFalse(weekly_health(status, [run], now.replace(hour=13)))
+        previous_status = {'week_id': '2026-W41', 'state': 'published'}
+        previous_run = {'event': 'schedule', 'created_at': '2026-10-08T03:00:00Z', 'conclusion': 'success'}
+        self.assertFalse(weekly_health(previous_status, [previous_run], now.replace(hour=5)))
+        self.assertTrue(weekly_health(previous_status, [previous_run], now.replace(hour=6)))
 
     def test_alert_reopens_deduplicated_issue_and_closes_only_on_recovery(self):
         with mock.patch('scripts.automation_health.github_request') as request:
