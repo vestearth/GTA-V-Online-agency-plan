@@ -13,8 +13,8 @@ on:
         default: false
         type: boolean
   schedule:
-    # Thursday 13:00 UTC / 20:00 Bangkok; source date gate determines correctness.
-    - cron: "0 13 * * 4"
+    # Thursday 03:00 UTC / 10:00 Bangkok; source date gate determines correctness.
+    - cron: "0 3 * * 4"
 
 permissions:
   contents: write
