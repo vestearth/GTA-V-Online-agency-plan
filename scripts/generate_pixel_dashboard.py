@@ -30,13 +30,16 @@ from scripts.generate_dashboard import (
     load_vehicle_price_reference,
     replace_marker_block,
     validate_required_markers,
+    render_monthly_sources_and_claims,
 )
+from scripts.content_safety import publication_issues, insert_freshness
+from scripts.gta_plus_intake import monthly_status_html, select_monthly, guard_monthly_html
 
 
 DEFAULT_PIXEL_DASHBOARD = ROOT / "pixel-dashboard.html"
 DEFAULT_VEHICLE_PRICES = ROOT / "data" / "references" / "vehicle_prices.yaml"
 DEFAULT_VEHICLE_IMAGES = ROOT / "data" / "references" / "vehicle_images.json"
-AUTOMATION_NOTE = "Thursday 08:00 Bangkok"
+AUTOMATION_NOTE = "Thursday 20:00 Bangkok · reviewed publication"
 PIXEL_MARKERS = [
     "pixel_header_meta",
     "pixel_command_brief",
@@ -631,7 +634,10 @@ def render_pixel_field_intel(weekly_payload: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
-def render_pixel_gta_plus(gta_plus_payload: dict[str, object]) -> str:
+def render_pixel_gta_plus(gta_plus_payload: dict[str, object], today=None) -> str:
+    status = monthly_status_html(gta_plus_payload, today)
+    if status:
+        return '<div class="intel-list">' + status + '</div>'
     period = gta_plus_payload.get("membership_period", {})
     benefits = gta_plus_payload.get("monthly_benefits", {})
 
@@ -706,8 +712,9 @@ def render_pixel_gta_plus(gta_plus_payload: dict[str, object]) -> str:
                 "  </article>",
             ]
         )
+    lines.append(render_monthly_sources_and_claims(gta_plus_payload, today))
     lines.append("</div>")
-    return "\n".join(lines)
+    return guard_monthly_html("\n".join(lines), gta_plus_payload)
 
 
 def _vehicle_price_label(
@@ -863,6 +870,10 @@ def main(argv: list[str] | None = None) -> int:
 
     weekly_path = args.weekly or find_latest_weekly_payload(DEFAULT_DATA_DIR)
     weekly_payload = load_json(weekly_path)
+    issues = publication_issues(weekly_payload, ROOT)
+    if issues:
+        print("Publication withheld: " + "; ".join(issues), file=sys.stderr)
+        return 1
     # Universal public surface: the profile is not a data source for the pixel
     # dashboard, so it is optional here.
     player_profile = load_json(DEFAULT_PROFILE) if DEFAULT_PROFILE.exists() else None
@@ -873,9 +884,9 @@ def main(argv: list[str] | None = None) -> int:
 
     replacements = build_pixel_replacements(weekly_payload, player_profile, weekly_report_text)
 
-    gta_plus_path = find_latest_gta_plus_payload(DEFAULT_DATA_DIR)
-    if extract_marker_block(html_text, PIXEL_GTA_PLUS_MARKER) is not None and gta_plus_path is not None:
-        replacements[PIXEL_GTA_PLUS_MARKER] = render_pixel_gta_plus(load_json(gta_plus_path))
+    gta_plus_payload, monthly_state = select_monthly(DEFAULT_DATA_DIR)
+    if extract_marker_block(html_text, PIXEL_GTA_PLUS_MARKER) is not None:
+        replacements[PIXEL_GTA_PLUS_MARKER] = render_pixel_gta_plus(gta_plus_payload)
         marker_plan = marker_plan + [PIXEL_GTA_PLUS_MARKER]
 
     if args.dry_run:
@@ -885,7 +896,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  - {marker}")
         return 0
 
-    updated_html = html_text
+    updated_html = insert_freshness(html_text, weekly_payload)
     for marker, replacement in replacements.items():
         updated_html = replace_marker_block(updated_html, marker, replacement)
 

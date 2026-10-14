@@ -11,6 +11,11 @@ input_schema:
       type: object
   required: [weekly_schema_v2, player_profile]
 execution_logic: |
+  0. Resolve `player_profile.active_character` (or an explicitly requested character) using
+     `scripts/player_profile_state.py:character_view`; validate profile consistency first.
+     Legacy single-character profiles resolve to main. Never union two garages/properties.
+     Partial/unknown inventory is an information gap, not proof an asset is absent.
+     Block affected actions until character ownership, platform/edition, and crew fit are known.
   1. Normalize the activities to inspect:
      - Prefer `weekly_content.featured_activities[]` when present.
      - If absent, derive the gate list from `weekly_content.events[]`.

@@ -1,0 +1,45 @@
+name: Content Health and GTA+ Period Check
+
+on:
+  schedule:
+    # Daily period rollover + missing-run watch, independent of weekly intake.
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Weekly Content Refresh]
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: read
+  issues: write
+
+concurrency:
+  group: gta-data-producer-refs/heads/main
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      # workflow_run checks trusted default-branch code only.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Refresh notices without changing recommendations
+        run: python3 scripts/refresh_dashboard_status.py
+      - name: Monitor weekly runs and GTA+ periods
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/automation_health.py
+      - name: Commit status notices
+        run: |
+          git add dashboard.html pixel-dashboard.html
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(dashboard): refresh content freshness notices"
+          git push origin HEAD:main

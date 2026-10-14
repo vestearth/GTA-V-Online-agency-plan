@@ -31,6 +31,10 @@ field_aliases:
   acquisition_method: opportunity_type
 
 execution_logic: |
+  0. Use the selected character's `player_inventory`, never the union of both characters.
+     Treat shared entitlements, per-character prize claims, and observed cosmetics separately.
+     Orange Shade Camo is an observed availability record for these two characters only.
+     Unknown claim eligibility, platform/edition, expiry and cancellation behavior stay unknown.
   1. Normalize aliases first (`base_price` -> `price`, `discount_percentage` -> `discount_percent`).
   2. Build matching keys for `vehicle_name`: original, punctuation-normalized, and manufacturer-stripped form (drop first token, e.g., `Bravado Gauntlet Interceptor` -> `Gauntlet Interceptor`).
   3. Use those keys to resolve reference data (price/aliases) from `vehicle_price_reference` before scoring.

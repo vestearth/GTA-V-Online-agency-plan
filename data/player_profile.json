@@ -1,5 +1,51 @@
 {
-  "profile_version": "1.0",
+  "profile_version": "2.0",
+  "active_character": "main",
+  "compatibility_notes": "Top-level owned_assets/bankroll mirror main for legacy consumers. Resolve the selected character before readiness or purchase analysis. Account bank balance and GTA+ entitlement are unknown.",
+  "account": {
+    "bank_balance": null,
+    "entitlements": {
+      "gta_plus": {"state": "unknown", "claim_scope": "unknown"}
+    },
+    "shared_unlocks": [{
+      "name": "Orange Shade Camo",
+      "vehicle": "Pegassi Oppressor Mk II",
+      "state": "observed_available",
+      "confirmed_unlock_method": "unknown",
+      "claim_scope": "unknown",
+      "expiry_behavior": "unknown",
+      "gta_plus_cancellation_behavior": "unknown",
+      "observations": [
+        {"character": "main", "state": "observed_available", "observed_at": "2026-10", "date_precision": "month", "platform": "PC", "edition": "unknown", "source": "user_in_game_test", "source_reference": "https://github.com/vestearth/GTA-V-Online-agency-plan/issues/21", "note": "Observed on the purchased Vinewood Car Club Mk II."},
+        {"character": "secondary", "state": "observed_available", "observed_at": "2026-10", "date_precision": "month", "platform": "PC", "edition": "unknown", "source": "user_in_game_test", "source_reference": "https://github.com/vestearth/GTA-V-Online-agency-plan/issues/21", "note": "Could select this livery on the already owned Mk II. Purchase causality was not tested."}
+      ]
+    }]
+  },
+  "characters": {
+    "main": {
+      "role": "collection_and_activities",
+      "inventory_state": "legacy_recorded",
+      "bankroll": {"cash_on_hand": 37404748, "max_spend_this_week": 10000000, "reserve_floor": 20000000},
+      "owned_assets": {
+        "properties": ["Kosatka", "Nightclub", "Bunker", "Auto Shop", "Agency", "Acid Lab", "MC Clubhouse", "Arcade", "Facility", "Executive Office", "Vehicle Warehouse", "Special Cargo Warehouses", "Salvage Yard", "Bottom Dollar Bail Enforcement Office", "The Garment Factory", "Smoke on the Water Money Front", "Hands On Car Wash Money Front", "The Vinewood Residence", "Galaxy Super Yacht", "Mammoth Avenger", "Hangar"],
+        "missing_properties": [],
+        "notes": "Migrated legacy inventory to main; verification age is unknown. Galaxy Super Yacht, Mammoth Avenger and The Vinewood Residence are listed as owned.",
+        "upgrades": {"kosatka_sparrow": true, "nightclub_equipment_upgrade": true, "bunker_equipment_upgrade": true, "acid_lab_equipment_upgrade": true, "avenger_workshop": true, "vinewood_business_production_boost": true},
+        "businesses": ["Cocaine Lockup", "Methamphetamine Lab", "Counterfeit Cash Factory", "Weed Farm", "Document Forgery Office", "Gunrunning Bunker", "Special Cargo", "Vehicle Cargo", "Air Freight Cargo"],
+        "vehicles": ["Oppressor Mk II", "Kuruma (Armored)", "Sparrow", "Buzzard Attack Chopper"]
+      },
+      "progress": {},
+      "prize_claims": []
+    },
+    "secondary": {
+      "role": "money_making",
+      "inventory_state": "partial_user_observation",
+      "bankroll": {"cash_on_hand": null, "max_spend_this_week": null, "reserve_floor": null},
+      "owned_assets": {"vehicles": ["Oppressor Mk II"], "properties": [], "missing_properties": [], "businesses": [], "upgrades": {}, "notes": "Only Mk II ownership is verified here; other assets are unknown, not confirmed absent."},
+      "progress": {},
+      "prize_claims": []
+    }
+  },
   "player_name": "-CarlosZ-",
   "platform": "PC",
   "bankroll": {
@@ -32,7 +78,7 @@
       "Hangar"
     ],
     "missing_properties": [],
-    "notes": "Owns almost all major properties. Missing only Yacht, Avenger, and the newest patch house.",
+    "notes": "Migrated legacy inventory to main; verification age is unknown. Galaxy Super Yacht, Mammoth Avenger and The Vinewood Residence are listed as owned.",
     "upgrades": {
       "kosatka_sparrow": true,
       "nightclub_equipment_upgrade": true,

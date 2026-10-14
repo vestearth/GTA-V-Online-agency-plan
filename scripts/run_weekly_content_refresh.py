@@ -1,56 +1,44 @@
 #!/usr/bin/env python3
-"""Run the weekly content refresh pipeline from source URL to dashboard artifacts."""
-
+"""Curated-first intake: persist candidates; publish only an approved current report set."""
 from __future__ import annotations
 
 import argparse
-import datetime as dt
+import json
 import subprocess
 import sys
-import json
 from pathlib import Path
 
 try:
-    from resolve_weekly_update_source import resolve_weekly_update_url
-except ModuleNotFoundError:
     from scripts.resolve_weekly_update_source import resolve_weekly_update_url
-
+    from scripts.content_safety import (coverage_issues, reset_window, week_id, publication_issues,
+                                        insert_freshness, write_json, utc_now, displayed_payload)
+except ModuleNotFoundError:
+    from resolve_weekly_update_source import resolve_weekly_update_url
+    from content_safety import (coverage_issues, reset_window, week_id, publication_issues,
+                                insert_freshness, write_json, utc_now, displayed_payload)
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def current_week_id() -> str:
-    today = dt.date.today()
-    days_since_thursday = (today.weekday() - 3) % 7
-    start_date = today - dt.timedelta(days=days_since_thursday)
-    year, week_num, _ = start_date.isocalendar()
-    return f"{year}-W{week_num:02d}"
+def current_week_id():
+    return week_id(reset_window()[0])
 
 
-def weekly_payload_path(week_id: str) -> Path:
-    return ROOT / "data" / f"weekly_planning_{week_id.replace('-', '_').lower()}.json"
+def weekly_payload_path(identifier):
+    return ROOT / "data" / f"weekly_planning_{identifier.replace('-', '_').lower()}.json"
 
 
-def master_plan_path(week_id: str) -> Path:
-    return ROOT / "reports" / f"weekly_master_plan_{week_id.replace('-', '_').lower()}.md"
+def master_plan_path(identifier):
+    return ROOT / "reports" / f"weekly_master_plan_{identifier.replace('-', '_').lower()}.md"
 
 
-def validate_weekly_payload_has_content(payload: dict) -> None:
-    weekly_content = payload.get("weekly_content", {}) if isinstance(payload, dict) else {}
-    content_fields = (
-        "bonuses",
-        "events",
-        "discounts",
-        "vehicle_opportunities",
-        "salvage_yard_robberies",
-    )
-    if not any(weekly_content.get(field) for field in content_fields):
-        raise ValueError(
-            "Scraped weekly payload has no detected bonuses, events, discounts, vehicles, or robberies"
-        )
+def validate_weekly_payload_has_content(payload):
+    issues = coverage_issues(payload)
+    if issues:
+        raise ValueError("; ".join(issues))
 
 
-def run_step(command: list[str], *, allow_failure: bool = False) -> int:
+def run_step(command, *, allow_failure=False):
     print(f"+ {' '.join(command)}", flush=True)
     completed = subprocess.run(command, cwd=ROOT)
     if completed.returncode and not allow_failure:
@@ -58,60 +46,90 @@ def run_step(command: list[str], *, allow_failure: bool = False) -> int:
     return completed.returncode
 
 
-def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Refresh GTA Online weekly content artifacts.")
-    parser.add_argument("--url", help="Explicit Rockstar Newswire article URL.")
-    parser.add_argument("--env-var", default="WEEKLY_UPDATE_URL", help="Environment variable fallback for the article URL.")
-    parser.add_argument("--newswire-url", default="https://www.rockstargames.com/newswire", help="Newswire listing URL for auto-discovery.")
-    parser.add_argument("--no-overwrite", action="store_true", help="Do not overwrite an existing weekly payload.")
+def mark_retained_dashboards(reason):
+    # Keep headers and recommendations together, and make retained data age visible.
+    for name in ("dashboard.html", "pixel-dashboard.html"):
+        path = ROOT / name
+        if path.exists():
+            text = path.read_text(encoding="utf-8")
+            payload = displayed_payload(ROOT, text, "pixel_header_meta" if name.startswith("pixel") else "header_meta")
+            path.write_text(insert_freshness(text, payload, reason), encoding="utf-8")
+
+
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--url", help="Explicit Rockstar weekly article; still date/title/body validated")
+    parser.add_argument("--env-var", default="WEEKLY_UPDATE_URL")
+    parser.add_argument("--no-overwrite", action="store_true", help="Retain existing candidate")
+    parser.add_argument("--publish-reviewed", action="store_true", help="Publish current approved payload without fetching")
     return parser.parse_args(argv)
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv=None):
     args = parse_args(argv)
+    identifier = current_week_id()
+    canonical = weekly_payload_path(identifier)
+    candidate = canonical.parent / "candidates" / canonical.name
+    status_path = ROOT / "data/refresh_status.json"
+    status = {"week_id": identifier, "checked_at": utc_now().isoformat(),
+              "state": "acquiring", "published": False}
     try:
-        source_url = resolve_weekly_update_url(
-            direct_url=args.url,
-            env_var=args.env_var,
-            newswire_url=args.newswire_url,
-        )
-        print(f"weekly source: {source_url}", flush=True)
-        week_id = current_week_id()
-        weekly_path = weekly_payload_path(week_id)
-        previous_payload = weekly_path.read_bytes() if weekly_path.exists() else None
-
-        scrape_command = ["python3", "scripts/scrape_weekly_update.py", "--url", source_url]
-        if not args.no_overwrite:
-            scrape_command.append("--overwrite")
-        run_step(scrape_command)
-
-        if not weekly_path.exists():
-            raise FileNotFoundError(f"Expected weekly payload was not generated: {weekly_path}")
-        try:
-            validate_weekly_payload_has_content(json.loads(weekly_path.read_text(encoding="utf-8")))
-        except ValueError:
-            if previous_payload is None:
-                weekly_path.unlink(missing_ok=True)
+        if not args.publish_reviewed:
+            source = resolve_weekly_update_url(direct_url=args.url, env_var=args.env_var)
+            status["source_url"] = source
+            command = [sys.executable, "scripts/scrape_weekly_update.py", "--url", source]
+            if not args.no_overwrite:
+                command.append("--overwrite")
+            run_step(command)
+            if not candidate.exists():
+                raise ValueError("Intake did not create candidate")
+            payload = json.loads(candidate.read_text(encoding="utf-8"))
+            status["state"] = "needs_review"
+            status["candidate"] = str(candidate.relative_to(ROOT)).replace("\\", "/")
+            status["issues"] = coverage_issues(payload)
+            if canonical.exists():
+                approved = json.loads(canonical.read_text(encoding="utf-8"))
+                if approved.get("provenance", {}).get("article_sha256") != payload.get("provenance", {}).get("article_sha256"):
+                    status["issues"].append("Source changed since approval")
             else:
-                weekly_path.write_bytes(previous_payload)
-            raise
-
-        run_step(["python3", "scripts/generate_weekly_report.py", str(weekly_path.relative_to(ROOT))])
-        run_step(["python3", "scripts/update_vehicle_prices.py", "--weekly", str(weekly_path.relative_to(ROOT))])
-        run_step(["python3", "scripts/fetch_gtacar_prices.py", "--fail-on-skipped"])
-        master_path = master_plan_path(week_id)
-        if not master_path.exists():
-            raise FileNotFoundError(
-                "Expected weekly master plan before dashboard refresh: "
-                f"{master_path.relative_to(ROOT)}"
-            )
-
-        run_step(["python3", "scripts/generate_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
-        run_step(["python3", "scripts/generate_pixel_dashboard.py", "--weekly", str(weekly_path.relative_to(ROOT))])
-    except (FileNotFoundError, subprocess.CalledProcessError, ValueError) as exc:
+                approved = {}
+            issues = status["issues"] + (publication_issues(approved, ROOT) if approved
+                                         else ["Current approved payload and three-report handoff missing"])
+            if issues:
+                status["issues"] = list(dict.fromkeys(issues))
+                mark_retained_dashboards("needs_review · new candidate pending")
+                print("needs_review: candidate saved; publication withheld", flush=True)
+                return 0
+        else:
+            if not canonical.exists():
+                raise ValueError("No current reviewed payload; run intake and review first")
+            approved = json.loads(canonical.read_text(encoding="utf-8"))
+            issues = publication_issues(approved, ROOT)
+            if issues:
+                raise ValueError("; ".join(issues))
+        status["state"] = "generating"
+        run_step([sys.executable, "scripts/update_vehicle_prices.py", "--weekly", str(canonical)])
+        status["price_exit_code"] = run_step(
+            [sys.executable, "scripts/fetch_gtacar_prices.py", "--weekly", str(canonical),
+             "--summary", "data/price_refresh_status.json"], allow_failure=True)
+        staged = []
+        for script, name in (("generate_dashboard.py", "dashboard.html"),
+                             ("generate_pixel_dashboard.py", "pixel-dashboard.html")):
+            output = ROOT / (name + ".tmp")
+            run_step([sys.executable, f"scripts/{script}", "--weekly", str(canonical), "--output", str(output)])
+            staged.append((output, ROOT / name))
+        for output, target in staged:
+            output.replace(target)
+        status.update(state="published", published=True, published_at=utc_now().isoformat())
+        return 0
+    except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+        status.update(state="failed", issues=[str(exc)])
+        mark_retained_dashboards("needs_review · refresh failed")
         print(f"Error: {exc}", file=sys.stderr)
         return 1
-    return 0
+    finally:
+        write_json(status_path, status)
+        print(json.dumps(status, ensure_ascii=False), flush=True)
 
 
 if __name__ == "__main__":

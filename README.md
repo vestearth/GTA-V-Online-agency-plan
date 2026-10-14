@@ -120,23 +120,21 @@ Decision memory is advisory. Unless a concrete history file, prior report, or us
 
 ---
 
-## ⚡ Automated Weekly Workflow (New)
+## ⚡ Weekly intake และการรีวิวก่อนเผยแพร่
 
-You can now automate the initial data gathering and dashboard generation:
+ระบบใช้ **curated-first**: scrape weekly payload ไปยัง `data/candidates/` ก่อน
+และบันทึกสถานะใน `data/refresh_status.json` โดยไม่เขียนทับ payload ที่ผ่านรีวิวแล้ว
+การดึงข้อมูลสำเร็จไม่ใช่การอนุมัติคำแนะนำหรือยืนยันว่าดึงเนื้อหาครบ
 
-1. **Scrape Data:** Automatically find and extract the latest update (from Reddit/Newswire).
-   ```bash
-   python3 scripts/scrape_weekly_update.py
-   ```
-   *Generates: `data/weekly_planning_YYYY_WXX.json` (integrated with your `player_profile.json` metadata).*
+```bash
+python scripts/run_weekly_content_refresh.py --url https://www.rockstargames.com/newswire/article/ARTICLE_ID/ARTICLE_SLUG
+# ตรวจ candidate กับแหล่งข้อมูล แล้วรัน canonical assistant workflow เพื่อสร้างรายงาน 3 ไฟล์
+python scripts/review_weekly_candidate.py data/candidates/weekly_planning_YYYY_wXX.json --reviewer REVIEWER
+python scripts/run_weekly_content_refresh.py --publish-reviewed
+```
 
-2. **Generate Dashboard:** Create a readable Markdown report with profit projections and price context.
-   ```bash
-   python3 scripts/generate_weekly_report.py data/weekly_planning_YYYY_WXX.json
-   ```
-   *Outputs: `reports/weekly_report_YYYY_WXX.md` with "Discounted Asset Review" and profit hints.*
-
-3. **Orchestrate:** Feed the generated JSON to your AI assistant to run the full Multi-Agent workflow (see Quickstart).
+อ่านขั้นตอนและสัญญาข้อมูลใน [คู่มือกู้คืนระบบ](docs/automation-recovery.md)
+`generate_weekly_report.py` เป็น helper เก่าสำหรับตรวจข้อมูล ไม่อยู่ในงานรายสัปดาห์และไม่สร้าง Lester Master Plan
 
 ---
 
@@ -166,22 +164,36 @@ Optional:
 ### Weekly automation
 
 - GitHub Actions workflow: `.github/workflows/auto-update-vehicle-prices.yml`
-- It runs automatically when:
-  - a `data/weekly_planning_*.json` file is pushed
-  - every Thursday at 01:00 UTC / 08:00 Bangkok
-  - manually via `workflow_dispatch`
-- Scope: vehicle reference refresh only. It syncs `data/references/vehicle_prices.yaml` and `data/references/vehicle_gtacars_slugs.json` from an existing weekly payload.
+- งานราคานี้ใช้ `workflow_dispatch` เท่านั้น; งานตามเวลาและราคาใช้ producer เดียวใน Weekly Content Refresh
+- ดึงเฉพาะรถราคาขาดของ weekly payload ล่าสุดโดยค่าเริ่มต้น; `--weekly` ระบุสัปดาห์ และ `--refresh-all` ใช้ตรวจ catalog ย้อนหลัง
+- รายงาน attempted/succeeded/failed/skipped และเหตุผลใน `data/price_refresh_status.json` และ Actions summary
+- ราคาไม่ทราบยังเป็น `null`; GTACars ล่มไม่ขัดขวางรายงานรายสัปดาห์ที่ผ่านรีวิว
 
 ### Weekly Content Refresh
 
 - GitHub Actions workflow: `.github/workflows/weekly-content-refresh.yml`
-- It runs every Thursday at 01:00 UTC / 08:00 Bangkok and can also be started manually with `workflow_dispatch`.
-- Source URL behavior:
-  - Preferred: pass `newswire_url` when running the workflow manually.
-  - Scheduled fallback: set repository variable `WEEKLY_UPDATE_URL` to the current Rockstar Newswire article URL before the scheduled run.
-  - Auto-discovery attempts to read Rockstar Newswire listing markup, but the live site is a JavaScript-rendered shell, so the workflow validates scraped content and fails before commit if no weekly content is detected.
-- Pipeline scope: scrape weekly payload, generate `reports/weekly_report_<week_id>.md`, require the matching `reports/weekly_master_plan_<week_id>.md`, sync vehicle references, and refresh both `dashboard.html` and `pixel-dashboard.html`; if the master plan is missing, the run fails instead of publishing a partial dashboard refresh.
-- This workflow does not generate the canonical three Lester/master-plan reports by itself. Those still require the assistant-driven workflow in `.github/skills/gta-weekly-planning/SKILL.md`.
+- เวลา Thursday **13:00 UTC / 20:00 Bangkok** (`0 13 * * 4`) เลือกให้มีระยะรอหลังการหมุนเนื้อหาตามปกติ; ต้องผ่าน source-date gate เสมอ
+- ลำดับแหล่งข้อมูล: `newswire_url`/`--url` → `WEEKLY_UPDATE_URL` → `data/weekly_source_index.json` ที่รีวิวและตรงสัปดาห์
+- ไม่ scrape listing ที่เป็น JavaScript shell และไม่เรียก Rockstar API ที่ไม่มีเอกสาร; ไม่มี source ที่ตรวจสอบได้จะหยุดพร้อม `needs_review` diagnostic
+- รับ normalized article text จาก JSON-LD หรือ visible `<article>` พร้อม publication metadata; JS-only/ผิดสัปดาห์/GTA+ monthly จะหยุด
+- ยังไม่มีรายงานที่อนุมัติ: เก็บ candidate + สถานะ `needs_review` สำเร็จ โดยคง Dashboard สัปดาห์เดิมพร้อมคำเตือน
+- เผยแพร่ได้เมื่อ payload สัปดาห์ปัจจุบันเป็น `confirmed` และ `review.approved` ตรง hash ของ payload กับรายงาน canonical ทั้ง 3 ไฟล์
+- `workflow_dispatch` input `publish_reviewed` ใช้เผยแพร่หลัง review handoff; ไม่มี dummy report หรือรายงานที่สี่
+- ทุก writer ใช้ concurrency group เดียวและปฏิเสธ push เมื่อ remote เปลี่ยนระหว่างรัน; ต้องรันใหม่จาก checkout ล่าสุด
+- `content-health.yml` ตรวจทุกวันเวลา 17:00 UTC / 00:00 Bangkok และเมื่อ weekly run จบ ตรวจ failed/missing/disabled runs และ GTA+ rollover
+- Health Issues ใช้ชื่อคงที่ เปิดซ้ำ issue เดิมเมื่อปัญหากลับมา และปิดเมื่อสถานะฟื้นตัว; ผู้ติดตาม repository/Issue รับแจ้งตาม GitHub notification settings
+- ทั้งสอง Dashboard แสดงอายุข้อมูล/วันหมดอายุ/สถานะรีวิว และตรวจหมดอายุในเบราว์เซอร์ด้วย
+- ตรวจเมื่อ 2026-10-14 พบทั้งสอง workflow เดิมเป็น `disabled_inactivity`; ต้อง Enable workflow ใน Actions หลังนำการแก้ไขขึ้น GitHub
+
+### GTA+ และสองตัวละคร
+
+- GTA+ ใช้ membership period จริง ไม่เดาจากชื่อเดือน: `python scripts/gta_plus_intake.py PATH --reviewer REVIEWER`
+- ต้องมีแหล่งข้อมูลต่อ benefit และ platform/edition/claim scope; `unknown` แสดงเป็นไม่ทราบ ไม่ใช้เป็นหลักฐานว่าใช้ได้ทุกแพลตฟอร์ม
+- ไม่มี current reviewed period หรือมี period ซ้อนกัน: ไม่แสดง perks เก่าเป็นของปัจจุบัน และเปิด health Issue ให้ทำ intake
+- Weekly/member multipliers แสดงแยกกัน; effective multiplier ต้องมี documented overlay ที่ตรงกิจกรรม/reward/week เท่านั้น
+- `player_profile` v2 แยก `account`, `characters.main`, `characters.secondary`; top-level inventory เป็น compatibility view ของ main
+- ใช้ `character_view` ก่อน gate/buy; ไม่รวมคลังและทรัพย์สินสองตัวละคร ตรวจ consistency ด้วย `python scripts/player_profile_state.py`
+- Orange Shade Camo บันทึกเฉพาะ observed availability ตาม Issue #21; causal unlock/expiry/cancellation ยังคง `unknown`
 
 ### Local cron (optional)
 
@@ -190,10 +202,10 @@ If you also want local automation on your machine:
 1. Open crontab:
    `crontab -e`
 2. Add (adjust the path if needed):
-   `0 8 * * 4 cd /Users/earth/Documents/GH-Games/GTA-V-Online-agency-plan && /usr/bin/python3 scripts/update_vehicle_prices.py >> /tmp/gta_vehicle_prices.log 2>&1`
+   ตั้ง timezone ของ cron ให้ชัดเจน: `0 13 * * 4` สำหรับ UTC หรือ `0 20 * * 4` สำหรับ Asia/Bangkok แล้วเรียก `scripts/run_weekly_content_refresh.py` จากโฟลเดอร์ repository
 
 ---
-**Last Updated**: May 12, 2026 (docs freshness rule enforced)  
+**Last Updated**: October 14, 2026
 **Framework Version**: Conceptual Multi-Agent Orchestration v2.0
 
 ---

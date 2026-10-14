@@ -18,6 +18,13 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    from scripts.content_safety import publication_issues, insert_freshness
+    from scripts.gta_plus_intake import monthly_status_html, select_monthly, claim_before_expiry, guard_monthly_html
+except ModuleNotFoundError:
+    from content_safety import publication_issues, insert_freshness
+    from gta_plus_intake import monthly_status_html, select_monthly, claim_before_expiry, guard_monthly_html
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DASHBOARD = ROOT / "dashboard.html"
@@ -279,7 +286,7 @@ def build_phase1_context(weekly_payload: dict, player_profile: dict | None, vehi
     return {
         "week_id": weekly_payload["week"]["id"],
         "week_label": weekly_payload["week"]["label"],
-        "last_reviewed": dt.date.today().isoformat(),
+        "last_reviewed": weekly_payload.get("review", {}).get("reviewed_at", "unknown"),
         "discounted_items_total": discounted_items_total,
         "all_cars_needed_total": all_cars_needed_total,
         "unresolved_discount_items": dedupe_preserve_order(unresolved_discount_items),
@@ -390,7 +397,7 @@ def render_data_status_note(context: dict[str, object]) -> str:
         "    <strong>",
         "      Auto update:",
         "    </strong>",
-        "    Thursday 08:00 Bangkok",
+        "    Thursday 20:00 Bangkok · reviewed publication",
         "  </p>",
         "</div>",
     ]
@@ -652,6 +659,9 @@ def render_gta_plus_benefits(
     vehicle_prices: dict[str, dict[str, object]],
     today: dt.date | None = None,
 ) -> str:
+    status = monthly_status_html(gta_plus_payload, today)
+    if status:
+        return status
     period = gta_plus_payload.get("membership_period", {})
     benefits = gta_plus_payload.get("monthly_benefits", {})
     period_label = str(period.get("label", "current period"))
@@ -798,7 +808,37 @@ def render_gta_plus_benefits(
             lines.append(f"  <li><strong>{name}</strong> — {note}</li>")
         lines.append("</ul>")
 
+    lines.append(render_monthly_sources_and_claims(gta_plus_payload, today))
+    return guard_monthly_html("\n".join(lines), gta_plus_payload)
+
+
+def render_monthly_sources_and_claims(payload, today=None):
+    period = payload.get("membership_period", {})
+    lines = [f'<p>GTA+ · confirmed · expires {html.escape(str(period.get("end_date", "unknown")))}</p>', '<ul>']
+    for claim in claim_before_expiry(payload, today):
+        eligibility = eligibility_label(claim)
+        method = {"login": "Receive by login", "vinewood_car_club": "Claim at Vinewood Car Club",
+                  "in_game_purchase": "Complete an in-game purchase", "unknown": "Claim method unknown"}.get(claim["claim_method"], "Claim method unknown")
+        lines.append(f'<li>Claim before expiry: {html.escape(str(claim["item"]))} · '
+                     f'{html.escape(method)} · {html.escape(eligibility)}</li>')
+    for group in ("member_bonuses", "member_discounts", "standing_perks"):
+        for benefit in payload.get("monthly_benefits", {}).get(group, []):
+            label = benefit.get("name", benefit.get("item", "Benefit"))
+            lines.append(f'<li>{html.escape(str(label))} · {html.escape(eligibility_label(benefit))}</li>')
+    sources = list(period.get("source_urls", []))
+    for group in ("claimable_vehicles", "member_bonuses", "member_discounts", "freebies", "standing_perks"):
+        for benefit in payload.get("monthly_benefits", {}).get(group, []):
+            sources.extend(benefit.get("source_urls", []))
+    lines.append('</ul><p>Sources: ' + " ".join(
+        f'<a href="{html.escape(url, quote=True)}">Newswire / reference</a>' for url in dedupe_preserve_order(sources)
+        if isinstance(url, str) and url.startswith("https://")) + '</p>')
     return "\n".join(lines)
+
+
+def eligibility_label(record):
+    eligibility = record.get("eligibility", {})
+    return (f'Platform: {eligibility.get("platform", "unknown")} · Edition: {eligibility.get("edition", "unknown")} '
+            f'· Claim scope: {eligibility.get("claim_scope", "unknown")}')
 
 
 def extract_markdown_section(markdown_text: str, heading: str) -> str | None:
@@ -1256,6 +1296,10 @@ def main(argv: list[str] | None = None) -> int:
 
     weekly_path = args.weekly or find_latest_weekly_payload(DEFAULT_DATA_DIR)
     weekly_payload = load_json(weekly_path)
+    issues = publication_issues(weekly_payload, ROOT)
+    if issues:
+        print("Publication withheld: " + "; ".join(issues), file=sys.stderr)
+        return 1
     # The dashboard is a universal public surface; the profile is no longer a
     # data source for it, so it is optional here.
     player_profile = load_json(DEFAULT_PROFILE) if DEFAULT_PROFILE.exists() else None
@@ -1272,18 +1316,15 @@ def main(argv: list[str] | None = None) -> int:
         weekly_report_text,
         event_report_text,
     )
+    # A missing current section must not preserve the previous week's recommendation.
+    for marker in phase2_preserved:
+        phase2_replacements[marker] = '<p role="status">Current reviewed section unavailable / รอข้อมูลส่วนนี้</p>'
 
     gta_plus_updated: list[str] = []
-    gta_plus_path = find_latest_gta_plus_payload(DEFAULT_DATA_DIR)
-    if extract_marker_block(html_text, GTA_PLUS_MARKER) is not None and gta_plus_path is not None:
-        gta_plus_payload = load_json(gta_plus_path)
+    gta_plus_payload, monthly_state = select_monthly(DEFAULT_DATA_DIR)
+    if extract_marker_block(html_text, GTA_PLUS_MARKER) is not None:
         phase2_replacements[GTA_PLUS_MARKER] = render_gta_plus_benefits(gta_plus_payload, vehicle_prices)
         gta_plus_updated.append(GTA_PLUS_MARKER)
-        if not gta_plus_period_covers(gta_plus_payload, dt.date.today()):
-            print(
-                f"warning: GTA+ period in {gta_plus_path.name} has ended; refresh the monthly payload",
-                file=sys.stderr,
-            )
 
     if args.dry_run:
         print(f"week: {context['week_id']} ({weekly_path.name})")
@@ -1306,7 +1347,7 @@ def main(argv: list[str] | None = None) -> int:
             print("warning: weekly master plan report missing; Phase 2 report-derived blocks preserved where applicable")
         return 0
 
-    updated_html = html_text
+    updated_html = insert_freshness(html_text, weekly_payload)
     for marker, replacement in replacements.items():
         updated_html = replace_marker_block(updated_html, marker, replacement)
     for marker, replacement in phase2_replacements.items():

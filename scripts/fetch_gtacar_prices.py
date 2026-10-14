@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import html as html_lib
 import re
 import sys
 import time
@@ -210,11 +211,15 @@ def fetch_prices(slug: str, user_agent: str) -> tuple[int, int | None]:
 
 
 def extract_prices_from_html(html: str, url: str) -> tuple[int, int | None]:
-    pm = re.search(r'Price:</span>\s*<data[^>]*value="(\d+)"', html, flags=re.I)
+    html = re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
+    text = html_lib.unescape(re.sub(r"<[^>]+>", " ", html))
+    text = re.sub(r"\s+", " ", text)
+    if "Cannot be acquired" in text or "Only available in Story Mode" in text:
+        raise NonPurchasableError(f"non_purchasable: {url}")
+    # Bound to the Price label, never use handling nMonetaryValue or sell prices.
+    pm = re.search(r'(?<!Trade )\bPrice:\s*</[^>]+>\s*(?:<!--.*?-->\s*)*<data\b[^>]*\bvalue=[\"\'](\d+)[\"\']', html, flags=re.I)
     if not pm:
-        text = re.sub(r"<[^>]+>", " ", html)
-        text = re.sub(r"\s+", " ", text)
-        pm = re.search(r"Price:\s*\$\s*([\d,]+)", text, flags=re.I)
+        pm = re.search(r"(?<!Trade )\bPrice:\s*\$\s*([\d,]+)", text, flags=re.I)
     if not pm:
         raise ValueError(f"no Price data found on page {url!r}")
     base = int(pm.group(1).replace(",", ""))
@@ -226,6 +231,22 @@ def extract_prices_from_html(html: str, url: str) -> tuple[int, int | None]:
         tm = re.search(r"Trade price:\s*\$\s*([\d,]+)", text, flags=re.I)
     trade = int(tm.group(1).replace(",", "")) if tm else None
     return base, trade
+
+
+class NonPurchasableError(ValueError):
+    pass
+
+
+def classify_catalog_availability(raw):
+    text = html_lib.unescape(re.sub(r"<[^>]+>", " ", raw))
+    text = re.sub(r"\s+", " ", text).casefold()
+    if "cannot be acquired" in text or "only available in story mode" in text:
+        return "non_purchasable"
+    if "removed from" in text or "limited-time" in text:
+        return "limited"
+    if "can be acquired in online" in text and re.search(r"(?<!trade )price:\s*\$", text):
+        return "purchasable"
+    return "unknown"
 
 
 def vehicle_block_starts(lines: list[str]) -> list[int]:
@@ -298,7 +319,7 @@ def get_alias_hints(lines: list[str], s: int, e: int) -> list[str]:
     return []
 
 
-def main() -> int:
+def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Fetch GTA vehicle prices from GTACars into vehicle_prices.yaml.")
     parser.add_argument(
         "--prices",
@@ -313,6 +334,8 @@ def main() -> int:
         help="Optional JSON: {\"slug_by_vehicle_name\": {\"Full Name\": \"slug\", ...}}",
     )
     parser.add_argument("--dry-run", action="store_true", help="Show planned updates without writing the file")
+    parser.add_argument("--weekly", type=Path, help="Only vehicles in this weekly payload (default: latest)")
+    parser.add_argument("--summary", type=Path, default=Path("data/price_refresh_status.json"))
     parser.add_argument(
         "--refresh-all",
         action="store_true",
@@ -334,7 +357,28 @@ def main() -> int:
         action="store_true",
         help="Return exit code 1 when every missing-price vehicle is skipped before fetching.",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    try:
+        from scripts.update_vehicle_prices import discover_latest_weekly, load_vehicle_names, looks_like_vehicle_name
+    except ModuleNotFoundError:
+        from update_vehicle_prices import discover_latest_weekly, load_vehicle_names, looks_like_vehicle_name
+    weekly_names = None if args.refresh_all else set(load_vehicle_names(args.weekly or discover_latest_weekly(Path("data"))))
+    summary = {"attempted": 0, "succeeded": 0, "failed": 0, "skipped": 0, "results": []}
+
+    def finish(code):
+        summary["skipped"] = len(skipped) - summary["failed"]
+        summary["succeeded"] = len(planned)
+        summary["results"] += [{"vehicle": name, "price_state": "unknown", "reason": reason,
+                                "availability": "non_purchasable" if "non_purchasable" in reason else "unknown"} for name, reason in skipped]
+        print(json.dumps(summary, ensure_ascii=False))
+        if not args.dry_run:
+            args.summary.parent.mkdir(parents=True, exist_ok=True)
+            args.summary.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            step_summary = __import__("os").environ.get("GITHUB_STEP_SUMMARY")
+            if step_summary:
+                with open(step_summary, "a", encoding="utf-8") as out:
+                    out.write("\n### Vehicle enrichment\n\n" + json.dumps(summary, ensure_ascii=False) + "\n")
+        return code
 
     prices_path: Path = args.prices
     if not prices_path.exists():
@@ -355,11 +399,18 @@ def main() -> int:
 
     targets: list[tuple[str, str]] = []
     skipped: list[tuple[str, str]] = []
+    planned: list[tuple[str, str, int, int | None]] = []
 
     for idx, s in enumerate(starts):
         e = starts[idx + 1] if idx + 1 < len(starts) else len(lines)
         name = parse_vehicle_name(lines[s])
         if not name:
+            continue
+        if weekly_names is not None and name not in weekly_names:
+            continue
+        availability = (get_field(lines, s, e, "availability") or "unknown").strip('"')
+        if not looks_like_vehicle_name(name) or availability == "non_purchasable":
+            skipped.append((name, "invalid/non_purchasable candidate"))
             continue
         base_raw = get_field(lines, s, e, "base_price")
         current_base = parse_int_price(base_raw or "")
@@ -380,7 +431,7 @@ def main() -> int:
         print("nothing to update (no matching vehicles or all skipped)")
         for name, reason in skipped:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
-        return 1 if args.fail_on_skipped and skipped else 0
+        return finish(1 if args.fail_on_skipped and skipped else 0)
 
     if args.dry_run:
         print(f"[dry-run] would fetch {len(targets)} vehicle(s) (no HTTP); not writing {prices_path}")
@@ -390,19 +441,27 @@ def main() -> int:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
         return 0
 
-    planned: list[tuple[str, str, int, int | None]] = []
     for name, slug in targets:
+        summary["attempted"] += 1
         try:
             base, trade = fetch_prices(slug, args.user_agent)
+        except NonPurchasableError as exc:
+            skipped.append((name, str(exc)))
+            continue
         except urllib.error.HTTPError as exc:
+            summary["failed"] += 1
             skipped.append((name, f"HTTP {exc.code} for slug {slug!r}"))
             time.sleep(max(args.sleep, 0.0))
             continue
         except Exception as exc:
+            summary["failed"] += 1
             skipped.append((name, f"{type(exc).__name__}: {exc}"))
             time.sleep(max(args.sleep, 0.0))
             continue
         planned.append((name, slug, base, trade))
+        summary["results"].append({"vehicle": name, "price_state": "known", "base_price": base,
+                                   "trade_price": trade, "source_url": f"{GTACARS_BASE}/{slug}",
+                                   "availability": "limited_or_unknown"})
         print(f"  {name}: slug={slug} base_price={base} trade_price={trade}")
         time.sleep(max(args.sleep, 0.0))
 
@@ -410,7 +469,7 @@ def main() -> int:
         print("no prices applied (all fetches failed or were skipped)")
         for name, reason in skipped:
             print(f"  skip {name!r}: {reason}", file=sys.stderr)
-        return 1 if args.fail_on_skipped and skipped else 0
+        return finish(1 if args.fail_on_skipped and skipped else 0)
 
     sync_slug_map(args.slug_map, {name: slug for name, slug, _base, _trade in planned}, dry_run=args.dry_run)
 
@@ -442,7 +501,7 @@ def main() -> int:
 
     for name, reason in skipped:
         print(f"  skip {name!r}: {reason}", file=sys.stderr)
-    return 0
+    return finish(0)
 
 
 if __name__ == "__main__":

@@ -62,6 +62,11 @@ field_aliases:
   discount: discount_percent
   category: item_type
 execution_logic: |
+  -1. Resolve character-scoped ownership and bankroll via `character_view`; keep account bank
+      balance and entitlements separate. Unknown cash/reserve values require verification.
+      Consult `cosmetic_available` for character-specific observations. An `observed_available`
+      livery on the secondary character does not justify buying a duplicate car to unlock it.
+      Do not infer purchase causality, account-wide unlock rules, or post-expiry availability.
   0. Derive purchase candidates when `purchase_candidates` is not explicitly provided:
      resolve `weekly_schema_v2` (or alias `fully_normalized_weekly_schema_v2`), then build
      candidates from `weekly_schema_v2.weekly_content.discounts` (each item in each tier)

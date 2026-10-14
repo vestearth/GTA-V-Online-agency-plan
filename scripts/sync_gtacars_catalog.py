@@ -44,6 +44,7 @@ class GtacarsVehicleRecord:
     base_price: int | None
     trade_price: int | None
     source_url: str
+    availability: str = "unknown"
 
 
 def extract_vehicle_urls_from_sitemap(sitemap_xml: str) -> list[str]:
@@ -132,12 +133,24 @@ def extract_vehicle_record_from_html(html_text: str, source_url: str) -> Gtacars
     if not base_name:
         raise ValueError(f"no vehicle name found on page {source_url!r}")
     manufacturer = _extract_manufacturer(html_text)
+    try:
+        from scripts.update_vehicle_prices import looks_like_vehicle_name
+    except ModuleNotFoundError:
+        from update_vehicle_prices import looks_like_vehicle_name
+    if not looks_like_vehicle_name(_full_vehicle_name(base_name, manufacturer)):
+        raise ValueError(f"non-vehicle catalog entry: {base_name}")
+    try:
+        from scripts.fetch_gtacar_prices import classify_catalog_availability
+    except ModuleNotFoundError:
+        from fetch_gtacar_prices import classify_catalog_availability
+    availability = classify_catalog_availability(html_text)
     return GtacarsVehicleRecord(
         vehicle_name=_full_vehicle_name(base_name, manufacturer),
         slug=slug,
-        base_price=_extract_base_price(html_text, source_url),
-        trade_price=_extract_trade_price(html_text),
+        base_price=None if availability == "non_purchasable" else _extract_base_price(html_text, source_url),
+        trade_price=None if availability == "non_purchasable" else _extract_trade_price(html_text),
         source_url=source_url,
+        availability=availability,
     )
 
 
@@ -198,6 +211,7 @@ def _record_block(record: GtacarsVehicleRecord) -> list[str]:
     return [
         f"  - vehicle_name: {_quote_yaml_string(record.vehicle_name)}",
         '    vehicle_tier: "unrated"',
+        f'    availability: "{record.availability}"',
         "    race_tiers: {}",
         "    removed_vehicle: false",
         "    removed_vehicle_weeks: []",
@@ -261,6 +275,7 @@ def apply_price_records(source_text: str, records: list[GtacarsVehicleRecord], t
             continue
         block = lines[start:end]
         block_changed = False
+        block_changed |= _set_block_field(block, "availability", _quote_yaml_string(record.availability))
         current_base = _get_block_field(block, "base_price")
         if record.base_price is not None and _is_empty_yaml_value(current_base):
             block_changed |= _set_block_field(block, "base_price", str(record.base_price))

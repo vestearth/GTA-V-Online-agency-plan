@@ -46,17 +46,16 @@ class WeeklyUpdateSourceResolverTests(unittest.TestCase):
 
 
 class WeeklyContentRefreshWorkflowTests(unittest.TestCase):
-    def test_workflow_runs_full_refresh_pipeline_at_0800_bangkok(self):
+    def test_workflow_runs_curated_refresh_at_2000_bangkok(self):
         workflow = Path(".github/workflows/weekly-content-refresh.yml").read_text(
             encoding="utf-8"
         )
 
         self.assertIn("name: Weekly Content Refresh", workflow)
-        self.assertIn('- cron: "0 1 * * 4"', workflow)
+        self.assertIn('- cron: "0 13 * * 4"', workflow)
         self.assertIn("WEEKLY_UPDATE_URL", workflow)
         self.assertIn("python3 scripts/run_weekly_content_refresh.py", workflow)
-        self.assertIn("data/weekly_planning_*.json", workflow)
-        self.assertIn("reports/weekly_report_*.md", workflow)
+        self.assertIn("git add -A data", workflow)
         self.assertIn("dashboard.html", workflow)
 
     def test_readme_documents_full_refresh_scope_and_source_url(self):
@@ -82,7 +81,7 @@ class WeeklyContentRefreshValidationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_weekly_payload_has_content(payload)
 
-    def test_accepts_weekly_payload_with_detected_content(self):
+    def test_rejects_partial_weekly_payload_with_only_bonuses(self):
         payload = {
             "weekly_content": {
                 "bonuses": [{"name": "Nightclub Sell Missions", "multiplier": "2x"}],
@@ -93,7 +92,8 @@ class WeeklyContentRefreshValidationTests(unittest.TestCase):
             }
         }
 
-        validate_weekly_payload_has_content(payload)
+        with self.assertRaises(ValueError):
+            validate_weekly_payload_has_content(payload)
 
 
 class WeeklyPixelDashboardCopyTests(unittest.TestCase):

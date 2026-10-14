@@ -13,6 +13,11 @@ import sys
 import urllib.request
 from pathlib import Path
 
+try:
+    from scripts.content_safety import normalize_article, coverage_issues, reset_window, write_json
+except ModuleNotFoundError:
+    from content_safety import normalize_article, coverage_issues, reset_window, write_json
+
 # Constants
 DEFAULT_OUTPUT_DIR = Path("data")
 SCHEMA_VERSION = "2.0"
@@ -36,12 +41,15 @@ class WeeklyScraper:
                 "start_date": self.dates["start_date"],
                 "end_date": self.dates["end_date"],
                 "source": "automated_scraper" if not is_simulation else "simulation",
-                "last_updated_at": datetime.datetime.utcnow().isoformat() + "Z"
+                "last_updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat()
             },
             "player_context": {
                 "player_name": self.player_profile.get("player_name", "Unknown"),
                 "platform": self.player_profile.get("platform", "PC"),
-                "gta_plus": self.player_profile.get("gta_plus", False)
+                "gta_plus": self.player_profile.get("gta_plus"),
+                "selected_character": self.player_profile.get("selected_character", "main"),
+                "owned_assets": self.player_profile.get("owned_assets", {}),
+                "constraints": {"hours_available": self.player_profile.get("session_constraints", {}).get("hours_available_per_week")}
             },
             "weekly_content": {
                 "headline": "GTA Online Weekly Update",
@@ -60,7 +68,17 @@ class WeeklyScraper:
 
     def _load_player_profile(self):
         path = Path("data/player_profile.json")
-        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        if not path.exists():
+            return {}
+        try:
+            from scripts.player_profile_state import character_view, validate_profile
+        except ModuleNotFoundError:
+            from player_profile_state import character_view, validate_profile
+        profile = json.loads(path.read_text(encoding="utf-8"))
+        issues = validate_profile(profile)
+        if issues:
+            raise ValueError("; ".join(issues))
+        return character_view(profile)
 
     def _load_mapping(self):
         mapping = {"bonus_keywords": {}, "event_types": {}, "discount_patterns": []}
@@ -118,10 +136,7 @@ class WeeklyScraper:
         return None
 
     def _calculate_dates(self):
-        today = datetime.date.today()
-        days_since_thursday = (today.weekday() - 3) % 7
-        start_date = today - datetime.timedelta(days=days_since_thursday)
-        end_date = start_date + datetime.timedelta(days=7)
+        start_date, end_date = reset_window()
         year, week_num, _ = start_date.isocalendar()
         return {"week_id": f"{year}-W{week_num:02d}", "start_date": start_date.isoformat(), "end_date": end_date.isoformat(), "label": f"{start_date.strftime('%B %d')} - {end_date.strftime('%B %d %Y')}"}
 
@@ -135,6 +150,21 @@ class WeeklyScraper:
                 name = activity.strip()
                 if not any(b["name"] == name for b in self.data["weekly_content"]["bonuses"]):
                     self.data["weekly_content"]["bonuses"].append({"name": name, "multiplier": mult})
+
+        # Heading + list layouts. Normalize blocks first; keep each activity distinct.
+        active_multiplier = None
+        for line in text.splitlines():
+            header = re.fullmatch(r"(2X|3X|4X|DOUBLE|TRIPLE)\s+GTA\$\s+(?:&|AND)\s+RP:?", line.strip(), re.I)
+            if header:
+                active_multiplier = self.mapping["bonus_keywords"].get(header.group(1).upper())
+                continue
+            if active_multiplier and line.strip():
+                if re.search(r"discount|%|lucky wheel|prize ride|test ride|salvage|bonus|GTA\$", line, re.I):
+                    active_multiplier = None
+                else:
+                    name = line.strip(" -*")
+                    if len(name) <= 100 and not any(b["name"] == name for b in self.data["weekly_content"]["bonuses"]):
+                        self.data["weekly_content"]["bonuses"].append({"name": name, "multiplier": active_multiplier})
 
         # 2. Discounts
         discount_tiers = {}
@@ -179,9 +209,12 @@ class WeeklyScraper:
         prefix = "temp_" if self.is_simulation else ""
         filename = f"{prefix}weekly_planning_{self.week_id.replace('-', '_').lower()}.json"
         output_path = DEFAULT_OUTPUT_DIR / filename
+        if not self.is_simulation:
+            # Intake is always a candidate. Only explicit review promotes it.
+            output_path = DEFAULT_OUTPUT_DIR / "candidates" / filename
         if output_path.exists() and not overwrite and not self.is_simulation:
-            print(f"Error: {output_path} exists. Use --overwrite."); return
-        with open(output_path, 'w', encoding='utf-8') as f: json.dump(self.data, f, indent=2, ensure_ascii=False)
+            raise FileExistsError(f"{output_path} exists. Use --overwrite.")
+        write_json(output_path, self.data)
         print(f"Saved: {output_path} (Week: {self.week_id})")
 
 def main():
@@ -206,8 +239,12 @@ def main():
         try:
             headers = {'User-Agent': 'Mozilla/5.0'}
             req = urllib.request.Request(args.url, headers=headers)
-            with urllib.request.urlopen(req) as response:
+            with urllib.request.urlopen(req, timeout=30) as response:
                 content = response.read().decode('utf-8')
+                article = normalize_article(content, args.url)
+                scraper.data["provenance"] = {k: v for k, v in article.items() if k != "text"}
+                scraper.data["weekly_content"]["headline"] = article["title"]
+                content = article["text"]
         except urllib.error.HTTPError as exc:
             print(f"Error: HTTP {exc.code} when fetching {args.url}: {exc.reason}", file=sys.stderr)
             sys.exit(1)
@@ -219,6 +256,8 @@ def main():
             sys.exit(1)
     if content:
         scraper.parse_content(content)
+        scraper.data["content_quality"] = "pre_live" if args.simulate else "needs_review"
+        scraper.data["intake_issues"] = coverage_issues(scraper.data)
         scraper.run_metadata_checks()
         scraper.save(overwrite=args.overwrite)
 

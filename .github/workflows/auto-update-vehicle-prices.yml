@@ -2,22 +2,13 @@ name: Auto Update Vehicle Prices
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "data/weekly_planning_*.json"
-      - "data/references/vehicle_gtacars_slugs.json"
-      - "scripts/update_vehicle_prices.py"
-      - "scripts/fetch_gtacar_prices.py"
-  schedule:
-    # Every Thursday at 01:00 UTC / 08:00 Bangkok
-    - cron: "0 1 * * 4"
 
 permissions:
   contents: write
 
 concurrency:
-  group: auto-update-vehicle-prices-${{ github.ref }}
-  cancel-in-progress: true
+  group: gta-data-producer-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   sync-vehicle-prices:
@@ -38,11 +29,12 @@ jobs:
         run: python3 scripts/update_vehicle_prices.py
 
       - name: Fill missing prices from GTACars
-        run: python3 scripts/fetch_gtacar_prices.py --fail-on-skipped
+        run: python3 scripts/fetch_gtacar_prices.py --summary data/price_refresh_status.json
 
       - name: Commit and push changes
         run: |
-          if git diff --quiet -- data/references/vehicle_prices.yaml data/references/vehicle_gtacars_slugs.json; then
+          git add data/references/vehicle_prices.yaml data/references/vehicle_gtacars_slugs.json data/price_refresh_status.json
+          if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
@@ -50,5 +42,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(data): auto-refresh vehicle price references"
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+<!-- START: freshness_banner -->
+<aside id="freshness-banner" role="status" data-expires="2026-06-25" style="padding:16px;background:#422;color:#fff;border:2px solid #f99;font-weight:bold">stale · 2026-W25 · source unknown · age 118 days · ends 2026-06-25 · review pending · needs_review · refresh failed / โปรดตรวจสอบวันที่ข้อมูลและสถานะรีวิว</aside>
+<script>(()=>{const update=()=>{const b=document.getElementById("freshness-banner");const end=Date.parse(b.dataset.expires+"T00:00:00+07:00");if((!Number.isFinite(end)||Date.now()>=end)&&!b.dataset.stale){b.prepend("STALE / ข้อมูลหมดอายุ · ");b.dataset.stale="true";}document.querySelectorAll("[data-gta-plus-until]").forEach(p=>{if(Date.now()>=Date.parse(p.dataset.gtaPlusUntil)){p.textContent="GTA+ STALE / สิทธิ์หมดอายุ โปรดรอข้อมูลรอบใหม่";}});};if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",update);}else{update();}setInterval(update,60000);})();</script>
+<!-- END: freshness_banner -->
     <main>
       <header>
         <div>
@@ -106,7 +110,7 @@
             <strong>
               Auto update:
             </strong>
-            Thursday 08:00 Bangkok
+            Thursday 20:00 Bangkok · reviewed publication
           </p>
         </div>
         <!-- END: data_status_note -->
@@ -255,63 +259,7 @@
       <section id="gta-plus" class="grid" aria-label="GTA+ member benefits">
         <article class="section gta-plus" aria-labelledby="gta-plus-title">
           <!-- START: gta_plus_benefits -->
-          <div class="section-head">
-            <div>
-              <h2 id="gta-plus-title">GTA+ Member Benefits</h2>
-              <p>Membership perks for the June 11 - July 13 2026 rotation. Reference for GTA+ subscribers; non-members can ignore this section.</p>
-            </div>
-          </div>
-          <p>
-            <strong>
-              Member value this period:
-            </strong>
-            GTA$3M (monthly deposit + free vehicle claims)
-          </p>
-          <ul class="deal-groups" aria-label="GTA+ benefit groups">
-            <li class="deal-group">
-              <h3 class="tier-label pill">Claim Free</h3>
-              <ul class="deal-list">
-                <li class="deal-row"><span class="deal-name"><a class="vehicle-link" href="https://gtacars.net/gta5/stromberg" target="_blank" rel="noopener noreferrer">Ocelot Stromberg</a></span><span class="pill value-state value-free">Free · GTA$2.5M value</span></li>
-                <li class="deal-row muted">Claim at The Vinewood Car Club</li>
-                <li class="deal-row"><span class="deal-name">Monthly Maze Bank deposit</span><span class="pill value-state value-price">GTA$500,000</span></li>
-              </ul>
-            </li>
-            <li class="deal-group">
-              <h3 class="tier-label pill">Member Bonuses</h3>
-              <ul class="deal-list">
-                <li class="deal-row"><span class="deal-name">G&#x27;s Caches</span><span class="pill value-state value-price">5x GTA$ &amp; RP</span></li>
-                <li class="deal-row"><span class="deal-name">Hangar Sell Missions</span><span class="pill value-state value-price">2x GTA$ &amp; RP</span></li>
-                <li class="deal-row"><span class="deal-name">KnoWay Out Missions &amp; Home Sweet Home</span><span class="pill value-state value-price">2x GTA$ &amp; RP</span></li>
-              </ul>
-            </li>
-            <li class="deal-group">
-              <h3 class="tier-label pill">Member Discounts</h3>
-              <ul class="deal-list">
-                <li class="deal-row"><span class="deal-name">Hangars</span><span class="pill value-state value-price">60% off</span></li>
-                <li class="deal-row"><span class="deal-name">Hangar Upgrades and Modifications</span><span class="pill value-state value-price">60% off</span></li>
-                <li class="deal-row"><span class="deal-name">McKenzie Field Hangar</span><span class="pill value-state value-price">60% off</span></li>
-              </ul>
-            </li>
-            <li class="deal-group">
-              <h3 class="tier-label pill">Free Wardrobe &amp; Paints</h3>
-              <ul class="deal-list">
-                <li class="deal-row"><span class="deal-name">Chameleon Teal/Purple Flip Body &amp; Wheel Paints</span><span class="pill value-state value-free">Free</span></li>
-                <li class="deal-row"><span class="deal-name">Feud Anniversary Baseball Shirt</span><span class="pill value-state value-free">Free</span></li>
-                <li class="deal-row"><span class="deal-name">Independence Day Jacket and Pants</span><span class="pill value-state value-free">Free</span></li>
-                <li class="deal-row"><span class="deal-name">Green Emissive Lady Liberty Outfit</span><span class="pill value-state value-free">Free</span></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="gta-plus-perks muted" aria-label="Always-on GTA+ perks">
-            <li><strong>Vinewood Club Garage</strong> — 100 vehicle spaces with HSW, Benny&#x27;s, and Drift Tuning customization</li>
-            <li><strong>Vinewood Car Club vehicles</strong> — 20% member discount on showroom vehicles</li>
-            <li><strong>Extra aircraft storage</strong> — +5 aircraft slots without owning the McKenzie Field Hangar</li>
-            <li><strong>Lucky Wheel</strong> — 2 spins every 24 hours</li>
-            <li><strong>Taxi fast travel</strong> — Free rides with a 5-minute cooldown</li>
-            <li><strong>Vehicle requests &amp; MC/CEO/VIP abilities</strong> — Free via the Interaction Menu</li>
-            <li><strong>Shark Card bonus</strong> — +15% extra GTA$ on all Shark Card purchases</li>
-            <li><strong>Gun Van</strong> — Always on the map, deeper member discounts, exclusive skins</li>
-          </ul>
+          <p role="status" class="muted">GTA+ — Not a monthly payload; Unknown membership period; Monthly review is missing; Monthly payload changed since review or has no review hash; Monthly sources are missing / ยังไม่มีข้อมูลสิทธิ์รอบปัจจุบันที่ผ่านรีวิว</p>
           <!-- END: gta_plus_benefits -->
         </article>
       </section>

@@ -179,6 +179,9 @@ class VehicleExtractionTests(unittest.TestCase):
                 "--prices",
                 str(prices_path),
                 "--fail-on-skipped",
+                "--refresh-all",
+                "--summary",
+                str(Path(tmpdir) / "summary.json"),
             ]
             with patch.object(sys, "argv", argv):
                 self.assertEqual(fetch_prices_main(), 1)

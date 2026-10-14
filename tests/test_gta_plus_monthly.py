@@ -24,7 +24,8 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures"
 
 def load_fixture_payload():
     """Frozen snapshot of a real GTA+ monthly payload (2026-M06)."""
-    return json.loads((FIXTURES / "gta_plus_monthly.json").read_text(encoding="utf-8"))
+    from tests.safety_fixtures import monthly_payload
+    return monthly_payload()
 
 
 class FindLatestGtaPlusPayloadTests(unittest.TestCase):
@@ -102,6 +103,8 @@ class RenderGtaPlusBenefitsTests(unittest.TestCase):
     def test_vehicle_price_falls_back_to_reference(self):
         payload = load_fixture_payload()
         del payload["monthly_benefits"]["claimable_vehicles"][0]["normal_price"]
+        from scripts.content_safety import payload_digest
+        payload['review']['payload_sha256'] = payload_digest(payload)
         reference = {
             "Ocelot Stromberg": {
                 "base_price": 2_500_000,
@@ -147,7 +150,7 @@ class RenderPixelGtaPlusTests(unittest.TestCase):
         self.payload = load_fixture_payload()
 
     def test_renders_bilingual_intel_items(self):
-        rendered = render_pixel_gta_plus(self.payload)
+        rendered = render_pixel_gta_plus(self.payload, today=dt.date(2026, 6, 12))
         self.assertIn("[PERIOD]", rendered)
         self.assertIn("[CLAIM]", rendered)
         self.assertIn("[DEPOSIT]", rendered)

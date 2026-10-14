@@ -15,6 +15,13 @@ input_schema:
       type: array
   required: [weekly_schema_v2, player_profile, specialized_reports]
 execution_logic: |
+  0. Load optional current GTA+ data through `scripts/gta_plus_intake.py:select_monthly`.
+     Expired, overlapping, missing or unreviewed monthly periods supply no current perks.
+     Use `combine_weekly_bonuses` to separate member/non-member values; only a reviewed
+     same-activity, same-reward, same-week overlay rule can supply a combined multiplier.
+     Include source, eligibility, expiry and `claim_before_expiry` actions with explicit claim
+     methods (login / Vinewood Car Club / in-game purchase / unknown). Never infer login claims.
+     Scope ownership, progress, budget and cosmetics to the selected character.
   1. Merge recommendations from Michael, Franklin, Agent 14, and Tony.
   2. Resolve conflicts by applying player budget, available time, owned assets, and readiness gate status.
   3. Compute a single priority score for each candidate item:

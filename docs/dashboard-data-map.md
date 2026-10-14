@@ -13,6 +13,10 @@ The dashboard is a hybrid surface:
 
 Update generated regions with the script first, then review the remaining curated sections before editing `dashboard.html`.
 
+ตั้งแต่การแก้ Issues #16–#21 การเขียน Dashboard ต้องผ่าน current-week/source/coverage/review/report-hash gate ก่อน
+อ่านขั้นตอน handoff และ recovery ใน [automation-recovery.md](automation-recovery.md)
+`refresh_dashboard_status.py` เปลี่ยนเฉพาะ freshness/GTA+ notices โดยอ้างอิงสัปดาห์ใน header ที่แสดงจริง
+
 | Dashboard field | Source | Update rule |
 |---|---|---|
 | Week label | latest `data/weekly_planning_*.json` | Generated in Phase 1 from the most recent weekly payload. |
@@ -23,14 +27,15 @@ Update generated regions with the script first, then review the remaining curate
 | Weekly Vehicle Spotlight | latest `data/weekly_planning_*.json` | Generated in Phase 1 as a summary of every confirmed showroom, meet, prize, podium, or other weekly vehicle surface present in the current payload. Do not imply discounts unless the payload explicitly confirms them. |
 | Current Focus | latest `data/weekly_planning_*.json` plus `reports/weekly_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `current_focus` marker inside `summary_cards`. |
 | Next Claim / Buy | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Summary card slot. Generated via the nested `next_claim_buy` marker inside `summary_cards`. |
-| Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 when the `## Action Queue` section parses confidently. Otherwise preserve the existing dashboard block unchanged. |
-| ROI / Passive Income | `reports/weekly_master_plan_<week_id>.md` | Generated in Phase 2 from the report's `## What to Play` (top two active loops) and `## What to Buy` (top spend). The Passive Layer mini is evergreen because passive businesses accrue regardless of the week. Preserve the existing block when `## What to Play` has fewer than two entries. |
-| What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | Generated in Phase 2 when buy/ignore sections parse confidently. Otherwise preserve the existing dashboard block unchanged. |
+| Weekly Action Plan | `reports/weekly_master_plan_<week_id>.md` | Parse `## Action Queue` จากรายงานที่ approved; ถ้า parse ไม่ได้ แสดงข้อความรอข้อมูล ไม่คงคำแนะนำสัปดาห์ก่อน |
+| ROI / Passive Income | `reports/weekly_master_plan_<week_id>.md` | Generated from `## What to Play` และ `## What to Buy`; ข้อมูลปัจจุบันไม่พอให้แสดงรอข้อมูล |
+| What to Buy / Ignore | `reports/weekly_master_plan_<week_id>.md` and `reports/event_master_plan_<week_id>.md` | ใช้รายงาน approved ของสัปดาห์เดียวกัน; หาก parse ไม่ได้ แสดงรอข้อมูล |
 | Decision Log | weekly reports in `reports/` plus user-confirmed history | Advisory only. Do not imply historical decisions were executed unless reports or the user confirm it. |
 | Data source note | latest `data/weekly_planning_*.json`, `data/references/vehicle_prices.yaml`, `reports/` | Generated in Phase 1. Lists only the universal weekly data sources (no `player_profile.json`). Keep the note visible in `dashboard.html` and let the generator report unresolved totals when present. |
-| Last reviewed | generator run date | Generated in Phase 1 using `YYYY-MM-DD`. |
+| Last reviewed | `review.reviewed_at` | ใช้วันที่ review จริง ไม่เปลี่ยนเป็นวันนี้เพียงเพราะรัน generator |
 | Data status | generator judgment | Generated in Phase 1 as `Generated / Clean` or `Generated / Needs review` depending on unresolved items. |
-| GTA+ Member Benefits | latest `data/gta_plus_monthly_*.json` + `data/references/vehicle_prices.yaml` | Generated monthly block (optional marker `gta_plus_benefits` on the classic dashboard, `pixel_gta_plus` on the pixel dashboard). Rendered only when both the marker and a monthly payload exist; weekly regenerations re-render it automatically. Ownership-neutral: presented as a member-perks reference, never as a per-player claim list. The generator warns when the payload's membership period has ended. |
+| GTA+ Member Benefits | current reviewed `data/gta_plus_monthly_*.json` + `data/references/vehicle_prices.yaml` | เลือกจาก period จริงด้วย `select_monthly`; ไม่มี current reviewed period หรือ overlap ให้แสดง unknown/stale โดยไม่แสดง perks เก่า ทั้งสอง Dashboard ใช้กฎเดียวกัน |
+| Freshness banner | สัปดาห์ที่แสดงจริง + source/review/date window | แสดง age/expiry/confirmed/pre_live/needs_review/stale; browser ตรวจหมดอายุด้วย |
 
 ## Sidebar Modeling Notes
 
@@ -42,19 +47,21 @@ Update generated regions with the script first, then review the remaining curate
 - The Asset Overview is a universal income-asset reference, not a per-player owned/missing list; readers verify their own ownership in-game.
 - Phase 1 requires only the Phase 1 markers: `header_meta`, `summary_cards`, `weekly_deals`, `weekly_vehicle_spotlight`, and `data_status_note`.
 - Phase 2 currently owns these markers: `current_focus`, `next_claim_buy`, `weekly_action_plan`, `what_to_buy_ignore`, `roi_passive`, and `asset_overview`.
-- The monthly markers `gta_plus_benefits` / `pixel_gta_plus` are optional: generation is skipped (never fails) when the marker or the monthly payload is absent.
+- Monthly markers ยัง optional; มี marker แต่ไม่มี current reviewed payload ต้องแทนที่ด้วยข้อความรอข้อมูล ไม่ preserve perks เก่า
 
 ## Monthly GTA+ Source Convention
 
-GTA+ benefits rotate on a mid-month cadence aligned to a Thursday weekly reset
-(for example June 11 - July 13 2026). Once per rotation, refresh the monthly
-payload via manual web research, mirroring the weekly flow:
+ใช้ membership period จากแหล่งข้อมูล ไม่ผูกกับ weekly reset หรือเดาว่าเป็นวันที่ตายตัว
+Daily health check ตรวจ missing/current/expired periods โดยอิสระจาก weekly intake
+รับ source ด้วย manual research แล้วตรวจผ่าน `scripts/gta_plus_intake.py`:
 
 - `data/gta_plus_monthly_<year>_<month>.json` — named by the month the rotation starts (e.g. `gta_plus_monthly_2026_06.json`), `schema_mode: gta_plus_monthly`.
 - `membership_period` carries `start_date` / `end_date` / `source_urls` (Rockstar Newswire GTA+ article plus community cross-checks).
 - `monthly_benefits` groups: `gta_dollar_deposit`, `claimable_vehicles`, `member_bonuses`, `member_discounts`, `freebies`, and `standing_perks` (always-on membership perks).
 - Free vehicle values resolve through `data/references/vehicle_prices.yaml` when `normal_price` is omitted, and the dashboard shows a "Member value this period" total (deposit + free vehicle claims).
-- The generators pick the newest payload by filename, so stale months never need deleting; an end-of-period warning signals when a refresh is due.
+- ใช้ period-based selection; เก็บ payload เก่าเป็นประวัติได้โดยไม่แสดงเป็น current perks
+- แต่ละ benefit ต้องมี `review_state`, `source_urls`, `eligibility`; claim method ไม่ทราบคง `unknown`
+- ไม่มี stacking evidence ที่ตรง activity/reward/week จะไม่สร้าง combined multiplier
 
 ## Current Weekly Source Convention
 
@@ -65,7 +72,7 @@ For the current dashboard baseline, treat these files as the canonical weekly bu
 - `reports/weekly_master_plan_<week_id>_income_scenarios.md`
 - `reports/event_master_plan_<week_id>.md`
 
-Example current week in this repository: `2026_w22`.
+ไฟล์เก่าใน repository เป็น archive; ไม่ใช่หลักฐานว่าคือสัปดาห์ปัจจุบัน
 
 ## Future Roadmap
 

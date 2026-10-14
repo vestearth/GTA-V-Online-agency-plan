@@ -4,19 +4,24 @@ on:
   workflow_dispatch:
     inputs:
       newswire_url:
-        description: "Optional Rockstar Newswire article URL. Leave blank to auto-discover from Newswire."
+        description: "Optional current weekly Newswire URL; otherwise use the reviewed source registry."
         required: false
         type: string
+      publish_reviewed:
+        description: "Publish the current approved payload and three reviewed reports without fetching"
+        required: false
+        default: false
+        type: boolean
   schedule:
-    # Every Thursday at 01:00 UTC / 08:00 Bangkok
-    - cron: "0 1 * * 4"
+    # Thursday 13:00 UTC / 20:00 Bangkok; source date gate determines correctness.
+    - cron: "0 13 * * 4"
 
 permissions:
   contents: write
 
 concurrency:
-  group: weekly-content-refresh-${{ github.ref }}
-  cancel-in-progress: true
+  group: gta-data-producer-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   refresh-weekly-content:
@@ -36,34 +41,28 @@ jobs:
       - name: Run weekly content refresh
         env:
           WEEKLY_UPDATE_URL: ${{ github.event.inputs.newswire_url || vars.WEEKLY_UPDATE_URL }}
-        run: python3 scripts/run_weekly_content_refresh.py
+          PUBLISH_REVIEWED: ${{ inputs.publish_reviewed }}
+        run: |
+          if [ "$PUBLISH_REVIEWED" = "true" ]; then
+            python3 scripts/run_weekly_content_refresh.py --publish-reviewed
+          else
+            python3 scripts/run_weekly_content_refresh.py
+          fi
 
       - name: Commit and push weekly artifacts
+        if: always()
         run: |
-          if git diff --quiet -- \
-            data/weekly_planning_*.json \
-            data/references/vehicle_prices.yaml \
-            data/references/vehicle_gtacars_slugs.json \
-            reports/weekly_report_*.md \
-            reports/weekly_master_plan_*.md \
-            reports/event_master_plan_*.md \
-            dashboard.html \
-            pixel-dashboard.html; then
+          git add -A data dashboard.html pixel-dashboard.html
+          for path in reports/weekly_master_plan_*.md reports/event_master_plan_*.md; do
+            [ ! -f "$path" ] || git add -f "$path"
+          done
+          if git diff --cached --quiet; then
             echo "No weekly content changes to commit."
             exit 0
           fi
 
-          git add -f \
-            data/weekly_planning_*.json \
-            data/references/vehicle_prices.yaml \
-            data/references/vehicle_gtacars_slugs.json \
-            reports/weekly_report_*.md \
-            reports/weekly_master_plan_*.md \
-            reports/event_master_plan_*.md \
-            dashboard.html \
-            pixel-dashboard.html
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(data): refresh weekly GTA Online content"
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          # Reject a concurrent remote change; rerun from a fresh checkout. Never replay stale outputs.
           git push origin "HEAD:${GITHUB_REF_NAME}"

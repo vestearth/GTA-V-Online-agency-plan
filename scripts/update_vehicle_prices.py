@@ -35,6 +35,12 @@ except ModuleNotFoundError:
 
 
 NON_VEHICLE_SUBSTRINGS = (
+    "arcade",
+    "decor",
+    "apartment",
+    "residence",
+    "yacht",
+    "office",
     "gta$",
     " rp",
     "armor",

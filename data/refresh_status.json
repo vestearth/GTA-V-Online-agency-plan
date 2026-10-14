@@ -1,0 +1,9 @@
+{
+  "week_id": "2026-W41",
+  "checked_at": "2026-10-14T03:46:28.987000+00:00",
+  "state": "failed",
+  "published": false,
+  "issues": [
+    "needs_review: expected one reviewed source for 2026-W41 in C:\\Code\\GTA-V-Online-agency-plan\\data\\weekly_source_index.json; set WEEKLY_UPDATE_URL/--url or add a reviewed registry record. Newswire listing discovery is disabled."
+  ]
+}

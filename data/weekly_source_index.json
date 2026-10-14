@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "description": "Reviewed weekly Newswire article registry. No inferred dates or undocumented discovery APIs. See docs/automation-recovery.md.",
+  "articles": []
+}
