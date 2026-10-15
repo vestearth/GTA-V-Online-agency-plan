@@ -397,7 +397,7 @@ def render_data_status_note(context: dict[str, object]) -> str:
         "    <strong>",
         "      Auto update:",
         "    </strong>",
-        "    Thursday 10:00 Bangkok · reviewed publication",
+        "    Disabled · manual reviewed publication only",
         "  </p>",
         "</div>",
     ]

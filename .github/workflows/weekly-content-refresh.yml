@@ -12,9 +12,7 @@ on:
         required: false
         default: false
         type: boolean
-  schedule:
-    # Thursday 03:00 UTC / 10:00 Bangkok; source date gate determines correctness.
-    - cron: "0 3 * * 4"
+  # Scheduled intake disabled: a reviewed weekly source is required. Run manually.
 
 permissions:
   contents: write

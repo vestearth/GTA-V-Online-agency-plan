@@ -30,8 +30,9 @@ def refresh_status(root):
             if block is not None:
                 block = block.replace("READY TO RUN", "STALE DATA").replace("พร้อมเล่น", "ข้อมูลหมดอายุ")
                 text = replace_marker_block(text, "pixel_header_meta", block)
-        text = text.replace("Thursday 08:00 Bangkok", "Thursday 10:00 Bangkok · reviewed publication")
-        text = text.replace("Thursday 20:00 Bangkok", "Thursday 10:00 Bangkok")
+        for old_note in ("Thursday 08:00 Bangkok", "Thursday 20:00 Bangkok · reviewed publication",
+                         "Thursday 10:00 Bangkok · reviewed publication"):
+            text = text.replace(old_note, "Disabled · manual reviewed publication only")
         if extract_marker_block(text, marker) is not None:
             text = replace_marker_block(text, marker, render(monthly))
         path.write_text(text, encoding="utf-8")

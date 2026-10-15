@@ -19,7 +19,7 @@ class AutoUpdateWorkflowScheduleTests(unittest.TestCase):
 
     def test_readme_documents_matching_automation_time(self):
         readme = Path('README.md').read_text(encoding='utf-8')
-        self.assertIn('03:00 UTC / 10:00 Bangkok', readme)
+        self.assertIn('Weekly Content Refresh เป็น manual-only', readme)
 
     def test_commit_does_not_replay_stale_results_on_newer_remote(self):
         for filename in ('weekly-content-refresh.yml', 'auto-update-vehicle-prices.yml'):

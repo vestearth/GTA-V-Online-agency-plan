@@ -13,7 +13,9 @@ except ModuleNotFoundError:
     from gta_plus_intake import select_monthly
 
 
-def weekly_health(status, runs, now=None, workflow_state="active"):
+def weekly_health(status, runs, now=None, workflow_state="active", schedule_enabled=True):
+    if not schedule_enabled:
+        return []
     now = now or utc_now()
     start, _ = reset_window((now + dt.timedelta(hours=7)).date())
     # 03:00 UTC collection + three-hour allowance for scheduling/execution delay.
@@ -82,9 +84,8 @@ def main():
     root = Path(__file__).resolve().parents[1]
     path = root / "data/refresh_status.json"
     status = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-    workflow = github_request(repo, "/actions/workflows/weekly-content-refresh.yml")
-    runs = github_request(repo, "/actions/workflows/weekly-content-refresh.yml/runs?per_page=20")["workflow_runs"]
-    problems = weekly_health(status, runs, workflow_state=workflow.get("state", "unknown"))
+    # Weekly intake is intentionally manual; do not alert on missing runs or old failures.
+    problems = weekly_health(status, [], schedule_enabled=False)
     reconcile_issue(repo, "[automation] Weekly refresh needs attention", problems)
     monthly, state = select_monthly(root / "data")
     reconcile_issue(repo, "[automation] GTA+ monthly intake needs review", [] if monthly else [state])

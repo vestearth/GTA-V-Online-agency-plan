@@ -46,13 +46,14 @@ class WeeklyUpdateSourceResolverTests(unittest.TestCase):
 
 
 class WeeklyContentRefreshWorkflowTests(unittest.TestCase):
-    def test_workflow_runs_curated_refresh_at_1000_bangkok(self):
+    def test_workflow_runs_curated_refresh_manually_only(self):
         workflow = Path(".github/workflows/weekly-content-refresh.yml").read_text(
             encoding="utf-8"
         )
 
         self.assertIn("name: Weekly Content Refresh", workflow)
-        self.assertIn('- cron: "0 3 * * 4"', workflow)
+        self.assertNotIn('  schedule:', workflow)
+        self.assertIn('  workflow_dispatch:', workflow)
         self.assertIn("WEEKLY_UPDATE_URL", workflow)
         self.assertIn("python3 scripts/run_weekly_content_refresh.py", workflow)
         self.assertIn("git add -A data", workflow)

@@ -317,6 +317,11 @@ class PlayerProfileTests(unittest.TestCase):
 
 
 class HealthMonitoringTests(unittest.TestCase):
+    def test_intentionally_manual_weekly_intake_does_not_alert(self):
+        self.assertFalse(weekly_health(
+            {'state': 'failed', 'issues': ['Missing reviewed source']}, [],
+            workflow_state='disabled_manually', schedule_enabled=False))
+
     def test_missing_schedule_disabled_failure_and_recovery(self):
         now = dt.datetime(2026, 10, 15, 17, tzinfo=dt.timezone.utc)
         self.assertTrue(weekly_health({}, [], now, 'disabled_inactivity'))

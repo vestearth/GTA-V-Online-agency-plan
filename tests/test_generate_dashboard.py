@@ -328,9 +328,7 @@ class DashboardCrossLinkMarkupTests(unittest.TestCase):
         self.assertIn('href="pixel-dashboard.html#ops"', html)
         self.assertIn("Operations Center", html)
         self.assertIn("Auto update", html)
-        self.assertIn("Thursday", html)
-        self.assertIn("10:00", html)
-        self.assertIn("Bangkok", html)
+        self.assertIn("Disabled · manual reviewed publication only", html)
 
 
 class DashboardLanguageToggleMarkupTests(unittest.TestCase):
@@ -546,7 +544,7 @@ class PixelDashboardGeneratorRenderingTests(unittest.TestCase):
         self.assertIn("Strategy Snapshot", html)
         self.assertIn("2026-W23", html)
         self.assertIn("READY TO RUN", html)
-        self.assertIn("Thursday 10:00 Bangkok", html)
+        self.assertIn("Disabled · manual reviewed publication only", html)
 
     def test_render_pixel_command_brief_uses_current_week_focus(self):
         html = render_pixel_command_brief(self.weekly_payload, self.weekly_report_text)

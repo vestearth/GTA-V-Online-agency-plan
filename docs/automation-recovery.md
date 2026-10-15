@@ -20,8 +20,8 @@
 
 ### 1. รับ source ที่ตรง reset
 
-Weekly Content Refresh รัน Thursday **03:00 UTC / 10:00 Bangkok** วันอ้างอิงคำนวณใน Asia/Bangkok
-การเลือกเวลานี้เป็นระยะรอสำหรับเนื้อหาหลัง reset; ต้องตรวจ source date เสมอ ไม่ถือว่า cron สำเร็จเท่ากับ source ถูกสัปดาห์
+Weekly Content Refresh เป็น manual-only ตั้งแต่ 2026-10-15 ไม่มี schedule อัปเดตรายสัปดาห์
+วันอ้างอิงคำนวณใน Asia/Bangkok และต้องตรวจ source date เสมอเมื่อรันเอง
 
 กำหนด `--url` หรือ Actions input `newswire_url` ได้ และมี `WEEKLY_UPDATE_URL` เป็น fallback
 URL ต้องเป็น HTTPS Rockstar Newswire article เท่านั้น แม้เป็น manual override ก็ยังผ่าน date/title/body validation
@@ -178,11 +178,10 @@ Orange Shade Camo: `observed_available` บน main/secondary ตาม user in-
 
 ตรวจวันที่ 2026-10-14 ผ่าน GitHub Actions API พบ Weekly Content Refresh และ Auto Update Vehicle Prices เป็น `disabled_inactivity`
 จึงยืนยันสาเหตุที่ไม่เห็น scheduled runs ใหม่ได้จาก state ไม่ใช่การเดาจาก error เก่า
-หลังนำไฟล์ขึ้น main ให้ Enable Weekly Content Refresh และ Content Health ใน Actions
+Weekly Content Refresh ถูกปิดตามคำขอผู้ใช้เมื่อ 2026-10-15; Enable เฉพาะเมื่อต้องการรันเอง ส่วน Content Health ยังคงทำงาน
 Auto Update Vehicle Prices เหลือ manual retry เท่านั้น
 
-Health Issue มีชื่อคงที่ เปิดใหม่หรือ reopen เมื่อ failed/missing/disabled/current data pending review และปิดเมื่อฟื้นตัว
-run absence ใช้ Thursday 06:00 UTC เป็น deadline (3 ชั่วโมงหลัง collection) และตรวจ event schedule
+Health Issue มีชื่อคงที่สำหรับ GTA+; ปิดการแจ้งเตือน failed/missing/disabled ของ weekly intake ที่เปลี่ยนเป็น manual-only และปิด issue weekly เดิมในการตรวจรอบถัดไป
 ทุก writer ใช้ concurrency เดียว ไม่มี rebase ที่ replay generated content ลง remote ใหม่กว่า
 GitHub notification ขึ้นอยู่กับการ subscribe/watch; monitor นี้พึ่ง GitHub scheduler หากทุก scheduled workflow ถูกปิดก็ตรวจตัวเองไม่ได้
 เบราว์เซอร์ยังตรวจวันหมดอายุของ weekly/GTA+ ให้โดยไม่ต้องรอ Actions และ daily status job ไม่เปลี่ยนคำแนะนำ

@@ -172,7 +172,7 @@ Optional:
 ### Weekly Content Refresh
 
 - GitHub Actions workflow: `.github/workflows/weekly-content-refresh.yml`
-- เวลา Thursday **03:00 UTC / 10:00 Bangkok** (`0 3 * * 4`); ต้องผ่าน source-date gate เสมอ หากข้อมูลรอบใหม่ยังไม่พร้อม ระบบจะหยุดพร้อม diagnostic
+- Weekly Content Refresh เป็น manual-only ตั้งแต่ 2026-10-15; ปิด schedule แล้ว เนื่องจากต้องระบุแหล่งข้อมูลที่ตรวจสอบแล้วในแต่ละสัปดาห์
 - ลำดับแหล่งข้อมูล: `newswire_url`/`--url` → `WEEKLY_UPDATE_URL` → `data/weekly_source_index.json` ที่รีวิวและตรงสัปดาห์
 - ไม่ scrape listing ที่เป็น JavaScript shell และไม่เรียก Rockstar API ที่ไม่มีเอกสาร; ไม่มี source ที่ตรวจสอบได้จะหยุดพร้อม `needs_review` diagnostic
 - รับ normalized article text จาก JSON-LD หรือ visible `<article>` พร้อม publication metadata; JS-only/ผิดสัปดาห์/GTA+ monthly จะหยุด
@@ -180,10 +180,10 @@ Optional:
 - เผยแพร่ได้เมื่อ payload สัปดาห์ปัจจุบันเป็น `confirmed` และ `review.approved` ตรง hash ของ payload กับรายงาน canonical ทั้ง 3 ไฟล์
 - `workflow_dispatch` input `publish_reviewed` ใช้เผยแพร่หลัง review handoff; ไม่มี dummy report หรือรายงานที่สี่
 - ทุก writer ใช้ concurrency group เดียวและปฏิเสธ push เมื่อ remote เปลี่ยนระหว่างรัน; ต้องรันใหม่จาก checkout ล่าสุด
-- `content-health.yml` ตรวจทุกวันเวลา 17:00 UTC / 00:00 Bangkok และเมื่อ weekly run จบ ตรวจ failed/missing/disabled runs และ GTA+ rollover
+- `content-health.yml` ตรวจทุกวันเวลา 17:00 UTC / 00:00 Bangkok และเมื่อ weekly run จบ ตรวจ GTA+ rollover และสถานะ Dashboard; ไม่แจ้งเตือนรอบ weekly ที่ปิดโดยตั้งใจ
 - Health Issues ใช้ชื่อคงที่ เปิดซ้ำ issue เดิมเมื่อปัญหากลับมา และปิดเมื่อสถานะฟื้นตัว; ผู้ติดตาม repository/Issue รับแจ้งตาม GitHub notification settings
 - ทั้งสอง Dashboard แสดงอายุข้อมูล/วันหมดอายุ/สถานะรีวิว และตรวจหมดอายุในเบราว์เซอร์ด้วย
-- ตรวจเมื่อ 2026-10-14 พบทั้งสอง workflow เดิมเป็น `disabled_inactivity`; ต้อง Enable workflow ใน Actions หลังนำการแก้ไขขึ้น GitHub
+- Weekly Content Refresh ยังคงมี `workflow_dispatch` สำหรับรันเอง โดยต้อง Enable workflow ใน Actions ก่อนหากปิดไว้
 
 ### GTA+ และสองตัวละคร
 
